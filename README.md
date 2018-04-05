@@ -1,4 +1,4 @@
 # Cpp
 
 
-this folder id about C++ language
+this folder is about C++ language
