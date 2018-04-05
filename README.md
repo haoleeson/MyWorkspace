@@ -1,4 +1,4 @@
 # Cpp
 
 
-this folder is about C++ language
+this folder is about C++ language leaning
