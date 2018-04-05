@@ -1,0 +1,8 @@
+EXTRN		CODE	(_DelayX10us)
+EXTRN		CODE	(_DelayX1ms)
+EXTRN		CODE	(_DelayX100ms)
+EXTRN		CODE	(_BCD16)
+EXTRN		CODE	(_LCM_Init)
+EXTRN		CODE	(_LCM_DispStrXY)
+EXTRN		CODE	(_LCM_DispUIntXY)
+

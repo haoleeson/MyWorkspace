@@ -1,0 +1,24 @@
+﻿;P1.0引脚的LED闪烁
+		ORG		0000H
+		SJMP	MAIN
+		ORG		30H
+;主函数
+MAIN:	MOV		P1,#0FEH;点亮
+		LCALL	DELAY
+		MOV		P1,#0FFH;熄灭
+		LCALL	DELAY
+		SJMP	MAIN
+		RET
+		
+;延时函数
+DELAY:	MOV		R4,#02H
+L3:		MOV		R2,#0FFH
+L1:		MOV		R3,#0FFH
+L2:		DJNZ	R3,L2
+		DJNZ	R2,L1
+		DJNZ	R4,L3
+		
+		RET
+
+		END
+		
