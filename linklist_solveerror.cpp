@@ -47,7 +47,7 @@ int get2(linklist *head ,char i)
 	}
 }
 
-void main()
+int main(void)
 {
 	linklist *head,*r;
 	int result;
@@ -65,4 +65,5 @@ void main()
 	scanf("%c",&f);
 	result= get2(head,f);
 	printf("%d\n",result);
+	return 0;
 }

@@ -63,10 +63,11 @@ void conversion(int n)
 	printf("\n");
 }
 
-void main()
+int main(void)
 {	
 	int num;
 	printf("请输入需要转换为二进制数的十进制数：\n");
 	scanf("%d",&num);
 	conversion(num);
+	return 0;
 }

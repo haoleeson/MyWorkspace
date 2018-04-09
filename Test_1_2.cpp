@@ -101,7 +101,7 @@ void insert(linklist *head ,char i,x)
 	return(1);
 }*/
 
-void main()
+int main(void)
 {
 	linklist *head,*r;
 	char zifu;
@@ -119,5 +119,6 @@ void main()
 		scanf("%c",&zifu);
 		int result;
 		result= get2(head,zifu);
-	}
+	return 0;
+}
 

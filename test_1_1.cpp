@@ -38,7 +38,7 @@ linklist *get(linklist *head ,int i)
 	if (i==j)return p;
 	else return NULL;
 }
-void main()
+int main(void)
 {
 	linklist *head,*r;
 	int num;
@@ -56,4 +56,5 @@ void main()
 		r=get(head,num);
 		if(r==NULL)printf("            \n");
 		printf("查找的结果为 :%c\n",r->data);
+	return 0;
 	}

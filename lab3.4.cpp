@@ -15,7 +15,7 @@ int fib (int n)
 	return 0;
 }
 
-int main()
+int main(void)
 {
 	int n=0, answer=0;
 	cout << "Enter number n: ";

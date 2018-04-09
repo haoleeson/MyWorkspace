@@ -119,7 +119,7 @@ HUFFMANDECODE(codetype code[],hufmtree tree[])     /*       */
 
 
 
-void main()
+int main(void)
 {
 	printf("输入结点的权值和结点字母，用空格隔开(eg:0.4 a)\n");
 	HUFFMAN(tree);
@@ -128,4 +128,5 @@ void main()
 	printf("\n开始译码，请输入密码 :\n");
 	HUFFMANDECODE(code,tree);
 	printf("\n");
+	return 0;
 }

@@ -118,7 +118,7 @@ bitree *chaxunorder(bitree *p,char g)  //chaxun
 }
 
 
-void main()
+int main(void)
 {	
 	char g;
 	bitree *root,*r;
@@ -134,4 +134,5 @@ void main()
 	scanf("%c",&g);
 	r=chaxunorder(root,g);
 	printf("%c\n",r->data);
+	return 0;
 }

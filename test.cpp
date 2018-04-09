@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-int main()
+int main(void)
 {
     int i,j;
     for(i=1;i<10;i++)

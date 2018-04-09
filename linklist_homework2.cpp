@@ -71,7 +71,7 @@ void Print(linklist *head)
 		r=r->next;
 	}
 }
-void main()
+int main(void)
 {
 	linklist *head,*r;
 	int result,f,x;
@@ -84,4 +84,5 @@ void main()
 	scanf("%d",&x);
 	r = insertnum(head,f,x);
 	Print(r);
+	return 0;
 }

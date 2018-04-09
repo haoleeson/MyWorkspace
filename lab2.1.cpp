@@ -2,7 +2,7 @@
 using namespace std;
 
 //sum form1 to 10
-int main()
+int main(void)
 {
   int i(1), sum(0);
   do {
