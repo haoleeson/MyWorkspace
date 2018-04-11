@@ -1,4 +1,4 @@
-#include<stdio.h>
+ï»¿#include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #define maxsize 1024
@@ -17,7 +17,7 @@ bitree *CREATREE()
 	bitree *root,*s;
 	root=NULL;
 	front=1;rear=0;
-	printf("ÇëÊäÈë¶ş²æÊ÷µÄ¸÷½áµã£¬@±íÊ¾Ğé½áµã£¬ÒÔ¡®#¡¯½áÊø£º\n");
+	printf("è¯·è¾“å…¥ä¸€ä¸²å­—ç¬¦ä»¥'#'å·é”®ç»“æŸ\n");
 	scanf("%c",&ch);
 	while(ch!='#')
 	{	putchar(ch);
@@ -95,14 +95,14 @@ void postorder(bitree *p)/*  hou */
 		inorder(p->lchild);
 		if(p->data==g)
 			{
-				printf("\nÒÑÕÒµ½¸Ã×Ö·û%c",p->data);
+				printf("\nÃ’Ã‘Ã•Ã’ÂµÂ½Â¸ÃƒÃ—Ã–Â·Ã»%c",p->data);
 				flag=1;
 			}
 		inorder(p->rchild);
 		
 	}
 	if(flag==0)
-		printf("\nÎ´ÕÒµ½¸Ã×Ö·û");
+		printf("\nÃÂ´Ã•Ã’ÂµÂ½Â¸ÃƒÃ—Ã–Â·Ã»");
 	return;
 }*/
 
@@ -123,13 +123,13 @@ int main(void)
 	char g;
 	bitree *root,*r;
 	root=CREATREE();
-	printf("\nÏÈĞò±éÀúÈç¹ûÈçÏÂ£º\n");
+	printf("\nÃÃˆÃÃ²Â±Ã©Ã€ÃºÃˆÃ§Â¹Ã»ÃˆÃ§ÃÃ‚Â£Âº\n");
 	preorder(root);
-	printf("\nÖĞĞò±éÀúÈç¹ûÈçÏÂ£º\n");
+	printf("\nÃ–ÃÃÃ²Â±Ã©Ã€ÃºÃˆÃ§Â¹Ã»ÃˆÃ§ÃÃ‚Â£Âº\n");
 	inorder(root);
-	printf("\nºóĞò±éÀúÈç¹ûÈçÏÂ£º\n");
+	printf("\nÂºÃ³ÃÃ²Â±Ã©Ã€ÃºÃˆÃ§Â¹Ã»ÃˆÃ§ÃÃ‚Â£Âº\n");
 	postorder(root);
-	printf("\nÇëÈëÒª²éÑ¯µÄ×Ö·û£º\n");
+	printf("\nÃ‡Ã«ÃˆÃ«Ã’ÂªÂ²Ã©Ã‘Â¯ÂµÃ„Ã—Ã–Â·Ã»Â£Âº\n");
 	getchar();
 	scanf("%c",&g);
 	r=chaxunorder(root,g);

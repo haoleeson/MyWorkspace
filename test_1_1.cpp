@@ -6,13 +6,14 @@ typedef struct node
 	datatype data;
 	struct node *next;
 }linklist;
+
 linklist *createlist()
 {
 	char ch;
 	linklist *head,*s,*r;
 	head=(linklist*)malloc(sizeof(linklist));
 	r=head;
-	printf("ÇëÊäÈë×Ö·û²úÉúÁ´±í£¬ÒÔ#½áÊø\n");
+	printf("è¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²ä»¥'#'ç»“æŸï¼š\n");
 	ch=getchar();
 	while(ch!='#')
 	{
@@ -43,7 +44,7 @@ int main(void)
 	linklist *head,*r;
 	int num;
 	head=createlist();
-	printf("Á´±íĞÅÏ¢Îª:");
+	printf("é“¾è¡¨ç¨‹åº:");
 	r=head->next;
 	while(r)
 	{
@@ -51,10 +52,10 @@ int main(void)
 		r=r->next;
 	}
 	printf("\n");
-		printf("ÇëÊäÈëÒª²éÑ¯µÄĞòºÅ£º\n");
+		printf("æ•°ä¸ºï¼š\n");
 		scanf("%d",&num);
 		r=get(head,num);
 		if(r==NULL)printf("            \n");
-		printf("²éÕÒµÄ½á¹ûÎª :%c\n",r->data);
+		printf("Â²Ã©Ã•Ã’ÂµÃ„Â½Ã¡Â¹Ã»ÃÂª :%c\n",r->data);
 	return 0;
 	}

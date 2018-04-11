@@ -57,7 +57,7 @@ void conversion(int n)
 		else push(&S,m);
 		r=r/2;
 	}
-	printf("转换后的二进制为：\n");
+	printf("杞崲鍚庣殑浜岃繘鍒朵负锛歕n");
 	while(!isempty(&S))
 		printf("%d",*(pop(&S)));
 	printf("\n");
@@ -66,7 +66,7 @@ void conversion(int n)
 int main(void)
 {	
 	int num;
-	printf("请输入需要转换为二进制数的十进制数：\n");
+	printf("璇疯緭鍏ラ渶瑕佽浆鎹负浜岃繘鍒舵暟鐨勫崄杩涘埗鏁帮細\n");
 	scanf("%d",&num);
 	conversion(num);
 	return 0;
