@@ -44,7 +44,7 @@ int main(void)
 	linklist *head,*r;
 	int num;
 	head=createlist();
-	printf("链表程序:");
+	printf("链表信息为:");
 	r=head->next;
 	while(r)
 	{
@@ -52,10 +52,10 @@ int main(void)
 		r=r->next;
 	}
 	printf("\n");
-		printf("数为：\n");
+		printf("请输入要查询的序号：\n");
 		scanf("%d",&num);
 		r=get(head,num);
 		if(r==NULL)printf("            \n");
-		printf("²éÕÒµÄ½á¹ûÎª :%c\n",r->data);
+		printf("查找的结果为\n",r->data);
 	return 0;
 	}

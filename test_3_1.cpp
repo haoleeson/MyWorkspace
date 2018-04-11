@@ -17,7 +17,7 @@ bitree *CREATREE()
 	bitree *root,*s;
 	root=NULL;
 	front=1;rear=0;
-	printf("请输入一串字符以'#'号键结束\n");
+	printf("请输入二叉树的各结点，@表示虚结点，以‘#’结束：\n");
 	scanf("%c",&ch);
 	while(ch!='#')
 	{	putchar(ch);
@@ -95,14 +95,14 @@ void postorder(bitree *p)/*  hou */
 		inorder(p->lchild);
 		if(p->data==g)
 			{
-				printf("\nÒÑÕÒµ½¸Ã×Ö·û%c",p->data);
+				printf("\n已找到该字符%c",p->data);
 				flag=1;
 			}
 		inorder(p->rchild);
 		
 	}
 	if(flag==0)
-		printf("\nÎ´ÕÒµ½¸Ã×Ö·û");
+		printf("\n未找到该字符");
 	return;
 }*/
 
@@ -123,13 +123,13 @@ int main(void)
 	char g;
 	bitree *root,*r;
 	root=CREATREE();
-	printf("\nÏÈÐò±éÀúÈç¹ûÈçÏÂ£º\n");
+	printf("\n先序遍历如果如下：\n");
 	preorder(root);
-	printf("\nÖÐÐò±éÀúÈç¹ûÈçÏÂ£º\n");
+	printf("\n中序遍历如果如下：\n");
 	inorder(root);
-	printf("\nºóÐò±éÀúÈç¹ûÈçÏÂ£º\n");
+	printf("\n后序遍历如果如下：\n");
 	postorder(root);
-	printf("\nÇëÈëÒª²éÑ¯µÄ×Ö·û£º\n");
+	printf("\n请入要查询的字符：\n");
 	getchar();
 	scanf("%c",&g);
 	r=chaxunorder(root,g);
