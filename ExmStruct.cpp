@@ -9,18 +9,18 @@ using namespace std;
 void printBook( struct Books book );
 
 // 声明一个结构体类型 Books 
-struct Books
+typedef struct Books
 {
    char  title[50];
    char  author[50];
    char  subject[100];
    int   book_id;
-};
+}Shu;//设置Books这个结构体的别名。即Books、Shu两个名字都是这个结构体
 
 int main(void)
 {
    Books Book1;        // 定义结构体类型 Books 的变量 Book1
-   Books Book2;        // 定义结构体类型 Books 的变量 Book2
+   Shu Book2;        // 定义结构体类型 Shu 的变量 Book2
     // Book1 详述
    strcpy( Book1.title, "C++ 教程");
    strcpy( Book1.author, "Runoob"); 
