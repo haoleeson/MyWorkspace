@@ -13,10 +13,11 @@ Line::Line( double len){
     length = len;
     cout << "Object is being created, length = " << len << endl;
 }
-/*Line::Line( double len): length(len) //等价于上面的构造函数
-{
+/*
+Line::Line( double len): length(len) { //等价于上面的构造函数
     cout << "Object is being created, length = " << len << endl;
-}*/
+}
+*/
 void Line::setLength( double len ){
     length = len;
 }
