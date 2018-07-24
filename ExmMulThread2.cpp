@@ -1,0 +1,45 @@
+//文件名：test.cpp
+#include <iostream>
+#include <cstdlib>
+#include <pthread.h>
+using namespace std;
+#define NUM_THREADS     5
+void *PrintHello(void *threadid) {
+    // 对传入的参数进行强制类型转换，由无类型指针变为整形数指针，然后再读取
+    int tid = *((int*)threadid);
+    cout << "Hello Runoob! 线程 ID, " << tid << endl;
+    pthread_exit(NULL);//退出线程
+}
+int main (void) {
+    pthread_t threads[NUM_THREADS];
+    int indexes[NUM_THREADS];// 用数组来保存i的值
+    int rc;
+    int i;
+    for( i=0; i < NUM_THREADS; i++ ) {
+        cout << "main() : 创建线程, " << i << endl;
+        indexes[i] = i; //先保存i的值
+        // 传入的时候必须强制转换为void* 类型，即无类型指针
+        rc = pthread_create(&threads[i], NULL,
+        PrintHello, (void *)&(indexes[i]));
+        if (rc) {
+            cout << "Error:无法创建线程," << rc << endl;
+            exit(-1);
+        }
+    }
+    pthread_exit(NULL);
+}
+/*
+$ g++ MulPthread.cpp -lpthread -o MulPthread.o
+$ ./MulPthread.o
+
+运行结果：
+main() : 创建线程, 0
+main() : 创建线程, 1
+Hello Runoob! 线程 ID, 0
+main() : 创建线程, Hello Runoob! 线程 ID, 21
+main() : 创建线程, 3
+Hello Runoob! 线程 ID, 2
+main() : 创建线程, 4
+Hello Runoob! 线程 ID, 3
+Hello Runoob! 线程 ID, 4
+*/
