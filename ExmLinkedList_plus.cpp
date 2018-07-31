@@ -22,6 +22,7 @@ struct node *findData(struct node *head, int Data);//查找链表中数据为:da
 struct node *insertBehindK(struct node *head, int K, int Data);//在链表第K个节点后插入一个节点
 struct node *insertFrontK(struct node *head, int K, int Data);//在链表第K个节点前插入一个节点
 struct node *swapTwoNode(struct node *head, int num1, int num2);//交换链表中的两个节点
+struct node *deleteKthNode(struct node *head, int K);//删除链表第K个节点
 
 int main(void) {
     struct node *head/*头节点*/, *p;
@@ -42,6 +43,10 @@ int main(void) {
 
     cout << endl << "交换链表中的两个节点　No.1 No.4" << endl;
     head = swapTwoNode(head, 1, 4);//交换链表中的两个节点　No.1 No.4
+    OutputLinkedList(head);//输出链表数据
+
+    cout << endl << "删除链表第4个节点" << endl;
+    deleteKthNode(head,4);//删除链表第4个节点
     OutputLinkedList(head);//输出链表数据
 
     cout << endl << "删除链表尾部一个节点" << endl;
@@ -355,5 +360,34 @@ struct node *swapTwoNode(struct node *head, int num1, int num2) {
         return head;
     }
     cout << "Error: 要换的第" << bigNum << "个元素超出链表总数" << endl;
+    return NULL;
+}
+//删除链表第K个节点
+struct node *deleteKthNode(struct node *head, int K) {
+    struct node *nowPoint, *temp;
+    int i=1;
+    if (K < 1) {
+        cout << "Error: 要删除的第" << K << "个元素不在链表内" << endl;
+        return NULL;
+    }
+    if (K == 1) {
+        nowPoint = head->next;//节点下移
+        cout << "Success: 删除链表中第" << K << "个节点　" << endl << "No." << head->listNum << " " << head->data << endl;
+        delete []head;//释放当下节点内存
+        return nowPoint;
+    }
+    nowPoint = head;//取头节点地址
+    while( (nowPoint != NULL )&&(i<(K-1)) ) {
+        nowPoint = nowPoint->next;
+        i++;
+    }
+    if (i==(K-1)) {
+        temp = nowPoint->next;//要删除的节点
+        nowPoint->next = temp->next;
+        cout << "Success: 删除链表中第" << K << "个节点　" << endl << "No." << temp->listNum << " " << temp->data << endl;
+        delete []temp;//删除第K个节点
+        return head;
+    }
+    cout << "Error: 待删除的第K个元素超出链表总数" << endl;
     return NULL;
 }
