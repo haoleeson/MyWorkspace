@@ -7,15 +7,24 @@ using namespace std;
 #define MAXK 1e5 //函数最大重复调用次数
 
 void showFunctionUsingTime(void (*fun)(ElementType Array[], int Number)); //计算函数运行时长
-void Bubble_Sort (ElementType A[], int Number );//冒泡排序（从小到大）
-void Insertion_Sort (ElementType A[], int Number );//插入排序（从小到大）
+void Bubble_Sort (ElementType A[], int Number); //冒泡排序（从小到大）
+void Insertion_Sort (ElementType A[], int Number); //插入排序（从小到大）
+void Shell_sort(ElementType A[], int Number); //希尔排序
 
 int main (void) {
-    //计算　冒泡排序　用时
+
+    cout << "计算　冒泡排序　用时" << endl;
     showFunctionUsingTime(Bubble_Sort);
     //计算　插入排序　用时
+    cout << "计算　插入排序　用时" << endl;
     showFunctionUsingTime(Insertion_Sort);
-    return 0;
+    //计算　希尔排序　用时
+    cout << "计算　希尔排序　用时" << endl;
+    showFunctionUsingTime(Shell_sort);
+
+
+
+
 /*
     cout << "冒泡排序" << endl;
     ElementType A[6] = {34, 8, 64, 51, 32, 21};
@@ -31,7 +40,20 @@ int main (void) {
         cout << " " << B[i];
     }
     cout << endl;
+    cout << "希尔排序" << endl;
+    ElementType C[6] = {34, 8, 64, 51, 32, 21};
+    Insertion_Sort(C, 6);
+    for (int i=0; i<6; i++) {
+        cout << " " << C[i];
+    }
+    cout << endl;
+
 */
+
+
+
+
+    return 0;
 }
 
 //计算函数运行时长
@@ -88,6 +110,30 @@ void Insertion_Sort (ElementType A[], int Number ) {
             A[i] = A[i-1];
         }
         A[i] = temp;//此是i为不大于temp的下标，插入temp
+    }
+}
+
+//希尔排序
+void Shell_sort(ElementType A[], int Number) {
+    ElementType temp;
+    int i;
+    //Hibbard增量序列:Dk = 2^k - 1 (相邻元素互质)
+    //猜想Hibbard时间复杂度: Tavg = O(N^1.25)、Tworst = O(N^1.5)
+
+    //Sedgewick增量序列:{1,5,19,41,109,...}－－9x4^i - 9x2^i + 1 或　4^i - 3x2^i + 1
+    //猜想Sedgewick时间复杂度: Tavg = O(N^1.167)、Tworst = O(N^1.33)
+
+    //希尔原始增量序列D{Number/2、Number/4、...、1}　－－劣势：增量元素不互质，则小增量可能不起作用
+    //猜想希尔原始增量序列时间复杂度: Tworst = O(N^2)
+    for ( int D = Number/2; D > 0; D /=2 ) {
+        //每次循环按增量序列进行“插入排序”(视为将插入排序中的'1'换成'D')
+        for (int p = D; p < Number; p++) {
+            temp = A[p];
+            for (i = p; i>=D && A[i-D]>temp; i-=D) {
+                A[i] = A[i-D];
+            }
+            A[i] = temp;//此是i为不大于temp的下标，插入temp
+        }
     }
 }
 
