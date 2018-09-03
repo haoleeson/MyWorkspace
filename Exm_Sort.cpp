@@ -10,6 +10,7 @@ void showFunctionUsingTime(void (*fun)(ElementType Array[], int Number)); //计�
 void Bubble_Sort (ElementType A[], int Number); //冒泡排序（从小到大）
 void Insertion_Sort (ElementType A[], int Number); //插入排序（从小到大）
 void Shell_sort(ElementType A[], int Number); //希尔排序
+void Heap_Sort (ElementType A[], int Number );//堆排序:伪代码(未完)
 
 int main (void) {
 
@@ -49,8 +50,6 @@ int main (void) {
     cout << endl;
 
 */
-
-
 
 
     return 0;
@@ -137,3 +136,27 @@ void Shell_sort(ElementType A[], int Number) {
     }
 }
 
+//堆向下过滤子函数:tree_position－－当前堆根节点、Number－－当前堆元素个数
+void PercDown(ElementType A[], int tree_position, int Number) {
+
+}
+//将当前堆的最大元素与堆下标最大的元素互换：A－－当前堆根节点地址（最大）、B－－当前堆下标最大的节点
+void Swap(ElementType *A, ElementType *B) {
+    ElementType *temp;
+    temp = A;
+    A = B;
+    B = temp;
+}
+
+//堆排序:伪代码(未完)
+void Heap_Sort (ElementType A[], int Number ) {
+    //建立最大堆
+    for (int i = Number/2; i>=0; i--) {
+        PercDown( A, i, Number );//调整成最大堆
+    }
+
+    for (int i = Number-1; i>0; i--) {
+        Swap( &A[0], &A[i] );/*将最大值元素根节点，换到当前堆最后一个元素位置上去*/
+        PercDown( A, 0, i );
+    }
+}
