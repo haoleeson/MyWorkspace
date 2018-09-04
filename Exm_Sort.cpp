@@ -7,6 +7,8 @@ using namespace std;
 #define MAXK 1e5 //函数最大重复调用次数
 #define TempArrayNumber 6 //待排序数组　元素个数
 
+void Swap( ElementType *A, ElementType *B );// 交换两元素
+
 // 用于测试的接口函数
 void Test_Sort_Function( string showBuf ,void (*SortFun)(ElementType Array[], int Number) );//测试排序算法是否有效
 void showFunctionUsingTime( string showBuf, void (*fun)(ElementType Array[], int Number) );//计算函数运行时长
@@ -18,41 +20,44 @@ void Shell_Sort ( ElementType A[], int Number );     //希尔排序（从小到�
 void Heap_Sort ( ElementType A[], int Number );      //堆排序:伪代码(未完)
 void Merge_Sort ( ElementType A[], int Number );     //递归归并排序（从小到大）
 void Merge_Sort2 ( ElementType A[], int Number );    //非递归归并排序（从小到大）
+void Quick_Sort ( ElementType A[], int Number );     //快速排序（从小到大）
 
 int main (void) {
-
+/*
     Test_Sort_Function( "冒泡排序", Bubble_Sort );
     Test_Sort_Function( "插入排序", Insertion_Sort );
     Test_Sort_Function( "希尔排序", Shell_Sort );
     //Test_Sort_Function( "堆排序(未完)", Heap_Sort );
     Test_Sort_Function( "递归归并排序", Merge_Sort );
     Test_Sort_Function( "非递归归并排序", Merge_Sort2 );
-
-/*
+    Test_Sort_Function( "快速排序", Quick_Sort );
+*/
     showFunctionUsingTime( "冒泡排序", Bubble_Sort );
     showFunctionUsingTime( "插入排序", Insertion_Sort );
     showFunctionUsingTime( "希尔排序", Shell_Sort );
     //showFunctionUsingTime( "堆排序（未完）", Heap_Sort );
     showFunctionUsingTime( "递归归并排序", Merge_Sort );
     showFunctionUsingTime( "非递归归并排序", Merge_Sort2 );
-*/
+    showFunctionUsingTime( "快速排序", Quick_Sort);
     return 0;
+}
+
+void Print_Array ( string showBuf, ElementType A[], int Number ) {
+    cout << showBuf ;
+    for (int i=0; i<Number; i++) {
+        cout << " " << A[i];
+    }
+    cout << endl;
 }
 
 //测试排序算法是否有效
 void Test_Sort_Function( string showBuf, void (*SortFun)(ElementType Array[], int Number) ) {
     ElementType A[TempArrayNumber] = {34, 8, 64, 51, 32, 21};
-    cout << "显示原数组A[]: ";
-    for (int i=0; i<TempArrayNumber; i++) {
-        cout << " " << A[i];
-    }
+    Print_Array( "显示原数组A[]:", A, TempArrayNumber );
     (*SortFun)( A, TempArrayNumber );
-    cout << endl << showBuf <<" 后的数组A[]: ";
-    //展示排好的数组
-    for (int i=0; i<TempArrayNumber; i++) {
-        cout << " " << A[i];
-    }
-    cout << endl << endl;
+    cout << showBuf ;
+    Print_Array( " 后的数组A[]:", A, TempArrayNumber );
+    cout << endl;
 }
 
 //计算函数运行时长
@@ -77,9 +82,15 @@ void showFunctionUsingTime( string showBuf, void (*fun)(ElementType Array[], int
     stop2 = clock();//记录始终此时打点数
 
     duration = ( (double) ( (stop1-start) - (stop2-stop1) ) )/CLOCKS_PER_SEC/MAXK;//计算实际用时
-    cout << "Using time = " << duration << " s" << endl;
+    cout << "Using time = " << duration << " s" << endl << endl;
 }
-
+void Swap( ElementType *A, ElementType *B ) {
+    ElementType temp;
+    //三部曲
+    temp = *A; // 存A
+    *A = *B; //换A
+    *B = temp; //换B
+}
 //冒泡排序（从小到大）
 void Bubble_Sort ( ElementType A[], int Number ) {
     bool isSwapedFlag;
@@ -89,9 +100,12 @@ void Bubble_Sort ( ElementType A[], int Number ) {
         for ( int j = 0; j < i; j++) {
             // >:从小到大； <:从大到小
             if ( A[j] > A[j+1] ) {
+                Swap( &A[j], &A[j+1] );
+                /*
                 temp = A[j];
                 A[j] = A[j+1];
                 A[j+1] = temp;
+                */
                 isSwapedFlag = true;
             }
         }
@@ -141,13 +155,6 @@ void Shell_Sort( ElementType A[], int Number) {
 //堆向下过滤子函数:tree_position－－当前堆根节点、Number－－当前堆元素个数
 void PercDown( ElementType A[], int tree_position, int Number) {
 
-}
-//将当前堆的最大元素与堆下标最大的元素互换：A－－当前堆根节点地址（最大）、B－－当前堆下标最大的节点
-void Swap( ElementType *A, ElementType *B) {
-    ElementType *temp;
-    temp = A;
-    A = B;
-    B = temp;
 }
 //堆排序:伪代码(未完)
 void Heap_Sort ( ElementType A[], int Number ) {
@@ -273,5 +280,58 @@ void Merge_Sort2 ( ElementType A[], int Number ) {
     } else {
         cout << "Error: 空间不足" << endl;
     }
+}
+
+ElementType Median3( ElementType A[], int Left, int Right ) {
+    int Center = (Left + Right) / 2 ;
+    if ( A[Left] > A[Center] ) {
+        Swap( &A[Left], &A[Center] );
+    }
+    if ( A[Left] > A[Right] ) {
+        Swap( &A[Left], &A[Right] );
+    }
+    if ( A[Center] > A[Right]) {
+        Swap( &A[Center], &A[Right] );
+    }
+    //现在，左、中、右三个已经有序
+    Swap( &A[Center], &A[Right-1] );
+    //现在只需考虑　Left+1 ~ Right-2
+    return A[Right-1];
+}
+//快速排序算法实现
+#define Cutoff 5 //定义快速排序（递归）阈值，数组元素小于Cutoff直接插入排序
+void Quicksort(ElementType A[], int Left, int Right ) {
+    ElementType pivot;
+    int i, j;
+    //是否进行快速排序，阈值判断
+    if ( (Right - Left) >= Cutoff ) {
+        //选主元pivot，藏于A[Right-1]
+        pivot = Median3 ( A, Left, Right );
+        i = Left ;
+        j = Right - 1 ;
+        //子集划分(pivot左边全小于pivot；pivot右边全大于pivot)
+        for ( ; ; ) {
+            while ( A[++i] < pivot ) {} //找到A[i] > pivot, 跳出
+            while ( A[--j] > pivot ) {} //找到A[j] < pivot, 跳出
+            if ( i < j ) {
+                //说明A[i]与A[j]之间还有其他元素，可交换
+                Swap( &A[i], &A[j] );
+            } else {
+                break;
+            }
+        }
+        Swap( &A[i], &A[Right-1] ); //将pivot 放到中间，即i下标处
+        Quicksort( A, Left, i-1 );//递归处理左边
+        Quicksort( A, i+1, Right );//递归处理右边
+    } else {
+        //低于阈值，直接调用插入排序
+        //递归到最小一层用插入排序(每段的插入排序地址为：&A + Left (即：绝对地址A 加相对地址Left)
+        //最小一层插入排序元素个数Number = Right-Left+1
+        Insertion_Sort ( A+Left, Right-Left+1 );
+    }
+}
+//快速排序（统一接口，加壳）
+void Quick_Sort ( ElementType A[], int Number ) {
+    Quicksort ( A, 0, Number-1 );
 }
 
