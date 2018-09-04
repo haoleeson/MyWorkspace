@@ -16,20 +16,26 @@ void Bubble_Sort ( ElementType A[], int Number );    //冒泡排序（从小到�
 void Insertion_Sort ( ElementType A[], int Number ); //插入排序（从小到大）
 void Shell_Sort ( ElementType A[], int Number );     //希尔排序（从小到大）
 void Heap_Sort ( ElementType A[], int Number );      //堆排序:伪代码(未完)
-void Merge_Sort ( ElementType A[], int Number );     //递归排序（从小到大）
+void Merge_Sort ( ElementType A[], int Number );     //递归归并排序（从小到大）
+void Merge_Sort2 ( ElementType A[], int Number );    //非递归归并排序（从小到大）
 
 int main (void) {
-/*    Test_Sort_Function( "冒泡排序", Bubble_Sort );
+
+    Test_Sort_Function( "冒泡排序", Bubble_Sort );
     Test_Sort_Function( "插入排序", Insertion_Sort );
     Test_Sort_Function( "希尔排序", Shell_Sort );
     //Test_Sort_Function( "堆排序(未完)", Heap_Sort );
-    Test_Sort_Function( "递归排序", Merge_Sort );
-*/
+    Test_Sort_Function( "递归归并排序", Merge_Sort );
+    Test_Sort_Function( "非递归归并排序", Merge_Sort2 );
+
+/*
     showFunctionUsingTime( "冒泡排序", Bubble_Sort );
-    showFunctionUsingTime( "插入排序", Insertion_Sort);
-    showFunctionUsingTime( "希尔排序", Shell_Sort);
-    //showFunctionUsingTime( "堆排序（未完）", Heap_Sort);
-    showFunctionUsingTime( "递归排序", Merge_Sort);
+    showFunctionUsingTime( "插入排序", Insertion_Sort );
+    showFunctionUsingTime( "希尔排序", Shell_Sort );
+    //showFunctionUsingTime( "堆排序（未完）", Heap_Sort );
+    showFunctionUsingTime( "递归归并排序", Merge_Sort );
+    showFunctionUsingTime( "非递归归并排序", Merge_Sort2 );
+*/
     return 0;
 }
 
@@ -71,8 +77,6 @@ void showFunctionUsingTime( string showBuf, void (*fun)(ElementType Array[], int
     stop2 = clock();//记录始终此时打点数
 
     duration = ( (double) ( (stop1-start) - (stop2-stop1) ) )/CLOCKS_PER_SEC/MAXK;//计算实际用时
-//    cout << "Ticks1 = " << (double)(stop1 - start) << endl;
-//    cout << "Ticks2 = " << (double)(stop2 -stop1) << endl;
     cout << "Using time = " << duration << " s" << endl;
 }
 
@@ -187,6 +191,29 @@ void Merge ( ElementType A[], ElementType TempA[], int L, int R, int Right_End )
         A[Right_End] = TempA[Right_End];
     }
 }
+//Merge2为前面Merge函数拷贝，但省去结尾将TempA[]拷贝回A[]的步骤
+void Merge2 ( ElementType A[], ElementType TempA[], int L, int R, int Right_End ) {
+    int temp, LeftEnd, NumOfElements;
+    LeftEnd = R - 1; /* 左边终点下标与右边起始下标相邻  */
+    temp = L; /*存放结果的数组初始位置*/
+    NumOfElements = Right_End - L + 1;
+    // 开始比较大小　存放
+    while ( (L <= LeftEnd) && (R <= Right_End) ) {
+    /*左右两序列都非空时执行*/
+        if( A[L] < A[R] ) {
+            TempA[temp++] = A[L++];
+        } else {
+            TempA[temp++] = A[R++];
+        }
+    }
+    //左右两序列其一为空,下方两while只会执行一个(将余下的所有元素拷贝到TempA[])
+    while ( L <= LeftEnd ) {
+        TempA[temp++] = A[L++];
+    }
+    while ( R <= Right_End ) {
+        TempA[temp++] = A[R++];
+    }
+}
 //递归算法
 void M_Sort( ElementType A[], ElementType TempA[], int L, int Right_End) {
     int Center;
@@ -198,7 +225,7 @@ void M_Sort( ElementType A[], ElementType TempA[], int L, int Right_End) {
         Merge( A, TempA, L, Center+1, Right_End );//调用归并排序
     }
 }
-//递归排序算法（统一接口）
+//递归归并排序算法（统一接口）
 void Merge_Sort ( ElementType A[], int Number ) {
     ElementType *TempA;
     TempA = new ElementType[Number];//申请内存空间
@@ -210,3 +237,41 @@ void Merge_Sort ( ElementType A[], int Number ) {
         cout << "Error: 空间不足" << endl;
     }
 }
+//非递归算法
+//length 相当于当前子列长度
+void Merge_pass( ElementType A[], ElementType TempA[], int Number, int length ) {
+    int i;
+    //Number - 2*length　————先处理数组长度内能被２整除的前部分，尾巴先不管
+    for ( i=0; i <= Number - 2*length; i += 2*length ) {
+        Merge2 ( A, TempA, i,  i+length, i + 2*length -1 );
+    }
+    //处理尾巴:
+    //尾巴长度为　1.0~1.9 倍的length时[还剩2个子列]，归并((0~1)*length)、((1*length~末尾)两个子列
+    if (i+length < Number) {
+        Merge2 ( A, TempA, i, i+length, Number-1 );
+    } else {
+        //否则，只剩下不到一个子列，原样拷贝
+        for (int j = i; j < Number; j++) {
+            TempA[j] = A[j];
+        }
+    }
+}
+//非递归归并排序算法（统一接口）
+void Merge_Sort2 ( ElementType A[], int Number ) {
+    int length = 1;//初始化子序列长度
+    ElementType *TempA;
+    TempA = new ElementType[Number];//申请内存空间
+    if ( TempA != NULL ) {
+        //上一步申请内存空间成功,则进行非递归归并排序，一次循环执行两次
+        while ( length < Number ) {
+            Merge_pass( A, TempA, Number, length );
+            length *= 2;
+            Merge_pass( TempA, A, Number, length );
+            length *= 2;
+        }
+        delete []TempA; //释放内存空间
+    } else {
+        cout << "Error: 空间不足" << endl;
+    }
+}
+
