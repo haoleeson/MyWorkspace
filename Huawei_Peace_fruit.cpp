@@ -98,11 +98,11 @@ int Peace_fruit( vector< vector<int> >&A, int Row, int Column ) {
     int Maxsum = 0;
     vector< vector<int> > dp(A);//将容器A赋值给容器dp
 //    vector< vector<int> > dp( Row, vector<int>(Column) );//创建一个Row * Column的int型二维向量
-    //特殊(左边界)：计算第一列和
+    //特殊(左边界)：求第一列直下各元素点的路径和
     for ( int i=1; i<Row; i++ ) {
         dp[i][0] += dp[i-1][0];
     }
-    //特殊(右边界)：计算第一行的和
+    //特殊(右边界)：计算第一行直右各元素点的路径和
     for ( int j=1; j<Column; j++ ) {
         dp[0][j] += dp[0][j-1];
     }
@@ -126,7 +126,4 @@ int Peace_fruit( vector< vector<int> >&A, int Row, int Column ) {
     dp.clear();
     return Maxsum;
 }
-
-
-
 
