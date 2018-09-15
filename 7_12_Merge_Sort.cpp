@@ -284,8 +284,8 @@ void Quicksort( vector<ElementType> &A, long int Left, long int Right ) {
         /*dosen't work
         ElementType *PartAddress = (ElementType*)( A + Left );
         Insertion_Sort ( PartAddress, Right-Left+1 );
-        //Insertion_Sort ( A + Left, Right-Left+1 );
-        */
+        Insertion_Sort ( A + Left , Right-Left+1 );*/
+        
     }
 }
 //快速排序（统一接口，加壳）
