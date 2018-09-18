@@ -1,8 +1,8 @@
 #include <iostream>
 #include <math.h>
 using namespace std;
-
-#define isshowGuoChenFlag true
+//the flag to show GuoChen
+#define isshowGuoChenFlag false
 #define TheMaxNsize 100
 
 //第0位置是柱子上的塔盘数目
