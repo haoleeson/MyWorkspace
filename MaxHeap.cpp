@@ -1,8 +1,8 @@
 #include "MaxHeap.h"
-
-int main (void) {
+int main(void)
+{
     int a[] = {13,43,84,96,22,65,70,47};
-    MaxHeap* m = new MaxHeap ( a, 8 );
+    MaxHeap* m = new MaxHeap(a, 8);
     //测试
     cout << "显示当前最大堆:" << endl;
     m->show();

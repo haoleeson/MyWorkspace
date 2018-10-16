@@ -1,8 +1,8 @@
 #include "MinHeap.h"
-
-int main (void) {
+int main(void)
+{
     int a[] = {13,43,84,96,22,65,70,47};
-    MinHeap* m = new MinHeap ( a, 8 );
+    MinHeap* m = new MinHeap(a, 8);
     //测试
     cout << "显示当前最小堆:" << endl;
     m->show();
