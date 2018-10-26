@@ -41,12 +41,25 @@ template<class T>
 class Triangle : public shape<T>
 {
     public:
-        /**包含多态**/
+        /**重置**/
         T getArea()
         {
             return (this->bottomLength * this->height / 2);
         }
         Triangle(T value1, T value2)
+        {
+            this->bottomLength = value1;
+            this->height = value2;
+        }
+};
+
+template<class T>
+//派生：平行四边形类
+class Parallelogram : public shape<T>
+{
+    public:
+        /**包含多态，可直接调用基类的getArea()方法**/
+        Parallelogram(T value1, T value2)
         {
             this->bottomLength = value1;
             this->height = value2;
@@ -59,7 +72,7 @@ template<class T>
 class Rectangle : public shape<T>
 {
     public:
-        /**包含多态**/
+        /**重置**/
         T getArea()
         {
             return (this->bottomLength * this->height);
