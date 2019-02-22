@@ -1,42 +1,39 @@
+/**
+ * Encoding：utf-8
+ * Programming language：c++
+ * Coder：eisenhao
+ * 20190222
+* */
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> result;
-        bool isFindFlag = false;
-        for (int i=0; i<nums.size(); i++)
-        {
-            int resultNum = target - nums[i];
-            for (int j=0; j<nums.size(); j++)
-            {
-                if (j == i) continue;
-                if (nums[j] == resultNum)
-                {
-                    if (i < j)
-                    {
-                        result.push_back(i);
-                        result.push_back(j);
-                    }
-                    else
-                    {
-                        result.push_back(j);
-                        result.push_back(i);
-                    }
-                    isFindFlag = true;
+        bool isFind = false;
+        int nums_Size = nums.size();
+        vector<int> index;
+        for(int i=0; i<nums_Size-1; i++){
+            int tmp = target - nums[i];
+            for(int j=i+1; j<nums_Size; j++){
+                if (nums[j] == tmp){
+                    index.push_back(i);
+                    index.push_back(j);
+                    isFind = true;
                     break;
                 }
             }
-            if(isFindFlag) break;
+            if(isFind){
+                break;
+            }
         }
-        return  result;
+        return index;
     }
 };
 
-int main(void)
-{
+int main(int argc, const char * argv[]) {
     vector<int> nums = {2, 11, 7, 15};
     vector<int> result;
     int target =  9;
