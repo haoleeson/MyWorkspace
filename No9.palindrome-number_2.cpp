@@ -1,5 +1,5 @@
 /** 题目描述：
- * 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+ *  判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
  *
  * Encoding：utf-8
  * Programming language：c++
@@ -20,7 +20,7 @@ public:
             return false;
         }
         //计算数字位数？
-        int wei_num = 1;
+        int wei_num = 1;//至少一位
         int tmp = x/10;
         for(; tmp>0; wei_num++){
             tmp /= 10;
