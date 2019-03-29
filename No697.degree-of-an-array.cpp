@@ -41,6 +41,7 @@ using namespace std;
 
 class Solution {
 public:
+    /** 自己实现：Leetcode 212ms*/
     int findShortestSubArray(vector<int>& nums) {
         int len=nums.size(), maxTimes=1, minDuLen;//数组长度, 最大频次, 最小度的长度
         map<int, int >EmergeTime; //s是一个映射 <数组中的元素， 出现次数>
@@ -79,6 +80,31 @@ public:
             }
         }
         return minDuLen;
+    }
+
+    /** Leetcode大神实现 12ms */
+    int findShortestSubArray2(vector<int>& nums) {
+        int m[2][50000]={0};
+        int max_cnt=0,min_len=1;
+        for(int i=0;i<nums.size();++i)
+        {
+            int num=nums[i];
+            ++m[0][num];
+            if(m[0][num]==1)
+            {
+                m[1][num]=i;
+            }
+            else if(m[0][num]>max_cnt)
+            {
+                max_cnt=m[0][num];
+                min_len=i-m[1][num]+1;
+            }
+            else if(m[0][num]==max_cnt)
+            {
+                min_len=min(min_len,i-m[1][num]+1);
+            }
+        }
+        return min_len;
     }
 };
 
