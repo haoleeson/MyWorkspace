@@ -44,6 +44,7 @@
 
 
 class Solution {
+    /**方法1： 斜向比较*/
     public boolean isToeplitzMatrix(int[][] matrix) {
         int row=matrix.length, column = matrix[0].length;
 
@@ -59,6 +60,20 @@ class Solution {
         for (int k=1; k < row-1; k++) {
             for (int i=k+1, j=1; i<row && j<column; i++, j++) {
                 if (matrix[k][0] != matrix[i][j])
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    /**方法2： 下一行错位与上一行比较*/
+    public boolean isToeplitzMatrix2(int[][] matrix) {
+        int row=matrix.length, column = matrix[0].length;
+        if (matrix.length == 0) return false;
+
+        for (int k = 1; k < row; k++) {
+            for (int i = 1; i < column; i++) {
+                if (matrix[k-1][i-1] != matrix[k][i])
                     return false;
             }
         }
