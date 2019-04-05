@@ -1,25 +1,32 @@
 /** utf-8
  * Leetcode
- * 1010. 总持续时间可被 60 整除的歌曲
+ * 1013. 将数组分成和相等的三个部分
+ * 给定一个整数数组 A，只有我们可以将其划分为三个和相等的非空部分时才返回 true，否则返回 false。
+ *
+ * 形式上，如果我们可以找出索引 i+1 < j 且满足 (A[0] + A[1] + ... + A[i] == A[i+1] + A[i+2] + ... + A[j-1] == A[j] + A[j-1] + ... + A[A.length - 1]) 就可以将数组三等分。
+ *
+ *
+ *
  * 示例 1：
  *
- * 输入：[30,20,150,100,40]
- * 输出：3
- * 解释：这三对的总持续时间可被 60 整数：
- * (time[0] = 30, time[2] = 150): 总持续时间 180
- * (time[1] = 20, time[3] = 100): 总持续时间 120
- * (time[1] = 20, time[4] = 40): 总持续时间 60
+ * 输出：[0,2,1,-6,6,-7,9,1,2,0,1]
+ * 输出：true
+ * 解释：0 + 2 + 1 = -6 + 6 - 7 + 9 + 1 = 2 + 0 + 1
  * 示例 2：
  *
- * 输入：[60,60,60]
- * 输出：3
- * 解释：所有三对的总持续时间都是 120，可以被 60 整数。
+ * 输入：[0,2,1,-6,6,7,9,-1,2,0,1]
+ * 输出：false
+ * 示例 3：
+ *
+ * 输入：[3,3,6,5,-2,2,5,1,-9,4]
+ * 输出：true
+ * 解释：3 + 3 = 6 = 5 - 2 + 2 + 5 + 1 - 9 + 4
  *
  *
  * 提示：
  *
- * 1 <= time.length <= 60000
- * 1 <= time[i] <= 500
+ * 3 <= A.length <= 50000
+ * -10000 <= A[i] <= 10000
  *
  * coder:eisenhao
  * Java
@@ -28,39 +35,36 @@
 
 
 class Solution {
-    /** combination
-     * 特殊组合数 C(n, 2) = n * (n-1) / 2
-     */
-    public int C_n_2(int n) {
-        if (n < 2) return 0;
-        if (n == 2) return 1;
-        return n * (n-1) / 2;
-    }
+    public boolean canThreePartsEqualSum(int[] A) {
+        int len=A.length, leftSum=0, rightSum=0, i=0, j=len-1, oneThridSum=0;
 
-    public int numPairsDivisibleBy60(int[] time) {
-        int len=time.length, matchNum=0;//歌曲对数量
-        int[] number = new int[60];//歌曲时长余数（求余 60）
-
-        //统计 0 ～ 59 秒分布
-        for (int i=0; i<len; i++) {
-            number[ time[i] % 60 ]++;
+        while (i < len) {
+            oneThridSum += A[i];
+            i++;
         }
-        //加上 0 的排列组合 C(m, 2)
-        matchNum += C_n_2(number[0]);
-        //加上 30 的排列组合 C(m, 2)
-        matchNum += C_n_2(number[30]);
-        //加上 1 ~ 29 与 对应的 59 ~ 31 数量的乘积
-        for (int i = 1; i < 30; i++) {
-            matchNum += number[i] * number[60 - i];
+        //System.out.println("sum = " + sum);
+        oneThridSum /= 3;
+        i = 0;
+        while (i<len && leftSum != oneThridSum) {
+            leftSum += A[i++];
         }
-        return matchNum;
+        //System.out.println("leftSum = " + leftSum);
+        if (i == len)
+            return false;
+        while (j>i && rightSum != oneThridSum) {
+            rightSum += A[j--];
+        }
+        if (rightSum != oneThridSum)
+            return false;
+        //System.out.println("rightSum = " + rightSum);
+        return true;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
         Solution s = new Solution();
-        int[] Input = {60,60,60};
-        System.out.println(s.numPairsDivisibleBy60(Input));
+        int[] Input = {18,12,-18,18,-19,-1,10,10};
+        System.out.println(s.canThreePartsEqualSum(Input));
     }
 }
