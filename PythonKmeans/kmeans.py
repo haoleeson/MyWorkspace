@@ -1,5 +1,5 @@
-# coding: utf-8
-# 数据挖掘与知识发现第3次作业-黎豪-18101223769：
+#from numpy import *
+#import time
 import random
 import numpy as np
 from matplotlib import image as img #读取图片
@@ -14,7 +14,6 @@ def caclEucDistance(vector1, vector2):
     distance = np.sqrt(np.sum(np.square(vector2 - vector1)))
     return distance
 
-
 # 随机生成 k 个 “种子”
 def initCentroids(dataSet, k):
     numSamples, dim = dataSet.shape
@@ -24,7 +23,6 @@ def initCentroids(dataSet, k):
         index = int(random.uniform(0, numSamples))
         centroids[i, :] = dataSet[index, :] #在数据集中取 k 个值
     return centroids
-
 
 # k-means 算法实现
 def kmeans(dataSet, k):
@@ -98,6 +96,24 @@ def showCluster(dataSet, k, centroids, clusterAssment):
 
     plt.show()
 
+# 处理二维数据并绘图的实例
+'''
+# step 1: load data...
+dataSet = []
+fileIn = open('testSet.txt')
+for line in fileIn.readlines():
+	lineArr = line.strip().split('\t')
+	dataSet.append([float(lineArr[0]), float(lineArr[1])])
+# step 2: clustering...
+print('step 2: clustering...')
+dataSet = np.mat(dataSet)
+k = 6
+centroids, clusterAssment = kmeans(dataSet, k)
+## step 3: show the result
+print('step 3: show the result...')
+showCluster(dataSet, k, centroids, clusterAssment)
+'''
+
 
 # 在data中，第0~2类，每获取100个数据并简单拼接
 def geteveryClass3Data100Samples(data):
@@ -131,12 +147,15 @@ data = pd.read_csv('waveform.data', sep=',', engine='python', header=None, skipr
 # 在3类中每类取100个数据使用上一步实现的K-means算法的进行聚类
 data_3x100 = geteveryClass3Data100Samples(data)
 
+# 输出处理后的data到'Output_data_3x100.csv'目录
+# data_3x100.to_csv('Output_data_3x100.csv') # Output_data_3x100.csv
+
 print('S2.运行k-means计算...')
 data_3x100 = np.mat(data_3x100)
 k = 10
 centroids, clusterAssment = kmeans(data_3x100, k)
 
 print('\ncentroids:\n', centroids)
-print('\nclusterAssment:\n', clusterAssment)
+#print('\nclusterAssment:\n', clusterAssment)
 
 

@@ -1,5 +1,3 @@
-# coding: utf-8
-# 数据挖掘与知识发现第3次作业-黎豪-18101223769：
 import numpy as np
 import pandas as pd
 import copy
@@ -16,18 +14,18 @@ def getPartWaveNoiseData(filename, number):
     data = data.reshape(-1, data_dim)
     return data
 
-
 # 计算欧式距离:
 # 将'vector1'与'vector2'中所有对应属性值之差的平方求和，再求平方根
 def caclEucDistance(vector1, vector2):
     distance = np.sqrt(np.sum(np.square(vector2 - vector1), axis=1))
     return distance
 
-
 # PAM算法实现
 # iteration:最大迭代次数，k:'种子'集群个数，data:待聚类数据
 def PAM(iteration, k, data):
     data_numSamples, data_dim = data.shape
+    # print(data_numSamples, ' ', data_dim)
+
     data_new = copy.deepcopy(data)  # 前40列存放数据，不可变。最后1列即第41列存放标签，标签列随着每次迭代而更新。
     data_now = copy.deepcopy(data)  # data_now用于存放中间过程的数据
 
