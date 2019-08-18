@@ -1,3 +1,5 @@
+package LeetCode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,43 +35,45 @@ import java.util.List;
  * 20190402
  * */
 
+class No830_positionsOfLargeGroups {
+    static class Solution {
+        public List<List<Integer>> largeGroupPositions(String S) {
+            int len = S.length(), start_i = 0;
+            char lastCh = ' ', ch;
+            List<List<Integer>> result = new ArrayList<List<Integer>>();
+            ;
 
-class Solution {
-    public List<List<Integer>> largeGroupPositions(String S)
-    {
-        int len=S.length(), start_i = 0;
-        char lastCh = ' ', ch;
-        List<List<Integer>> result = new ArrayList<List<Integer>>();;
-
-        for (int i=0; i<len; i++) {
-            ch = S.charAt(i);
-            if (ch != lastCh) {
-                //判断长度
-                if (i-start_i > 2) {
-                    //添加到结果中
-                    List<Integer> tmp = new ArrayList<Integer>();
-                    tmp.add(start_i);
-                    tmp.add(i-1);
-                    result.add(tmp);
+            for (int i = 0; i < len; i++) {
+                ch = S.charAt(i);
+                if (ch != lastCh) {
+                    //判断长度
+                    if (i - start_i > 2) {
+                        //添加到结果中
+                        List<Integer> tmp = new ArrayList<Integer>();
+                        tmp.add(start_i);
+                        tmp.add(i - 1);
+                        result.add(tmp);
+                    }
+                    //更新
+                    lastCh = ch;
+                    start_i = i;
                 }
-                //更新
-                lastCh = ch;
-                start_i = i;
             }
+            //判断结尾
+            if (len - start_i > 2) {
+                //添加到结果中
+                List<Integer> tmp = new ArrayList<Integer>();
+                tmp.add(start_i);
+                tmp.add(len - 1);
+                result.add(tmp);
+            }
+            return result;
         }
-        //判断结尾
-        if (len-start_i > 2) {
-            //添加到结果中
-            List<Integer> tmp = new ArrayList<Integer>();
-            tmp.add(start_i);
-            tmp.add(len-1);
-            result.add(tmp);
-        }
-        return result;
     }
-}
 
-public class Main {
+    /**
+     * Test
+     * */
     public static void main(String[] args) {
         Solution s = new Solution();
         String Input = "abcdddeeeeaabbbcd";

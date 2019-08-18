@@ -1,3 +1,5 @@
+package LeetCode;
+
 /** utf-8
  * Leetcode
  * 1013. 将数组分成和相等的三个部分
@@ -33,38 +35,41 @@
  * 20190405
  * */
 
+public class No1013_partitionArrayIntoThreePartsWithEqualSum {
+    static class Solution {
+        public boolean canThreePartsEqualSum(int[] A) {
+            int len = A.length, leftSum = 0, rightSum = 0, i = 0, j = len - 1, oneThridSum = 0;
 
-class Solution {
-    public boolean canThreePartsEqualSum(int[] A) {
-        int len=A.length, leftSum=0, rightSum=0, i=0, j=len-1, oneThridSum=0;
-
-        while (i < len) {
-            oneThridSum += A[i];
-            i++;
+            while (i < len) {
+                oneThridSum += A[i];
+                i++;
+            }
+            //System.out.println("sum = " + sum);
+            oneThridSum /= 3;
+            i = 0;
+            while (i < len && leftSum != oneThridSum) {
+                leftSum += A[i++];
+            }
+            //System.out.println("leftSum = " + leftSum);
+            if (i == len)
+                return false;
+            while (j > i && rightSum != oneThridSum) {
+                rightSum += A[j--];
+            }
+            if (rightSum != oneThridSum)
+                return false;
+            //System.out.println("rightSum = " + rightSum);
+            return true;
         }
-        //System.out.println("sum = " + sum);
-        oneThridSum /= 3;
-        i = 0;
-        while (i<len && leftSum != oneThridSum) {
-            leftSum += A[i++];
-        }
-        //System.out.println("leftSum = " + leftSum);
-        if (i == len)
-            return false;
-        while (j>i && rightSum != oneThridSum) {
-            rightSum += A[j--];
-        }
-        if (rightSum != oneThridSum)
-            return false;
-        //System.out.println("rightSum = " + rightSum);
-        return true;
     }
-}
 
-public class Main {
+    /**
+     * Test
+     * */
     public static void main(String[] args) {
         Solution s = new Solution();
         int[] Input = {18,12,-18,18,-19,-1,10,10};
+
         System.out.println(s.canThreePartsEqualSum(Input));
     }
 }

@@ -1,3 +1,5 @@
+package LeetCode;
+
 /** utf-8
  * Leetcode
  * 714. 买卖股票的最佳时机含手续费
@@ -28,40 +30,43 @@
  * 20190412
  * */
 
+class No714_bestTimeToBuyAndSellStockWithTransactionFee {
+    static class Solution {
+        public int maxProfit(int[] prices, int fee) {
+            int len = prices.length;
+            if (prices.length < 2)
+                return 0;
+            int Profit = 0, subProfit = 0, max = prices[0], min = prices[0];
 
-class Solution {
-    public int maxProfit(int[] prices, int fee) {
-        int len=prices.length;
-        if (prices.length < 2)
-            return 0;
-        int Profit=0, subProfit=0, max=prices[0], min=prices[0];
-
-        for (int i=0; i<len; i++) {
-            if (prices[i] < min)
-                min = prices[i];
-            if (prices[i] > max)
-                max = prices[i];
-            if ((prices[i] - min - fee) > subProfit)
-                subProfit = prices[i] - min - fee;//记录可能的最大利润
-            //如果价格走低，且与中间最大利润差值大于fee，卖出
-            if (max - prices[i] > fee) {
-                Profit += subProfit;//最大利润
-                min = prices[i];
-                max = prices[i];
-                subProfit = 0;
+            for (int i = 0; i < len; i++) {
+                if (prices[i] < min)
+                    min = prices[i];
+                if (prices[i] > max)
+                    max = prices[i];
+                if ((prices[i] - min - fee) > subProfit)
+                    subProfit = prices[i] - min - fee;//记录可能的最大利润
+                //如果价格走低，且与中间最大利润差值大于fee，卖出
+                if (max - prices[i] > fee) {
+                    Profit += subProfit;//最大利润
+                    min = prices[i];
+                    max = prices[i];
+                    subProfit = 0;
+                }
             }
+            //加最后一部分
+            Profit += subProfit;
+            return Profit;
         }
-        //加最后一部分
-        Profit += subProfit;
-        return Profit;
     }
-}
 
-public class Main {
+    /**
+     * Test
+     * */
     public static void main(String[] args) {
         Solution s = new Solution();
         int[] Input = {1, 3, 2, 8, 4, 9};
         int fee = 2;
+
         System.out.println(s.maxProfit(Input, fee));
     }
 }
