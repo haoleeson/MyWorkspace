@@ -1,8 +1,8 @@
-class FreshJuice {
-    enum FreshJuiceSize{ SMALL, MEDIUM , LARGE }
-    FreshJuiceSize size;
-}
 public class Exmenum {
+    static class FreshJuice {
+        enum FreshJuiceSize{ SMALL, MEDIUM , LARGE }
+        FreshJuiceSize size;
+    }
    public static void main(String []args){
         int i = 1;
         double j = 3.14;
