@@ -234,6 +234,69 @@ public class No1170_compareStringsByFrequencyOfTheSmallestCharacter {
     }
 
 
+    //方法4【3ms】.Leetcode 大牛（学习）
+    static class Solution {
+        /**
+         * 分析
+         * 先找出最小出现的字符，再统计该字符出现次数
+         * 利用了： 读数据的时间消耗 远小于 写数据 （尽量减少写操作）
+         */
+        public int getLength(String s) {
+            char k = 'z';
+            int count = 0;
+            for (int i = 0; i < s.length(); i++) {
+                if (k > s.charAt(i)) {
+                    k = s.charAt(i);
+                }
+            }
+            for (int i = 0; i < s.length(); i++) {
+                if (k == s.charAt(i)) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        /**
+         * Function
+         *
+         * @Input queries 待查表
+         * @Input words 字典表
+         * @Return answer 结果
+         */
+        public int[] numSmallerByFrequency(String[] queries, String[] words) {
+            int[] count = new int[words.length];
+            for (int i = 0; i < words.length; i++) {
+                count[i] = getLength(words[i]);
+            }
+            int[] amount= new int[12];
+            for (int i = 0; i < count.length; i++) {
+                amount[count[i]]++;
+            }
+            getCount(amount);
+            int[] res = new int[queries.length];
+            for (int i = 0; i < queries.length; i++) {
+                int ks = getLength(queries[i]);
+                res[i] = amount[ks+1];
+            }
+            return res;
+
+        }
+
+        /**分析：
+         * 从后至前，累加当前项的值到前一项，方便快速得到 > f(queries[i])的个数。
+         * 若queries[i]为1，则count[2]的值即是words2～12的总个数
+         *
+         * 利用了： 1 <= queries[i].length, words[i].length <= 10 和 简化不必要的重复计算
+         * */
+        public void getCount(int[] count) {
+            int c = 0;
+            for (int i = count.length -2; i >= 0; i--) {
+                count[i] += count[i+1];
+            }
+        }
+    }
+
     /**
     * Test
     * */
