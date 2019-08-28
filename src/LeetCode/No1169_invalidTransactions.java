@@ -132,6 +132,6 @@ public class No1169_invalidTransactions {
         String[] transactions = {"alice,20,800,mtv","alice,50,100,beijing"};
         List<String> result = solution.invalidTransactions(transactions);
         System.out.println("Output invalid transactions:");
-        MyPrint.printArray(result);
+        MyPrint.printArray("result", result);
     }
 }

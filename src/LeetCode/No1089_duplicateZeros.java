@@ -81,10 +81,10 @@ public class No1089_duplicateZeros {
     public static void main(String[] args) {
         int[] Input = {1,5,2,0,6,8,0,6,0};
         System.out.println("Input:");
-        MyPrint.printArray(Input);
+        MyPrint.printArray("Input", Input);
         Solution s = new Solution();
         s.duplicateZeros(Input);
         System.out.println("Result:");
-        MyPrint.printArray(Input);
+        MyPrint.printArray("Input", Input);
     }
 }

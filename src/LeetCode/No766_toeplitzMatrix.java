@@ -95,7 +95,7 @@ public class No766_toeplitzMatrix {
         int matrix[][] = {{1,2,3,4}, {5,1,2,3}, {9,5,1,2}};
 
         System.out.println("Input =");
-        MyPrint.printMatrix(matrix);
+        MyPrint.printMatrix("matrix", matrix);
         System.out.println("Output = " + s.isToeplitzMatrix(matrix));
     }
 }

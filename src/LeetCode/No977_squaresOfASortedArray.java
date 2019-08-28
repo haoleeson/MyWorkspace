@@ -65,9 +65,9 @@ public class No977_squaresOfASortedArray {
         int[] Input = {-7,-3,4,4,4,5,11};
 
         System.out.println("Input =");
-        MyPrint.printArray(Input);
-        int[] r = s.sortedSquares(Input);
+        MyPrint.printArray("Input", Input);
+        int[] result = s.sortedSquares(Input);
         System.out.println("Squar =");
-        MyPrint.printArray(r);
+        MyPrint.printArray("result", result);
     }
 }

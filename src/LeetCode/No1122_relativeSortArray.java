@@ -85,10 +85,10 @@ public class No1122_relativeSortArray {
         int[] Input2 = {2,1,4,3,9,6};
         int[] res = s.relativeSortArray(Input1, Input2);
         System.out.println("Input1:");
-        MyPrint.printArray(Input1);
+        MyPrint.printArray("Input1", Input1);
         System.out.println("Input2:");
-        MyPrint.printArray(Input2);
+        MyPrint.printArray("Input2", Input2);
         System.out.println("Result:");
-        MyPrint.printArray(res);
+        MyPrint.printArray("Result", res);
     }
 }

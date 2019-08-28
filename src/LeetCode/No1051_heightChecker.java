@@ -60,7 +60,7 @@ public class No1051_heightChecker {
      * */
     public static void main(String[] args) {
         int[] Input = {1,1,4,2,1,3};
-        MyPrint.printArray(Input);
+        MyPrint.printArray("Input", Input);
         Solution s = new Solution();
 
         System.out.println(s.heightChecker(Input));

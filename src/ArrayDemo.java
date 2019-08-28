@@ -1,4 +1,4 @@
-import java.util.*;//使用Arrays.sort(arr);Arrays.binarySearch(arr,number);必须调用该库
+import java.util.*;//使用Arrays.sort(arr);Arrays.countTheBiggerNums(arr,number);必须调用该库
 public class ArrayDemo {
 
     public static void main ( String[] args ) {
