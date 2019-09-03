@@ -26,7 +26,7 @@ package LeetCode;
  *
  * coder:eisenhao
  * Java
- * 20190901
+ * 20190904
  * */
 
 public class No565_arrayNesting {
