@@ -40,4 +40,19 @@ public class MyPrint {
         }
         System.out.println("\"" + strList.get(strList.size()-1) + "\"\n]");
     }
+
+    /**
+     * 打印二维 List<List<Integer>>
+     * */
+    public static void print2WeiList(List<List<Integer>> input) {
+        System.out.println("[");
+        for (List<Integer> row : input) {
+            System.out.print("[");
+            for (int i = 0; i < row.size()-1; i++) {
+                System.out.print(row.get(i) + ", ");
+            }
+            System.out.println(row.get(row.size()-1) + "]");
+        }
+        System.out.println("]");
+    }
 }
