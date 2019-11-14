@@ -4,7 +4,6 @@
 
 #include "BitPrint.h"
 
-
 /**
      * 打印一个 byte 变量的每一位
      * 默认每一字节从左至右 对应 高位至地位
@@ -75,7 +74,7 @@ void BitPrint::bitPrint_Element(void *val, int len) {
         bitPrint_Byte(byteBuf[i]);
     }
     cout << endl;
-    delete byteBuf;//释放byteBuf内存
+    delete[] byteBuf;//释放byteBuf内存
 }
 
 /**
@@ -91,7 +90,51 @@ bool BitPrint::isBigEndian() {
     return (byteBuf[0] == 0x01) ? false : true;
 }
 
+/**
+ * 测试字节对齐
+ */
+void BitPrint::testByteAlignment() {
+    MSG1 msg1;
+    cout <<
+         "&msg1:\t\t\t\t" << (void*)&msg1 << " , " << (uint64_t)(void*)&msg1 - (uint64_t)(void*)&msg1 << endl <<
+         "&msg1.ID:\t\t\t" << (void*)&msg1.ID << " , " << (uint64_t)(void*)&msg1.ID - (uint64_t)(void*)&msg1 << endl <<
+         "&msg1.type:\t\t\t" << (void*)&msg1.type << " , " << (uint64_t)(void*)&msg1.type - (uint64_t)(void*)&msg1 << endl <<
+         "&msg1.flag:\t\t\t" << (void*)&msg1.flag << " , " << (uint64_t)(void*)&msg1.flag - (uint64_t)(void*)&msg1 << endl <<
+         "&msg1.uiHashValue:\t" << (void*)&msg1.uiHashValue << " , " << (uint64_t)(void*)&msg1.uiHashValue - (uint64_t)(void*)&msg1 << endl <<
+         "&msg1.uiDataLen:\t" << (void*)&msg1.uiDataLen << " , " << (uint64_t)(void*)&msg1.uiDataLen - (uint64_t)(void*)&msg1 << endl <<
+         "&msg1.contentData:\t" << (void*)msg1.contentData << " , " << (uint64_t)(void*)&msg1.contentData - (uint64_t)(void*)&msg1 << endl << endl;
 
+    MSG0 msg0;
+    cout <<
+         "&msg0:\t\t\t\t" << (void*)&msg0 << " , " << (uint64_t)(void*)&msg0 - (uint64_t)(void*)&msg0 << endl <<
+         "&msg0.ID:\t\t\t" << (void*)&msg0.ID << " , " << (uint64_t)(void*)&msg0.ID - (uint64_t)(void*)&msg0 << endl <<
+         "&msg0.type:\t\t\t" << (void*)&msg0.type << " , " << (uint64_t)(void*)&msg0.type - (uint64_t)(void*)&msg0 << endl <<
+         "&msg0.flag:\t\t\t" << (void*)&msg0.flag << " , " << (uint64_t)(void*)&msg0.flag - (uint64_t)(void*)&msg0 << endl <<
+         "&msg0.uiHashValue:\t" << (void*)&msg0.uiHashValue << " , " << (uint64_t)(void*)&msg0.uiHashValue - (uint64_t)(void*)&msg0 << endl <<
+         "&msg0.uiDataLen:\t" << (void*)&msg0.uiDataLen << " , " << (uint64_t)(void*)&msg0.uiDataLen - (uint64_t)(void*)&msg0 << endl <<
+         "&msg0.ulStartTime:\t" << (void*)&msg0.ulStartTime << " , " << (uint64_t)(void*)&msg0.ulStartTime - (uint64_t)(void*)&msg0 << endl <<
+         "&msg0.ulEndTime:\t" << (void*)&msg0.ulEndTime << " , " << (uint64_t)(void*)&msg0.ulEndTime - (uint64_t)(void*)&msg0 << endl <<
+         "&msg0.contentData:\t" << (void*)msg0.contentData << " , " << (uint64_t)(void*)&msg0.contentData - (uint64_t)(void*)&msg0 << endl << endl;
+}
+
+/**
+ * 测试字节操纵
+ */
+void BitPrint::testByteOperator() {
+    cout << MSG0_HEAD_LEN << endl;
+    cout << MSG1_HEAD_LEN << endl;
+
+    MSG0 msg0;
+    msg0.ulStartTime = 20181112ULL;
+    msg0.ulEndTime = 561341235ULL;
+
+    void* p = &msg0;
+
+    MSG1* msg1Ptr = (MSG1*)p;
+
+    cout  << "(msg1Ptr->contentData): " << (void *)(msg1Ptr->contentData) << ", " <<  *(unsigned long long int*)(msg1Ptr->contentData)  << " ULL" << endl;
+    cout  << "(msg1Ptr->contentData + 8): " << (void *)(msg1Ptr->contentData + 8)<< ", " <<  *(unsigned long long int*)(msg1Ptr->contentData + 8) << " ULL" << endl;
+}
 
 /**
  * main.cpp 测试
@@ -146,3 +189,4 @@ bool BitPrint::isBigEndian() {
 //
 //    return 0;
 //}
+
