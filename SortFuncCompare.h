@@ -9,13 +9,14 @@
 
 #include <iostream>
 #include <time.h>
-
-// 宏定义参数配置
-#define ElementType         int     // 排序元素类型
-#define MAX_RAND_VALUE      65535   // 生成随机数的最大值
-//#define m_uiSizeOfArray       1e5      // 待排序数组元素个数(每排序前会随机赋值)
 #define NUM_OF_SORT_FUNC    7       // 排序函数的个数
+
+// 可变参数宏定义
+#define ElementType         int     // 排序元素类型
 #define COMPARE             >       // 大于符号(增排序)，小于符号(减排序)
+#define MAX_RAND_VALUE      65535   // 生成随机数的最大值
+#define MIN_NUM_OF_RAND_ARRAY 10    // 随机函数规模的最小值
+#define MAX_NUM_OF_RAND_ARRAY 1e3   // 随机函数规模的最小值
 
 class SortFuncCompare {
 public:

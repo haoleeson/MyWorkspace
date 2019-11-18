@@ -53,7 +53,7 @@ void SortFuncCompare::refreshArray(unsigned int size) {
         delete []m_array;
     m_uiSizeOfArray = size;
     m_array = new ElementType[m_uiSizeOfArray];
-    srand((int)time(NULL));  // 产生随机种子
+    srand((int)time(NULL));  // Generate random seeds
     for (int i = 0; i < m_uiSizeOfArray; ++i) {
         *(m_array + i) = rand() % MAX_RAND_VALUE;
     }
@@ -90,27 +90,28 @@ double SortFuncCompare::testRunTime(void (*pFunction)(ElementType *)) {
  * 测试函数
  */
 void SortFuncCompare::testFuncRuntime(void) {
-    double *runTime = new double[NUM_OF_SORT_FUNC];// 记录运行时间
-    // 随机数组大小 10 ～ 1000,000
-    for (unsigned int size = 10; size <= 1e6; size *= 10) {
+    double *runTime = new double[NUM_OF_SORT_FUNC];// Record the running time
+    // Size of random array:10 ～ 100,000
+    for (unsigned int size = MIN_NUM_OF_RAND_ARRAY; size <= MAX_NUM_OF_RAND_ARRAY; size *= 10) {
         for (int i = 0; i < NUM_OF_SORT_FUNC; ++i) {
-            // 生成随机数填充待排序数组
+            // Generate a random array
             refreshArray(size);
-            // 排序并记录运行时长
+            // Execute and record the running time
             *(runTime + i) = testRunTime(func[i]);
         }
-        // 输出7大排序函数，排序相同size的随机数组所耗时间
+        // Output time consuming
         cout << "Num of Array = " << size << "\t: ";
         for (int j = 0; j < NUM_OF_SORT_FUNC - 1; ++j) {
             cout << *(runTime + j) << ", ";
         }
         cout << *(runTime + NUM_OF_SORT_FUNC - 1) << endl;
     }
+    delete[] runTime;
 }
 
 /**
  * 冒泡排序
- * @describe 时间复杂度：O(N^2), 空间复杂度：O(1), 原地, 稳定
+ * @describe 时间复杂度:O(N^2)，空间复杂度:O(1)，原地，稳定
  * @param pArray
  */
 void SortFuncCompare::Bubble_Sort(ElementType* pArray) {
@@ -132,7 +133,7 @@ void SortFuncCompare::Bubble_Sort(ElementType* pArray) {
 
 /**
  * 选择排序
- * @describe 时间复杂度：O(N^2), 空间复杂度：O(1), 原地, 稳定
+ * @describe 时间复杂度:O(N^2)，空间复杂度:O(1)，原地，稳定
  * @param pArray
  */
 void SortFuncCompare::Selection_Sort(ElementType *pArray) {
@@ -147,7 +148,7 @@ void SortFuncCompare::Selection_Sort(ElementType *pArray) {
 
 /**
  * 插入排序
- * @describe 时间复杂度：O(N^2), 空间复杂度：O(1), 原地, 稳定
+ * @describe 时间复杂度:O(N^2)，空间复杂度:O(1)，原地，稳定
  * @param pArray
  */
 void SortFuncCompare::Insertion_Sort(ElementType *pArray) {
@@ -165,7 +166,7 @@ void SortFuncCompare::Insertion_Sort(ElementType *pArray) {
 
 /**
  * 希尔排序
- * @describe 时间复杂度：O(N^1.25 ～N^1.5), 空间复杂度：O(1), 原地, 非稳定
+ * @describe 时间复杂度:O(N^1.25 ～N^1.5)，空间复杂度:O(1)，原地，非稳定
  * @param pArray
  */
 void SortFuncCompare::Shell_Sort(ElementType *pArray) {
@@ -186,7 +187,7 @@ void SortFuncCompare::Shell_Sort(ElementType *pArray) {
 
 /**
  * 堆排序
- * @describe 时间复杂度：O(NlogN), 空间复杂度：O(1), 原地, 非稳定
+ * @describe 时间复杂度:O(NlogN)，空间复杂度:O(1)，原地，非稳定
  * @param pArray
  */
 void SortFuncCompare::Heap_Sort(ElementType *pArray) {
@@ -216,7 +217,7 @@ void SortFuncCompare::heapDown(ElementType *pArray, int fatherIndex, int maxInde
 
 /**
  * 归并排序
- * @describe 时间复杂度：O(NlogN), O(n), 非原地, 非稳定
+ * @describe 时间复杂度:O(NlogN), O(n)，非原地，非稳定
  * @param pArray
  */
 void SortFuncCompare::Merge_Sort(ElementType *pArray) {
@@ -261,14 +262,14 @@ void SortFuncCompare::merge(ElementType *pArray, ElementType *tmpA,
 
 /**
  * 快速排序
- * @describe 时间复杂度：O(N^2 ~ NlogN), 空间复杂度：O(1), 原地, 非稳定
+ * @describe 时间复杂度:O(N^2 ~ NlogN)，空间复杂度:O(1)，原地，非稳定
  * @param pArray
  */
 void SortFuncCompare::Quick_Sort(ElementType *pArray) {
 //    cout << "Quick Sort" << endl;
     quickSort(pArray, 0, m_uiSizeOfArray - 1);
 }
-#define MIN_NUM_OF_CUTOFF 32 // 子列长度小于此阈值时，调插入排序
+#define MIN_NUM_OF_CUTOFF 32 // when the length of subarray small than MIN_NUM_OF_CUTOFF, choose the insert sort
 void SortFuncCompare::quickSort(ElementType *pArray, int leftIndex, int rightIndex) {
     if (rightIndex - leftIndex > MIN_NUM_OF_CUTOFF) {
         int i = leftIndex;
