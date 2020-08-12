@@ -79,6 +79,23 @@ private:
     map<int, Node*> m_nodeMap;
 };
 
+/**
+ * 力扣其他做法，用空间换时间，思路不错
+ */
+class Solution2 {
+public:
+    Node* copy[100] = {NULL}; // 复用
+    Node* cloneGraph(Node* node) {
+        if (node == NULL) return NULL; // 节点为空
+        if (copy[node->val - 1] == NULL) // 未访问过，新建
+            copy[node->val - 1] = new Node(node->val);
+        else return copy[node->val - 1]; // 访问过，复用
+        for (int i = 0; i < node->neighbors.size(); i++) // 遍历邻居
+            copy[node->val - 1]->neighbors.push_back(cloneGraph(node->neighbors[i]));
+        return copy[node->val - 1];
+    }
+};
+
 int main() {
     Solution solutionl;
 
