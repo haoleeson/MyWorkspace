@@ -21,7 +21,7 @@ num1 和num2均不以零开头，除非是数字 0 本身。
 
 */
 
-class Solution {
+class Solution1 {
 public:
     /**
      * 字符串相乘
@@ -114,6 +114,60 @@ private:
         }
 
         return jinWei == 1 ? "1" + ans : ans;
+    }
+};
+
+/**
+ * Leetcode评论启发：
+ * num1的第i位(高位从0开始)和num2的第j位相乘的结果在乘积中的位置是[i+j, i+j+1]
+例: 123 * 45,  123的第1位 2 和45的第0位 4 乘积 08 存放在结果的第[1, 2]位中
+  index:    0 1 2 3 4
+
+                1 2 3
+            *     4 5
+            ---------
+                  1 5
+                1 0
+              0 5
+            ---------
+              0 6 1 5
+                1 2
+              0 8
+            0 4
+            ---------
+            0 5 5 3 5
+   这样我们就可以单独都对每一位进行相乘计算把结果存入相应的index中
+ */
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        int n1 = num1.length() - 1, n2 = num2.length() - 1, bitMul;
+        if (n1 < 0 || n2 < 0) {
+            return "";
+        }
+        int* mulAnsArr = new int[n1 + n2 + 2]{0};
+
+        string ans = "";
+
+        for (int i = n1; i >= 0; --i) {
+            for (int j = n2; j >= 0; --j) {
+                bitMul = (int)(num1[i] - '0') * (int)(num2[j] - '0') + mulAnsArr[i + j + 1]; // 先加低位判断是否有新的进位
+
+                mulAnsArr[i + j] += bitMul / 10;
+                mulAnsArr[i + j + 1] = bitMul % 10;
+            }
+        }
+
+        int iterator = 0;
+        // 去掉前导0
+        while (iterator < n1 + n2 + 1 && mulAnsArr[iterator] == 0) {
+            ++iterator;
+        }
+        for(; iterator < n1 + n2 + 2; ++iterator) {
+            ans += '0' + (char)mulAnsArr[iterator];
+        }
+        delete []mulAnsArr;
+        return ans;
     }
 };
 
