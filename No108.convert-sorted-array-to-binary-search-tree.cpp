@@ -59,7 +59,4 @@ public:
         tmpNode->right = sortedSubArray(nums, mid+1, right);//分治2
         return tmpNode;
     }
-
 };
-
-
