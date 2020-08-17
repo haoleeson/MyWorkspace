@@ -47,7 +47,7 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-class Solution {
+class Solution1 {
 public:
     bool isBalanced(TreeNode* root) {
         //特殊值
@@ -111,5 +111,58 @@ public:
         }
     }
 };
+
+/**
+ * 解题思路：dfs
+ */
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        int hight = highOfTree(root);
+        return isBalanceFlag;
+    }
+
+private:
+    bool isBalanceFlag = true;
+
+    int highOfTree(TreeNode* node) {
+        if (node == NULL) {
+            return 0;
+        }
+
+        // 判断每个节点是否平衡
+        int tmpLeftHigh = highOfTree(node->left);
+        int tmpRightHigh = highOfTree(node->right);
+        if (tmpLeftHigh > tmpRightHigh + 1 || tmpRightHigh > tmpLeftHigh + 1) {
+            isBalanceFlag = false;
+        }
+
+        return 1 + max(tmpLeftHigh, tmpRightHigh);
+    }
+};
+
+int main() {
+    Solution solution;
+
+    TreeNode* root1 = new TreeNode(3);
+    root1->left = new TreeNode(9);
+    root1->right = new TreeNode(20);
+    root1->right->left = new TreeNode(15);
+    root1->right->right = new TreeNode(7);
+
+    TreeNode* root2 = new TreeNode(1);
+    root2->left = new TreeNode(2);
+    root2->right = new TreeNode(2);
+    root2->left->left = new TreeNode(3);
+    root2->left->right = new TreeNode(3);
+    root2->left->left->left = new TreeNode(4);
+    root2->left->left->right = new TreeNode(4);
+
+    cout << solution.isBalanced(root1) << endl;
+    cout << solution.isBalanced(root2) << endl;
+
+    return 0;
+}
+
 
 
