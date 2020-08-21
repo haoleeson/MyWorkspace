@@ -1,33 +1,29 @@
-/** 题目描述：
- * 111. 二叉树的最小深度
+#include <iostream>
+using namespace std;
+
+/**
+ * No111. 二叉树的最小深度
  * 给定一个二叉树，找出其最小深度。
-
-最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
-
-说明: 叶子节点是指没有子节点的节点。
+ * 最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+ * 说明:叶子节点是指没有子节点的节点。
 
 示例:
 
-给定二叉树 [3,9,20,null,null,15,7],
-
+给定二叉树[3,9,20,null,null,15,7],
     3
    / \
   9  20
     /  \
    15   7
-返回它的最小深度  2.
 
- *
- * Encoding：utf-8
- * Programming language：c++
- * Coder：eisenhao
- * 20190317
- * */
-#include <iostream>
+返回它的最小深度 2.
 
-using namespace std;
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/minimum-depth-of-binary-tree
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
 
-//Definition for a binary tree node.
+// Definition for a binary tree node.
 struct TreeNode {
     int val;
     TreeNode *left;
@@ -35,30 +31,35 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+/**
+ * 解题思路：递归
+ */
 class Solution {
 public:
     int minDepth(TreeNode* root) {
-        //特殊值
-        if (root == NULL) {
+        if (root == nullptr) {
             return 0;
         }
-        //左右子结点均为空
-        if (root->left == NULL && root->right == NULL) {
+        // 只有叶子节点才能返回
+        if (root->left == nullptr && root->right == nullptr) {
             return 1;
         }
-        //若左子结点为空，则右子结点非空
-        if (root->left == NULL) {
-            return minDepth(root->right)+1;
+        if (root->left != nullptr && root->right != nullptr) {
+            return 1 + min(minDepth(root->left), minDepth(root->right));
         }
-        //若右子结点为空，则左子结点非空
-        if (root->right == NULL) {
-            return minDepth(root->left)+1;
-        }
-        //左右子结点均非空
-        int leftMinDepth = minDepth(root->left);
-        int rightMinDepth = minDepth(root->right);
-        return leftMinDepth < rightMinDepth ? ++leftMinDepth : ++rightMinDepth;
+        return (root->left == nullptr) ? 1 + minDepth(root->right) : 1 + minDepth(root->left);
     }
 };
 
+int main() {
+    Solution solution;
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(9);
+    root->right = new TreeNode(20);
+    root->right->left = new TreeNode(15);
+    root->right->right = new TreeNode(7);
 
+    cout << solution.minDepth(root) << endl;
+
+    return 0;
+}
