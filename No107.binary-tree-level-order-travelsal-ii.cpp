@@ -1,6 +1,11 @@
-/** 题目描述：
- * 107. 二叉树的层次遍历 II
-给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+#include <iostream>
+#include <vector>
+using namespace std;
+
+/**
+ * No107. 二叉树的层次遍历 II
+ * 给定一个二叉树，返回其节点值自底向上的层次遍历。
+ * （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
 
 例如：
 给定二叉树 [3,9,20,null,null,15,7],
@@ -17,15 +22,11 @@
   [9,20],
   [3]
 ]
- *
- * Encoding：utf-8
- * Programming language：c++
- * Coder：eisenhao
- * 20190306
- * */
-#include <iostream>
-#include <vector>
-using namespace std;
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
 
 //Definition for a binary tree node.
 struct TreeNode {
@@ -36,6 +37,46 @@ struct TreeNode {
 };
 
 class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> ans;
+        vector<TreeNode*> nodes;
+        int count = 0, countNext = 0;
+
+        if (root == nullptr) {
+            return ans;
+        }
+        nodes.push_back(root);
+        count = 1;
+
+        // 逐层遍历
+        while (count) {
+            countNext = 0;
+            vector<int> tmp;
+            for (int i = 0; i < count; ++i) {
+                tmp.push_back(nodes[i]->val);
+                if (nodes[i]->left != nullptr) {
+                    nodes.push_back(nodes[i]->left);
+                    ++countNext;
+                }
+                if (nodes[i]->right != nullptr) {
+                    nodes.push_back(nodes[i]->right);
+                    ++countNext;
+                }
+            }
+            // 删除这一层
+            nodes.erase(nodes.begin(), nodes.begin() + count);
+            // 逆序插入结果vector中
+            ans.insert(ans.begin(), tmp);
+            // 清空tmp
+            vector<int> ().swap(tmp);
+            count = countNext;
+        }
+        return ans;
+    }
+};
+
+class SolutionOld {
 public:
     vector<vector<int>> levelOrderBottom(TreeNode* root) {
         vector<vector<int>> result; //存返回结果
@@ -76,3 +117,36 @@ public:
         return result;
     }
 };
+
+
+template <typename T>
+void printVec2D(vector<vector<T>>& vec2D) {
+    int size = vec2D.size();
+    cout << "[" << endl;
+    for (int i = 0; i < size - 1; ++i) {
+        cout << "    [";
+        for (int j = 0; j < vec2D[i].size() - 1; ++j) {
+            cout << vec2D[i][j] << ",";
+        }
+        cout << vec2D[i][vec2D[i].size() - 1] << "]," << endl;
+    }
+    cout << "    [";
+    for (int j = 0; j < vec2D[size - 1].size() - 1; ++j) {
+        cout << vec2D[size - 1][j] << ",";
+    }
+    cout << vec2D[size - 1][vec2D[size - 1].size() - 1] << "]" << endl;
+    cout << "]" << endl;
+}
+
+int main() {
+    Solution solution;
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(9);
+    root->right = new TreeNode(20);
+    root->right->left = new TreeNode(15);
+    root->right->right = new TreeNode(7);
+
+    vector<vector<int>> result = solution.levelOrderBottom(root);
+    printVec2D(result);
+    return 0;
+}
