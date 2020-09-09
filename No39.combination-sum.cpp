@@ -142,8 +142,8 @@ void printVec2D(vector<vector<T>>& vec) {
 
 int main() {
     Solution solution;
-    int arr[] = {1};
-    int target = 1;
+    int arr[] = {2,3,5};
+    int target = 8;
     vector<int> candidates(arr, arr + sizeof(arr) / sizeof(int));
     vector<vector<int>> result = solution.combinationSum(candidates, target);
     printVec2D(result);
