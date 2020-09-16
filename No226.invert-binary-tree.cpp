@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "myTools.h"
 using namespace std;
 
 /**
@@ -29,14 +30,6 @@ using namespace std;
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
-// Definition for a binary tree node.
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
 class Solution {
     void dfs(TreeNode* node) {
         if (node != nullptr) {
@@ -63,6 +56,8 @@ int main() {
     root->left->right = new TreeNode(3);
     root->right->left = new TreeNode(6);
     root->right->right = new TreeNode(9);
+    MyTools::printTree(root);
     root = solution.invertTree(root);
+    MyTools::printTree(root);
     return 0;
 }
