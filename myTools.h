@@ -91,17 +91,23 @@ public:
         std::cout << "[" << std::endl;
         if (size > 0) {
             size2 = vec2D[0].size();
-            std::cout << "  [" << vec2D[0][0];
-            for (int j = 1; j < size2; ++j) {
-                std::cout << "," << vec2D[0][j];
+            std::cout << "  [";
+            if (size2 > 0) {
+                std::cout << vec2D[0][0];
+                for (int j = 1; j < size2; ++j) {
+                    std::cout << "," << vec2D[0][j];
+                }
             }
             std::cout << "]";
 
             for (int i = 1; i < size; ++i) {
                 size2 = vec2D[i].size();
-                std::cout << "," << std::endl << "  [" << vec2D[i][0];
-                for (int j = 1; j < size2; ++j) {
-                    std::cout << "," << vec2D[i][j];
+                std::cout << "," << std::endl << "  [";
+                if (size2 > 0) {
+                    std::cout << vec2D[i][0];
+                    for (int j = 1; j < size2; ++j) {
+                        std::cout << "," << vec2D[i][j];
+                    }
                 }
                 std::cout << "]";
             }
