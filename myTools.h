@@ -29,12 +29,15 @@ public:
      * 打印链表
      */
     static void printList(ListNode* head) {
-        ListNode* ptr = head;
-        while (ptr ->next != nullptr) {
-            std::cout << ptr->val << "->";
-            ptr = ptr->next;
+        if (head) {
+            ListNode* ptr = head;
+            while (ptr->next != nullptr) {
+                std::cout << ptr->val << "->";
+                ptr = ptr->next;
+            }
+            std::cout << ptr->val;
         }
-        std::cout << ptr->val << std::endl;
+        std::cout << std::endl;
     }
 
     /**
@@ -95,7 +98,7 @@ public:
             if (size2 > 0) {
                 std::cout << vec2D[0][0];
                 for (int j = 1; j < size2; ++j) {
-                    std::cout << "," << vec2D[0][j];
+                    std::cout << "\t," << vec2D[0][j];
                 }
             }
             std::cout << "]";
@@ -106,7 +109,7 @@ public:
                 if (size2 > 0) {
                     std::cout << vec2D[i][0];
                     for (int j = 1; j < size2; ++j) {
-                        std::cout << "," << vec2D[i][j];
+                        std::cout << "\t," << vec2D[i][j];
                     }
                 }
                 std::cout << "]";
