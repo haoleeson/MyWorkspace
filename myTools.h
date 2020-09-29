@@ -6,6 +6,7 @@
 #define __MYTOOLS_H_
 #include <iostream>
 #include <vector>
+#include <stack>
 #include <queue>
 
 // Definition for a binary tree node.
@@ -116,6 +117,79 @@ public:
             }
         }
         std::cout << std::endl << "]" << std::endl;
+    }
+
+    /**
+     * 二叉树的 前序遍历 (根 左 右) (迭代)
+     */
+    static std::vector<int> preorderTraversal(TreeNode* root) {
+        std::vector<int> ans;
+        std::stack<TreeNode* > s;
+        while (root != nullptr || !s.empty()) {
+            if (root != nullptr) {
+                // 输出 根
+                ans.push_back(root->val);
+                // 栈存 右
+                if (root->right) {
+                    s.push(root->right);
+                }
+                // 遍历 左
+                root = root->left;
+            } else {
+                root = s.top();
+                s.pop();
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 二叉树的 中序遍历 (左 根 右) (迭代)
+     */
+    static std::vector<int> inorderTraversal(TreeNode* root) {
+        std::vector<int> ans;
+        std::stack<TreeNode*> s;
+        while (root != nullptr || !s.empty()) {
+            // 先遍历左节点，根节点入栈
+            while (root != nullptr) {
+                // 栈存 根
+                s.push(root);
+                // 遍历 左
+                root = root->left;
+            }
+            root = s.top();
+            s.pop();
+            // 输出根
+            ans.push_back(root->val);
+            // 遍历 右
+            root = root->right;
+        }
+        return ans;
+    }
+
+    /**
+     * 二叉树的 后序遍历 (左 右 根)（迭代）
+     */
+    static std::vector<int> postorderTraversal(TreeNode* root) {
+        std::vector<int> ans;
+        std::stack<TreeNode*> s;
+
+        while (root != nullptr || !s.empty()) {
+            if (root != nullptr) {
+                // 头插 根
+                ans.insert(ans.begin(), root->val);
+                // 栈存 左
+                if (root->left) {
+                    s.push(root->left);
+                }
+                // 遍历 右
+                root = root->right;
+            } else {
+                root = s.top();
+                s.pop();
+            }
+        }
+        return ans;
     }
 };
 
