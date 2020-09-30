@@ -1,8 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include <stack>
-#include <string>
 #include "myTools.h"
 using namespace std;
 
