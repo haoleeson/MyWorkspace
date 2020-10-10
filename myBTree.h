@@ -164,6 +164,10 @@ VALUE_TYPE BTreeNode<KEY_TYPE, VALUE_TYPE>::getValue(KEY_TYPE key) {
 
 template<class KEY_TYPE, class VALUE_TYPE>
 void BTreeNode<KEY_TYPE, VALUE_TYPE>::print() {
+    // 第几层节点打印几个TAB
+    for (BTreeNode<KEY_TYPE, VALUE_TYPE>* ptr = this->parent; ptr != nullptr; ptr = ptr->parent) {
+        cout << "    ";
+    }
     cout << "{" << "isLeaf:" << isLeaf << ", keyNum:" << keyNum << ", key:[";
     if (keyNum > 0) {
         cout << keys[0];
@@ -184,9 +188,12 @@ void BTreeNode<KEY_TYPE, VALUE_TYPE>::print() {
         cout << "childPtrs:[" << endl;
         for (int i = 0; i < keyNum + 1; ++i) {
             if (childPtrs[i] != nullptr) {
-                cout << "\t";
                 childPtrs[i]->print();
             }
+        }
+        // 第几层节点打印几个TAB
+        for (BTreeNode<KEY_TYPE, VALUE_TYPE>* ptr = this->parent; ptr != nullptr; ptr = ptr->parent) {
+            cout << "    ";
         }
     }
     cout << "]}" << endl;
