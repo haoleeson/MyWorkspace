@@ -32,6 +32,7 @@ private:
 private:
     void fillValue(int keyIndex, KEY_TYPE key, void* valuePtr);// 填充值（需外部确保keyIndex有效）
     void fillValue(void* valuePtr);// 填充 valuePtrs[0] 或 childPtrs[0] 值
+    void removeValue(int keyIndex);// 删除值
     int binarySearchKey(KEY_TYPE key);// 二分查询关键字数组中，第一个key[i] >= key对应的子节点可能所在下标 i
 public:
     BTreeNode(int maxKeyNum, bool isLeaf = true);
@@ -60,6 +61,7 @@ public:
     BTree(int m = 3);
     ~BTree();
     bool insert(KEY_TYPE key, VALUE_TYPE value);// 插入<key, value>
+    bool remove(KEY_TYPE key);// 从B树中删除<key, value>（若存在）
     VALUE_TYPE getValue(KEY_TYPE key);// 获取key的value值，无则返回nullptr
     void print();// 打印B树
 };
@@ -223,6 +225,38 @@ void BTreeNode<KEY_TYPE, VALUE_TYPE>::fillValue(void *valuePtr) {
     } else {
         childPtrs[0] = (BTreeNode<KEY_TYPE, VALUE_TYPE>*)valuePtr;
         childPtrs[0]->parent = this;
+    }
+}
+
+/**
+ * 删除值
+ * @tparam KEY_TYPE
+ * @tparam VALUE_TYPE
+ * @param keyIndex 有效范围 [-1, keyNum)
+ */
+template<class KEY_TYPE, class VALUE_TYPE>
+void BTreeNode<KEY_TYPE, VALUE_TYPE>::removeValue(int keyIndex) {
+    // keyIndex不合法直接返回；或当 keyIndex == -1 且 keyNum == 0 时，需删除节点，无需执行以下操作
+    if (keyIndex < -1 || keyIndex >= keyNum || keyNum == 0) {
+        return;
+    }
+    // 删除 valuePtr[keyIndex + 1] 或 childPtrs[keyIndex + 1]，前挪
+    if (isLeaf) {
+        for (int i = keyIndex + 1; i < keyNum; ++i) {
+            valuePtrs[i] = valuePtrs[i + 1];
+        }
+    } else {
+        for (int i = keyIndex + 1; i < keyNum; ++i) {
+            childPtrs[i] = childPtrs[i + 1];
+        }
+    }
+    // 删除 keys[keyIndex]，keyIndex == -1 时等价于删除keys[0]
+    if (keyIndex == -1) {
+        keyIndex = 0;
+    }
+    --keyNum;
+    for (int i = keyIndex; i < keyNum; ++i) {
+        keys[i] = keys[i + 1];
     }
 }
 
@@ -404,5 +438,51 @@ VALUE_TYPE BTree<KEY_TYPE, VALUE_TYPE>::getValue(KEY_TYPE key) {
     return root->getValue(key);
 }
 
+/**
+ * 从B树中删除<key, value>（若存在）
+ * @tparam KEY_TYPE
+ * @tparam VALUE_TYPE
+ * @param key
+ * @return true -- 删除成功； false -- 不存在 / 删除失败
+ */
+template<class KEY_TYPE, class VALUE_TYPE>
+bool BTree<KEY_TYPE, VALUE_TYPE>::remove(KEY_TYPE key) {
+    int i;
+    BTreeNode<KEY_TYPE, VALUE_TYPE>* ptr = root;
+    while (true) {
+        i = ptr->binarySearchKey(key);
+        if (i < ptr->keyNum && ptr->keys[i] == key) {
+            // 若此节点是叶子节点，直接删除
+            if (ptr->isLeaf) {
+                ptr->removeValue(i);
+                return true;
+            }
+            // 若此节点非叶子节点, 继续下落到叶子节点
+            KEY_TYPE* recordKey = &ptr->keys[i];
+            BTreeNode<KEY_TYPE, VALUE_TYPE>* childPtr = ptr->childPtrs[i + 1];
+            while (childPtr->keyNum > 0) {
+                i = -1;
+                ptr = childPtr;
+                if (ptr->isLeaf) {
+                    break;
+                }
+                childPtr = childPtr->childPtrs[0];
+            }
+            if (childPtr && childPtr->keyNum == 0) {
+                delete childPtr;
+            }
+            *recordKey = ptr->keys[i + 1];
+            ptr->removeValue(i);
+            return true;
+        }
+        // 若是叶子节点，说明不存在该key，则返回false
+        if (ptr->isLeaf) {
+            break;
+        }
+        // 若非叶子节点，继续向下寻找待删除的key
+        ptr = ptr->childPtrs[i];
+    }
+    return false;
+}
 
 #endif //__MYBTREE_H_
