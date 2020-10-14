@@ -6,12 +6,14 @@
  * 3. 支持二分法查找关键字数组
  * 4. BTree 对象，支持：新增(或改值)、删除、查询、结构化打印 Btree 的<key, value>内容
  * author: EisenHao
- * date：2020/10/6.
+ * date：2020/10/15.
  */
 
 #ifndef __MYBTREE_H_
 #define __MYBTREE_H_
 #include <iostream>
+#include <string>
+#include <sstream>
 using namespace std;
 
 template<class KEY_TYPE, class VALUE_TYPE>
@@ -38,7 +40,6 @@ private:
     void fillValue(int keyIndex, KEY_TYPE key, void* valuePtr);// 填充值（需外部确保keyIndex有效）
     void fillValue(void* valuePtr);// 填充 valuePtrs[0] 或 childPtrs[0] 值
     void insert0Value(KEY_TYPE key0, void* valuePtr0);// 插入 keys[0] 和 childPtrs[0] 的值，其他key后挪
-    void delete0Value();// 删除keys[0] 和 childPtrs[0] 的值，其他key前挪
     void removeValue(int keyIndex);// 删除值
     int binarySearchKey(KEY_TYPE key);// 二分查询关键字数组中，第一个key[i] >= key对应的子节点可能所在下标 i
 public:
@@ -46,7 +47,7 @@ public:
     ~BTreeNode();
     bool containKey(KEY_TYPE key);// 查询key是否存在
     VALUE_TYPE getValue(KEY_TYPE key);// 获取key的value值，无则返回nullptr
-    void print();// 节点打印
+    string toString();// 节点打印
 };
 
 /**
@@ -64,24 +65,29 @@ private:
     bool appointInsert(BTreeNode<KEY_TYPE, VALUE_TYPE>*node, KEY_TYPE key, void* valuePtr);// 指定节点的插入操作
     bool appointSplitInsert(BTreeNode<KEY_TYPE, VALUE_TYPE>*splitNode, KEY_TYPE key, void* valuePtr);// 指定已满节点的分裂插入操作
     bool appointNotFullInsert(BTreeNode<KEY_TYPE, VALUE_TYPE>*InsertNode, KEY_TYPE key, void* valuePtr);// 指定未满节点的插入操作
+    bool appointRemove(BTreeNode<KEY_TYPE, VALUE_TYPE>*node, KEY_TYPE& recordKey, int deleteKeyIndex, int childOrder);// 指定节点的删除操作
     bool browFromLeftBro(BTreeNode<KEY_TYPE, VALUE_TYPE>*node, int childOrder);// 右旋：从左兄弟节点挪一个关键字到node节点（以维持node节点平衡）
     bool browFromRightBro(BTreeNode<KEY_TYPE, VALUE_TYPE>*node, int childOrder);// 左旋：从右兄弟节点挪一个关键字到node节点（以维持node节点平衡）
     bool whirl(BTreeNode<KEY_TYPE, VALUE_TYPE>*node, int childOrder);// 旋转，若左右兄弟存在，则间接向左右兄弟借关键码
     bool mergeTwoContChild(BTreeNode<KEY_TYPE, VALUE_TYPE>*parent, int firstChildOrder);// 合并两个连续的子节点
     bool mergeWithLeftOrRightBro(BTreeNode<KEY_TYPE, VALUE_TYPE>*node, int childOrder);// 与左兄弟节点 或 右兄弟节点合并
     bool balance(BTreeNode<KEY_TYPE, VALUE_TYPE>*node, int childOrder);// 维持 node 节点平衡
+    bool reduceLevel(BTreeNode<KEY_TYPE, VALUE_TYPE>*node, int childOrder);// 降层处理
 public:
     BTree(int m = 3);
     ~BTree();
+    bool containKey(KEY_TYPE key);// 查询key是否存在
     bool insert(KEY_TYPE key, VALUE_TYPE value);// 插入<key, value>
     bool remove(KEY_TYPE key);// 从B树中删除<key, value>（若存在）
     VALUE_TYPE getValue(KEY_TYPE key);// 获取key的value值，无则返回nullptr
     void print();// 打印B树
-    void test();
 };
 
 
+
 /***********************************  下方为实现部分 ***********************************/
+
+
 
 /**
  * B树节点类，构造函数
@@ -127,6 +133,9 @@ BTreeNode<KEY_TYPE, VALUE_TYPE>::~BTreeNode() {
  */
 template<class KEY_TYPE, class VALUE_TYPE>
 int BTreeNode<KEY_TYPE, VALUE_TYPE>::binarySearchKey(KEY_TYPE key) {
+    if (keyNum <= 0) {
+        return 0;
+    }
     int left = 0, right = keyNum - 1, mid = (left + right) / 2;
     while (left < right && keys[mid] != key) {
         if (keys[mid] > key) {
@@ -179,40 +188,42 @@ VALUE_TYPE BTreeNode<KEY_TYPE, VALUE_TYPE>::getValue(KEY_TYPE key) {
 }
 
 template<class KEY_TYPE, class VALUE_TYPE>
-void BTreeNode<KEY_TYPE, VALUE_TYPE>::print() {
+string BTreeNode<KEY_TYPE, VALUE_TYPE>::toString() {
+    stringstream ss;
     // 第几层节点打印几个TAB
     for (BTreeNode<KEY_TYPE, VALUE_TYPE>* ptr = this->parent; ptr != nullptr; ptr = ptr->parent) {
-        cout << "    ";
+        ss << "    ";
     }
-    cout << "{" << "isLeaf:" << isLeaf << ", keyNum:" << keyNum << ", key:[";
+    ss << "{" << "isLeaf:" << isLeaf << ", keyNum:" << keyNum << ", key:[";
     if (keyNum > 0) {
-        cout << keys[0];
+        ss << keys[0];
         for (int i = 1; i < keyNum; ++i) {
-            cout << "," << keys[i];
+            ss << "," << keys[i];
         }
     }
-    cout << "], ";
+    ss << "], ";
     if (isLeaf) {
-        cout << "valuePtrs:[";
+        ss << "valuePtrs:[";
         if (keyNum >= 0) {
-            cout << valuePtrs[0];
+            ss << valuePtrs[0];
             for (int i = 1; i <= keyNum; ++i) {
-                cout << "," << valuePtrs[i];
+                ss << "," << valuePtrs[i];
             }
         }
     } else {
-        cout << "childPtrs:[" << endl;
+        ss << "childPtrs:[\n";
         for (int i = 0; i < keyNum + 1; ++i) {
             if (childPtrs[i] != nullptr) {
-                childPtrs[i]->print();
+                ss << childPtrs[i]->toString();
             }
         }
         // 第几层节点打印几个TAB
         for (BTreeNode<KEY_TYPE, VALUE_TYPE>* ptr = this->parent; ptr != nullptr; ptr = ptr->parent) {
-            cout << "    ";
+            ss << "    ";
         }
     }
-    cout << "]}" << endl;
+    ss << "]}\n";
+    return ss.str();
 }
 
 /**
@@ -272,6 +283,7 @@ void BTreeNode<KEY_TYPE, VALUE_TYPE>::insert0Value(KEY_TYPE key0, void *valuePtr
 
 /**
  * 删除值
+ * @describe 若非叶子节点，会释放 childPtrs[keyIndex + 1] 内存
  * @tparam KEY_TYPE
  * @tparam VALUE_TYPE
  * @param keyIndex 有效范围 [-1, keyNum)
@@ -282,12 +294,15 @@ void BTreeNode<KEY_TYPE, VALUE_TYPE>::removeValue(int keyIndex) {
     if (keyIndex < -1 || keyIndex >= keyNum || keyNum == 0) {
         return;
     }
-    // 删除 valuePtr[keyIndex + 1] 或 childPtrs[keyIndex + 1]，前挪
+    // 删除 valuePtr[keyIndex + 1] 或 childPtrs[keyIndex + 1]，其他前挪
     if (isLeaf) {
         for (int i = keyIndex + 1; i < keyNum; ++i) {
             valuePtrs[i] = valuePtrs[i + 1];
         }
     } else {
+        if (childPtrs[keyIndex + 1]) {
+            delete childPtrs[keyIndex + 1];
+        }
         for (int i = keyIndex + 1; i < keyNum; ++i) {
             childPtrs[i] = childPtrs[i + 1];
         }
@@ -298,28 +313,6 @@ void BTreeNode<KEY_TYPE, VALUE_TYPE>::removeValue(int keyIndex) {
     }
     --keyNum;
     for (int i = keyIndex; i < keyNum; ++i) {
-        keys[i] = keys[i + 1];
-    }
-}
-
-/**
- * 删除keys[0] 和 childPtrs[0] 的值，其他key前挪
- * @tparam KEY_TYPE
- * @tparam VALUE_TYPE
- */
-template<class KEY_TYPE, class VALUE_TYPE>
-void BTreeNode<KEY_TYPE, VALUE_TYPE>::delete0Value() {
-    if (isLeaf) {
-        for (int i = 0; i < keyNum; ++i) {
-            valuePtrs[i] = valuePtrs[i + 1];
-        }
-    } else {
-        for (int i = 0; i < keyNum; ++i) {
-            childPtrs[i] = childPtrs[i + 1];
-        }
-    }
-    --keyNum;
-    for (int i = 0; i < keyNum; ++i) {
         keys[i] = keys[i + 1];
     }
 }
@@ -493,13 +486,18 @@ bool BTree<KEY_TYPE, VALUE_TYPE>::insert(KEY_TYPE key, VALUE_TYPE value) {
 }
 
 template<class KEY_TYPE, class VALUE_TYPE>
-void BTree<KEY_TYPE, VALUE_TYPE>::print() {
-    root->print();
+bool BTree<KEY_TYPE, VALUE_TYPE>::containKey(KEY_TYPE key) {
+    return root->containKey(key);
 }
 
 template<class KEY_TYPE, class VALUE_TYPE>
 VALUE_TYPE BTree<KEY_TYPE, VALUE_TYPE>::getValue(KEY_TYPE key) {
     return root->getValue(key);
+}
+
+template<class KEY_TYPE, class VALUE_TYPE>
+void BTree<KEY_TYPE, VALUE_TYPE>::print() {
+    cout << root->toString() << endl;
 }
 
 /**
@@ -526,24 +524,8 @@ bool BTree<KEY_TYPE, VALUE_TYPE>::remove(KEY_TYPE key) {
         // 若非叶子节点，继续向下寻找待删除的key
         ptr = ptr->childPtrs[i];
     }
-    // 已找到 key
-    KEY_TYPE* recordKey = &ptr->keys[i];// 记录Key所在地址
-    // 若此节点非叶子节点, 继续下落到叶子节点
-    while (!ptr->isLeaf && ptr->childPtrs[i + 1]->keyNum > 0) {
-        ptr = ptr->childPtrs[i + 1];
-        lastI = i;
-        i = -1;
-    }
-    if (!ptr->isLeaf && ptr->childPtrs[i + 1]->keyNum == 0) {
-        delete ptr->childPtrs[i + 1];
-    }
-    *recordKey = ptr->keys[i + 1];
-    // ptr节点删除下标为i对应的<key, value>
-    ptr->removeValue(i);
-    cout << endl << "DELETE.  lastI = " << lastI << ", i = " << i << endl;
-    // 维持 ptr 节点平衡
-    balance(ptr, lastI);
-    return true;
+    // 已找到 key，调用指定节点的删除操作
+    return appointRemove(ptr, ptr->keys[i], i, lastI);
 }
 
 /**
@@ -632,25 +614,21 @@ bool BTree<KEY_TYPE, VALUE_TYPE>::browFromRightBro(BTreeNode<KEY_TYPE, VALUE_TYP
         return false;
     }
     // 将父节点的keys[childOrder]关键字 和 右兄弟节点第0个子指针 --> 挪到本节点末尾
-    void* tmpValue = rightBroPtr->isLeaf ? (void*)(rightBroPtr->valuePtrs[0])
-                                         : (void*)(rightBroPtr->childPtrs[0]);
+    void* tmpValue;
+    if (rightBroPtr->isLeaf) {
+        tmpValue = (void*)(rightBroPtr->valuePtrs[0]);
+    } else {
+        tmpValue = (void*)(rightBroPtr->childPtrs[0]);
+        rightBroPtr->childPtrs[0] = nullptr;
+    }
     node->fillValue(node->keyNum, parent->keys[childOrder], tmpValue);
     // 将右兄弟节点的第一个关键字，填充到父节点的 keys[childOrder]
     parent->keys[childOrder] = rightBroPtr->keys[0];
     // 删除右兄弟节点的keys[0] 和 childPtrs[0] 的值，其他key前挪
-    rightBroPtr->delete0Value();
+    rightBroPtr->removeValue(-1);
     // 更新本节点关键字数
     ++node->keyNum;
     return true;
-}
-
-template<class KEY_TYPE, class VALUE_TYPE>
-void BTree<KEY_TYPE, VALUE_TYPE>::test() {
-    cout << browFromRightBro(root->childPtrs[0], 0) << endl;
-    remove(1);
-    print();
-    cout << balance(root->childPtrs[1], 1) << endl;
-    print();
 }
 
 /**
@@ -662,6 +640,11 @@ void BTree<KEY_TYPE, VALUE_TYPE>::test() {
  */
 template<class KEY_TYPE, class VALUE_TYPE>
 bool BTree<KEY_TYPE, VALUE_TYPE>::balance(BTreeNode<KEY_TYPE, VALUE_TYPE> *node, int childOrder) {
+    // 若节点的关键词数为0，且非叶子节点（降层）
+    if (node->keyNum == 0 && !node->isLeaf) {
+        reduceLevel(node, childOrder);
+        return true;
+    }
     // 若节点已平衡，返回
     if (node->keyNum >= minKeyNum) {
         return true;
@@ -674,7 +657,7 @@ bool BTree<KEY_TYPE, VALUE_TYPE>::balance(BTreeNode<KEY_TYPE, VALUE_TYPE> *node,
     if (whirl(node, childOrder)) {
         return true;// 挪借成功，则返回
     }
-    // 无法挪借，则尝试与左或右兄弟节点较少的一方合并（以维持平衡）
+    // 无法挪借，则尝试与左或右兄弟节点关键字较少的一方合并（以维持平衡）
     return mergeWithLeftOrRightBro(node, childOrder);
 }
 
@@ -716,10 +699,12 @@ bool BTree<KEY_TYPE, VALUE_TYPE>::mergeTwoContChild(BTreeNode<KEY_TYPE, VALUE_TY
     // 更新左兄弟节点与右兄弟节点关键字数
     leftBroPtr->keyNum += rightBroPtr->keyNum;
     rightBroPtr->keyNum = 0;
-    // 释放右兄弟节点内存
-    delete rightBroPtr;
     // 父节点删除右兄弟节点<key, value>记录值
     parent->removeValue(firstChildOrder);
+    // 可能导致parent->keyNum = 0，降层处理
+    if (parent->keyNum == 0 && parent == root && !parent->isLeaf) {
+        reduceLevel(parent, 0);
+    }
     return true;
 }
 
@@ -738,7 +723,7 @@ bool BTree<KEY_TYPE, VALUE_TYPE>::mergeWithLeftOrRightBro(BTreeNode<KEY_TYPE, VA
         return false;
     }
     // 左、右兄弟节点的可合并的关键字数
-    int fromLeft = 0, fromRight = 0;
+    int fromLeft = INT32_MAX, fromRight = INT32_MAX;
     BTreeNode<KEY_TYPE, VALUE_TYPE>* leftBroPtr = childOrder <= 0 ? nullptr : parent->childPtrs[childOrder - 1];
     // 若存在左兄弟节点，且左兄弟节点关键字 + 本节点关键字 + 1 <= 最大关键字数，则可与左兄弟节点合并
     if (leftBroPtr && leftBroPtr->keyNum + node->keyNum + 1 <= maxKeyNum) {
@@ -750,11 +735,87 @@ bool BTree<KEY_TYPE, VALUE_TYPE>::mergeWithLeftOrRightBro(BTreeNode<KEY_TYPE, VA
         fromRight = rightBroPtr->keyNum;
     }
     // 左、右兄弟节点均不可合并，则返回false
-    if (fromLeft == 0 && fromRight == 0) {
+    if (fromLeft == INT32_MAX && fromRight == INT32_MAX) {
         return false;
     }
     // 选取左右兄弟节点中，关键字数较少的一方合并（相等则优先与左兄弟节点合并）
-    return fromLeft > fromRight ? mergeTwoContChild(parent, childOrder) : mergeTwoContChild(parent, childOrder - 1);
+    return mergeTwoContChild(parent, childOrder - (int)(fromLeft <= fromRight));
+}
+
+/**
+ * 指定节点的删除操作
+ * @tparam KEY_TYPE
+ * @tparam VALUE_TYPE
+ * @param node
+ * @param recordKey
+ * @param deleteKeyIndex 待删除 key 所在下标
+ * @param childOrder 是父节点的第几个孩子
+ * @return true -- 删除成功；false -- 删除后本层为空，还需递归上层删除
+ */
+template<class KEY_TYPE, class VALUE_TYPE>
+bool BTree<KEY_TYPE, VALUE_TYPE>::appointRemove(BTreeNode<KEY_TYPE, VALUE_TYPE> *node, KEY_TYPE& recordKey,
+                                                int deleteKeyIndex, int childOrder) {
+    // 若此节点非叶子节点, 继续下落到叶子节点执行删除（若返回结果值为false，还需递归上层删除）
+    if (!node->isLeaf) {
+        if (appointRemove(node->childPtrs[deleteKeyIndex + 1], recordKey, -1, deleteKeyIndex + 1)) {
+            return true;
+        }
+    }
+    // 若无 key 关键字，说明此节点仅有recordKey对应的valuePtr，删除整个节点为空（需释放）
+    if (node->keyNum <= 0) {
+        // 若父节点非空，（若父节点为空，说明此node是root节点，不能删除）
+        if (node->parent) {
+            node->parent->childPtrs[childOrder] = nullptr;// 清除父节点指向node指针的值
+            delete node;// 释放node节点
+        }
+        return false;// 返回false，还需递归上层删除
+    }
+    // 若有其他 key 关键字，截取下一个key以更新recordKey
+    if (deleteKeyIndex + 1 < node->keyNum) {
+        recordKey = node->keys[deleteKeyIndex + 1];
+    }
+    // 删除 node 节点下标为 deleteKeyIndex 对应的<key, value>
+    node->removeValue(deleteKeyIndex);
+    // 维持node节点删除节点之后的平衡
+    balance(node, childOrder);
+    return true;
+}
+
+/**
+ * 降层处理
+ * @tparam KEY_TYPE
+ * @tparam VALUE_TYPE
+ * @param node 待删除层
+ * @param childOrder 是父节点的第几个孩子
+ */
+template<class KEY_TYPE, class VALUE_TYPE>
+bool BTree<KEY_TYPE, VALUE_TYPE>::reduceLevel(BTreeNode<KEY_TYPE, VALUE_TYPE> *node, int childOrder) {
+    // node 为空，或关键字数大于0，或为叶子节点，不进行降层
+    if (!node || node->keyNum > 0 || node->isLeaf) {
+        return false;
+    }
+    // 若父节点非空
+    if (node->parent) {
+        // 若其兄弟节点与其node->childPtrs[0] 是否是叶子节点属性不同，则不降层
+        for (int i = 0; i < node->parent->keyNum + 1; ++i) {
+            if (node->parent->childPtrs[i]->isLeaf != node->childPtrs[0]->isLeaf) {
+                return false;
+            }
+        }
+        // 降层处理
+        node->parent->childPtrs[childOrder] = node->childPtrs[0];
+        node->childPtrs[0] = nullptr;
+        delete node;// 释放node节点
+        return true;
+    } else if (node == root) {
+        // 若父节点为空，但为根节点
+        root = node->childPtrs[0];// 更新root节点
+        root->parent = nullptr;
+        node->childPtrs[0] = nullptr;// 清除父节点指向node指针的值
+        delete node;// 释放node节点
+        return true;
+    }
+    return false;
 }
 
 
