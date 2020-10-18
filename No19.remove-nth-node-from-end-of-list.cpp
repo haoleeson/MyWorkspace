@@ -1,8 +1,5 @@
-#include <iostream>
-using namespace std;
-
 /**
- * No19. 删除链表的倒数第N个节点
+ * No19. 删除链表的倒数第N个节点 (迭代、递归)
  * 给定一个链表，删除链表的倒数第n个节点，并且返回链表的头结点。
 
 示例：
@@ -10,8 +7,7 @@ using namespace std;
 当删除了倒数第二个节点后，链表变为 1->2->3->5.
 
 说明：
-给定的 n保证是有效的。
-
+给定的 n 保证是有效的。
 进阶：
 你能尝试使用一趟扫描实现吗？
 
@@ -20,86 +16,81 @@ using namespace std;
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
+#include <iostream>
+#include "myTools.h"
+using namespace std;
 
-// Definition for singly-linked list.
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
-
+/**
+ * 解法2：递归1趟
+ */
 class Solution {
-public:
-    // 思路1：统计链表总数size，转换倒数第 n 为正数第 size - n + 1
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-        int size = 0;
-        ListNode* ptr = head;
-        while (ptr != nullptr) {
-            ++size;
-            ptr = ptr->next;
-        }
-        n = size - n + 1;// 转换成删除正向的第 n 个节点
-        ptr = head;
-        // 删除首节点
-        if (n == 1) {
-            head = head->next;
-            delete ptr;
-        } else {
-            n -= 1;
-            // 找到待删除节点的前一节点
-            while (--n) {
-                ptr = ptr->next;
-            }
-            ListNode* tmp = ptr->next;
-            ptr->next = tmp->next;
-            delete tmp;
-        }
-        return head;
-    }
-
-
-    // 思路2：递归找到链表尾节点，在返回时删除倒数第n个节点
-    ListNode* removeNthFromEnd2(ListNode* head, int n) {
-        delLeftNNode(head, n);
-        // 未找到倒数第n+1个节点，表明删除的是头结点
-        if (m_leftN == n) {
-            ListNode* ptr = head;
-            head = head->next;
-            delete ptr;
-        }
-        return head;
-    }
-    // 删除倒数第 n 个节点
-    int m_leftN = 0;
-    bool delLeftNNode(ListNode* ptr, int n) {
-        // 向下递归直到尾巴节点
-        if (ptr == nullptr) {
+private:
+    ListNode* m_head;
+    bool deleteLastNNode(ListNode* node, int& n) {
+        if (!node) {
             return true;
         }
-        if (delLeftNNode(ptr->next, n)) {
-            // 从尾节点返回到倒数第n+1个节点
-            ++m_leftN;
-            // 删除倒数第n个节点
-            if (m_leftN == n + 1) {
-                ListNode* tmp = ptr->next;
-                ptr->next = tmp->next;
-                delete tmp;
+        // 找到链表尾
+        if (deleteLastNNode(node->next, n)) {
+            if (n == 0 || node == m_head) {
+                ListNode *delPtr;
+                if (n == 0) {
+                    delPtr = node->next;
+                    node->next = node->next->next;
+                } else {
+                    // 删除头节点
+                    delPtr = m_head;
+                    m_head = m_head->next;
+                }
+                delete delPtr;
                 return false;
             }
+            --n;
             return true;
         }
         return false;
     }
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        m_head = head;
+        deleteLastNNode(head, n);
+        return m_head;
+    }
 };
 
-void printList(ListNode* head) {
-    ListNode* ptr = head;
-    while (ptr ->next != nullptr) {
-        cout << ptr->val << "->";
-        ptr = ptr->next;
+/**
+ * 解法1：迭代两趟
+ */
+class Solution1 {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (!head) {
+            return head;
+        }
+        ListNode *ptr = head, *delPtr;
+        int length = 0;
+        while (ptr) {
+            ++length;
+            ptr = ptr->next;
+        }
+        // 转换为删除正数第 length - n + 1 个节点 [1, n]
+        n = length - n + 1;
+        if (n == 1) {
+            delPtr = head;
+            head = head->next;
+        } else {
+            // 找到正数第 length - n + 1 个节点 的前一个节点
+            ptr = head;
+            for (int i = 1; i < n - 1; ++i) {
+                ptr = ptr->next;
+            }
+            delPtr = ptr->next;
+            ptr->next = ptr->next->next;
+        }
+        delete delPtr;
+        return head;
     }
-    cout << ptr->val << endl;
-}
+};
 
 int main() {
     Solution solution;
@@ -109,9 +100,7 @@ int main() {
     head->next->next = new ListNode(3);
     head->next->next->next = new ListNode(4);
     head->next->next->next->next = new ListNode(5);
-
-    printList(head);
     head = solution.removeNthFromEnd(head, n);
-    printList(head);
+    MyTools::printList(head);
     return 0;
 }
