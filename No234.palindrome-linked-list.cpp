@@ -1,10 +1,5 @@
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
 /**
- * No234. 回文链表（快慢指针 + 反转链表）
+ * No234. 回文链表
  * 请判断一个链表是否为回文链表。
 
 示例 1:
@@ -14,50 +9,50 @@ using namespace std;
 示例 2:
 输入: 1->2->2->1
 输出: true
+
+示例 3:
+输入: null
+输出: true
+
 进阶：
 你能否用O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
 
 来源：力扣（LeetCode）
-链接：https://leetcode-cn->com/problems/palindrome-linked-list
+链接：https://leetcode-cn.com/problems/palindrome-linked-list
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
-// Definition for singly-linked list->
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
+#include <iostream>
+#include "myTools.h"
+using namespace std;
 
-/**
- * 力扣官方有意思解法之一：递归找到尾节点，再与全局正向头节点依次向内比较
- * 空间复杂度：O(n)
- */
-class Solution1 {
-    ListNode* frontPtr;
-public:
-    bool checkByRecursion(ListNode* head) {
-        // 通过递归找到尾节点
-        if (head != nullptr) {
-            int tmp = head->val;
-            // 若中途返回为false，后续直接返回中间不相等的结果即false
-            if (!checkByRecursion(head->next)) {
-                return false;
-            }
-            // 否则，继续判断
-            if (frontPtr->val != head->val) {
-                return false;
-            }
-            frontPtr = frontPtr->next;
-        }
-        return true;
-    }
-    bool isPalindrome(ListNode* head) {
-        if (head == nullptr || head->next == nullptr) {
+class Solution {
+    ListNode* m_node = nullptr;
+    bool m_continue = true;
+    bool revert(ListNode* node) {
+        if (!node) {
             return true;
         }
-        frontPtr = head;
-        return checkByRecursion(head);
+        // 找到最后一个节点
+        if (revert(node->next)) {
+            if (m_continue) {
+                if (node->val != m_node->val) {
+                    return false;
+                }
+                m_node = m_node->next;
+                m_continue = m_node != node && m_node->next != node;
+            }
+            return true;
+        }
+        return false;
+    }
+public:
+    bool isPalindrome(ListNode* head) {
+        if (!head || !head->next) {
+            return true;
+        }
+        m_node = head;
+        return revert(head);
     }
 };
 
@@ -130,17 +125,12 @@ private:
     }
 };
 
-
-
 int main() {
-    Solution2 solution;
-
+    Solution solution;
     ListNode* head = new ListNode(1);
     head->next = new ListNode(2);
     head->next->next = new ListNode(2);
     head->next->next->next = new ListNode(1);
-
     cout << solution.isPalindrome(head) << endl;
-
     return 0;
 }
