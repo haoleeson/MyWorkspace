@@ -29,24 +29,22 @@ using namespace std;
  */
 class Solution {
 public:
+    // 前序：根 - 左 - 右
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> ans;
-        if (root == nullptr) {
-            return ans;
-        }
-        stack<TreeNode* > s;
-        // 前序：根 左 右
-        while (root != nullptr || !s.empty()) {
-            if (root != nullptr) {
+        stack<TreeNode *> s;
+        while (root || !s.empty()) {
+            while (root) {
                 // 输出 根
                 ans.push_back(root->val);
-                // 栈存 右
+                // 入栈 右
                 if (root->right) {
                     s.push(root->right);
                 }
                 // 遍历 左
                 root = root->left;
-            } else {
+            }
+            if (!s.empty()) {
                 root = s.top();
                 s.pop();
             }
