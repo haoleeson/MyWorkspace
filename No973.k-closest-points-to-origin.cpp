@@ -56,7 +56,7 @@ public:
  * 时间复杂度：O(K * n)
  * 空间复杂度：O(1)
  */
-class Solution {
+class Solution1 {
     inline int qurDist(int x, int y) {
         return x * x + y * y;
     }
