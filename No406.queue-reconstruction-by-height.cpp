@@ -23,10 +23,31 @@
 using namespace std;
 
 /**
+ * 时间复杂度：O(n * log(n))
+ */
+class Solution {
+    // 重写比较函数
+    static bool myComp(const vector<int>& a, const vector<int>& b) {
+        return a[0] == b[0] ? a[1] < b[1] : a[0] > b[0];
+    }
+public:
+    vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
+        vector<vector<int>> ans;
+        // 自定义倒序排序 O(n * log(n))
+        sort(people.begin(), people.end(), myComp);
+        // 按下标顺序插入
+        for (vector<int>& tmp : people) {
+            ans.insert(ans.begin() + tmp[1], tmp);
+        }
+        return ans;
+    }
+};
+
+/**
  * 解题思路：
  * 贪心先排最大身高（以k为下标插入），再递减身高
  */
-class Solution {
+class Solution1 {
 public:
     vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
         int size = people.size(), tmpMaxHigh;
@@ -47,26 +68,19 @@ public:
 
 int main() {
     Solution solution;
-    vector<vector<int>> people;
-    vector<int> pair(2, 0);
-    pair[0] = 7;
-    pair[1] = 0;
-    people.push_back(pair);
-    pair[0] = 4;
-    pair[1] = 4;
-    people.push_back(pair);
-    pair[0] = 7;
-    pair[1] = 1;
-    people.push_back(pair);
-    pair[0] = 5;
-    pair[1] = 2;
-    people.push_back(pair);
-    pair[0] = 6;
-    pair[1] = 1;
-    people.push_back(pair);
-    pair[0] = 5;
-    pair[1] = 0;
-    people.push_back(pair);
+    int arr[6][2] = {
+            {7, 0},
+            {4, 4},
+            {7, 1},
+            {5, 0},
+            {6, 1},
+            {5, 2}
+    };
+    vector<vector<int>> people(6, vector<int>(2));
+    for (int i = 0; i < 6; ++i) {
+        people[i][0] = arr[i][0];
+        people[i][1] = arr[i][1];
+    }
     vector<vector<int>> result = solution.reconstructQueue(people);
     MyTools::printVec2D(result);
     return 0;
