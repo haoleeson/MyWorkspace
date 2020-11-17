@@ -28,12 +28,14 @@ Go（又称Golang），是Google的 Robert Griesemer，[Rob Pike(罗勃·派克)
 
  Go语言保证了既具备静态编译语言的安全和性能，又具备动态语言开发维护的较高效率（**Go = C + Python**）。
 
-* 继承了C语言的许多理念，包括：表达式语法、控制结构、基础数据类型、调用参数传值、**指针**等。也保留了和C语言一样的编译执行方式及弱化指针。
+* **自动垃圾回收**，无需开发人员管理。
+* 丰富的内置类型，继承了C语言的许多理念，包括：表达式语法、控制结构、基础数据类型、调用参数传值、**指针**等。也保留了和C语言一样的编译执行方式及弱化指针。
 * 引入**包概念**（用于组织程序结构）。Go语言的每一个文件都要归属于一个包（不能单独存在）
-* 引入**垃圾回收机制**。内存自动回收，无需开发人员管理。
-* **天然并发**（**重要**）。从语言层面支持并发，较简单用例就能实现并发；goroutine，轻量级线程，**可实现大并发处理**，**高效利用多核**；基于CSP（communicating sequential processes）并发模型实现
+* **天然主持并发编程**（**重要**）。从语言层面支持并发，较简单用例就能实现并发；goroutine，轻量级线程，**可实现大并发处理**，**高效利用多核**；基于CSP（communicating sequential processes）并发模型实现
 * 吸收了**管道通信**机制channel
-* 函数可**返回多个值**
+* **错误处理**
+* **匿名函数和闭包**
+* **函数多返回值**
 
 ```Golang
 func calcSumAndSub(num1 int, num2 int) (int, int) {
@@ -76,33 +78,53 @@ go version
 go version go1.9.2 windows/amd64
 ```
 
-##  创建helloworld工程
+##  Go语言结构（以hello world为例）
 
-* 在 %GOPATH%\src\go_code\project1\main 路径下创建 helloworld.go  源文件
+Go 语言的基础组成有以下几个部分：
+
+* **包声明**。必须在源文件中非注释的第一行指明这个文件属于哪个包，package main表示一个可独立执行的程序，每个 Go 应用程序都包含一个名为 main 的包。
+* **引入包**。fmt 包实现了格式化 IO（输入/输出）的函数。
+* **函数**。每一个可执行程序必须包含main 函数
+* 变量。
+* 语句 & 表达式
+* 注释。行注释、块注释
+
+备注：当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个**大写字母开头**，如：Println，那么使用这种形式的标识符的对象就可以被**外部**包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public）；标识符如果以**小写字母开头**，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 protected ）。
+| 标识符首字母大小写 | 包外可见状态 | 类比C++ | 实例 |
+|  ---- | ---- | ---- | ---- |
+| 大写 | 包外可见 | public | Println |
+| 小写 | 包外不可见 | protected | main |
+
+1. 在 %GOPATH%\src\go_code\project1\main 路径下创建 helloworld.go  源文件
+
 ```Golang
-package main // 定义本test.go文件所在的包是main
-import "fmt" // 引入基本包fmt
+package main // 【包声明】定义本.go文件所在的包是main，package main表示一个可独立执行的程序
+import "fmt" // 【引入包】引入基本包fmt（下方用到打印函数）
 
-// 主函数
+/* 
+ * 【main函数】
+ * 每一个可执行程序必须包含main函数
+ */
 func main() {
-    fmt.Println("hello world!")
+    fmt.Println("hello world!") // 【语句】 打印字符串
 }
 ```
 
-* 在CMD(或PowerShell)中跳转到%GOPATH%\src\go_code\project1\main 路径，编译helloworld.go 源文件(生成exe文件)
+2. 在CMD(或PowerShell)中跳转到%GOPATH%\src\go_code\project1\main 路径，编译helloworld.go 源文件(生成exe文件)
 
 ```powershell
 cd $env:GOPATH\src\go_code\project1\main
 go build .\helloworld.go
 ```
 
-* 运行编译好的二进制 helloworld.exe 文件
+运行编译好的二进制 helloworld.exe 文件
 
 ```powershell
 .\helloworld.exe
 ```
 
-* 也可通过 go run 命令直接运行 helloworld.go 源文件
+3. 也可通过 go run 命令直接运行 helloworld.go 源文件
+
 ```powershell
 go run .\helloworld.go
 ```
