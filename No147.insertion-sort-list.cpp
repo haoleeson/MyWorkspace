@@ -61,11 +61,11 @@ public:
 
 int main() {
     Solution solution;
-    ListNode* head = new ListNode(4);
-    head->next = new ListNode(2);
-    head->next->next = new ListNode(1);
-    head->next->next->next = new ListNode(3);
+    int arr[] = {-1, 5, 3, 4, 0};
+    vector<int> A(arr, arr + sizeof(arr) / sizeof(int));
+    ListNode* head = MyTools::genList(A);
     head = solution.insertionSortList(head);
     MyTools::printList(head);
+    MyTools::delList(head);
     return 0;
 }
