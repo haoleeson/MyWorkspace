@@ -30,6 +30,13 @@ public:
     // 去除字符串前后空格
     static void trim(std::string& str);
 
+    // 构造链表
+    template<typename T>
+    static ListNode* genList(std::vector<T>& vec);
+
+    // 释放链表
+    static void delList(ListNode* head);
+
     // 打印链表
     static void printList(ListNode* head);
 
@@ -56,6 +63,31 @@ void MyTools::trim(std::string& str) {
     if (!str.empty()) {
         str.erase(0, str.find_first_not_of(' '));
         str.erase(str.find_last_not_of(' ') + 1);
+    }
+}
+
+template<typename T>
+ListNode* MyTools::genList(std::vector<T>& vec) {
+    int size = vec.size(), i = 0;
+    if (size == 0) {
+        return nullptr;
+    }
+    ListNode* head = new ListNode(vec[i++]);
+    ListNode* curNode = head;
+    while (i < size) {
+        curNode->next = new ListNode(vec[i++]);
+        curNode = curNode->next;
+    }
+    return head;
+}
+
+void MyTools::delList(ListNode* head) {
+    ListNode* nextNode;
+    while (head) {
+        nextNode = head->next;
+        head->next = nullptr;
+        delete head;
+        head = nextNode;
     }
 }
 
