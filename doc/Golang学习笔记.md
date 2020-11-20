@@ -237,3 +237,64 @@ select 语法：
 * 所有被发送的表达式都会被求值
 * 如果任意某个通信可以进行，它就执行，其他被忽略。
 * 如果有多个 case 都可以运行，Select 会随机公平地选出一个执行。其他不会执行。 否则： 1.如果有 default 子句，则执行该语句。2.如果没有 default 子句，select 将阻塞，直到某个通信可以运行；Go 不会重新对 channel 或值进行求值。
+
+## Go 循环语句
+
+### for 循环
+
+Go 语言的 For 循环有 3 种形式，只有其中的一种使用分号。
+
+* 形式1：与C 语言的 for 一样：
+
+```Golang
+for init; condition; post { }
+```
+其中：
+1. init： 一般为赋值表达式，给控制变量赋初值；
+2. condition： 关系表达式或逻辑表达式，循环控制条件；
+3. post： 一般为赋值表达式，给控制变量增量或减量。
+
+示例：
+
+```Golang
+func isPrime(num int) bool {
+    if num <= 1 {
+        return false
+    }
+    for i := 2; i * i <= num; i++ {
+        if num % i == 0 {
+            return false
+        }
+    }
+    return true
+}
+```
+
+* 形式2：与C 语言的while一样，等效while(condition){ } ：
+
+```Golang
+for condition { }
+```
+
+* 形式3：和 C 的 for(;;) 一样，等效while(true){ }：
+```Golang
+for condition { }
+```
+
+### for-each range 循环
+
+for-each range 循环可以对 slice、map、数组、字符串等进行迭代循环。格式如下：
+
+```Golang
+for key, value := range oldMap {
+    newMap[key] = value
+}
+```
+
+## 循环控制语句
+
+|  控制语句 | 描述 |
+| ---- | ---- |
+| break | 经常用于中断当前 for 循环或跳出 switch 语句 |
+| continue | 跳过当前循环的剩余语句，然后继续进行下一轮循环 |
+| goto | 将控制转移到被标记的语句 |
