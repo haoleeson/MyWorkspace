@@ -174,3 +174,66 @@ i, pi, str := 10, 3.1415926, "hello world"
 5. 定义全局变量
 在Golang中，函数体外部定义的变量视为全局变量
 6. 变量在同一作用域内不允许重名
+
+## Go 条件语句
+### if 语句
+ * 不需使用括号将条件包含起来
+ * 条件执行块的大括号{}必须存在，即使只有一行语句
+ * 左括号必须在if或else的同一行
+ * 在if之后，条件语句之前，可以添加变量初始化语句，使用';'进行分隔
+ * 在有返回值的函数中，最终的return不能在条件语句中
+
+```Golang
+func grade(score uint8) byte {
+    if score > 100 {
+        return 0
+    } else if score > 89 {
+        return 'A'
+    } else if score > 79 {
+        return 'B'
+    } else if score > 69 {
+        return 'C'
+    } else if score > 59 {
+        return 'D'
+    } else {
+        return 'E'
+    }
+    return 0
+}
+```
+
+### switch 语句
+* 无需在每个 case 执行代码块末尾加 break
+* fallthrough，不判断直接执行下一case的执行代码
+
+```Golang
+func awardMoney(grade byte) uint8 {
+    var money uint8 = 0
+    switch grade {
+        case 'A':
+            money += 100
+            fallthrough // 不判断直接执行下一case的执行代码
+        case 'B':
+            money += 50
+            fallthrough // 不判断直接执行下一case的执行代码
+        case 'C':
+            money += 20
+            fallthrough // 不判断直接执行下一case的执行代码
+        case 'D':
+            money += 10
+            fallthrough // 不判断直接执行下一case的执行代码
+        case 'E':
+        default:
+    }
+    return money
+}
+```
+### select 语句
+select 是 Go 中的一个控制结构，类似于用于通信的 switch 语句。每个 case 必须是一个通信操作，要么是发送要么是接收。 select 随机执行一个可运行的 case。如果没有 case 可运行，它将阻塞，直到有 case 可运行。一个默认的子句应该总是可运行的。
+
+select 语法：
+* 每个 case 都必须是一个通信
+* 所有 channel 表达式都会被求值
+* 所有被发送的表达式都会被求值
+* 如果任意某个通信可以进行，它就执行，其他被忽略。
+* 如果有多个 case 都可以运行，Select 会随机公平地选出一个执行。其他不会执行。 否则： 1.如果有 default 子句，则执行该语句。2.如果没有 default 子句，select 将阻塞，直到某个通信可以运行；Go 不会重新对 channel 或值进行求值。
