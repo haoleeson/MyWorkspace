@@ -8,6 +8,23 @@ type ListNode struct {
     Next *ListNode
 }
 
+/** ListNode 构造函数 */
+func NewListNode(val int) *ListNode {
+    return &ListNode{Val: val, Next: nil}
+}
+
+// Definition for a binary tree node.
+type TreeNode struct {
+    Val int
+    Left *TreeNode
+    Right *TreeNode
+}
+
+/** TreeNode 构造函数 */
+func NewTreeNode(val int) *TreeNode {
+    return &TreeNode{Val: val, Left: nil, Right: nil}
+}
+
 /**
  * 构造链表
  */
@@ -16,14 +33,12 @@ func GenList(arr []int) *ListNode {
     if size == 0 {
         return nil
     }
-    var head = new(ListNode)
-    head.Val = arr[i]
+    var head = NewListNode(arr[i])
     i++
     var ptr = head
     for i < size {
-        ptr.Next = new(ListNode)
+        ptr.Next = NewListNode(arr[i])
         ptr = ptr.Next
-        ptr.Val = arr[i]
         i++
     }
     return head
