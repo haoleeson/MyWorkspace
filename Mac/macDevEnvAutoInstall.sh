@@ -1,34 +1,50 @@
 #!/bin/bash
-# Operating System：Mac 10.11.6
+###############################################################
+# 自动配置 Mac 开发环境脚本
+# auto install and config develop environment in your macOS
+# @version v1.0
+# @author eisenhao
+# @blog https://eisenhao.cn
+# @describe
+# 1. 安装命令行工具Command Line Tools
+# 2. 安装 HomeBrew
+# 3. 更新 HomeBrew
+# 4. 生成 SSH Key
+# 5. 安装并配置 git
+# 6. 配置 vim
+# 7. 配置 Shell 别名 alias
+# 8. 安装 powerline 字体
+# 9. 安装并配置 zsh（主题：ys，插件：zsh-autosuggestions zsh-syntax-highlighting autojump）
+# 10. 安装并配置 GoLang
+###############################################################
 
-
-
-############ Your Config Start ############
-# HomeBrew 安装路径
-HOMEBREW_PREFIX="/usr/local"
-
+#####################  Your Config Start  #####################
 # Git 全局配置
 YOUR_GIT_NAME="EisenHao"
 YOUR_GIT_EMAIL="ei13911468370@gmail.com"
 
-# SSH
-YOUR_SSHGEN_EMAIL="ei13911468370@gmail.com"
+# GoLang
+# 最新 GoLang 下载地址：https://golang.google.cn/dl/
+YOUR_GO_VER="go1.9.7"
+YOUR_GOLANG_URL="https://golang.google.cn/dl/${YOUR_GO_VER}.darwin-amd64.tar.gz"
+YOUR_GO_PATH="$USER/WorkSpace/Go_Learning"
+######################  Your Config End  ######################
 
-# Golang
-YOUR_GO_ROOT="xxxxxx/xxxx"
-############  Your Config End  ############
 
 
-
-############  Default Config Start (Don't change following code if you don't know what you do) ############
+###################  Default Config Start  ####################
+# (Don't change following code if you don't know what you do) #
+###############################################################
 CHOWN="/usr/sbin/chown"
 CHGRP="/usr/bin/chgrp"
-# GROUP="$(groups $USER |awk '{print $1}')"
+# GROUP="$(groups $USER |awk '{print $1}')" # 获取当前用户所属用户组
 GROUP="admin"
 NOW_HOME="/Users/$(whoami)"
 NOW_TIME="$(date "+%Y_%m_%d_%H_%M_%S")"
 
 # HomeBrew 安装路径
+HOMEBREW_PREFIX="/usr/local"
+# HomeBrew 管理安装软件仓库位置
 HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
 # HomeBrew 本地缓存路径
 HOMEBREW_CACHE="${NOW_HOME}/Library/Caches/Homebrew"
@@ -37,7 +53,6 @@ USER_BREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 USER_BREW_GIT=https://mirrors.ustc.edu.cn/brew.git
 USER_BREW_GIT_CORE=https://mirrors.ustc.edu.cn/homebrew-core.git
 USER_BREW_GIT_CASK=https://mirrors.ustc.edu.cn/homebrew-cask.git
-
 # HomeBrew 下载源2（清华）
 # USER_BREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 # USER_BREW_GIT=https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
@@ -45,16 +60,14 @@ USER_BREW_GIT_CASK=https://mirrors.ustc.edu.cn/homebrew-cask.git
 # USER_BREW_GIT_CASK=https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
 # USER_CASK_FONTS_GIT=https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-fonts.git
 # USER_CASK_DRIVERS_GIT=https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-drivers.git
-
 # # HomeBrew 下载源3（腾讯）
 # USER_BREW_BOTTLE_DOMAIN=https://mirrors.cloud.tencent.com/homebrew-bottles
 # USER_BREW_GIT=https://mirrors.cloud.tencent.com/homebrew/brew.git 
 # USER_BREW_GIT_CORE=https://mirrors.cloud.tencent.com/homebrew/homebrew-core.git
 # USER_BREW_GIT_CASK=https://mirrors.cloud.tencent.com/homebrew/homebrew-cask.git
-############  Default Config Start ############
+###################  Default Config Start  ####################
 
-
-###################  Func Define Start  #########################
+#####################  Func Define Start  #####################
 # 判断上步操作是否成功
 # @param1 上步操作命令
 # @param2 是否退出脚本("out"触发退出脚本)
@@ -139,7 +152,7 @@ changePermission() {
 # @param1 文件夹路径
 # @param2 文件夹要增加的权限 eg. a+rx
 createFolder() {
-    echo '-> 创建文件夹' $1
+    echo '==> 创建文件夹' $1
     execute_sudo "/bin/mkdir" "-p" "$1"
     judgeSuccess
     changePermission $1 $2
@@ -165,6 +178,26 @@ delDirWithBackup() {
 reMkDirWithBackup() {
     delDirWithBackup $1
     createFolder $1 $2
+}
+
+# 根据当前 Shell，重新加载 Shell 配置文件
+# @describe 仅支持 bash 和 zsh 两种常见的Shell
+sourceCurShellCfgFile() {
+    local myCurShell=${SHELL#*bin/}
+    if [[ "$myCurShell" == "zsh" ]] && [[ -f ${NOW_HOME}/.zshrc ]]; then
+        echo "
+        ==> source ${NOW_HOME}/.zshrc
+        "
+        source ${NOW_HOME}/.zshrc
+    elif [[ "$myCurShell" == "bash" ]] && [[ -f ${NOW_HOME}/.bash_profile ]]; then
+        echo "
+        ==> source ${NOW_HOME}/.zshrc
+        "
+        source ${NOW_HOME}/.bash_profile
+    else
+        # other shells
+        echo "unsupport Shell: $mymyCurShell"
+    fi
 }
 
 # 要求 curl 忽略证书校验，绕开 curl 60 证书错误问题(为安全性，后需手动恢复)
@@ -202,9 +235,10 @@ echo '
 \033[0m'
 }
 
-#################################################################
-# 只安装命令行工具Command Line Tools, 不用完整安装xcode(eg.大约几个G)）
-#################################################################
+###############################################################
+# 安装命令行工具Command Line Tools
+# @describe 不用完整安装xcode(大约几个G)）
+###############################################################
 myFuncInstallXcodeSelect() {
     local ret=$(git --version)
     if [[ $? -eq 0 ]] && [[ -d /Library/Developer/CommandLineTools ]]; then
@@ -225,11 +259,11 @@ myFuncInstallXcodeSelect() {
     exit 0
 }
 
-#################################################################
+###############################################################
 # 安装 HomeBrew
 # @depend git
-# 参考：cunkai.wang  https://zhuanlan.zhihu.com/p/111014448
-#################################################################
+# @describe 参考：cunkai.wang https://zhuanlan.zhihu.com/p/111014448
+###############################################################
 myFuncInstallHomeBrew() {
     local ret=$(brew -v)
     if [[ $? -eq 0 ]]; then
@@ -261,8 +295,8 @@ myFuncInstallHomeBrew() {
     # 从国内镜像，克隆 Homebrew 基本文件(32M+)
     echo '==> 克隆 Homebrew (32M+)'
     git clone $USER_BREW_GIT ${HOMEBREW_REPOSITORY}
-    judgeSuccess 尝试再次运行自动脚本选择其他下载源或者切换网络 out
-    echo '==> 创建brew的替身'
+    judgeSuccess 克隆失败选择其他下载源或者切换网络尝试再次运行本脚本 out
+    echo '==> 创建brew的软链接'
     find ${HOMEBREW_PREFIX}/bin -name brew -exec sudo rm -f {} \;
     ln -s ${HOMEBREW_PREFIX}/Homebrew/bin/brew ${HOMEBREW_PREFIX}/bin/brew
     judgeSuccess
@@ -271,7 +305,7 @@ myFuncInstallHomeBrew() {
     echo '==> 克隆Homebrew Core(224M+)'
     createFolder ${HOMEBREW_PREFIX}/Homebrew/Library/Taps/homebrew/homebrew-core a+rx
     git clone $USER_BREW_GIT_CORE ${HOMEBREW_PREFIX}/Homebrew/Library/Taps/homebrew/homebrew-core/
-    judgeSuccess 尝试再次运行自动脚本选择其他下载源或者切换网络 out
+    judgeSuccess 克隆失败选择其他下载源或者切换网络尝试再次运行本脚本 out
 
     # 从国内镜像，克隆 Homebrew Cask(248M+) 类似 AppStore
     echo '==> 克隆 Homebrew Cask(248M+) 类似 AppStore'
@@ -285,40 +319,43 @@ myFuncInstallHomeBrew() {
     fi
 
     # 配置国内镜像源HOMEBREW BOTTLE 到 ~/.zshrc
-    echo '==> 配置国内镜像源HOMEBREW BOTTLE'
+    echo '==> 添加国内镜像源HOMEBREW BOTTLE到环境变量'
     if [[ -f ${NOW_HOME}/.zshrc ]]; then
         changePermission ${NOW_HOME}/.zshrc a+rx
-    fi
-    # 在 ${NOW_HOME}/.zshrc 文件中，追加配置
-    ret=$(cat ${NOW_HOME}/.zshrc | grep "HomeBrew Start")
-    if [[ $? -ne 0 ]]; then
-        echo "
+        # 在 ${NOW_HOME}/.zshrc 文件中，追加配置
+        ret=$(cat ${NOW_HOME}/.zshrc | grep "HomeBrew Start")
+        if [[ -z "$ret" ]]; then
+            echo "
 # HomeBrew Start
 export HOMEBREW_BOTTLE_DOMAIN=${USER_BREW_BOTTLE_DOMAIN}
+export HOMEBREW_NO_AUTO_UPDATE=1
 export PATH=\"/usr/local/bin:\$PATH\"
 export PATH=\"/usr/local/sbin:\$PATH\"
 # HomeBrew END
 " >> ${NOW_HOME}/.zshrc
+        fi
     fi
 
     # 配置国内镜像源HOMEBREW BOTTLE 到 ~/.bash_profile
-    if [[ -f ${NOW_HOME}/.bash_profile ]]; then
-        changePermission ${NOW_HOME}/.bash_profile a+rx
+    if [[ ! -f ${NOW_HOME}/.bash_profile ]]; then
+        touch ${NOW_HOME}/.bash_profile a+rx
     fi
+    changePermission ${NOW_HOME}/.bash_profile a+rx
     # 在 ${NOW_HOME}/.bash_profile 文件中，追加配置
     ret=$(cat ${NOW_HOME}/.bash_profile | grep "HomeBrew Start")
-    if [[ $? -ne 0 ]]; then
+    if [[ -z "$ret" ]]; then
         echo "
 # HomeBrew Start
 export HOMEBREW_BOTTLE_DOMAIN=${USER_BREW_BOTTLE_DOMAIN}
+export HOMEBREW_NO_AUTO_UPDATE=1
 export PATH=\"/usr/local/bin:\$PATH\"
 export PATH=\"/usr/local/sbin:\$PATH\"
 # HomeBrew END
 " >> ${NOW_HOME}/.bash_profile
     fi
 
-    source ${NOW_HOME}/.zshrc
-    source ${NOW_HOME}/.bash_profile
+    # 根据当前 Shell，重新加载 Shell 配置文件
+    sourceCurShellCfgFile
 
     echo "\033[1;32m 安装 HomeBrew 完成 \033[0m"
 
@@ -348,7 +385,7 @@ export PATH=\"/usr/local/sbin:\$PATH\"
 #################################################################
 myFuncBrewInstall() {
     local ret=$(brew list --formula | grep $1)
-    if [[ $? -eq 0 ]]; then
+    if [[ -n "$ret" ]]; then
         echo "\033[1;36m 已安装 $1，无需再安装
         \033[0m"
         return 2
@@ -360,13 +397,12 @@ myFuncBrewInstall() {
     brew install $1
 
     ret=$(brew list --formula | grep $1)
-    if [[ $? -eq 0 ]]; then
+    if [[ -n "$ret" ]]; then
         echo "\033[1;32m 已成功安装 $1 \033[0m"
         return 0
-    else
-        echo "\033[1;31m 安装 $1 失败\033[0m"
-        return 1
     fi
+    echo "\033[1;31m 安装 $1 失败\033[0m"
+    return 1
 }
 
 #################################################################
@@ -386,8 +422,8 @@ myFuncInstallOpenSSL() {
     brew upgrade openssl
     local BREW_OPENSSL=$(brew list --formula | grep openssl)
     local ret=$(cat ${NOW_HOME}/.bash_profile | grep "OpenSSL Start")
-    if [[ $? -ne 0 ]] && [[ -n "$BREW_OPENSSL" ]]; then
-    echo "
+    if [[ -z "$ret" ]] && [[ -n "$BREW_OPENSSL" ]]; then
+        echo "
 # OpenSSL Start
 export PATH=\"${HOMEBREW_PREFIX}/opt/${BREW_OPENSSL}/bin:\$PATH\"
 export LDFLAGS=\"-L${HOMEBREW_PREFIX}/opt/${BREW_OPENSSL}/lib\"
@@ -443,9 +479,8 @@ myFuncGenSSHKeys() {
     ==> Gen SSH Key
     '
     # 生成 SSH Key（-m：指定密钥格式；-t：密钥类型；-N：指定新密语为空，不用输入回车；-b：密钥长度；-f：保存文件名；-C：添加注释；-q：不输出显示）
-    ssh-keygen -m PEM -t rsa -N '' -f ${NOW_HOME}/.ssh/id_rsa -b 4096 -C "${YOUR_SSHGEN_EMAIL}"
-    # ssh-keygen -m PEM -t rsa -N '' -f ${NOW_HOME}/.ssh/id_rsa -b 4096 -C "${YOUR_SSHGEN_EMAIL}" -q
-    
+    ssh-keygen -m PEM -t rsa -N '' -f ${NOW_HOME}/.ssh/id_rsa -b 4096 -C "${YOUR_GIT_EMAIL}"
+
     # 检查 rsa 密钥文件是否生成
     if [[ -f ${NOW_HOME}/.ssh/id_rsa ]] && [[ -f ${NOW_HOME}/.ssh/id_rsa.pub ]]; then
         echo '\033[1;36m 生成 SSH Key成功，公钥如下: ================================================\033[0m'
@@ -467,6 +502,7 @@ myFuncInstallAndCfgGit() {
     if [[ $? -ne 0 ]]; then
         return $?
     fi
+    # Git 全局配置
     local GIT_USER_NAME=$(git config --global user.name)
     local GIT_USER_EMAIL=$(git config --global user.email)
     if [[ -z "$GIT_USER_NAME"  &&  -z "$GIT_USER_EMAIL" ]]; then
@@ -492,27 +528,26 @@ myFuncInstallAndCfgGit() {
 
 #################################################################
 # 配置 Shell 别名 alias
+# @describe eg. 'll' ==> 'ls -l'，输入命令'll'，Shell在转告系统时替换为'ls -l'
 #################################################################
 myFuncCfgAlias() {
-    # 在 ${NOW_HOME}/.bash_profile 文件中，追加配置 shell 的命令别名
-    if [[ ! -f ${NOW_HOME}/.bash_profile ]]; then
-        touch ${NOW_HOME}/.bash_profile
+    if [[ -f ${NOW_HOME}/.bash_profile ]]; then
+        local ret=$(cat ${NOW_HOME}/.bash_profile | grep "Alias Start")
+        if [[ -n "$ret" ]]; then
+            echo '\033[1;36m 已配置 Shell 别名，无需再配置
+        \033[0m'
+            return 0
+        fi
     fi
 
-    local ret=$(cat ${NOW_HOME}/.bash_profile | grep "Alias Start")
-    if [[ -z "$ret" ]]; then
-        # 追加别名配置到 ${NOW_HOME}/.bash_profile
-        echo "
+    # 在 ${NOW_HOME}/.bash_profile 文件中，追加配置 shell 的命令别名
+    echo "
 # Alias Start
 alias ll='ls -l'
 alias vi='vim'
 # Alias End
 " >> ${NOW_HOME}/.bash_profile
-         echo "\033[1;32m 配置 Shell 别名完成\033[0m"
-    else
-        echo '\033[1;36m 已配置 Shell 别名，无需再配置
-        \033[0m'
-    fi
+    echo "\033[1;32m 配置 Shell 别名完成\033[0m"
 }
 
 #################################################################
@@ -522,7 +557,7 @@ myFuncCfgVim() {
     # 在 ${NOW_HOME}/.vimrc 文件中，追加配置
     if [[ -f ${NOW_HOME}/.vimrc ]]; then
         local ret=$(cat ${NOW_HOME}/.vimrc | grep "syntax on")
-        if [[ $? -eq 0 ]]; then
+        if [[ -n "$ret" ]]; then
             echo '\033[1;36m 已配置 vim，无需再配置
             \033[0m'
             return 0
@@ -541,7 +576,7 @@ colorscheme desert
 # @depend git
 #################################################################
 myFuncInstallPowerlineFonts() {
-    local ret=$(ls ${NOW_HOME}/Library/Fonts |grep wedakjfhluew)
+    local ret=$(ls ${NOW_HOME}/Library/Fonts | grep wedakjfhluew)
     if [[ $? -eq 0 ]]; then
         echo '\033[1;36m 已安装 powerline 字体，无需再安装
             \033[0m'
@@ -562,13 +597,13 @@ myFuncInstallPowerlineFonts() {
 #################################################################
 myFuncInstallAndCfgZSH() {
     # 检查 mac 系统是否自带 zsh
-    local ret=$(cat /etc/shells |grep "/bin/zsh")
-    if [[ $? -eq 0 ]]; then
-        echo "\033[1;36m 此Mac已自带 zsh，无需再安装
-        \033[0m"
-    else
-        myFuncBrewInstall zsh
+    local ret=$(cat /etc/shells | grep "/bin/zsh")
+    if [[ -n "$ret" ]]; then
+        echo "\033[1;36m 检测到此Mac已自带 zsh，将被忽视\033[0m"
     fi
+
+    # 仍然使用 brew 安装最新版 zsh
+    myFuncBrewInstall zsh
 
     # 安装 iterm2 (更好看的终端，可选)
     # brew cask install iterm2
@@ -579,13 +614,14 @@ myFuncInstallAndCfgZSH() {
     # 安装 oh-my-zsh 配置
     # 方案一：下载 安装 ~/.oh-my-zsh 安装脚本(自动安装)
     # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
     # # 方案二： 下载 ~/.oh-my-zsh（手动安装）
     if [[ ! -d "${NOW_HOME}/.oh-my-zsh" ]]; then
         echo '
         ==> clone oh-my-zsh
         '
         git clone git://github.com/robbyrussell/oh-my-zsh.git ${NOW_HOME}/.oh-my-zsh
-        # 拷贝出 oh-my-zsh 中的文件作为自己的配置文件 （备份）
+        # 拷贝出 oh-my-zsh 中的示例配置文件作为自己的配置文件（做备份）
         if [[ -f ${NOW_HOME}/.zshrc ]]; then
             mv ${NOW_HOME}/.zshrc ${NOW_HOME}/.zshrc_backup${NOW_TIME}
         fi
@@ -599,6 +635,7 @@ myFuncInstallAndCfgZSH() {
         '
         git clone git://github.com/zsh-users/zsh-autosuggestions ${NOW_HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     fi
+
     # 克隆 zsh 高亮插件: zsh-syntax-highlighting
     if [[ ! -d "${NOW_HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
         echo '
@@ -607,32 +644,30 @@ myFuncInstallAndCfgZSH() {
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${NOW_HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     fi
 
-    # 安装 zsh 跳转目录插件: autojump
-    myFuncBrewInstall autojump
-
     # 修改 zsh 配置文件，修改主题：ZSH_THEME="robbyrussell" -> ZSH_THEME="robbyrussell"
     sed -i "" 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/g' ${NOW_HOME}/.zshrc
 
     # 修改 zsh 配置文件，添加已加插件字段：plugins=(git)
     sed -i "" 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting autojump)/g' ${NOW_HOME}/.zshrc
 
-    # 暂时屏蔽 source $ZSH/oh-my-zsh.sh
-    sed -i "" 's?source $ZSH/oh-my-zsh.sh?# source $ZSH/oh-my-zsh.sh?g'  ${NOW_HOME}/.zshrc
-    
-    # 添加 autojump 的配置，并恢复 上一步暂时屏蔽的 source $ZSH/oh-my-zsh.sh
+    # 安装 zsh 跳转目录插件: autojump
+    myFuncBrewInstall autojump
+    # 添加 autojump 的配置
     ret=$(cat ${NOW_HOME}/.zshrc | grep "autojump config")
-    if [[ $? -eq 1 ]]; then
-    echo "
+    if [[ -z "$ret" ]]; then
+        # 暂时屏蔽 'source $ZSH/oh-my-zsh.sh'
+        sed -i "" 's?source $ZSH/oh-my-zsh.sh?# source $ZSH/oh-my-zsh.sh?g'  ${NOW_HOME}/.zshrc
+
+        echo "
 # autojump config
 [[ -f ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh ]] && . ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh
 
 source \$ZSH/oh-my-zsh.sh"  >> ${NOW_HOME}/.zshrc
-        # source ${NOW_HOME}/.oh-my-zsh/oh-my-zsh.sh
     fi
 
-    # 在.zshrc文件中，追加 source ~/.bash_profile 保留以前配置的环境变量
+    # 在.zshrc文件中，追加 source ~/.bash_profile 以保留之前配置在 .bash_profile 的环境变量
     ret=$(cat ${NOW_HOME}/.zshrc | grep "retain bash profile config")
-    if [[ $? -eq 1 ]] && [[ -f ${NOW_HOME}/.bash_profile ]]; then
+    if [[ -z "$ret" ]] && [[ -f ${NOW_HOME}/.bash_profile ]]; then
         echo "
 # retain bash profile config
 source ${NOW_HOME}/.bash_profile
@@ -652,9 +687,64 @@ source ${NOW_HOME}/.bash_profile
         chsh -s ${HOMEBREW_PREFIX}/bin/zsh
         echo "\033[1;36m 已将默认 Shell 切换为 zsh，稍后请重启终端
         \033[0m"
+        source ${NOW_HOME}/.zshrc
+    else
+        echo "\033[1;36m 当前默认 Shell 已是 zsh，无需切换
+        \033[0m"
     fi
-    source ${NOW_HOME}/.zshrc
 }
+
+
+# GoLang
+# 最新 GoLang 下载地址：https://golang.google.cn/dl/
+YOUR_GO_VER="go1.9.7"
+YOUR_GOLANG_URL="https://golang.google.cn/dl/${YOUR_GO_VER}.darwin-amd64.tar.gz"
+YOUR_GO_PATH="$USER/WorkSpace/Go_Learning"
+
+#################################################################
+# 安装并配置 GoLang
+# @describe brew 安装无法下载
+#################################################################
+myFuncInstallAndCfgGoLang() {
+    # 下载 
+    local record_pwd=$PWD
+    cd ${NOW_HOME}/Downloads
+    curl -O --insecure $YOUR_GOLANG_URL
+
+
+
+
+    # 增加go的国内代理
+    local ret=$(cat ${NOW_HOME}/.bash_profile | grep "GoLang GOPROXY")
+    if [[ -z "$ret" ]]; then
+        echo "
+# GoLang GOPROXY
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn
+" >> ${NOW_HOME}/.bash_profile
+        source ${NOW_HOME}/.bash_profile
+    fi
+
+    # 使用 brew 安装 Golang
+    myFuncBrewInstall $YOUR_GOLANG
+    # 若不是首次成功安装，则退出函数
+    if [[ $? -ne 0 ]]; then
+        return $?
+    fi
+
+    local ret=$(cat ${NOW_HOME}/.bash_profile | grep "GoLang Start")
+    if [[ -z "$ret" ]]; then
+        echo "# GoLang Start
+export GOPATH=$YOUR_GO_PATH
+export GOBIN=\$GOPATH/bin
+export PATH=\$PATH:\$GOBIN
+# GoLang END
+" >> ${NOW_HOME}/.bash_profile
+        # 根据当前 Shell，重新加载 Shell 配置文件
+        sourceCurShellCfgFile
+    fi
+}
+
 
 
 #################################################################
@@ -735,4 +825,9 @@ myFuncInstallPowerlineFonts
 # 9. 安装并配置 zsh
 echo "\033[1;36m 9. 安装并配置 zsh \033[0m"
 myFuncInstallAndCfgZSH
+
+# 10. 安装并配置 GoLang
+echo "\033[1;36m 10. 安装并配置 GoLang \033[0m"
+myFuncInstallAndCfgGoLang
+
 ############  Script Running End ############
