@@ -58,3 +58,18 @@ func PrintList(head *ListNode) {
     }
     fmt.Println()
 }
+
+/**
+ * 打印数组
+ */
+func PrintArray(arr []int) {
+    size := len(arr)
+    fmt.Print("[")
+    if size > 0 {
+        fmt.Print(arr[0])
+        for i := 1; i < size; i++ {
+            fmt.Print(", ", arr[i])
+        }
+    }
+    fmt.Println("]")
+}
