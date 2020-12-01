@@ -18,6 +18,7 @@
 # 10. 安装并配置 GoLang
 ###############################################################
 
+
 #####################  Your Config Start  #####################
 # Git 全局配置
 YOUR_GIT_NAME="EisenHao"
@@ -25,9 +26,10 @@ YOUR_GIT_EMAIL="ei13911468370@gmail.com"
 
 # GoLang
 # 最新 GoLang 下载地址：https://golang.google.cn/dl/
-YOUR_GO_VER="go1.9.7"
-YOUR_GOLANG_URL="https://golang.google.cn/dl/${YOUR_GO_VER}.darwin-amd64.tar.gz"
-YOUR_GO_PATH="$USER/WorkSpace/Go_Learning"
+YOUR_GO_VER="go1.13.15"
+YOUT_GO_INSTALL_PATH="/usr/local"
+YOUR_GOLANG_URL="https://dl.google.com/go/go1.13.15.darwin-amd64.tar.gz"
+YOUR_GO_PATH="/Users/$(whoami)/WorkSpace/Go_Learning"
 ######################  Your Config End  ######################
 
 
@@ -694,55 +696,65 @@ source ${NOW_HOME}/.bash_profile
     fi
 }
 
-
-# GoLang
-# 最新 GoLang 下载地址：https://golang.google.cn/dl/
-YOUR_GO_VER="go1.9.7"
-YOUR_GOLANG_URL="https://golang.google.cn/dl/${YOUR_GO_VER}.darwin-amd64.tar.gz"
-YOUR_GO_PATH="$USER/WorkSpace/Go_Learning"
-
 #################################################################
 # 安装并配置 GoLang
 # @describe brew 安装无法下载
 #################################################################
 myFuncInstallAndCfgGoLang() {
-    # 下载 
-    local record_pwd=$PWD
-    cd ${NOW_HOME}/Downloads
-    curl -O --insecure $YOUR_GOLANG_URL
+    local ret=$(cat ${NOW_HOME}/.bash_profile | grep "GoLang Start")
+    if [[ -n "$ret" ]]; then
+        echo '\033[1;36m 已安装 GoLang ，无需再安装
+        \033[0m'
+        return 0
+    fi
 
+    echo '
+    ==> install GoLang
+    '
 
+    if [[ ! -d "${YOUT_GO_INSTALL_PATH}/${YOUR_GO_VER}" ]]; then
+        createFolder "${YOUT_GO_INSTALL_PATH}/${YOUR_GO_VER}" a+rx
+    fi
 
+    # 下载
+    curl -o $YOUR_GO_VER.tar.gz --insecure $YOUR_GOLANG_URL
+    if [[ $? -ne 0 ]]; then
+        echo "\033[1;31m 下载 GoLang 包失败，请确认资源地址有效性 $YOUR_GOLANG_URL
+        \033[0m"
+        return 1
+    fi
 
-    # 增加go的国内代理
-    local ret=$(cat ${NOW_HOME}/.bash_profile | grep "GoLang GOPROXY")
+    # 解压
+    tar -zxf ./$YOUR_GO_VER.tar.gz
+    mv ./go/* ${YOUT_GO_INSTALL_PATH}/${YOUR_GO_VER}/
+    rm -rf ./$YOUR_GO_VER.tar.gz
+    rm -rf ./go
+
+    # 设置环境变量
+    local go_install_path="${YOUT_GO_INSTALL_PATH}/${YOUR_GO_VER}"
+    ret=$(cat ${NOW_HOME}/.bash_profile | grep "GoLang Start")
     if [[ -z "$ret" ]]; then
-        echo "
-# GoLang GOPROXY
+        echo "# GoLang Start
+export GOROOT=$go_install_path
+export GOPATH=$YOUR_GO_PATH
+export GOBIN=\$GOPATH/bin
+export PATH=\$PATH:\$GOROOT/bin:\$GOBIN
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn
+# GoLang END
 " >> ${NOW_HOME}/.bash_profile
         source ${NOW_HOME}/.bash_profile
     fi
-
-    # 使用 brew 安装 Golang
-    myFuncBrewInstall $YOUR_GOLANG
-    # 若不是首次成功安装，则退出函数
-    if [[ $? -ne 0 ]]; then
-        return $?
+    
+    ret=$(go version)
+    if [[ $? -eq 0 ]]; then
+        echo '\033[1;36m 安装 GoLang 成功
+        \033[0m'
+        return 0
     fi
-
-    local ret=$(cat ${NOW_HOME}/.bash_profile | grep "GoLang Start")
-    if [[ -z "$ret" ]]; then
-        echo "# GoLang Start
-export GOPATH=$YOUR_GO_PATH
-export GOBIN=\$GOPATH/bin
-export PATH=\$PATH:\$GOBIN
-# GoLang END
-" >> ${NOW_HOME}/.bash_profile
-        # 根据当前 Shell，重新加载 Shell 配置文件
-        sourceCurShellCfgFile
-    fi
+    echo '\033[1;31m 安装 GoLang 失败
+        \033[0m'
+    return 1
 }
 
 
@@ -755,15 +767,6 @@ myOtherFunc() {
 myFuncBrewInstall node@12
 # Add the bin/ directory for this Node.js installation to your PATH:
 # 例如 ： /usr/local/opt/node@12/bin
-
-
-# install Go
-myFuncBrewInstall golang
-# Setting a GOROOT
-# 写入下命令到 ~/.bashrc
-export GOROOT="${YOUR_GO_ROOT}"
-# 添加如下路径到Path
-$GOROOT/bin
 
 
 # install Java JDK
