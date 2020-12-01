@@ -2,11 +2,11 @@
 @REM @Describe Simple and efficient cutting Video Script
 @REM @Depende ffmpeg
 
-@REM Source video path(Absolute or relative both ok)
+@REM Source video path(Absolute path and relative path both ok)
 @REM set VideoSource=C:\Music\testVideo.mp4
 set VideoSource=.\testVideo.mp4
 
-@REM Cut video output path(Absolute or relative both ok)
+@REM Cut video output path(Absolute path and relative path both ok)
 @REM set VideoOutput=C:\Music\VideoOutput.mp4
 set VideoOutput=.\VideoOutput.mp4
 
