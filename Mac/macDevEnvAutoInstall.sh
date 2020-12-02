@@ -16,6 +16,7 @@
 # 8. 安装 powerline 字体
 # 9. 安装并配置 zsh（主题：ys，插件：zsh-autosuggestions zsh-syntax-highlighting autojump）
 # 10. 安装并配置 GoLang
+# 11. 安装并配置 Python3
 ###############################################################
 
 
@@ -30,6 +31,22 @@ YOUR_GO_VER="go1.13.15"
 YOUT_GO_INSTALL_PATH="/usr/local"
 YOUR_GOLANG_URL="https://dl.google.com/go/go1.13.15.darwin-amd64.tar.gz"
 YOUR_GO_PATH="/Users/$(whoami)/WorkSpace/Go_Learning"
+
+# Python3
+# Python 库
+# Nose库：扩展了 单元测试库unittest 的功能
+# lapack库：Fortran实现的高效率矩阵计算模块，Matlab，Numpy, Scipy依赖于它
+# atlas库：线性代数库，依赖lapack
+# Numpy库：提供数组支持，以及相应的高效的处理函数，依赖atlas
+# SciPy库：提供矩阵支持，以及矩阵相关的数值计算模块
+# Matplotlib库：强大的数据可视化工具、作图库
+# Pandas库：强大、灵活的数据分析和探索工具
+# StatsModels库：统计建模和计量经济学，包括描述统计、统计模型估计和推断
+# Scikit-Learn库：支持回归、分类、聚类等强大的机器学习库
+# Keras库：深度学习库，用于建立神经网络以及深度学习模型
+# Gensim库：用来做文本主题模型的库，可能用于文本挖掘
+YOUR_PYTHON3_VER="python@3.9"
+YOUR_PYTHON3_LIB=(nose lapack atlas numpy scipy)
 ######################  Your Config End  ######################
 
 
@@ -757,6 +774,50 @@ export GOPROXY=https://goproxy.cn
     return 1
 }
 
+#################################################################
+# 安装并配置 Python3
+# @depend brew
+#################################################################
+myFuncInstallAndCfgPython3() {
+    local ret=$(python3 --version)
+    if [[ $? -eq 0 ]]; then
+        echo '\033[1;36m 已安装 Python3 ，无需再安装
+        \033[0m'
+    else
+        echo '
+        ==> install python3
+        '
+        myFuncBrewInstall ${YOUR_PYTHON3_VER}
+    fi
+
+    ret=$(pip3 --version)
+    if [[ $? -eq 0 ]]; then
+        echo '\033[1;36m 已安装 pip3 ，无需再安装
+        \033[0m'
+    else
+        echo '
+        ==> install pip3
+        '
+        myFuncBrewInstall pip3
+    fi
+
+    # 安装Python, 库仅一次安装（若numpy安装成功后不再执行）,需手动 pip3 安装
+    ret=$(pip3 list | grep numpy)
+    if [[ $? -eq 0 ]]; then
+        echo '\033[1;36m 已安装 python Lib ，无需再安装
+        \033[0m'
+        return 0
+    fi
+    for python3LibName in "${YOUR_PYTHON3_LIB[@]}"; do
+        ret=$(pip3 list | grep ${python3LibName})
+        if [[ $? -ne 0 ]]; then
+            echo "
+            ==> install python3 lib: ${python3LibName}
+            "
+            pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple ${python3LibName}
+        fi
+    done
+}
 
 
 #################################################################
@@ -777,13 +838,6 @@ myFuncBrewInstall node@12
 # TODO: 例如如下
 JAVA_HOME=/usr/local/lib/jdk-11.0.3+7/Contents/Home
 PATH=$PATH:/usr/local/lib/jdk-11.0.3+7/Contents/Home/bin
-
-
-# Python3
-myFuncBrewInstall python3 pipenv
-python3 --version
-pip3 --version
-
 }
 ####################  Func Define End  ##########################
 
@@ -832,5 +886,9 @@ myFuncInstallAndCfgZSH
 # 10. 安装并配置 GoLang
 echo "\033[1;36m 10. 安装并配置 GoLang \033[0m"
 myFuncInstallAndCfgGoLang
+
+# 11. 安装并配置 Python3
+echo "\033[1;36m 11. 安装并配置 Python3 \033[0m"
+myFuncInstallAndCfgPython3
 
 ############  Script Running End ############
