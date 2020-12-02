@@ -17,6 +17,7 @@
 # 9. 安装并配置 zsh（主题：ys，插件：zsh-autosuggestions zsh-syntax-highlighting autojump）
 # 10. 安装并配置 GoLang
 # 11. 安装并配置 Python3
+# 12. 配置 Java
 ###############################################################
 
 
@@ -47,6 +48,13 @@ YOUR_GO_PATH="/Users/$(whoami)/WorkSpace/Go_Learning"
 # Gensim库：用来做文本主题模型的库，可能用于文本挖掘
 YOUR_PYTHON3_VER="python@3.9"
 YOUR_PYTHON3_LIB=(nose lapack atlas numpy scipy)
+
+# Java
+# 登录最新 Java 下载地址：https://www.oracle.com/java/technologies/javase-downloads.html，下载JDK并安装
+# YOUR_JAVA_VER="jdk_8u271"
+# YOUT_JAVA_INSTALL_PATH="/usr/local"
+# YOUR_JAVA_TAR_FILE="/Users/$(whoami)/Downloads/jdk-8u271-linux-x64.tar.gz"
+YOUR_JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home"
 ######################  Your Config End  ######################
 
 
@@ -379,6 +387,7 @@ export PATH=\"/usr/local/sbin:\$PATH\"
     echo "\033[1;32m 安装 HomeBrew 完成 \033[0m"
 
     # 设置权限
+    execute_sudo "$CHOWN" "-R" "$USER" "${HOMEBREW_REPOSITORY}"
     changePermission ${HOMEBREW_REPOSITORY} a+rx
     #先暂时设置到清华大学源，中科大没有 Ruby 下载镜像
     HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
@@ -762,7 +771,7 @@ export GOPROXY=https://goproxy.cn
 " >> ${NOW_HOME}/.bash_profile
         source ${NOW_HOME}/.bash_profile
     fi
-    
+
     ret=$(go version)
     if [[ $? -eq 0 ]]; then
         echo '\033[1;36m 安装 GoLang 成功
@@ -819,6 +828,58 @@ myFuncInstallAndCfgPython3() {
     done
 }
 
+#################################################################
+# 安装并配置 Java
+#################################################################
+myFuncInstallAndCfgJava() {
+    local ret=$(cat ${NOW_HOME}/.bash_profile | grep "Java Start")
+    if [[ -n "$ret" ]]; then
+        echo '\033[1;36m 已安装 Java ，无需再安装
+        \033[0m'
+        # return 0
+    fi
+
+    # echo '
+    # ==> install Java
+    # '
+
+    # if [[ ! -d "${YOUT_JAVA_INSTALL_PATH}/${YOUR_JAVA_VER}" ]]; then
+    #     createFolder "${YOUT_JAVA_INSTALL_PATH}/${YOUR_JAVA_VER}" a+rx
+    # fi
+    
+    # # 下载
+    # curl -o $YOUR_JAVA_VER.tar.gz --insecure $YOUR_JAVA_URL
+    # if [[ $? -ne 0 ]]; then
+    #     echo "\033[1;31m 下载 Java 包失败，请确认资源地址有效性 $YOUR_JAVA_URL
+    #     \033[0m"
+    #     return 1
+    # fi
+    # if [[ ! -f $YOUR_JAVA_TAR_FILE ]]; then
+    # echo "\033[1;31m 下载 Java 包失败，请确认资源地址有效性 $YOUR_JAVA_URL
+    #     \033[0m"
+    #     return 1
+    # fi
+
+    # # # 解压
+    # tar -zxf $YOUR_JAVA_TAR_FILE
+    # mv ./jdk*/* ${YOUT_JAVA_INSTALL_PATH}/${YOUR_JAVA_VER}/
+    # rm -rf ./jdk*
+
+    # 设置环境变量
+    ret=$(cat ${NOW_HOME}/.bash_profile | grep "Java Start")
+    if [[ -z "$ret" ]]; then
+        echo "# Java Start
+export JAVA_HOME=${YOUR_JAVA_HOME}
+export PATH=\$JAVA_HOME/bin:\$PATH:.
+export CLASSPATH=\$JAVA_HOME/lib/tools.jar:\$JAVA_HOME/lib/dt.jar:.
+export JRE_HOME=\$JAVA_HOME/jre
+# Java END
+" >> ${NOW_HOME}/.bash_profile
+        echo "
+        \033[1;32m 配置 Java 环境变量已完成\033[0m"
+        source ${NOW_HOME}/.bash_profile
+    fi
+}
 
 #################################################################
 # 安装 其他
@@ -828,16 +889,6 @@ myOtherFunc() {
 myFuncBrewInstall node@12
 # Add the bin/ directory for this Node.js installation to your PATH:
 # 例如 ： /usr/local/opt/node@12/bin
-
-
-# install Java JDK
-#eg.
-# brew tap adoptopenjdk/openjdk
-# brew cask install adoptopenjdk11
-# 写入下命令到 ~/.bashrc
-# TODO: 例如如下
-JAVA_HOME=/usr/local/lib/jdk-11.0.3+7/Contents/Home
-PATH=$PATH:/usr/local/lib/jdk-11.0.3+7/Contents/Home/bin
 }
 ####################  Func Define End  ##########################
 
@@ -890,5 +941,9 @@ myFuncInstallAndCfgGoLang
 # 11. 安装并配置 Python3
 echo "\033[1;36m 11. 安装并配置 Python3 \033[0m"
 myFuncInstallAndCfgPython3
+
+# 12. 配置 Java
+echo "\033[1;36m 12. 配置 Java \033[0m"
+myFuncInstallAndCfgJava
 
 ############  Script Running End ############
