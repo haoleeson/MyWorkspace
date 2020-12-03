@@ -954,6 +954,16 @@ export PATH=${YOUT_NODEJS_INSTALL_PATH}/node${YOUT_NODEJS_VER}/bin:\$PATH
         return 1
     fi
 
+    if [[ ! -d "${NOW_HOME}/.npm-global" ]]; then
+        createFolder "${NOW_HOME}/.npm-global" a+r
+        npm config set prefix "${NOW_HOME}/.npm-global"
+        echo "# Npm Start
+export PATH=${NOW_HOME}/.npm-global/bin:\$PATH
+# Npm END
+" >> ${NOW_HOME}/.bash_profile
+        source ${NOW_HOME}/.bash_profile
+    fi
+
     # 换成阿里的镜像, 解决npm install安装慢的问题
     ret=$(npm config get registry | grep "taobao")
     if [[ -z "$ret" ]]; then
