@@ -33,7 +33,7 @@ private:
     BTreeNode<KEY_TYPE, VALUE_TYPE>* parent;// 父指针
     KEY_TYPE* keys;// 关键字数组
     union {
-        VALUE_TYPE* valuePtrs;// 若为叶子节点，指向value的指针
+        VALUE_TYPE* valuePtrs;// 若为叶子节点，指向value的指针数组
         BTreeNode<KEY_TYPE, VALUE_TYPE>** childPtrs;// 子节点指针数组
     };
 private:
@@ -60,7 +60,7 @@ private:
     int m;// m阶，┌m/2┐ - 1 <= j <= m - 1
     int maxKeyNum;// 最多关键字个数 =  m - 1;
     int minKeyNum;// 最少关键字个数 = ┌m/2┐ - 1 = (m - 1) / 2 == maxKeyNum / 2
-    BTreeNode<KEY_TYPE, VALUE_TYPE>* root;
+    BTreeNode<KEY_TYPE, VALUE_TYPE>* root; // 根节点
 private:
     bool appointNotFullInsert(BTreeNode<KEY_TYPE, VALUE_TYPE>*InsertNode, KEY_TYPE key, void* valuePtr);// 指定未满节点的插入操作
     bool appointSplitInsert(BTreeNode<KEY_TYPE, VALUE_TYPE>*splitNode, KEY_TYPE key, void* valuePtr);// 指定已满节点的分裂插入操作
@@ -213,7 +213,7 @@ void BTreeNode<KEY_TYPE, VALUE_TYPE>::removeValue(int keyIndex) {
 }
 
 /**
- * 二分查询关键字数组中，第一个key[i] >= key对应的子节点可能所在下标 i
+ * 二分查询关键字数组中，第一个keys[i] >= key对应的子节点可能所在下标 i
  * @tparam KEY_TYPE
  * @tparam VALUE_TYPE
  * @param key
