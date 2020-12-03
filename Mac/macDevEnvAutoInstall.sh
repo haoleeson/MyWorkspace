@@ -943,14 +943,27 @@ export PATH=${YOUT_NODEJS_INSTALL_PATH}/node${YOUT_NODEJS_VER}/bin:\$PATH
     # done
 
     ret=$(node -v)
-    if [[ $? -eq 0 ]]; then
-        echo '\033[1;36m 安装 Nodejs 成功
-        \033[0m'
-        return 0
+    if [[ $? -ne 0 ]]; then
+        echo '\033[1;31m 安装 Nodejs 失败\033[0m'
+        return 1
     fi
-    echo '\033[1;31m 安装 Nodejs 失败
-        \033[0m'
-    return 1
+
+    ret=$(npm -v)
+    if [[ $? -ne 0 ]]; then
+        echo '\033[1;31m 安装 npm 失败\033[0m'
+        return 1
+    fi
+
+    # 换成阿里的镜像, 解决npm install安装慢的问题
+    ret=$(npm config get registry | grep "taobao")
+    if [[ -z "$ret" ]]; then
+        npm config set registry https://registry.npm.taobao.org
+        npm install
+    fi
+
+    echo "\033[1;32m 安装 Nodejs 成功 \033[0m"
+    
+    return 0
 }
 
 
