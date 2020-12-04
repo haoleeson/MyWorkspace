@@ -1,6 +1,13 @@
 # MyBlogSourceCode
 我的博客源码
 
+## clone 方式
+```shell
+# 将我的博客源码及子模块源码一起克隆下来
+git clone --recursive https://github.com/EisenHao/MyBlogSourceCode.git
+# cd 到下来仓库，执行下方命令确保子模块已经下载完全了
+git submodule update --init --recursive1
+```
 * 本博客采用[Hexo](https://hexo.io/zh-cn/docs/)博客框架
 * 本博客主题为[NexT v8.1.0](https://github.com/next-theme/hexo-theme-next)
 
@@ -35,7 +42,7 @@ vi ./themes/next/_config.yml
 # 构建静态博客网站
 hexo Clean && hexo g
 
-# 本地调试(https:localhost:4000)
+# 本地调试（http://localhost:4000）
 hexo s
 
 # 发布
