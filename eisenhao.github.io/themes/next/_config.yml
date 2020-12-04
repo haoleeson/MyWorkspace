@@ -28,7 +28,7 @@ custom_file_path:
   #bodyEnd: source/_data/body-end.njk
   #variable: source/_data/variables.styl
   #mixin: source/_data/mixins.styl
-  #style: source/_data/styles.styl
+  style: source/_data/styles.styl
 
 
 # ---------------------------------------------------------------
@@ -42,7 +42,7 @@ scheme: Muse
 #scheme: Gemini
 
 # Dark Mode
-darkmode: false
+darkmode: true # false
 
 
 # ---------------------------------------------------------------
@@ -50,10 +50,10 @@ darkmode: false
 # ---------------------------------------------------------------
 
 favicon:
-  small: /images/favicon-16x16-next.png
-  medium: /images/favicon-32x32-next.png
-  apple_touch_icon: /images/apple-touch-icon-next.png
-  safari_pinned_tab: /images/logo.svg
+  small: /images/my-favicon-16x16.png
+  medium: /images/my-favicon-16x16.png
+  apple_touch_icon: /images/my-avatar.png
+  safari_pinned_tab: /images/my-logo.svg
   #android_manifest: /manifest.json
 
 # Custom Logo (Warning: Do not support scheme Mist)
@@ -80,11 +80,11 @@ creative_commons:
 # Value before `||` delimiter is the target link, value after `||` delimiter is the name of Font Awesome icon.
 # External url should start with http:// or https://
 menu:
-  #home: / || fa fa-home
+  home: / || bank # fa fa-home
   #about: /about/ || fa fa-user
-  #tags: /tags/ || fa fa-tags
+  tags: /tags/ || cloud # fa fa-tags
   #categories: /categories/ || fa fa-th
-  #archives: /archives/ || fa fa-archive
+  archives: /archives/ || hourglass-start # fa fa-archive
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
@@ -125,11 +125,11 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: #/images/avatar.gif
+  url: /images/my-avatar.png
   # If true, the avatar will be dispalyed in circle.
-  rounded: false
+  rounded: true # false
   # If true, the avatar will be rotated with the cursor.
-  rotated: false
+  rotated: true # false
 
 # Posts / Categories / Tags in sidebar.
 site_state: true
@@ -139,9 +139,10 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  #GitHub: https://github.com/yourname || fab fa-github
+  GitHub: https://github.com/EisenHao || github # fab fa-github
   #E-Mail: mailto:yourname@gmail.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fab fa-weibo
+  CSDN: https://blog.csdn.net/u013229297 || coffee #globe #csdn
   #Google: https://plus.google.com/yourname || fab fa-google
   #Twitter: https://twitter.com/yourname || fab fa-twitter
   #FB Page: https://www.facebook.com/yourname || fab fa-facebook
@@ -157,12 +158,17 @@ social_icons:
 
 # Blog rolls
 links_settings:
-  icon: fa fa-globe
+  icon: link # fa fa-globe
   title: Links
   # Available values: block | inline
   layout: block
 
 links:
+  reuixiy: https://reuixiy.github.io/
+  IIssNan: https://notes.iissnan.com/
+  kisence: https://www.kisence.com/
+  sunxiaohang: https://sunxiaohang.github.io/
+  Doublemine: https://notes.wanghao.work/
   #Title: https://example.com
 
 # Table of Contents in the Sidebar
@@ -184,7 +190,7 @@ chat:
   enable: false
   #service: chatra
   #service: tidio
-  icon: fa fa-comment # Icon name in Font Awesome, set false to disable icon.
+  icon: comment # fa fa-comment # Icon name in Font Awesome, set false to disable icon.
   text: Chat # Button text, change it as you wish.
 
 
@@ -203,17 +209,17 @@ footer:
   # Icon between year and copyright info.
   icon:
     # Icon name in Font Awesome. See: https://fontawesome.com/icons
-    name: fa fa-heart
+    name: heart # fa fa-heart
     # If you want to animate the icon, set it to true.
-    animated: false
+    animated: true # false
     # Change the color of icon, using Hex Code.
-    color: "#ff0000"
+    color: "#F577A7" # "#ff0000"
 
   # If not defined, `author` from Hexo `_config.yml` will be used.
   copyright:
 
   # Powered by Hexo & NexT
-  powered: true
+  powered: false # true
 
   # Beian ICP and gongan information for Chinese users. See: https://beian.miit.gov.cn, http://www.beian.gov.cn
   beian:
@@ -246,7 +252,7 @@ post_meta:
   updated_at:
     enable: true
     another_day: true
-  categories: true
+  categories: false # true
 
 # Post wordcount display settings
 # Dependencies: https://github.com/next-theme/hexo-word-counter
@@ -255,7 +261,7 @@ symbols_count_time:
   item_text_total: false
 
 # Use icon instead of the symbol # to indicate the tag at the bottom of the post
-tag_icon: false
+tag_icon: true # false
 
 # Donate (Sponsor) settings
 # Front-matter variable (unsupport animation).
@@ -282,7 +288,7 @@ follow_me:
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
 related_posts:
-  enable: false
+  enable: true # false
   title: # Custom header, leave empty to use the default one
   display_in_home: false
   params:
@@ -363,9 +369,9 @@ codeblock:
     dark: prism-dark
   # Add copy button on codeblock
   copy_button:
-    enable: false
+    enable: true # false
     # Available values: default | flat | mac
-    style:
+    style: flat # mac
 
 back2top:
   enable: true
@@ -394,8 +400,8 @@ bookmark:
 # `Follow me on GitHub` banner in the top-right corner.
 github_banner:
   enable: false
-  permalink: https://github.com/yourname
-  title: Follow me on GitHub
+  permalink: https://github.com/EisenHao
+  title: Welcome to my Github
 
 
 # ---------------------------------------------------------------
@@ -424,29 +430,29 @@ font:
   # Global font settings used for all elements inside <body>.
   global:
     external: true
-    family: Lato
+    family: Noto Serif SC #思源宋体 #Lato       Microsoft YaHei #微软雅黑
     size:
 
   # Font settings for site title (.site-title).
   title:
-    external: true
+    external: false # true
     family:
     size:
 
   # Font settings for headlines (<h1> to <h6>).
   headings:
-    external: true
+    external: false # true
     family:
     size:
 
   # Font settings for posts (.post-body).
   posts:
-    external: true
+    external: false # true
     family:
 
   # Font settings for <code> and code blocks.
   codes:
-    external: true
+    external: false # true
     family:
 
 
@@ -482,7 +488,7 @@ yandex_site_verification:
 baidu_site_verification:
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO.
-baidu_push: false
+baidu_push: true # false
 
 
 # ---------------------------------------------------------------
@@ -516,7 +522,7 @@ pjax: false
 
 # FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
 # For more information: https://fancyapps.com/fancybox/
-fancybox: false
+fancybox: true # false
 
 # A JavaScript library for zooming images like Medium.
 # Warning: Do not enable both `fancybox` and `mediumzoom`.
@@ -525,18 +531,18 @@ mediumzoom: false
 
 # Vanilla JavaScript plugin for lazyloading images.
 # For more information: https://apoorv.pro/lozad.js/demo/
-lazyload: false
+lazyload: true # false
 
 # Pangu Support
 # For more information: https://github.com/vinta/pangu.js
 # Server-side plugin: https://github.com/next-theme/hexo-pangu
-pangu: false
+pangu: true # false
 
 # Quicklink Support
 # For more information: https://getquick.link
 # Front-matter variable (unsupport home archive).
 quicklink:
-  enable: false
+  enable: true # false
 
   # Home page and archive page can be controlled through home and archive options below.
   # This configuration item is independent of `enable`.
@@ -570,7 +576,7 @@ comments:
   # Setting `true` means remembering the comment system selected by the visitor.
   storage: true
   # Lazyload all comment systems.
-  lazyload: false
+  lazyload: true # false
   # Modify texts or order for any navs, here are some examples.
   nav:
     #disqus:
@@ -604,6 +610,26 @@ changyan:
   enable: false
   appid:
   appkey:
+
+# Valine
+# You can get your appid and appkey from https://leancloud.cn
+# For more information: https://valine.js.org, https://github.com/xCss/Valine
+valine:
+  enable: true #false # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.
+  appid: bCgWJUrF9NMLpHldLlFkJNUG-gzGzoHsz
+  appkey: TLdQDR7gG7YiqEflCiR8wmz3
+  notify: false # Mail notifier. See: https://github.com/xCss/Valine/wiki
+  verify: false # Verification code
+  placeholder: 欢迎交流讨论... # comment box placeholder
+  avatar: mm # Gravatar style
+  guest_info: nick,mail,link # Custom comment header
+  pageSize: 10 # Pagination size
+  language: zh-cn # Language, available values: en, zh-cn
+  visitor: true #false # leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same as leancloud_visitors' for counter compatibility. Article reading statistic https://valine.js.org/visitor.html
+  comment_count: false #If false, comment count will only be displayed in post page, not in home page
+  recordIP: false # Whether to record the commenter IP
+  serverURLs: # When the custom domain name is enabled, fill it in here (it will be detected automatically by default, no need to fill in)
+  #post_meta_order: 0
 
 # LiveRe comments system
 # You can get your uid from https://livere.com/insight/myCode (General web site)
@@ -681,14 +707,14 @@ cnzz_siteid:
 # You can visit https://www.leancloud.cn to get AppID and AppKey.
 leancloud_visitors:
   enable: false
-  app_id: # <your app id>
-  app_key: # <your app key>
+  app_id: bCgWJUrF9NMLpHldLlFkJNUG-gzGzoHsz # <your app id>
+  app_key: TLdQDR7gG7YiqEflCiR8wmz3 # <your app key>
   # Required for apps from CN region
   server_url: # <your server url>
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
   # If you don't care about security in leancloud counter and just want to use it directly
   # (without hexo-leancloud-counter-security plugin), set `security` to `false`.
-  security: true
+  security: false # true
 
 # Another tool to show number of visitors to each article.
 # Visit https://console.firebase.google.com/u/0/ to get apiKey and projectId.
@@ -726,7 +752,7 @@ algolia_search:
 # Local Search
 # Dependencies: https://github.com/next-theme/hexo-generator-searchdb
 local_search:
-  enable: false
+  enable: true # false
   # If auto, trigger search by changing input.
   # If manual, trigger search by pressing enter key or search button.
   trigger: auto
@@ -901,6 +927,12 @@ vendors:
   # DisqusJS
   disqusjs_js:
   disqusjs_css:
+
+  # Valine
+  # Example:
+  # valine: //cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js
+  # valine: //cdnjs.cloudflare.com/ajax/libs/valine/1.3.4/Valine.min.js
+  valine: https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js
 
   # Gitalk
   gitalk_js:

@@ -9,11 +9,39 @@
 * [Git](http://git-scm.com/)
 * [Hexo](https://hexo.io/zh-cn/)
 
-## 依赖 npm 组件
-* 
+## 安装依赖 npm 组件
+```shell
+cd $YOUR_BLOG_SITE_DIR
 
+# Symbols count and time to read for articles in Hexo blog
+npm install hexo-word-counter
 
-## 流程
+# A hexo plugin that generates a list of links to related posts or popular posts.
+npm install hexo-related-popular-posts --save
+
+# Highly performant, light and configurable lazy loader in pure JS with no dependencies for images, iframes and more, using IntersectionObserver API
+npm install --save lozad
+
+# Server side pangu.js filter for Hexo. (安装失败)
+npm install hexo-pangu
+# Automatically insert blank space between all Chinese characters and semi form English, numbers and symbols in the web page
+npm install pangu --save
+
+# automatically prefetch URLs for links that are in-viewport during idle time.
+npm install --save quicklink
+
+# A plugin to fix a serious security bug in leancloud visitor counter for NexT theme site and other site that integrated this function using a similar way.
+npm install hexo-leancloud-counter-security
+
+# generating a search index file, which contains all the necessary data of your articles that you can use to write a local search engine for your blog
+npm install hexo-generator-searchdb
+
+npm install hexo-deployer-git --save
+npm install hexo-tag-dplayer --save
+
+```
+
+## 建站流程
 ```shell 
 # 建站
 hexo init eisenhao.github.io
