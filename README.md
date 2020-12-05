@@ -13,7 +13,7 @@
 ```shell
 cd $YOUR_BLOG_SITE_DIR
 
-# Symbols count and time to read for articles in Hexo blog
+# Symbols count and time to read for articles in Hexo blog (后期移除)
 npm install hexo-word-counter
 
 # A hexo plugin that generates a list of links to related posts or popular posts.
@@ -24,6 +24,7 @@ npm install --save lozad
 
 # Server side pangu.js filter for Hexo. (安装失败)
 npm install hexo-pangu
+
 # Automatically insert blank space between all Chinese characters and semi form English, numbers and symbols in the web page
 npm install pangu --save
 
@@ -38,6 +39,7 @@ npm install hexo-generator-searchdb
 
 npm install hexo-deployer-git --save
 npm install hexo-tag-dplayer --save
+npm install --save hexo-tag-aplayer
 
 ```
 
