@@ -1,0 +1,33 @@
+{##################}
+{### POST BLOCK ###}
+{##################}
+<div class="post-block">
+  {# Gallery support #}
+  {{ post_gallery(post.photos) }}
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="{{ post.lang or config.language }}">
+    <link itemprop="mainEntityOfPage" href="{{ post.permalink }}">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="{{ url_for(theme.avatar.url or theme.images + '/avatar.gif') }}">
+      <meta itemprop="name" content="{{ author }}">
+      <meta itemprop="description" content="{{ description }}">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="{{ title }}">
+    </span>
+    {#################}
+    {### POST BODY ###}
+    {#################}
+
+    {{ popular_posts( {} , post ) }}
+
+    {#####################}
+    {### END POST BODY ###}
+    {#####################}
+  </article>
+</div>
+{######################}
+{### END POST BLOCK ###}
+{######################}
