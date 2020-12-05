@@ -23,7 +23,7 @@ custom_file_path:
   #header: source/_data/header.njk
   #sidebar: source/_data/sidebar.njk
   #postMeta: source/_data/post-meta.njk
-  #postBodyEnd: source/_data/post-body-end.njk
+  # postBodyEnd: source/_data/post-body-end.njk
   #footer: source/_data/footer.njk
   #bodyEnd: source/_data/body-end.njk
   #variable: source/_data/variables.styl
@@ -139,10 +139,10 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  GitHub: https://github.com/EisenHao || github # fab fa-github
+  GitHub: https://github.com/EisenHao || fab fa-github # fab fa-github
   #E-Mail: mailto:yourname@gmail.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fab fa-weibo
-  CSDN: https://blog.csdn.net/u013229297 || coffee #globe #csdn
+  CSDN: https://blog.csdn.net/u013229297 || fab fa-coffee # globe #csdn
   #Google: https://plus.google.com/yourname || fab fa-google
   #Twitter: https://twitter.com/yourname || fab fa-twitter
   #FB Page: https://www.facebook.com/yourname || fab fa-facebook
@@ -158,7 +158,7 @@ social_icons:
 
 # Blog rolls
 links_settings:
-  icon: fa fa-globe
+  icon: fa fa-link # fa fa-globe
   title: Links
   # Available values: block | inline
   layout: block
@@ -190,7 +190,7 @@ chat:
   enable: false
   #service: chatra
   #service: tidio
-  icon: fa fa-comment # fa fa-comment # Icon name in Font Awesome, set false to disable icon.
+  icon: fa fa-comment # Icon name in Font Awesome, set false to disable icon.
   text: Chat # Button text, change it as you wish.
 
 
@@ -362,8 +362,8 @@ codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
   theme:
-    light: default
-    dark: tomorrow-night
+    light: agate # default
+    dark: dark # tomorrow-night
   prism:
     light: prism
     dark: prism-dark
@@ -378,7 +378,7 @@ back2top:
   # Back to top in sidebar.
   sidebar: false
   # Scroll percent label in b2t button.
-  scrollpercent: false
+  scrollpercent: true # false
 
 # Reading progress bar
 reading_progress:
