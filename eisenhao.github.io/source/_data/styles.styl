@@ -48,10 +48,16 @@
     height: 3px;
 }
 // 站点头彩条背景
-.container .header-inner {
+.header .header-inner {
     padding-top: 0px;
     width: 100%;
 }
+
+.site-brand-container {
+    padding: 0 0px;
+}
+
+
 // 站点名 logo
 .site-meta {
     text-align: center;
@@ -70,6 +76,7 @@
     line-height: 35px;
     letter-spacing: 4px;
 }
+// 站点副标题
 .site-subtitle {
     color: #fff;
     font-size: 0.9em;
@@ -77,21 +84,32 @@
     padding-bottom: 10px;
     letter-spacing: 1px;
     font-style: italic;
+    margin: 10px 0px 0px 20px;
 }
+
 // 站点距离菜单栏间距
+.menu {
+    margin: 20px 0px 0px 0px;
+    padding: 0;
+    text-align: center;
+}
+
+// 文章容器间距与菜单栏间距
+.post-block:first-of-type {
+    padding-top: 60px;
+}
+
+// 文章块
 .main-inner {
     padding-bottom: 30px;
+}
+// 文章标题与正文间距
+.posts-expand .post-header {
+    margin-bottom: 30px;
 }
 
 
 // ********************【首页现实文章容器】***************
-// 菜单栏与文章主题间距
-.main-inner .content-wrap .content {
-    padding-top: 0px;
-}
-.content .posts-expand {
-    padding-top: 20px;
-}
 // 发表时间 阅读人数 栏
 .posts-expand .post-meta {
     margin: 3px 0 60px 0;
@@ -105,11 +123,12 @@
 img.img-topic {
     width: 100%;
 }
-//文章底部页面跳转
+// 文章底部页面跳转前颜色
 .post-nav-item a {
     color: #555;// 灰黑色
     font-weight: normal;
 }
+// 文章底部页面跳转后颜色
 .post-nav-item a:hover {
     color: rgb(80, 115, 184);// 浅蓝色
   
@@ -118,6 +137,10 @@ img.img-topic {
 // 相关文章链接样式
 .popular-posts .popular-posts-item .popular-posts-title a:hover {
     color: rgb(80, 115, 184);// 浅蓝色
+}
+// 文章底部 tags 与上文距离
+.post-tags {
+    margin-top: 30px;
 }
 // 页面底部文章距离最底部距离
 .pagination {
@@ -233,56 +256,85 @@ img.img-topic {
 
 
 // ****************** 归档页面 *****************************
+.posts-collapse {
+  margin: 0 auto;
+  width: 700px;
+}
 // 共计字体大小
 .posts-collapse .collection-title .collection-header {
     font-size: 0.9em;
     color: rgba(0, 0, 0, 0.5);
 }
 // 【时间轴样式】
-.posts-collapse {
-    margin: 0px 0px;// 时间轴圆点与菜单栏距离
-}
+
+
 // 时间轴左边线条
-.posts-collapse::before {
+.posts-collapse .post-content::before {
+    content: ' ';
+    height: 100%;
     margin-left: -2px;
+    position: absolute;
+    top: 1.25em;
+    width: 4px;
     background-image: linear-gradient(180deg,#f79533 0,#f37055 15%,#ef4e7b 30%,#a166ab 44%,#5073b8 58%,#1098ad 72%,#07b39b 86%,#6dba82 100%);
 }
 // 时间轴左边线条圆点颜色
-.posts-collapse .collection-title::before {
+.posts-collapse .post-content .collection-title::before {
     background-color: rgb(143, 188, 139);// 海绿色
     box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.25);
 }
-.posts-collapse .collection-year::before{
+// 时间轴左边线条年份圆点颜色
+.posts-collapse .post-content .collection-year::before {
     background-color: rgb(143, 188, 139);// 海绿色
 }
 // 时间轴文章标题左边圆点颜色
-.posts-collapse .post-header:hover::before {
-    background-color: rgb(161, 102, 171);
+.posts-collapse .post-content .post-header::before {
+    background: #bbb;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    content: ' ';
+    height: 6px;
+    left: 0;
+    margin-left: 10px;
+    position: absolute;
+    top: 1.8em;
+    transition-property: background;
+    width: 6px;
+    transition-delay: 0s;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
 }
+
+.posts-collapse .post-content .post-header::hover {
+    color: rgb(161, 102, 171);// 浅紫色
+}
+
 //年份框
-.posts-collapse .collection-year {
+.posts-collapse .post-content .collection-year {
     margin: 40px 0px;
 }
 // 时间轴年份灰色
-.posts-collapse .collection-year h1, .posts-collapse .collection-title h2 {
+.posts-collapse .post-content .collection-header {
     color: rgba(0, 0, 0, 0.5);
 }
 // 每个元素框样式
-.post-block .posts-collapse article {
-    margin-top: 25px;// 每块之间的间距
+.posts-collapse .post-content .post-header {
+    margin-top: 25px;
     margin-bottom: 0px;
-    padding: 15px 20px 12px 20px;// 顺时针 上 右 下 左 "页边距"
-    border-radius: 0px 5px 5px 0px ;// 圆弧大小
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);// 阴影效果
-    background-color: rgb(255, 255, 255);
+    padding: 15px 20px 12px 25px;
+    border-radius: 0px 5px 5px 0px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+    background-color: #fff;
 }
 //归档栏元素框内 标题格式
-.post-block .posts-collapse .post-header .post-header {
+.post-block .posts-collapse .post-header {
     margin: 0px 0px 0px 30px;
     padding: 0px;
+    padding-left: 15px;
     font-weight: normal;
     line-height: inherit;
 }
+
 .posts-collapse .post-header {
     margin: 0px 0px;
 }
@@ -293,10 +345,13 @@ img.img-topic {
     line-height: inherit;
 }
 // 鼠标悬停链接样式
-.posts-collapse .post-title a {
-    color: rgb(80, 115, 184);// 浅蓝色
+.posts-collapse .post-content .post-title a, .posts-collapse .post-content .post-title span.exturl {
+    border-bottom: none;
+    color: #5073b8; // 浅蓝色
 }
-.posts-collapse .post-title a:hover {
+
+.posts-collapse .post-content .post-title a:hover {
+    border-bottom: none;
     color: rgb(161, 102, 171);// 浅紫色
 }
 
@@ -311,6 +366,12 @@ img.img-topic {
 .sidebar-nav li:hover {
     color: rgb(235, 235, 235);
 }
+
+.sidebar-toc-active .sidebar-nav-toc, .sidebar-overview-active .sidebar-nav-overview {
+    border-bottom-color: rgb(144, 144, 144);
+    color: rgb(144, 144, 144);
+}
+
 .sidebar-nav .sidebar-nav-active {
     color: rgb(144, 144, 144);
     border-bottom-color: rgb(235, 235, 235);
