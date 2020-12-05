@@ -103,8 +103,10 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: git
-  repo: 
-    github: git@github.com:EisenHao/eisenhao.github.io.git,master  #创建的GitHub仓库 SSH
-    coding: git@e.coding.net:EisenHao/eisenhao/eisenhao.git,master   #创建的coding仓库HTTP
+  - type: git
+    repo: git@e.coding.net:EisenHao/eisenhao/eisenhao.git
     branch: master
+  - type: git
+    repo: git@github.com:EisenHao/eisenhao.github.io.git
+    branch: master
+
