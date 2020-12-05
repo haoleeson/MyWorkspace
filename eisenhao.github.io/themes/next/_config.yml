@@ -80,11 +80,11 @@ creative_commons:
 # Value before `||` delimiter is the target link, value after `||` delimiter is the name of Font Awesome icon.
 # External url should start with http:// or https://
 menu:
-  home: / || bank # fa fa-home
+  home: / || fa fa-landmark # fa fa-home
   #about: /about/ || fa fa-user
-  tags: /tags/ || cloud # fa fa-tags
+  tags: /tags/ || fa fa-cloud # fa fa-tags
   #categories: /categories/ || fa fa-th
-  archives: /archives/ || hourglass-start # fa fa-archive
+  archives: /archives/ || fa fa-hourglass-start # fa fa-archive
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
@@ -158,7 +158,7 @@ social_icons:
 
 # Blog rolls
 links_settings:
-  icon: link # fa fa-globe
+  icon: fa fa-globe
   title: Links
   # Available values: block | inline
   layout: block
@@ -190,7 +190,7 @@ chat:
   enable: false
   #service: chatra
   #service: tidio
-  icon: comment # fa fa-comment # Icon name in Font Awesome, set false to disable icon.
+  icon: fa fa-comment # fa fa-comment # Icon name in Font Awesome, set false to disable icon.
   text: Chat # Button text, change it as you wish.
 
 
@@ -204,12 +204,12 @@ language_switcher: false
 
 footer:
   # Specify the year when the site was setup. If not defined, current year will be used.
-  #since: 2020
+  since: 2018
 
   # Icon between year and copyright info.
   icon:
     # Icon name in Font Awesome. See: https://fontawesome.com/icons
-    name: heart # fa fa-heart
+    name: fa fa-heart # fa fa-heart
     # If you want to animate the icon, set it to true.
     animated: true # false
     # Change the color of icon, using Hex Code.
@@ -257,7 +257,7 @@ post_meta:
 # Post wordcount display settings
 # Dependencies: https://github.com/next-theme/hexo-word-counter
 symbols_count_time:
-  separated_meta: true
+  separated_meta: false # true
   item_text_total: false
 
 # Use icon instead of the symbol # to indicate the tag at the bottom of the post
