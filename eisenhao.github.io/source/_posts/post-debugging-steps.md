@@ -10,7 +10,8 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/post-debugging-steps.png" class="full-image" />
-## **博客文章编写＆调试＆发布**
+
+## 博客文章编写＆调试＆发布
 ### 进入Hexo根目录
 1. 输入密码,进入root用户模式
 ```
@@ -21,6 +22,7 @@ $ sudo su
 $ cd /home/eisenhao/eisenhao.github.io
 ```
 <!-- more -->
+
 ### 写文章
 
 1. 进入发布文件夹
@@ -79,7 +81,7 @@ $ git config --global user.name "Your Name"
 
 ```
 
-## **主题配置**
+## 主题配置
 
 1. 主题配置文件在主题文件夹中,我们可以更改config.yml文件进行配置.
 ```

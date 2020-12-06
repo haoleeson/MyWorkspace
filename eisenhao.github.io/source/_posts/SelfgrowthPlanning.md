@@ -9,8 +9,10 @@ categories:
 - 心灵成长
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SelfgrowthPlanning.jpg" class="full-image" />
+
 总结 Bilibili Up主 zettaranc 不断践行并获取成功的四点方法论：年轻人如何赚到自己的第一桶金，乍一看虽会觉得老生常谈，但粗略考虑却也是符合无数名人的成功和发展的大体趋势，而且zettaranc结合自身诸多“小目标”的成功实践也颇具说服力。践行强于妄想，不断培养自我成长的“内驱力”，记录以自勉👊
 <!-- more -->
+
 {% centerquote %}
 心中醒，口中说，纸上作，不从身上习过，皆无用也。
 -- by 颜元

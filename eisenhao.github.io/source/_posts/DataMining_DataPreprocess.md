@@ -10,6 +10,7 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_DataPreprocess.jpg" class="full-image" />
+
 # 在Linux系统安装Python及数据处理所需的numpy、pandas库
 之前尝试手动下载numpy库，解压，然后按提示安装，却发现numpy库依赖上级库nose,又下载nose库，但在手动安装pandas库时出错...后发现可通过pip的简单方式安装，自动解决依赖，相比于需要手动下载安装上级依赖的手动安装方式更方便，安装代码如下
 

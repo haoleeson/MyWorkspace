@@ -11,6 +11,7 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_PAM.png" class="full-image" />
+
 # 实现PAM算法对部分含有高斯噪声的waveform数据集进行聚类
 ## PAM算法介绍
 PAM方法于1987年提出用于l1范数和其他距离的工作。 k-medoid是一种经典的聚类分割技术，它将n个对象的数据集聚为k个聚类，假设聚类的数量k是先验的。如果未知，则可以使用诸如轮廓的方法来确定k。 与k均值相比，它对噪声和异常值更具鲁棒性，因为它最小化了成对差异的总和，而不是欧几里德距离的平方和。 可以将medoid定义为群集的对象，其与群集中的所有对象的平均差异最小。即，它是群集中位于最中心的点（迭代选取最中心的点，而非Kmeans的中心计算值，抗噪声能力更强）。

@@ -11,12 +11,14 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DockerSimpleUsing.png" class="full-image" />
+
 # 安装Docker
 ## Manjaro系统下pacman命令一键安装Docker
 ```unix
 sudo pacman -S docker
 ```
 <!-- more -->
+
 ## 配置镜像加速器
 国内从 Docker Hub 拉取镜像有时会遇到困难,此时可以配置镜像加速器。Docker
 官方和国内很多云服务商都提供了国内加速器服务,例如:

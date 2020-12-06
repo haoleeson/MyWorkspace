@@ -10,10 +10,15 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AfterWatch7upAndRenJianShi.jpg" class="full-image" />
+
 最近疲于找实习，感觉自己能力不足，有些迷茫，遂重温了《人生七年》、《人间世》，竟有些新的感受。
+
 ## 《人生七年》观后感
+
 * 《人生七年》感受到阶级血淋淋地存在，且每个人深受其影响。从一出生，影响就潜移默化地开始了，从家庭背景、思维方式、教育资源、人生规划等方面。7岁的高富帅三人组John、Andrew和Charles的谈吐和未来规划就能初见端倪
+
 <!-- more -->
+
 * 岁月无情，每隔七年都能看到孩子们又衰老了许多
 * 没有那么多的理所应当，人们只会看到意气风发春风得意，而不会深挖其背后的坚毅与努力，John、Nick是真的唯有努力才能让这一切看起来毫不费力的践行者
 * 阶级壁垒极难打破，但我们却可以选择属于自己的追求与幸福，以及给予孩子的教育
@@ -22,7 +27,9 @@ categories:
 * 思考自己究竟以什么模式活着，找到自己内心真正想要什么？ - - 值得用一生寻找来寻找答案。
 
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/RenJianShiNewLife.jpg" class="full-image" />
+
 ## 《人间世》观后感
+
 * 《人间世》感受到人间疾苦和生命的规律，从我们呱呱坠地来到人间，经历短暂的一生，然后无可避免地生病、衰老与死去。这是亘古不变的规律，生命或坚强，却也脆弱
 * 身体健康，家人平安一种极难的奢望
 * 虽万般不舍，但亲情总有缺席的一天，珍惜珍重眼前人

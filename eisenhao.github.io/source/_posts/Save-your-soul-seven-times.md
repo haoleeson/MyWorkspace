@@ -10,8 +10,10 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Save-your-soul-seven-times.jpg" class="full-image" />
+
 发现自己的缺点并直视才是真的勇士。我曾七次鄙视自己的灵魂：
 <!-- more -->
+
 {% centerquote %}
 **第一次**，当它本可进取时，却故作谦卑
 **第二次**，当它在空虚时，用爱欲来填充

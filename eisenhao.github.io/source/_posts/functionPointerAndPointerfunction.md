@@ -10,6 +10,7 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/pointerFunction.jpg" class="full-image" />
+
 # 指针函数
 
 ```c++

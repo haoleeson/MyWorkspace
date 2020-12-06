@@ -10,11 +10,13 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Introduction.jpg" class="full-image" />
+
 # 1 数据挖掘
 {% centerquote %}
 Data mining, the science of extracting useful knowledge from such huge data repositories, has emerged as a young and interdisciplinary field in computer science.  -- by **KDD**
 {% endcenterquote %}
 <!-- more -->
+
 数据挖掘是一个动态的、强势快速扩展的领域。可简要将数据挖掘研究的主要问题分为五组：挖掘方法、用户交互、有效性与可伸缩性、数据类型的多样性、数据挖掘与社会。数据挖掘吸纳了诸如**统计学**、**机器学习**、**模式识别**、**数据库和数据仓库**、**信息检索**、**可视化**、**算法**、**高性能计算**和许多应用领域的大量技术。
 ## 1.1 **数据挖掘目的：**
 

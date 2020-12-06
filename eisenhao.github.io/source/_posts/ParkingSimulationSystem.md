@@ -10,12 +10,14 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/ParkingSimulationSystem.jpg" class="full-image" />
+
 # 停车场仿真系统
 Project：用面向对象方法和面向对象程序设计语言，设计并实现停车场仿真程序。
 Platform：基于QT5.9.1开发，程序语言C++
 coder：eisenhao
 Time: 20190123
 <!-- more -->
+
 {% note success %}完整源码详见:[我的Git🥰](https://github.com/EisenHao/ParkingSimulationSystem){% endnote %}
 ![parkingSimulationSystemUMLMainWindowDiagram](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/showFunction.gif)
 ## 设计说明

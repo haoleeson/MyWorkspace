@@ -10,17 +10,24 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson.jpg" class="full-image" />
+
 # 算法分析与设计练习
 完整源代码已在本文尾部给出
 ## No1. 优先级队列（大小顶堆）
 堆是一种经过排序的完全二叉树，其中任一非终端节点的数据值均不大于（或不小于）其左子节点和右子节点的值。最小(大)堆能保证堆顶元素最小(大)，相比于用数组存放数据，如果要查找所有数据中最小(大)的数据时，数组的时间复杂度为O(n)，而最小(大)堆的时间复杂度为O(1)。而数据增删数据时，需要保证最小(大)堆的动态可维护性仅需O(logN)。因此对于特定的需求环境，最小(大)堆这种数据结构非常高效。
+
 <!-- more -->
+
 ### 最大堆概念
 最大堆，是一种经过排序的完全二叉树，其中任一非终端节点的数据值均不小于其左子节点和右子节点的值。
+
 #### 最大堆实现思路
 将最大堆二叉树存储到数组内，非根节点元素的父节点下标为(i-1)/2，若子节点存在则下标为2*i+1。
+
 **插入操作**：每当插入一个元素，将元素插入到容器（数组）尾部，然后执行迭代的上升操作，将插入的元素与其父节点比较，若比父节点大则交换，然后再与交换后节点的父节点相互比较交换，直到放置到合适位置。（最坏递归到根节点终止迭代）
+
 **弹出操作**：弹出最大值（即数组首地址元素a[0]）。先交换交换堆顶与堆末，再弹出堆末（最大值），然后再将现堆顶元素执行迭代的下降操作，若其子节点存在与其子节点比较，若比子节点小则交换，然后再与交换后的子节点相互比较交换，直到放置在合适位置。（最坏递归到叶子节点）
+
 **最大堆运行结果**
 ![1_Max_Heap](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson_Max_Heap.png)
 
@@ -102,8 +109,10 @@ void Quick_Sort ( vector<ElementType> &A, long int Number ) {
 #### (2)Quick sort在n个元素列表上进行的最大和最小比较次数是多少，分别给出最大和最小情况的实例。
 答：假设被排序的数列中有N个数。遍历一次的时间复杂度是O(N)，需要遍历多少次呢？
 最多需要遍历N次，至少需要遍历lg(N+1)次。
+
 * (1).为什么最少是lg(N+1)次？
 快速排序是采用的分治法进行遍历的，我们将它看作一棵二叉树，它需要遍历的次数就是二叉树的深度，而根据完全二叉树的定义，它的深度至少是lg(N+1)。因此，快速排序的遍历次数最少是lg(N+1)次。
+
 * (2).为什么最多是N次？
 将快速排序看作一棵二叉树，它的深度最大是N。因此，快读排序的遍历次数最多是N次。
 
@@ -437,6 +446,7 @@ E				-3
 手动绘制单向图如下所示：
 ![single source graph](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson_single_source_graph.jpg)
 由图可知，图中节点A只有出度，节点C只有入度，其他不得而知，且题目给的较为模糊，不知是(1)求解从节点A->节点C的最短路径，或是（2）求解从节点A出发到任意节点中路径最短的一条。姑且按（2）求解
+
 ### 解题思路：
 与求解第5题类似，参数是否为有向图为:true，仍采用Dijkstra算法。以起始点为中心向外层层扩展，直到扩展到终点为止，可以得到从起始节点到所有节点的最短距离。
 
@@ -520,8 +530,10 @@ void showPathFrom0To(int w, vector<int>& path){
 The shortest Path is [dist] A->D = -2;  Path from (A->D): A -> B -> E -> D
 ```
 可知
+
 * (1)求解从节点A->节点C的最短路径
 [dist] A->C =  2;  Path from (A->C): A -> B -> C
+
 * (2)求解从节点A出发到任意节点中路径最短的一条。
 The shortest Path is [dist] A->D = -2;  Path from (A->D): A -> B -> E -> D
 

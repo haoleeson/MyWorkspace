@@ -10,10 +10,12 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/rich-thinking-by-mba.jpg" class="full-image" />
+
 {% note success %}
 摘自MBA中国网：
 <http://www.mbachina.com/html/zhaopin/201701/101719.html>
 {% endnote %}
+
 ## 你渴望成为的那种有钱人，不是靠技能获取一份高工资的人
 严格来说，即使在中国，凭借高超的技术领取高薪，最终取得财务自由也不是不可能的，只是难度极大，而且异常辛苦。没有过人的先天的条件和顶级的后天培养，大多数人所能习得的技能，都不是不可替代到让老板心甘情愿为你付一份远远超过市场平均水平的薪水的。只要你对中国绝大多数企业的收入获得方式稍加理解，就能明白技术骨干的收入是很难超过掌握客户的销售总监和组建团队和客户对接的项目主管的。
 <!-- more -->

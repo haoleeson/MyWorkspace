@@ -11,6 +11,7 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Apriori.png" class="full-image" />
+
 # Apriori算法介绍
 Apriori是一种在事务数据库上进行频繁项集挖掘和关联规则学习的算法。它通过识别数据库中的频繁单个项目并将它们扩展到越来越大的项目集来进行,只要这些项目集在数据库中经常出现。由Apriori确定的频繁项目集可用于确定关联规则,其突出显示数据库中的一般趋势:这在诸如市场购物栏分析的领域中具有应用。
 

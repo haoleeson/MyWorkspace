@@ -10,9 +10,10 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/webCrawlerSimpleTest.jpg" class="full-image" />
+
 # 爬取豆瓣一周口碑榜的电影列表
 先展示爬取结果：
-``` Python
+```Python
 爬取豆瓣一周口碑榜的电影列表（十个）:
 复仇者联盟4：终局之战
 触不可及(美版)
@@ -26,6 +27,7 @@ categories:
 番石榴岛
 ```
 <!-- more -->
+
 # 准备工作
 * 安装Python环境。详见[安装Python3.7](https://eisenhao.cn/2018/09/23/AfterInstallManjaro/#%E5%AE%89%E8%A3%85Python3-7)
 * 使用pip3安装requests、lxml模块。参考[使用pip3安装Numpy模块](https://eisenhao.cn/2018/09/23/AfterInstallManjaro/#%E4%BD%BF%E7%94%A8pip3%E5%AE%89%E8%A3%85Numpy%E6%A8%A1%E5%9D%97)

@@ -10,11 +10,13 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/PolymorphismTest.jpg" class="full-image" />
+
 # 程序中多态存在的意义:
 * 使程序中的数学运算符合常规的数学运算规则,使程序提供更强的表达能力;
 * 使得对不同类型的数据有同样的操作语义(程序的重用);
 * 重用标识的资源,提高程序的可读性和可理解性。
 <!-- more -->
+
 # 程序中多态的种类:
 在程序中多态分为：通用的多态(universal)及特定的多态。其中通用多态包含：参数多态(parametric)和包含多态(inclusion)，特点是对数据类型不加限制;允许对不同类型的值执行相同的代码。特定的多态包含：过载多态(overloading)和强制多态(coercion)，特点是只对有限数量的类型有效、对不同类型的值可能要执行不同的代码。
 ## 参数多态(Parametric polymorphism)

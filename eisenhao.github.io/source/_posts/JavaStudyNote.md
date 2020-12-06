@@ -10,6 +10,7 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/JavaStudyNote.png" class="full-image" />
+
 ## Java基础知识
 ### 引用 & 对象
 **对象**：类的实例化，实质为运行时堆内为类内各属性值顺序分配的一组内存空间。

@@ -10,13 +10,17 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AfterInstallManjaro.png" class="full-image" />
+
 # Manjaro设置国内源
+
 ## 添加官方镜像源(包括: core, extra, community, multilib)
 ```[] 命令执行目录：~
 sudo pacman-mirrors -i -c China -m rank //更新镜像排名
 sudo pacman -Syy //更新数据源
 ```
+
 <!-- more -->
+
 ## 添加archlinxCN源(中科大)
 ```
 sudo gedit /etc/pacman.conf
@@ -40,6 +44,7 @@ sudo pacman -S archlinuxcn-keyring //安装导入GPG key
 ```[] 文件位置：/etc/yaourtrc
 AURURL="https://aur.tuna.tsinghua.edu.cn"  #添加清华AUR源
 ```
+
 # 安装Git
 ```[] 命令执行目录：~
 sudo pacman -S git

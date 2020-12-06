@@ -11,9 +11,11 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_DBSCAN.png" class="full-image" />
+
 # DBSCAN算法介绍
 基于密度的噪声应用空间聚类（DBSCAN）是Martin Ester，Hans-Peter Kriegel，JörgSander和Xiaowei Xu于1996年提出的数据聚类算法。它是一种基于密度的聚类算法：给定一些空间中的一组点，它将紧密堆积在一起的点（具有许多邻近邻居的点）组合在一起，标记为单独位于低密度区域的离群点（最近的点）邻居们太远了）。 DBSCAN是最常见的聚类算法之一，也是科学文献中引用最多的算法。 2014年，该算法在领先的数据挖掘会议KDD上获得了时间奖的测试（在理论和实践中获得了大量关注的算法奖）。
 <!-- more -->
+
 # Python编程实现DBSCAN算法
 **DBSCAN算法主要分为以下步骤实现**：
 * S1.任意选择一个未访问过的点 P

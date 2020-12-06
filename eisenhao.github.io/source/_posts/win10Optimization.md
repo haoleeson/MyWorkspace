@@ -10,6 +10,7 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/win10Optimization.jpg" class="full-image" />
+
 ## Win + R 常用命令
 命令|描述
 :----|:----
@@ -22,6 +23,7 @@ slmgr.vbs -dlv|查询操作系统版本、部分产品密钥、许可证等
 slmgr.vbs -xpr|命令可以查询Win10是否永久激活
 winver|查询系统内核版本，以及注册用户信息
 <!-- more -->
+
 ## win10组策略关闭自动更新、Windows Defender
 
 * 组策略关闭自动更新

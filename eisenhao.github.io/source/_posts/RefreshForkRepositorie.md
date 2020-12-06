@@ -9,6 +9,7 @@ categories:
 - 技术
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/RefreshForkRepositorie.png" class="full-image" />
+
 Fork仓库是对应官方源仓库的一份完全备份（类似快照，但却不能再接收到官方源仓库的更新内容），然而有时咱们需要Fork仓库涵盖官方源仓库的最新提交代码。本文总结介绍了从官方源仓库同步更新内容到Fork仓库的方法，过程大致如下：向本地Fork仓库添加官方源仓库远端，再获取(fetch)官方源仓库的更新内容到本地仓库，然后合并官方源仓库的更新内容到本地Fork仓库，最后推送到远端Fork仓库。
 
 <!-- more -->

@@ -10,6 +10,7 @@ categories:
 
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/gitRevert.jpg" class="full-image" />
+
 随着互联网时代的来临，代码项目多采用git仓库管理多人协同编码的方式。人非圣贤孰能无过，难免有时自己刚push到远端仓库的代码存在瑕疵需要修改，此时不必惊慌，我们可以利用git的强制覆盖远端仓库来实现撤销提交的目的。适用前提：待撤销的提交记录后暂无他人提交记录。
 
 关键词: git、回退commit
