@@ -394,24 +394,23 @@ img.img-topic {
 .links-of-author a::before, .links-of-author span.exturl::before {
     background: rgb(200, 200, 200);
 }
-// 侧栏目录链接样式
+
+// 侧栏目录链接样式 (未选中，灰色 无下划线)
 .post-toc ol a {
-    color: rgb(144, 144, 144);
-    border-bottom: 1px solid rgb(144, 144, 144);
+    color: #909090;
+    border-bottom: 0px solid #909090;
 }
+// 侧栏目录链接样式 (鼠标悬停，白色 无下划线)
 .post-toc ol a:hover {
     color: #ebebeb;
-    border-bottom-color: #ebebeb;
+    border-bottom: 0px solid #909090;
 }
-// 侧栏目录链接样式之当前目录
+// 侧栏目录链接样式之当前目录 （选中，白色 + 下划线）
 .post-toc .nav .active > a {
     color: #ebebeb;
-    border-bottom-color: #ebebeb;
+    border-bottom: 1px solid #ebebeb;
 }
-.post-toc .nav .active > a:hover {
-    color: #ebebeb;
-    border-bottom-color: #ebebeb;
-}
+
 // 目录链接之间间距
 .post-toc .nav .nav-item {
     margin: 5px 0px;
