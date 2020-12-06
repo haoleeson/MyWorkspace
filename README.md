@@ -98,3 +98,20 @@ hexo s
 # 发布
 hexo d
 ```
+
+## 克隆我的博客并调试步骤
+```shell
+# 下载我的博客站点源码
+git clone https://github.com/EisenHao/MyBlogSourceCode.git
+
+# 进入站点目录
+cd MyBlogSourceCode/eisenhao.github.io
+
+# 下载 npm 依赖（会根据 package.json 的描述下载依赖）
+npm install
+
+# 调用 Hexo 的清理、构建与调试命令
+hexo clean && hexo g && hexo s
+
+# 本地浏览器访问 http://localhost:4000/ 以调试
+```
