@@ -75,7 +75,7 @@ creative_commons:
 # Menu Settings
 # ---------------------------------------------------------------
 
-# Usage: `Key: /link/ || icon`
+# Usage: `Key: /link/ || icon` See: https://fontawesome.com/icons
 # Key is the name of menu item. If the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used. Key is case-senstive.
 # Value before `||` delimiter is the target link, value after `||` delimiter is the name of Font Awesome icon.
 # External url should start with http:// or https://
@@ -142,7 +142,7 @@ social:
   GitHub: https://github.com/EisenHao || fab fa-github # fab fa-github
   #E-Mail: mailto:yourname@gmail.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fab fa-weibo
-  CSDN: https://blog.csdn.net/u013229297 || fab fa-coffee # globe #csdn
+  CSDN: https://blog.csdn.net/u013229297 || fab fa-cuttlefish # globe #csdn
   #Google: https://plus.google.com/yourname || fab fa-google
   #Twitter: https://twitter.com/yourname || fab fa-twitter
   #FB Page: https://www.facebook.com/yourname || fab fa-facebook
