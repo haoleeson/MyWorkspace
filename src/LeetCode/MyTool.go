@@ -73,3 +73,37 @@ func PrintArray(arr []int) {
     }
     fmt.Println("]")
 }
+
+/**
+打印二维数组
+ */
+func printArray2D(arr [][]int) {
+    size, eSize := len(arr), 0
+    fmt.Print("[\n")
+    if size > 0 {
+        // 打印第一行
+        eSize = len(arr[0])
+        fmt.Print("  [")
+        if eSize > 0 {
+            fmt.Print(arr[0][0])
+            for j := 1; j < eSize; j++ {
+                fmt.Print(", ", arr[0][j])
+            }
+        }
+        fmt.Print("]")
+
+        // 打印后续行
+        for row := 1; row < size; row++ {
+            eSize = len(arr[row])
+            fmt.Print(",\n  [")
+            if eSize > 0 {
+                fmt.Print(arr[row][0])
+                for j := 1; j < eSize; j++ {
+                    fmt.Print(", ", arr[row][j])
+                }
+            }
+            fmt.Print("]")
+        }
+    }
+    fmt.Print("\n]\n")
+}
