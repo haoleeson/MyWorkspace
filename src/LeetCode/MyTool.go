@@ -60,6 +60,52 @@ func PrintList(head *ListNode) {
 }
 
 /**
+ * 打印二叉树(层序遍历)
+ */
+func PrintTree(root *TreeNode) {
+    if root == nil {
+        fmt.Println("[]")
+        return
+    }
+    // 当前层及下一层非空节点数
+    thisCount := 1
+    thisLevel := make([]*TreeNode, 1)
+    thisLevel[0] = root
+    fmt.Print("[", root.Val)
+
+    for true {
+        nextCount := 0
+        nextLevel := make([]*TreeNode, thisCount * 2)
+
+        for i := 0; i < thisCount; i++ {
+            // 若左子节点存在
+            if thisLevel[i].Left != nil {
+                nextLevel[nextCount] = thisLevel[i].Left
+                nextCount++
+                fmt.Print(", ", thisLevel[i].Left.Val)
+            } else {
+                fmt.Print(", nil")
+            }
+            // 若右子节点存在
+            if thisLevel[i].Right != nil {
+                nextLevel[nextCount] = thisLevel[i].Right
+                nextCount++
+                fmt.Print(", ", thisLevel[i].Right.Val)
+            } else {
+                fmt.Print(", nil")
+            }
+        }
+        if nextCount == 0 {
+            break
+        }
+        // 准备遍历下一层
+        thisCount = nextCount
+        thisLevel = nextLevel
+    }
+    fmt.Print("]\n")
+}
+
+/**
  * 打印数组
  */
 func PrintArray(arr []int) {
