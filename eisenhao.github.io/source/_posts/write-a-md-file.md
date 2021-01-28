@@ -152,6 +152,7 @@ int main(void) {
 海草
 
 共输入两个回车，结束引用
+
 ## 列表
 ### 无序列表
 <code>* </code>、<code>+ </code>、<code>- </code>三种方式都能表示无序列表
@@ -206,8 +207,10 @@ _ _ _
 <!-- HTML方式: 直接在 Markdown 文件中编写 HTML 来调用 -->
 <!-- 其中 class="blockquote-center" 是必须的 -->
 <blockquote class="blockquote-center">HTML引用方式</blockquote>
+
 ### 标签引用方式:
-使用<code>centerquote</code>或者<code>cq<code>
+使用<code>centerquote</code>或者<code>cq</code>
+
 ```
 <!-- 标签 方式，要求版本在0.4.5或以上 -->
 {% centerquote %}标签引用方式1{% endcenterquote %}
@@ -221,6 +224,7 @@ _ _ _
 
 ## 突破容器宽度限制的图片引用
 当使用此标签引用图片时，图片将自动扩大26%，并突破文章容器的宽度。此标签使用于需要突出显示的图片,图片的扩大与容器的偏差从视觉上提升图片的吸引力。此标签有两种调用方式（详细参看底下示例）：
+
 ### HTML引用图片方式
 使用这种方式时，为<code>img</code>添加属性<code>class="full-image"</code>即可
 ```
@@ -230,11 +234,15 @@ _ _ _
 ```
 <!-- HTML引用图片方式: 直接在 Markdown 文件中编写 HTML 来调用 -->
 <!-- 其中 class="full-image" 是必须的 -->
+
 <img src="https://cdn.wfolio.ru/w/4b318a3da2f7d3a89fa5957a8dd9a00dd2609616/m_limit%2Cw_1920/sites/181/assets/1524794399_7fc3ff.jpg" class="full-image" />
+
 
 # Bootstrap Callout
 这些样式出现在[Bootstrap官方文档](http://getbootstrap.com/)中。
+
 **使用方式**
+
 ```
 {% note class_name %} Content (md partial supported) {% endnote %}
 ```
@@ -263,50 +271,6 @@ danger
 {% note warning %}5.warning效果{% endnote %}
 {% note danger %}6.danger效果{% endnote %}
 
-# Next 主题自带样式 note 标签
-
-摘自 [reuixiy](https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html#%E6%9B%B4%E6%96%B0%E4%B8%BB%E9%A2%98)的博客。在主题配置文件<code>_config.yml</code>里有一个关于这个的配置，但官方文档没有提供 HTML 的使用方式，HTML方式更简单，也不会产生一些奇怪的显示bug
-<div class="note default"><p>default</p></div>
-```
-<div class="note default"><p>default</p></div>
-```
-<div class="note primary"><p>primary</p></div>
-```
-<div class="note primary"><p>primary</p></div>
-```
-<div class="note success"><p>success</p></div>
-```
-<div class="note success"><p>success</p></div>
-```
-<div class="note info"><p>info</p></div>
-```
-<div class="note info"><p>info</p></div>
-```
-<div class="note warning"><p>warning</p></div>
-```
-<div class="note warning"><p>warning</p></div>
-```
-<div class="note danger"><p>danger</p></div>
-```
-<div class="note danger"><p>danger</p></div>
-```
-<div class="note danger no-icon"><p>danger no-icon</p></div>
-```
-<div class="note danger no-icon"><p>danger no-icon</p></div>
-```
-在主题配置文件中需要配置一下:
-```
-gedit /你的Hexo站点目录/themes/next/_config.yml
-# Note tag (bs-callout).
-note:
-  # 风格
-  style: flat
-  # 要不要图标
-  icons: true
-  # 圆角矩形
-  border_radius: 3
-  light_bg_offset:
-```
 # 主题自带样式 label 标签
 首先需要在主题配置文件中有配置，需要配置下
 ```
@@ -401,15 +365,19 @@ tabs:
 
 ## 方法2：用插件，有显示歌词功能，也美观，建议使用这种方法。 
 首先在<code>站点</code>文件夹根目录安装插件：
-``` [] 命令执行位置：~/你的博客站点根目录/
+```
 npm install hexo-tag-aplayer --save
 ```
+
 然后文章中的写法：
+
 ```
 {% aplayer "歌曲名" "歌手名" "https://什么什么什么.mp3" "https://封面图.jpg" "lrc:https://歌词.lrc" %}
 
 ```
+
 另外可以支持歌单：
+
 ```
 {% aplayerlist %}
 {
@@ -435,9 +403,11 @@ npm install hexo-tag-aplayer --save
 }
 {% endaplayerlist %}
 ```
+
 效果可以见[易象辞的 Hello World](https://reuixiy.github.io/uncategorized/2010/01/01/test.html)，里面的详细参数见[README](https://github.com/MoePlayer/hexo-tag-aplayer) 和这插件的“母亲” Aplayer 的[官方文档](https://aplayer.js.org/)。
 
 ## 下方测试插入音乐
+
 ### 方式1：HTML的标签插入音乐（网易云音乐）
 
 网易云音乐 -> 生成外链播放器 -> 复制代码 -> 粘贴到md文档
@@ -445,35 +415,41 @@ npm install hexo-tag-aplayer --save
 网易云iframe插件：
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=414611053&auto=1&height=66"></iframe>
+
 网易云flash插件：
 
 <embed src="//music.163.com/style/swf/widget.swf?sid=414611053&type=2&auto=1&width=320&height=66" width="340" height="86"  allowNetworking="all"></embed>
-### 方式2：用hexo-tag-aplayer插件音乐
 
+### 方式2：用hexo-tag-aplayer插件音乐
 巧取网易云音乐mp3外链方法，不知到现在有没有被禁
 例如：在网易云网页版点击"陈芳语-爱你"，从浏览器地址栏发现"陈芳语-爱你"的id为：22852057，则将下方代码'id='后的数字更改为‘22852057’之后就是"陈芳语-爱你"mp3格式的外链，新建标签页粘贴该地址可直接播放，应用在博客里插入外链还是很方便的（ps:在网易云还没禁用此bug之前）。
 
 将歌词文件放在“hexo站点文件夹/source/uploads/”文件夹内，封面图、歌词文件引用地址为：
 "https://eisenhao.github.io/uploads/封面图.jpg"、"https://eisenhao.github.io/uploads/歌词.lrc"
+
 ```
 # 网易云网页版关于"陈芳语-爱你"的歌曲id=22852057
-http://music.163.com/song/media/outer/url?id=22852057.mp3 #可直接播放外链
+http://music.163.com/song/media/outer/url?id=22852057.mp3 #可直接播放外链（已失效）
 https://eisenhao.github.io/uploads/loveYou.jpg #封面图
 https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc #歌词 //暂时无法添加lrc歌词，只能内嵌歌词
 ```
+
 ## 下方测试插件插入音乐（无歌词，lrc方式歌词失效）：
 ```
-{% aplayer "爱你" "陈芳语" "http://music.163.com/song/media/outer/url?id=22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
+{% aplayer "爱你" "陈芳语" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
 ```
-{% aplayer "爱你" "陈芳语" "http://music.163.com/song/media/outer/url?id=22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
+
+{% aplayer "爱你" "陈芳语" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
 
 ## 下方测试插件插入内嵌音乐歌词：
+
 ```
-{% aplayerlrc "爱你" "陈芳语" "http://music.163.com/song/media/outer/url?id=22852057.mp3" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/loveYou.jpg" %}
+{% aplayerlrc "爱你" "陈芳语" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/22852057.mp3" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/loveYou.jpg" %}
 [00:00.25]Kimberley(陈芳语) - 爱你[00:06.43]我闭上眼睛 贴着你心跳呼吸[00:13.42]而此刻地球 只剩我们而已[00:20.16]你微笑的唇型 总勾着我的心[00:26.73]每一秒初吻 我每一秒都想要吻你[00:36.11]就这样 爱你 爱你 爱你 随时都要一起[00:42.43]我喜欢 爱你 外套 味道 还有你的怀里[00:49.11]把我们 衣服 钮扣 互扣 那就不用分离[00:56.49]美好爱情 我就爱这样贴近 因为你[01:16.85]有时没生气 故意闹脾气[01:23.42]你的紧张在意 让我觉得安心[01:30.04]从你某个角度 我总看见自己[01:36.76]到底你懂我 或其时我本来就像你[01:46.17]就这样 爱你 爱你 爱你 随时都要一起[01:52.70]我喜欢 爱你 外套 味道 还有你的怀里[01:59.28]把我们 衣服 钮扣 互扣 那就不用分离[02:06.80]美好爱情 我就爱这样贴近 因为你[02:17.73]想变成你的氧气 溜进你身体里[02:31.49]好好看看在你心里 你有多麽宝贝 我爱你[02:44.44]就这样 爱你 爱你 爱你 随时都要一起 （爱你）[02:49.27]我喜欢 爱你 外套 味道 还有你的怀里[02:55.92]把我们 衣服 钮扣 互扣 那就不用分离[03:03.50]美好爱情 我就爱这样贴近 因为你[03:10.28]我们爱情 会一直没有距离 最美丽
 {% endaplayerlrc %}
 ```
-{% aplayerlrc "爱你" "陈芳语" "http://music.163.com/song/media/outer/url?id=22852057.mp3" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/loveYou.jpg" %}
+
+{% aplayerlrc "爱你" "陈芳语" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/22852057.mp3" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/loveYou.jpg" %}
 [00:00.25]Kimberley(陈芳语) - 爱你[00:06.43]我闭上眼睛 贴着你心跳呼吸[00:13.42]而此刻地球 只剩我们而已[00:20.16]你微笑的唇型 总勾着我的心[00:26.73]每一秒初吻 我每一秒都想要吻你[00:36.11]就这样 爱你 爱你 爱你 随时都要一起[00:42.43]我喜欢 爱你 外套 味道 还有你的怀里[00:49.11]把我们 衣服 钮扣 互扣 那就不用分离[00:56.49]美好爱情 我就爱这样贴近 因为你[01:16.85]有时没生气 故意闹脾气[01:23.42]你的紧张在意 让我觉得安心[01:30.04]从你某个角度 我总看见自己[01:36.76]到底你懂我 或其时我本来就像你[01:46.17]就这样 爱你 爱你 爱你 随时都要一起[01:52.70]我喜欢 爱你 外套 味道 还有你的怀里[01:59.28]把我们 衣服 钮扣 互扣 那就不用分离[02:06.80]美好爱情 我就爱这样贴近 因为你[02:17.73]想变成你的氧气 溜进你身体里[02:31.49]好好看看在你心里 你有多麽宝贝 我爱你[02:44.44]就这样 爱你 爱你 爱你 随时都要一起 （爱你）[02:49.27]我喜欢 爱你 外套 味道 还有你的怀里[02:55.92]把我们 衣服 钮扣 互扣 那就不用分离[03:03.50]美好爱情 我就爱这样贴近 因为你[03:10.28]我们爱情 会一直没有距离 最美丽
 {% endaplayerlrc %}
 
