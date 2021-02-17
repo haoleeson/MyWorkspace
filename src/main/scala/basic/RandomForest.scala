@@ -8,6 +8,17 @@ import org.apache.spark.sql.SparkSession
 
 /**
  * 随机森林
+ * 参数1：提交到本地还是集群。"local[*]" -- 本地执行；  "--master spark://master:7077" -- 集群执行
+ * 参数2：文件名（本地或者是hdfs）。"C:/Workspace/MySparkApplication/data/randomForestData.txt" -- 本地数据文件夹;  "hdfs://master:9000/user/root/data/randomForestData.txt"
+ * IDEA本地运行参数设置："local C:/Workspace/MySparkApplication/data/randomForestData.txt"
+ * Spark集群提交jar运行命令：
+spark-submit --master spark://master:7077 \
+--class main.scala.basic.RandomForest \
+--executor-memory 1g \
+/root/MySparkApplication.jar \
+spark://master:7077 \
+hdfs://master:9000/user/root/data/randomForestData.txt > RandomForestsResult.log
+
  */
 object RandomForest {
   def main(args: Array[String]) {
