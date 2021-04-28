@@ -1,5 +1,7 @@
 @echo off
-:: Set the shutdown delay time (unit: seconds)
-set WAIT_TIME=300
-echo "This computer will shut down in %WAIT_TIME% seconds"
-shutdown -S -T %WAIT_TIME%
+:: Set the shutdown delay time (unit: minutes)
+set /a waitMinutes=5
+set /a waitSeconds=%waitMinutes%*60
+
+echo "This computer will shut down in %waitMinutes% minutes"
+shutdown -S -T %waitSeconds%
