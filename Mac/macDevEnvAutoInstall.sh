@@ -18,6 +18,7 @@
 # 10. 安装并配置 GoLang
 # 11. 安装并配置 Python3
 # 12. 配置 Java
+# 13. 安装并配置 Node.js
 ###############################################################
 
 
@@ -55,6 +56,13 @@ YOUR_PYTHON3_LIB=(nose lapack atlas numpy scipy)
 # YOUT_JAVA_INSTALL_PATH="/usr/local"
 # YOUR_JAVA_TAR_FILE="/Users/$(whoami)/Downloads/jdk-8u271-linux-x64.tar.gz"
 YOUR_JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home"
+
+# Node.js
+# 最新 Node.js 下载地址：https://nodejs.org/download/release/
+YOUT_NODEJS_INSTALL_PATH="/usr/local"
+YOUT_NODEJS_VER="15.3.0"
+YOUT_NODEJS_DISTRO="darwin-x64"
+YOUR_NODEJS_URL="https://nodejs.org/download/release/v15.3.0/node-v${YOUT_NODEJS_VER}-${YOUT_NODEJS_DISTRO}.tar.gz"
 ######################  Your Config End  ######################
 
 
@@ -757,11 +765,10 @@ myFuncInstallAndCfgGoLang() {
     rm -rf ./go
 
     # 设置环境变量
-    local go_install_path="${YOUT_GO_INSTALL_PATH}/${YOUR_GO_VER}"
     ret=$(cat ${NOW_HOME}/.bash_profile | grep "GoLang Start")
     if [[ -z "$ret" ]]; then
         echo "# GoLang Start
-export GOROOT=$go_install_path
+export GOROOT=${YOUT_GO_INSTALL_PATH}/${YOUR_GO_VER}
 export GOPATH=$YOUR_GO_PATH
 export GOBIN=\$GOPATH/bin
 export PATH=\$PATH:\$GOROOT/bin:\$GOBIN
@@ -882,14 +889,101 @@ export JRE_HOME=\$JAVA_HOME/jre
 }
 
 #################################################################
-# 安装 其他
+# 安装并配置 Node.js
 #################################################################
-myOtherFunc() {
-# installing Node.js
-myFuncBrewInstall node@12
-# Add the bin/ directory for this Node.js installation to your PATH:
-# 例如 ： /usr/local/opt/node@12/bin
+myFuncInstallAndCfgNodejs() {
+    local ret=$(cat ${NOW_HOME}/.bash_profile | grep "Nodejs Start")
+    if [[ -n "$ret" ]]; then
+        echo '\033[1;36m 已安装 Nodejs ，无需再安装
+        \033[0m'
+        return 0
+    fi
+
+    echo '
+    ==> install Nodejs
+    '
+
+    if [[ ! -d "${YOUT_NODEJS_INSTALL_PATH}/node${YOUT_NODEJS_VER}" ]]; then
+        createFolder "${YOUT_NODEJS_INSTALL_PATH}/node${YOUT_NODEJS_VER}" a+rx
+    fi
+
+    # 下载
+    curl -o node${YOUT_NODEJS_VER}.tar.gz --insecure $YOUR_NODEJS_URL
+    if [[ $? -ne 0 ]]; then
+        echo "\033[1;31m 下载 Nodejs 包失败，请确认资源地址有效性 $YOUR_NODEJS_URL
+        \033[0m"
+        return 1
+    fi
+
+    # 解压
+    tar -zxf ./node${YOUT_NODEJS_VER}.tar.gz
+    mv ./node-*/* ${YOUT_NODEJS_INSTALL_PATH}/node${YOUT_NODEJS_VER}/
+    rm -rf ./node${YOUT_NODEJS_VER}.tar.gz
+    rm -rf ./node-*
+
+    # 设置环境变量
+    ret=$(cat ${NOW_HOME}/.bash_profile | grep "Nodejs Start")
+    if [[ -z "$ret" ]]; then
+        echo "# Nodejs Start
+export PATH=${YOUT_NODEJS_INSTALL_PATH}/node${YOUT_NODEJS_VER}/bin:\$PATH
+# Nodejs END
+" >> ${NOW_HOME}/.bash_profile
+        source ${NOW_HOME}/.bash_profile
+    fi
+
+    # # 建立软链接到 /usr/bin 无 root 权限
+    # local node_links=(node npm npx)
+    # for node_link in "${node_links[@]}"; do
+    #     ret=$(ls -l /usr/bin | grep "${node_link}")
+    #     if [[ $? -ne 0 ]]; then
+    #         echo "==> link ${node_link}
+    #         "
+    #         execute_sudo "/bin/ln" "-s" "${YOUT_NODEJS_INSTALL_PATH}/node${YOUT_NODEJS_VER}/bin/${node_link}" "/usr/bin/${node_link}"
+    #     fi
+    # done
+
+    ret=$(node -v)
+    if [[ $? -ne 0 ]]; then
+        echo '\033[1;31m 安装 Nodejs 失败\033[0m'
+        return 1
+    fi
+
+    ret=$(npm -v)
+    if [[ $? -ne 0 ]]; then
+        echo '\033[1;31m 安装 npm 失败\033[0m'
+        return 1
+    fi
+
+    if [[ ! -d "${NOW_HOME}/.npm-global" ]]; then
+        createFolder "${NOW_HOME}/.npm-global" a+r
+        npm config set prefix "${NOW_HOME}/.npm-global"
+        echo "# Npm Start
+export PATH=${NOW_HOME}/.npm-global/bin:\$PATH
+# Npm END
+" >> ${NOW_HOME}/.bash_profile
+        source ${NOW_HOME}/.bash_profile
+    fi
+
+    # 换成阿里的镜像, 解决npm install安装慢的问题
+    ret=$(npm config get registry | grep "taobao")
+    if [[ -z "$ret" ]]; then
+        npm config set registry https://registry.npm.taobao.org
+        npm install
+    fi
+
+    echo "\033[1;32m 安装 Nodejs 成功 \033[0m"
+    
+    return 0
 }
+
+
+#################################################################
+# 安装其他 Tools
+#################################################################
+myFuncInstallOtherTools() {
+    echo "install other tools"
+}
+
 ####################  Func Define End  ##########################
 
 
@@ -945,5 +1039,9 @@ myFuncInstallAndCfgPython3
 # 12. 配置 Java
 echo "\033[1;36m 12. 配置 Java \033[0m"
 myFuncInstallAndCfgJava
+
+# 13. 安装并配置 Node.js
+echo "\033[1;36m 13. 安装并配置 Node.js \033[0m"
+myFuncInstallAndCfgNodejs
 
 ############  Script Running End ############
