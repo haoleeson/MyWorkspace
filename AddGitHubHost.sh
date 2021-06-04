@@ -20,26 +20,27 @@ funcAddGitHubHosts() {
         sudo $CHOWN $USER ${HOSTS_FILE}
         # 追加 GitHub Hosts 到 hosts文件
         echo '
-# GitHub Hosts Start 20201130
+# GitHub Hosts Start
+# Query ip from www.ipaddress.com/ip-lookup on 20210604
 199.232.69.194 github.global.ssl.fastly.net
-140.82.113.4 github.com
-140.82.112.4 www.github.com
-140.82.112.4 gist.github.com
-199.232.96.133 raw.github.com
-185.199.109.153 assets-cdn.github.com
-185.199.109.153 documentcloud.github.com
+140.82.112.3 github.com
+140.82.114.4 www.github.com
+140.82.114.4 gist.github.com
+185.199.110.133 raw.github.com
+185.199.108.153 assets-cdn.github.com
+185.199.108.153 documentcloud.github.com
 185.199.108.154 help.github.com
-140.82.112.10 nodeload.github.com
-140.82.112.17 status.github.com
+140.82.114.9 nodeload.github.com
+140.82.113.17 status.github.com
 185.199.109.153 training.github.com
-199.232.96.133 camo.githubusercontent.com
-199.232.96.133 cloud.githubusercontent.com
-199.232.96.133 gist.githubusercontent.com
-199.232.96.133 raw.githubusercontent.com
-199.232.96.133/22 avatars0.githubusercontent.com
-199.232.96.133/22 avatars1.githubusercontent.com
-199.232.96.133/22 avatars2.githubusercontent.com
-199.232.96.133/22 avatars3.githubusercontent.com
+185.199.110.133 camo.githubusercontent.com
+185.199.108.133 cloud.githubusercontent.com
+185.199.108.133 gist.githubusercontent.com
+185.199.111.133 raw.githubusercontent.com
+185.199.110.133/22 avatars0.githubusercontent.com
+185.199.110.133/22 avatars1.githubusercontent.com
+185.199.110.133/22 avatars2.githubusercontent.com
+185.199.110.133/22 avatars3.githubusercontent.com
 # GitHub Hosts End
 ' >> ${HOSTS_FILE}
         # 刷新 DNS (Mac OS X v10.10.4 or later)
