@@ -1,4 +1,4 @@
-//OOT第2次作业-18101223769-黎豪
+//OOT第2次作业-EisenHao
 #ifndef MYQUEUEBYLINKEDCLASS_H_
 #define MYQUEUEBYLINKEDCLASS_H_
 //链接队列优势，除可用内存限制外，不用额外考虑队列满的问题

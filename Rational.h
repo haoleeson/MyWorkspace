@@ -1,4 +1,4 @@
-//OOT第2次作业-18101223769-黎豪
+//OOT第2次作业-EisenHao
 #ifndef RATIONAL_H_
 #define RATIONAL_H_
 #include <stdio.h> //printf(), sprintf()函数

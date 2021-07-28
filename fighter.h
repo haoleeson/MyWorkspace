@@ -1,4 +1,4 @@
-//OOT第2次作业-18101223769-黎豪
+//OOT第2次作业-EisenHao
 #ifndef FIGHTER_H_
 #define FIGHTER_H_
 

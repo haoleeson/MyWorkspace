@@ -1,7 +1,7 @@
 /**
  * Encoding：utf-8
  * Programming language：c++
- * Coder：黎豪-软件工程-18101223769
+ * Coder：EisenHao
  * */
 #include "DenseMatrixGraph.h"
 
