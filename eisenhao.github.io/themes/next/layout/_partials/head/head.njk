@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="{{ theme.android_chrome_color }}">
 <meta name="generator" content="Hexo {{ hexo_version }}">
 
@@ -21,10 +21,6 @@
   <link rel="manifest" href="{{ url_for(theme.favicon.android_manifest) }}">
 {%- endif %}
 
-{%- if theme.disable_baidu_transformation %}
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-{%- endif %}
 {%- if theme.google_site_verification %}
   <meta name="google-site-verification" content="{{ theme.google_site_verification }}">
 {%- endif %}
@@ -42,19 +38,20 @@
 
 {{ next_font() }}
 
-<link rel="stylesheet" href="{{ theme.vendors.fontawesome }}">
+{{ next_vendors('fontawesome') }}
 
 {%- if theme.motion.enable %}
-  <link rel="stylesheet" href="{{ theme.vendors.animate_css }}">
+  {{ next_vendors('animate_css') }}
 {%- endif %}
 
 {%- if theme.fancybox %}
-  <link rel="stylesheet" href="{{ theme.vendors.fancybox_css }}">
+  {{ next_vendors('fancybox_css') }}
 {%- endif %}
 
 {%- if theme.nprogress.enable %}
-  <link rel="stylesheet" href="{{ theme.vendors.nprogress_css }}">
-  <script src="{{ theme.vendors.nprogress_js }}"></script>
+  {{ next_vendors('nprogress_css') }}
+  {{ next_vendors('nprogress_js') }}
 {%- endif %}
 
-{{ next_config() }}
+{{ next_data('main', next_config()) }}
+{{- next_js('config.js') }}
