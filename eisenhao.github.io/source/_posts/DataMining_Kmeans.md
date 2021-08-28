@@ -12,22 +12,22 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Kmeans.png" class="full-image" />
 
-# 实现K-means算法对无噪声的waveform数据集进行分割
-## K-means算法介绍
+# 1. 实现K-means算法对无噪声的waveform数据集进行分割
+## 1.1. K-means算法介绍
 k均值聚类是一种矢量量化方法，最初来自信号处理，是数据挖掘中聚类分析的常用方法。 k均值聚类的目的是将n个观测值划分为k个聚类，其中每个观测值属于具有最近均值的聚类，作为聚类的原型。这导致数据空间划分为Voronoi单元。
 <!-- more -->
 
 这个问题在计算上很困难（NP难）;然而，有效的启发式算法快速收敛到局部最优。这些通常类似于通过k均值和高斯混合建模所采用的迭代细化方法的高斯分布混合的期望最大化算法。他们都使用集群中心来建模数据;然而，k均值聚类倾向于找到具有可比空间范围的聚类，而期望最大化机制允许聚类具有不同的形状。
 该算法与k-最近邻分类器具有松散的关系，这是一种流行的分类机器学习技术，由于名称的原因常常与k-means混淆。应用1最近邻分类器，通过k均值获得的聚类中心将新数据分类到现有聚类中。这被称为最近的质心分类器或Rocchio算法。
 
-## Python编程实现K-means算法
+## 1.2. Python编程实现K-means算法
 **K-means算法主要分为以下步骤实现**：
-* S1.随机生成 k 个 “种子”
-* S2.依次求解当前(第i个)元素对k个'种子'的最小欧式距离，得到距当前(第i个)元素欧式距离最小的('种子')集群
-* S3.如果当前(第i个)元素的与k个‘种子’(集群)的最小欧式距离所对应的【种子编号】遇上一次记录不一致 ==> (第i个)元素所属集群发生改变，更新所属集群
-* S4.重新计算k个('种子')集群的各属性值的平均值，得到新的k个('种子')集群
-* S5.若S2～S4的运行过程中，至少1个元素的所属‘种子’(集群)发生改变，则不断重复运行S2~S5过程,直至没有元素所属‘种子’(集群)发生改变视为聚类成功(也可限定最大迭代次数)跳转S6
-* S6.结束迭代，返回k个集群的中心值centroids, 及每个集群所包含的元素数组clusterAssment
+- S1.随机生成 k 个 “种子”
+- S2.依次求解当前(第i个)元素对k个'种子'的最小欧式距离，得到距当前(第i个)元素欧式距离最小的('种子')集群
+- S3.如果当前(第i个)元素的与k个‘种子’(集群)的最小欧式距离所对应的【种子编号】遇上一次记录不一致 ==> (第i个)元素所属集群发生改变，更新所属集群
+- S4.重新计算k个('种子')集群的各属性值的平均值，得到新的k个('种子')集群
+- S5.若S2～S4的运行过程中，至少1个元素的所属‘种子’(集群)发生改变，则不断重复运行S2~S5过程,直至没有元素所属‘种子’(集群)发生改变视为聚类成功(也可限定最大迭代次数)跳转S6
+- S6.结束迭代，返回k个集群的中心值centroids, 及每个集群所包含的元素数组clusterAssment
 
 ```python
 import random
@@ -98,11 +98,11 @@ def kmeans(dataSet, k):
     return centroids, clusterAssment
 ```
 
-## 编写Python程序实现K-means算法对UCI的waveform数据集的3个类中每类数据取100个的分割
+## 1.3. 编写Python程序实现K-means算法对UCI的waveform数据集的3个类中每类数据取100个的分割
 从UCI获取[
 Waveform Database Generator (Version 2) Data Set](http://archive.ics.uci.edu/ml/datasets/waveform+database+generator+(version+2))数据集。由网页介绍可知该数据集中，数据量为：5000， 属性数为：40(实际21列), waves数据的类为：3。
 
-### 程序加载waveform.data数据
+### 1.3.1. 程序加载waveform.data数据
 通过以下代码读取Waveform Database Generator (Version 2) Data Set中'waveform.data'文件内的所有数据，可看到数据的最后一列为类属性的标识号，由网页介绍可知，waves数据共有3类。
 ```python
 # 数据加载
@@ -110,7 +110,7 @@ print('数据加载...\n')
 data = pd.read_csv('waveform.data', sep=',', engine='python', header=None, skiprows=0, names=None) # waveform.data
 print(data[0])
 ```
-### 在第0~2类中，每类提取100个数据
+### 1.3.2. 在第0~2类中，每类提取100个数据
 在3类中每类取100个数据使用上一步实现的K-means算法的进行聚类,其中每类取100个样本，并将这300个样本拼接到一个列表，将这个操作封装成函数如下：
 ```python
 # 在data中，第0~2类，每获取100个数据并简单拼接
@@ -123,7 +123,7 @@ def geteveryClass3Data100Samples(data):
     data_3x100 = data_3x100.reset_index(drop=True) #重新建立索引
     return data_3x100
 ```
-### 用K-means算法对UCI的waveform数据集中筛选出的300个样本进行分割
+### 1.3.3. 用K-means算法对UCI的waveform数据集中筛选出的300个样本进行分割
 设置'种子'(集群)个数为:5, 运行k-means算法进行迭代分割
 ```python
 data_3x100 = np.mat(data_3x100)
@@ -208,7 +208,7 @@ centroids:
 {% endnote %}
 
 
-# K-means算法对一副无噪图像进行分割
+# 2. K-means算法对一副无噪图像进行分割
 **加载图片数据**
 ```python
 # 获取图片的rgb列表
@@ -317,7 +317,7 @@ def showImage(imageRGB, centercolor, features, k, iteration):
     plt.show()
 ```
 
-## 使用K-means算法对一副无噪图像进行分割完整主程序
+## 2.1. 使用K-means算法对一副无噪图像进行分割完整主程序
 ```python
 def main():
     #加载图片数据
@@ -343,14 +343,14 @@ def main():
     showImage(imageRGB, CalCentercolor, features, k, iteration)
 ```
 
-## K-means算法分割图片效果图
-### 当最大迭代次数限制为20次时：
+## 2.2. K-means算法分割图片效果图
+### 2.2.1. 当最大迭代次数限制为20次时：
 **k=3时的效果图如下**：
 ![iteration=20,k=3时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Kmeans_result_k=3_iteration=20.png)
 **k=8时的效果图如下**：
 ![iteration=20,k=8时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Kmeans_result_k=8_iteration=20.png)
 
-#### 当最大迭代次数限制为50次时：
+#### 2.2.1.1. 当最大迭代次数限制为50次时：
 **k=3时的效果图如下**：
 ![iteration=50,k=3时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Kmeans_result_k=3_iteration=50.png)
 **k=8时的效果图如下**：

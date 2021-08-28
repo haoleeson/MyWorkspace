@@ -13,14 +13,15 @@ categories:
 
 尽管AUR被称为这个星球上最大的软件资源库，但不可避免的，我们有时会遇到在AUR库中没有待装软件，而待装软件官网只提供.rpm或.deb软件包的情况。本文将介绍如何利用.rpm或.deb软件包资源创建一个Arch软件包，然后在Manjaro系统下安装这些软件。如果你有兴趣读完本文，你会发现其实很简单。
 <!-- more -->
-## 一. 通过.deb包安装(推荐)
 
-### .deb包安装流程简述：
-* 用一个叫“Debtap”的软件将.deb软件包转换成Arch软件包
-* 用我们熟悉的<code>pacman</code>命令安装上一步创建的Arch软件包
+# 1. 通过.deb包安装(推荐)
 
-### 准备工作：
-* 确保系统已安装<code>debtap</code>，可通过以下命令查询
+## 1.1. .deb包安装流程简述：
+- 用一个叫“Debtap”的软件将.deb软件包转换成Arch软件包
+- 用我们熟悉的<code>pacman</code>命令安装上一步创建的Arch软件包
+
+## 1.2. 准备工作：
+- 确保系统已安装<code>debtap</code>，可通过以下命令查询
 
 ```[] 命令执行目录：~
 debtap -v #查询debtap安装的版本号
@@ -41,7 +42,7 @@ Continue installing debtap ? [Y/n] --> Y
 Proceed with installation? [Y/n] --> Y
 debtap -v #查询debtap安装的版本号
 ```
-* 确保系统已安装<code>bash</code>, <code>binutils</code>, <code>pkgfile</code>和<code>fakeroot</code>
+- 确保系统已安装<code>bash</code>, <code>binutils</code>, <code>pkgfile</code>和<code>fakeroot</code>
 一般情况均已安装。安装Debtap和所有上述依赖项后，运行以下命令来创建/更新pkgfile和debtap数据库（至少执行一次）。
 ```[] 命令执行目录：~
 sudo debtap -u
@@ -50,9 +51,9 @@ sudo debtap -u
 ==> All steps successfully completed!
 ```
 
-* 去待安装软件官网下载与你系统相匹配的(64位或32位)<code>.deb</code>软件包，推荐下载到<code>~/Downloads</code>目录
+- 去待安装软件官网下载与你系统相匹配的(64位或32位)<code>.deb</code>软件包，推荐下载到<code>~/Downloads</code>目录
 
-### 实际操作及代码
+## 1.3. 实际操作及代码
 
 1. 跳转到.deb软件包的下载目录：
 如果准备工作中<code>.deb软件包</code>下载到<code>~/Downloads</code>目录的话
@@ -91,22 +92,22 @@ sudo pacman -U easyconnect-7.6.3.0.86415-1-x86_64.pkg.tar.xz
 sudo pacman -R easyconnect
 ```
 
-## 二. 通过.rpm软件包安装
+# 2. 通过.rpm软件包安装
 
-### .rpm安装流程简述：
-* 新建一个文件夹作为软件安装目录，并将待安装软件<code>.rpm</code>软件包移动到该文件夹内
-* 在安装文件夹内创建并配置<code>PKGBUILD</code>文件
-* 在待装软件文件夹内运行<code>makepkg</code>，然后创建Arch软件包
-* 用我们熟悉的<code>pacman</code>命令安装上一步创建的Arch软件包
+## 2.1. .rpm安装流程简述：
+- 新建一个文件夹作为软件安装目录，并将待安装软件<code>.rpm</code>软件包移动到该文件夹内
+- 在安装文件夹内创建并配置<code>PKGBUILD</code>文件
+- 在待装软件文件夹内运行<code>makepkg</code>，然后创建Arch软件包
+- 用我们熟悉的<code>pacman</code>命令安装上一步创建的Arch软件包
 
-### 准备工作：
-* 确保系统已安装<code>rpmextract</code>
+## 2.2. 准备工作：
+- 确保系统已安装<code>rpmextract</code>
 ```[] 命令执行目录：~
 sudo pacman -S rpmextract #安装rpmextract
 ```
-* 去待安装软件官网下载与你系统相匹配的(64位或32位)<code>.rpm</code>软件包
+- 去待安装软件官网下载与你系统相匹配的(64位或32位)<code>.rpm</code>软件包
 
-### 实际操作及代码：
+## 2.3. 实际操作及代码：
 
 1. 新建一个软件的安装文件夹，并将待安装软件<code>.rpm</code>包移动到该文件夹内
 ```
@@ -181,7 +182,7 @@ pacman -U pkgname.pkg.tar.xz
 pacman -R pkgname #其中pkgname为PKGBUILD文件中配置的软件名
 ```
 
-## Linux每日一练
+# 3. Linux每日一练
 
 在Linux系统中搜索文件命令<code>find</code>
 ```
@@ -193,8 +194,8 @@ sudo find / -name *example*.*
 '\*' 表不确定内容，可搜索文件或文件夹
 ```
 
-## 参考文献：
+# 4. 参考文档
 
-* [Install RPM packages on Arch Linux](http://nemrod.se/guides/install-rpm-packages-on-arch-linux/)
-* [Creating packages](https://wiki.archlinux.org/index.php/Creating_packages)
-* [PKGBUILD](https://wiki.archlinux.org/index.php/PKGBUILD)
+- [Install RPM packages on Arch Linux](http://nemrod.se/guides/install-rpm-packages-on-arch-linux/)
+- [Creating packages](https://wiki.archlinux.org/index.php/Creating_packages)
+- [PKGBUILD](https://wiki.archlinux.org/index.php/PKGBUILD)

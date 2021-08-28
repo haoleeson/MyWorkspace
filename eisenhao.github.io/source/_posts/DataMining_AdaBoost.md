@@ -12,27 +12,27 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_AdaBoost.png" class="full-image" />
 
-# 集成学习AdaBoost算法介绍
+# 1. 集成学习AdaBoost算法介绍
 AdaBoost全称是adaptive boosting,该算法基本思想:多个结构较为简单,分类或预测精度较低的弱学习算法可以通过某种方式结合成具有较强学习能力的强学习算法。根据统计学习方法的三要素,AdaBoost 方法=加法模型+指数损失函数(策略)+前向分步 算法。
 
 <!-- more -->
-# AdaBoost运行原理如下:
+# 2. AdaBoost运行原理如下:
 
-* S1.初始化训练数据的权值分布。如果有N个样本,则每一个训练样本最开始时都被赋予相同的权值:1/N。
+- S1.初始化训练数据的权值分布。如果有N个样本,则每一个训练样本最开始时都被赋予相同的权值:1/N。
 
-* S2.训练弱分类器。具体训练过程中,如果某个样本点已经被准确地分类,那么在构造下一个训练集中,它的权值就被降低;相反,如果某个样本点没有被准确地分类,那么它的权值就得到提高。然后,权值更新过的样本集被用于训练下一个分类器,整个训练过程如此迭代地进行下去。
+- S2.训练弱分类器。具体训练过程中,如果某个样本点已经被准确地分类,那么在构造下一个训练集中,它的权值就被降低;相反,如果某个样本点没有被准确地分类,那么它的权值就得到提高。然后,权值更新过的样本集被用于训练下一个分类器,整个训练过程如此迭代地进行下去。
 
-* S3.将各个训练得到的弱分类器组合成强分类器。各个弱分类器的训练过程结束后,加大分类误差率小的弱分类器的权重,使其在最终的分类函数中起着较大的决定作用,而降低分类误差率大的弱分类器的权重,使其在最终的分类函数中起着较小的决定作用。换言之,误差率低的弱分类器在最终分类器中占的权重较大,否则较小。
+- S3.将各个训练得到的弱分类器组合成强分类器。各个弱分类器的训练过程结束后,加大分类误差率小的弱分类器的权重,使其在最终的分类函数中起着较大的决定作用,而降低分类误差率大的弱分类器的权重,使其在最终的分类函数中起着较小的决定作用。换言之,误差率低的弱分类器在最终分类器中占的权重较大,否则较小。
 
-# Python编程实现基于单层决策树的AdaBoost算法
-## 基于单层决策树的AdaBoost算法步骤
-* S1.找出最佳单层决策树: a.将最小分类误差率minerror=inf b.对数据集中的每一个特征: c.对该特征的每个步长(找出决策阈值): d.对每个不等号(>=,<): e.建立一颗单层决策树(只包含树桩)并利用加权数据集并计算该决策树的分类误差率 f.如果分类误差率小于minerror,则将当前单层决策树设置成最佳单层决策树。
-* S2.利用单层决策树的分类误差率计算该决策树的比例系数alpha
-* S3.计算更新权重向量D
-* S4.更新累计类别估计值,计算AdaBoost模型的错误率
-* S5.如果错误率为0或者分类器数目i>M,则退出循环
+# 3. Python编程实现基于单层决策树的AdaBoost算法
+## 3.1. 基于单层决策树的AdaBoost算法步骤
+- S1.找出最佳单层决策树: a.将最小分类误差率minerror=inf b.对数据集中的每一个特征: c.对该特征的每个步长(找出决策阈值): d.对每个不等号(>=,<): e.建立一颗单层决策树(只包含树桩)并利用加权数据集并计算该决策树的分类误差率 f.如果分类误差率小于minerror,则将当前单层决策树设置成最佳单层决策树。
+- S2.利用单层决策树的分类误差率计算该决策树的比例系数alpha
+- S3.计算更新权重向量D
+- S4.更新累计类别估计值,计算AdaBoost模型的错误率
+- S5.如果错误率为0或者分类器数目i>M,则退出循环
 
-## 找到加权错误率(分类错误率)最小的单层决策树(会被不断迭代)
+## 3.2. 找到加权错误率(分类错误率)最小的单层决策树(会被不断迭代)
 ```python
 def buildStump(dataArray, classLabels, D):
     dataMatrix = np.mat(dataArray); labelMat = np.mat(classLabels).T
@@ -59,7 +59,7 @@ def buildStump(dataArray, classLabels, D):
     return bestClassEst, minError, bestStump
 ```
 
-## 输出多个弱分类器的数组
+## 3.3. 输出多个弱分类器的数组
 ```python
 def adaBoostTrainDS(dataArray, classLabels, numIt=40):
     weakClass = []#定义弱分类数组，保存每个基本分类器bestStump
@@ -89,7 +89,7 @@ def adaBoostTrainDS(dataArray, classLabels, numIt=40):
     return weakClass
 ```
 
-## 输出分类结果
+## 3.4. 输出分类结果
 ```python
 def adaTestClassify(dataToClassify, weakClass):
     dataMatrix = np.mat(dataToClassify)        
@@ -103,7 +103,7 @@ def adaTestClassify(dataToClassify, weakClass):
     return np.sign(aggClassEst)
 ```
 
-## 主函数
+## 3.5. 主函数
 ```python
 # main函数
 if __name__  ==  '__main__':
@@ -119,7 +119,7 @@ if __name__  ==  '__main__':
     print('最终分类标签：', testClass)
 ```
 
-## 运行结果
+运行结果：
 ```python
 D.T: [[0.2 0.2 0.2 0.2 0.2]]
 alpha: 0.6931471805599453

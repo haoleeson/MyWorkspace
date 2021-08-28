@@ -13,13 +13,13 @@ categories:
 
 <!-- more -->
 
-## Git常用基础命令
+# 1. Git常用基础命令
 
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/gitUsuallyUseCmd.png" style="zoom:35%;" />
 
-## Git实用操作命令
+# 2. Git实用操作命令
 
-### 对比指定文件在本地分支与远端分支的差异
+## 2.1. 对比指定文件在本地分支与远端分支的差异
 
 <b><font color="#7E3D76" style="">1. 对比指定【单个文件】在【本地分支与远端】分支的差异</font></b>
 
@@ -41,7 +41,7 @@ git diff --stat -- src/file1.cpp src/file1.cpp
 git diff --stat master dev  -- file1.md src/file2.java
 ```
 
-### 对比俩分支文件差异
+## 2.2. 对比俩分支文件差异
 
 <b><font color="#7E3D76" style="">1. 对比【本地两分支】差异</font></b>
 
@@ -71,12 +71,12 @@ git diff --stat dev origin/master
 git diff --stat dev origin/master -- filepath1 filepath2 filepath3
 ```
 
-### 对比两分支commit差异
+## 2.3. 对比两分支commit差异
 ```shell
 git log --left-right --stat master...dev
 ```
 
-### 在远端仓库新建一个分支
+## 2.4. 在远端仓库新建一个分支
 
 实现方式：本地建分支后同步到远端仓库
 ```shell
@@ -84,19 +84,19 @@ git checkout -b newBranch origin/master
 git push --set-upstream origin newBranch
 ```
 
-### 删除远端分支
+## 2.5. 删除远端分支
 ```shell
 git branch -r -d origin/newBranch
 ```
 
-### 本地分支与远端分支关联
+## 2.6. 本地分支与远端分支关联
 ```shell
 git checkout --track origin/branchName
 ```
 
-## Git命令进阶用法
+# 3. Git命令进阶用法
 
-### reset 回滚
+## 3.1. reset 回滚
 
 reset参数说明：
 - --hard：重置时清空工作目录的所有改动
@@ -110,13 +110,13 @@ git reflog                      # 方式3：撤销历史操作（如撤销上一
 git reset --hard ${历史操作ID}
 ```
 
-### amend 修复上次提交的操作
+## 3.2. amend 修复上次提交的操作
 ```shell
 git add ${changeFiles}  # s1.将修复错误的文件添加到提交
 git commit --amend      # s2.修复上次提交，注意amend只适用于还处于评审中的CR。
 ```
 
-### rebase 变基的操作步骤
+## 3.3. rebase 变基的操作步骤
 前置条件：dev分支拉取自master（eg.dev分支拉取时间：20210715），且在之后（eg.20210720）master又有新提交（或合入），且现在（eg.20210730）dev分支需要在引入该新提交（或合入）后再开发。
 
 变基操作成功执行后，dev分支相当于是从变基操作时（eg.20210730）新拉取的分支，且(20210715 ~ 20210730)之间的提交和修改仍保留。
@@ -128,7 +128,7 @@ git checkout master     # s3.切换到主分支（本地）
 git merge dev           # s4.移到最新的提交
 ```
 
-### rebase 修改完善之前某次提交的操作步骤
+## 3.4. rebase 修改完善之前某次提交的操作步骤
 ```shell
 # s1.触发git修改弹窗，将对应commit标记为edit。
 git rebase -i ${commitID}
@@ -141,7 +141,7 @@ git commit --amend
 git rebase --continue
 ```
 
-### rebase 撤销过往提交命令的两种方式
+## 3.5. rebase 撤销过往提交命令的两种方式
 
 <b><font color="#7E3D76" style="">1. 方式1——触发git修改并在弹出git编辑界面中删除想撤销的commits</font></b>
 实现原理：在触发的git编辑界面中添加drop ${待删除commitID}
@@ -177,7 +177,7 @@ git add ${冲突files}
 git rebase --continue
 ```
 
-### 根据操作历史回退
+## 3.6. 根据操作历史回退
 根据git操作历史记录回退，eg.撤销上一步git reset --hard操作，以恢复到执行该操作前的状态（需确保git全局配置中core.logallrefupdates已打开true）
 ```shell
 # s1.查询git操作命令历史记录对应的${上一步操作ID}
@@ -186,7 +186,7 @@ git reflog
 git reset --hard ${上一步操作ID}
 ```
 
-## 参考文档
+# 4. 参考文档
 - [Git 合并多次 commit 、 删除某次 commit](https://www.cnblogs.com/zhaoyingjie/p/10259715.html)
 - [git diff 比较本地文件记录和远程文件记录的修改项](https://blog.csdn.net/weixin_34268843/article/details/92032933)
 

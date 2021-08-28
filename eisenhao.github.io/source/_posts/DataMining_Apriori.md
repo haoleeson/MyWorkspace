@@ -12,25 +12,25 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Apriori.png" class="full-image" />
 
-# Apriori算法介绍
+# 1. Apriori算法介绍
 Apriori是一种在事务数据库上进行频繁项集挖掘和关联规则学习的算法。它通过识别数据库中的频繁单个项目并将它们扩展到越来越大的项目集来进行,只要这些项目集在数据库中经常出现。由Apriori确定的频繁项目集可用于确定关联规则,其突出显示数据库中的一般趋势:这在诸如市场购物栏分析的领域中具有应用。
 
 <!-- more -->
 
 Apriori算法由Agrawal和Srikant于1994年提出。Apriori旨在对包含交易的数据库(例如,客户购买的项目集合,或网站频繁或IP地址的详细信息)进行操作。其他算法设计用于在没有事务(Winepi和Minepi)或没有时间戳(DNA序列)的数据中查找关联规则。每个事务都被视为一组项(项集)。给出一个门槛 C,Apriori算法识别至少是子集的项集 C 数据库中的事务。Apriori使用“自下而上”方法,其中频繁的子集一次扩展一个项目(称为候选生成的步骤),并且针对数据测试候选组。当没有找到进一步成功的扩展时,算法终止。
 
-# Python编程实现Apriori算法
-## Apriori算法步骤
-* S1.令 k=1
-* S2.扫描数据库,生成长度为k的候选项集的集合Ck
-* S3.重复S4~S8直到找不到新的候选项集的集合Ck
-* S4.从长度为k的频繁项集Lk生成长度为(k + 1)的候选项集
-* S5.修剪长度为(k + 1)的候选项集中的出现频率低于(min_support阈值)的候选项目
-* S6.通过扫描数据库,统计每个候选项的数目
-* S7.删除出现频率低于(min_support阈值)的候选项,只留下频繁出现的候选项目集Lk
-* S8. k = k + 1
+# 2. Python编程实现Apriori算法
+## 2.1. Apriori算法步骤
+- S1.令 k=1
+- S2.扫描数据库,生成长度为k的候选项集的集合Ck
+- S3.重复S4~S8直到找不到新的候选项集的集合Ck
+- S4.从长度为k的频繁项集Lk生成长度为(k + 1)的候选项集
+- S5.修剪长度为(k + 1)的候选项集中的出现频率低于(min_support阈值)的候选项目
+- S6.通过扫描数据库,统计每个候选项的数目
+- S7.删除出现频率低于(min_support阈值)的候选项,只留下频繁出现的候选项目集Lk
+- S8. k = k + 1
 
-## 生成长度为1的候选项集C1
+## 2.2. 生成长度为1的候选项集C1
 ```python
 # C1 是大小为1的所有候选项集的集合
 def createC1(dataSet):
@@ -44,7 +44,7 @@ def createC1(dataSet):
     return list(map(frozenset, C1))
 ```
 
-## 扫描数据库,返回频繁出现的候选项目集Lk(出现频率大于给定阈值minSupport)
+## 2.3. 扫描数据库,返回频繁出现的候选项目集Lk(出现频率大于给定阈值minSupport)
 ```python
 def scanD(D, Ck, minSupport):
     ssCnt={}
@@ -66,7 +66,7 @@ def scanD(D, Ck, minSupport):
     return retList, supportData
 ```
 
-## apriori组合,向上合并L
+## 2.4. apriori组合,向上合并L
 ```python
 def aprioriGen(Lk, k):
     #creates Ck 参数：频繁项集列表 Lk 与项集元素个数 k
@@ -81,7 +81,7 @@ def aprioriGen(Lk, k):
     return retList
 ```
 
-## apriori算法核心函数
+## 2.5. apriori算法核心函数
 ```python
 def apriori(dataSet, minSupport = 0.5):
     C1 = createC1(dataSet)
@@ -98,7 +98,7 @@ def apriori(dataSet, minSupport = 0.5):
     return L, supportData
 ```
 
-## 主函数
+## 2.6. 主函数
 ```python
 # main函数
 if __name__ == "__main__":
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     print('supportData = ', supportData)
 ```
 
-## 运行结果
+运行结果：
 ```python
 L = [[frozenset({5}), frozenset({2}), frozenset({3}), frozenset({1})], [frozenset({2,
 5}), frozenset({2, 3}), frozenset({1, 3})], []]

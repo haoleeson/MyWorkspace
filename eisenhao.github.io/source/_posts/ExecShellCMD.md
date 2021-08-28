@@ -18,16 +18,16 @@ categories:
 关键词: Java调Shell、问题总结
 <!-- more -->
 
-## “No such file or directory”问题的原因分析及解决方法
-### 1.若执行的是Shell脚本文件，可能是由于执行脚本的换行符不正确导致的
+# 1. “No such file or directory”问题的原因分析及解决方法
+## 1.1. 若执行的是Shell脚本文件，可能是由于执行脚本的换行符不正确导致的
 **原因分析：**文件明明存在但Java仍然报“No such file or directory”，可能由于Linux与Windows系统字符差异（主要是换行符\n,\r\n）导致的，即待执行脚本文件的换行符为\r\n，导致win下编写的脚本文件无法被在Linux环境中Java执行，而报“No such file or directory”IO异常。
 
 **解决方法：**
 
-* 重新在Windows上用文本编辑器改好格式后上传到Linux服务器再执行（简单直观）
+- 重新在Windows上用文本编辑器改好格式后上传到Linux服务器再执行（简单直观）
 在Windows上用文本编辑器(eg.VS code、Notepad++)打开脚本，更改右下角的行位序列: CRLF –> LF，保存。将改好的脚本文件Sftp上传到Linux后重新执行。
 
-* 若觉得从Windows到Linux上传太折腾，也可通过vim更改字符格式（dos -> unix），在Linux环境上用vim去掉多出的'\r'
+- 若觉得从Windows到Linux上传太折腾，也可通过vim更改字符格式（dos -> unix），在Linux环境上用vim去掉多出的'\r'
 ```Shell
 # vim查看文本格式，确定脚本文档格式（dos(Windows)--\r\n; unix(Linux)--\n）
 :set ff
@@ -38,11 +38,11 @@ categories:
 :set fileformat=unix
 :wq
 
-## 方式2：删除多的\r字符（下方替换命令没写错，用/r）
+# 方式2：删除多的\r字符（下方替换命令没写错，用/r）
 :%s//r//g
 ```
 
-* 若需要修改多个脚本文件格式，也可通过dos2unix命令批量修改
+- 若需要修改多个脚本文件格式，也可通过dos2unix命令批量修改
 ```Shell
 sudo find YourScriptsDir/ -name "*.sh" | xargs dos2unix
 可选参数备注：
@@ -54,7 +54,7 @@ sudo find YourScriptsDir/ -name "*.sh" | xargs dos2unix
 -n：写入到新文件
 ```
 
-### 2.手动在bash中能够执行，但Java中调用Shell却报“No such file or directory”
+## 1.2. 手动在bash中能够执行，但Java中调用Shell却报“No such file or directory”
 **原因分析：**Java在调用Shell的时候，默认是用在系统的/bin/目录下的指令（不加载环境变量），可能是找不到命令的路径。如：要用Java执行Shell命令为”node helloworld.js”，可能是不能识别”node”这个命令。
 **解决方法：**在/bin/目录下创所调用命令软链接 或 用命令全路径
 ```Shell
@@ -65,7 +65,7 @@ ln -s /home/admin/node/bin/node node;
 /home/admin/node/bin/node helloworld.js
 ```
 
-### 3.若脚本文件换行符正确、有脚本执行权限，无命令识别问题，但依然无法执行shell
+## 1.3. 若脚本文件换行符正确、有脚本执行权限，无命令识别问题，但依然无法执行shell
 **原因分析：**推测可能是在调用Runtime.getRuntime().exec(“CMD”)时，传递Shell命令字符串的某个实现环节出了问题。
 **解决方法：**实例化一个数据输出流，通过dataoutputstream对象的写字节方法往process写待执行的Shell命令字符串
 ```Java
@@ -98,7 +98,7 @@ try {
 }
 ```
 
-## 脚本无执行权限问题及解决方法
+# 2. 脚本无执行权限问题及解决方法
 **原因分析：**Java执行某些程序解压的脚本，因没及时赋权限导致无法执行
 **解决方法：**Java中调用shell命令赋权
 ```Java
@@ -107,7 +107,7 @@ Process process = processBuilder.start();
 int exitValue = process.waitFor();
 ```
 
-## Java进程阻塞(一直等待Shell返回)问题及解决方法
+# 3. Java进程阻塞(一直等待Shell返回)问题及解决方法
 **原因分析：**调用Shell命令后Java业务进程阻塞，根因是在执行的Shell脚本中含print或echo输出，未能读取缓存区导致缓存区用尽。
 **解决方法：**及时将标准输出流和错误流读取出来，也方便后续问题定位
 ```Java
@@ -137,7 +137,7 @@ try {
 }
 ```
 
-## 附录：简易的Java执行Shell命令类
+# 4. 附录：简易的Java执行Shell命令类
 ```Java
 import java.io.*;
 public class ExecShellCMD {

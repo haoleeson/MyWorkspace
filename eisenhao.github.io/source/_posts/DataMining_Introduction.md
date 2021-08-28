@@ -11,20 +11,20 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Introduction.jpg" class="full-image" />
 
-# 数据挖掘
+# 1. 数据挖掘
 {% centerquote %}
 Data mining, the science of extracting useful knowledge from such huge data repositories, has emerged as a young and interdisciplinary field in computer science.  -- by **KDD**
 {% endcenterquote %}
 <!-- more -->
 
 数据挖掘是一个动态的、强势快速扩展的领域。可简要将数据挖掘研究的主要问题分为五组：挖掘方法、用户交互、有效性与可伸缩性、数据类型的多样性、数据挖掘与社会。数据挖掘吸纳了诸如**统计学**、**机器学习**、**模式识别**、**数据库和数据仓库**、**信息检索**、**可视化**、**算法**、**高性能计算**和许多应用领域的大量技术。
-## **数据挖掘目的：**
+## 1.1. **数据挖掘目的：**
 
 - 利用大数据帮助做出**预测**或**决策**
 - 发现数据中潜在的**有趣模式**或**知识**
 
-# 最新技术与发展动向
-## **数据挖掘最新技术**
+# 2. 最新技术与发展动向
+## 2.1. **数据挖掘最新技术**
 
 - **超越传统技术和数据分析工具的能力的数据集催生了许多新的技术和工具**
 
@@ -32,7 +32,7 @@ Data mining, the science of extracting useful knowledge from such huge data repo
 
     -- [Information granularity, big data, and computational intelligence](https://link.springer.com/content/pdf/10.1007/978-3-319-08254-7.pdf)
 
-### 数据预处理技术
+### 2.1.1. 数据预处理技术
 
 数据清理、数据集成、数据归约、数据变换和数据离散化。
 
@@ -42,7 +42,7 @@ Data mining, the science of extracting useful knowledge from such huge data repo
 
 -- [Spatial data mining](https://link.springer.com/content/pdf/10.1007/978-3-662-48538-5.pdf)
 
-### 数据仓库、OLAP、数据立方体技术
+### 2.1.2. 数据仓库、OLAP、数据立方体技术
 
 **数据仓库**：是一种数据库，它与单位的操作数据库分别维护。数据仓库的建立为工商企业主管提供了体系结构和工具，以便他们系统地组织、理解和使用数据进行决策。
 
@@ -50,15 +50,15 @@ Data mining, the science of extracting useful knowledge from such huge data repo
 
 **数据立方体**：一种多维数据模型。数据立方体创建了灵活而强有力的手段，对数据的子集分组和聚集。它们使得用户可以在多维组合和变化的聚集粒度上探索数据。这种能力极大地开阔了分析的范围，有助于从数据中有效地发现有趣的模式和知识。
 
-### Apriori算法及其变形
+### 2.1.3. Apriori算法及其变形
 
 Apriori是一种用于在事务数据库上进行频繁项集挖掘和关联规则学习的算法。 它通过识别数据库中的频繁单个项目并将它们扩展到越来越大的项目集来进行，只要这些项目集在数据库中经常出现。
 
-### 基于约束模式挖掘和挖掘近似模式
+### 2.1.4. 基于约束模式挖掘和挖掘近似模式
 
 一种好的启发式方法是让用户说明他们对挖掘导致的有趣模式的直观或期望，作为限制搜索空间的约束条件。这种策略称为基于约束的挖掘。
 
-### 分类
+### 2.1.5. 分类
 
 **基本分类方法**：包括决策树归纳、贝叶斯分类和基于规则的分类。
 
@@ -78,7 +78,7 @@ Apriori是一种用于在事务数据库上进行频繁项集挖掘和关联规�
 
 -- [data mining Techniques](http://www.academia.edu/download/33555810/V3I4201499a89.pdf)
 
-### 聚类分析
+### 2.1.6. 聚类分析
 
 **基本聚类分析**：
 
@@ -99,13 +99,13 @@ Apriori是一种用于在事务数据库上进行频繁项集挖掘和关联规�
 
 -- [A Survey of Multiobjective Evolutionary Algorithms for data mining: Part I.](https://ieeexplore.ieee.org/iel7/4235/4358751/06658835.pdf)
 
-### 基于随机选择选项的算法
+### 2.1.7. 基于随机选择选项的算法
 
 有时基于**随机选择选项**的算法收效良好。在数据挖掘和控制领域，当一个问题需要“蛮力”选择选项时，基于**随机选择选项**的算法在有限的时间内提供了一定概率的良好结果，并显著减少了操作量。
 
 -- [A comparative study of classification techniques in data mining algorithms](https://pdfs.semanticscholar.org/7c97/57ee09afa570db37f04e3b6cc4da0e2f3571.pdf)
 
-### 流算法
+### 2.1.8. 流算法
 
 - **APSO加速粒子群优化算法**
 
@@ -113,7 +113,7 @@ Apriori是一种用于在事务数据库上进行频繁项集挖掘和关联规�
 
 -- [Accelerated PSO swarm search feature selection for data stream mining big data](https://ieeexplore.ieee.org/iel7/4629386/4629387/07115942.pdf)
 
-### 分布式数据挖掘
+### 2.1.9. 分布式数据挖掘
 
 **Le-Khac, Nhien-An**提出了一个新的框架，开发新的和创新的数据挖掘技术，以处理非常大的分布式异构数据集在商业和学术应用。详细介绍了其中的主要组件及其接口，允许用户在Globus ToolKit、DGET等网格平台上高效地开发和实现其数据挖掘应用程序技术。
 
@@ -123,26 +123,26 @@ Apriori是一种用于在事务数据库上进行频繁项集挖掘和关联规�
 
  -- [ClowdFlows: Online workflows for distributed big data mining](https://www.sciencedirect.com/science/article/pii/S0167739X16302709)
 
-## **数据挖掘发展动向**
+## 2.2. **数据挖掘发展动向**
 
-### 与物联网相结合
+### 2.2.1. 与物联网相结合
 
 对许多人来说，物联网生成或捕获的海量数据被认为具有非常有用和有价值的信息。数据挖掘无疑将在使这种系统足够智能以提供更方便的服务和环境方面发挥关键作用。
 **Chun-Wei Tsai**从物联网开始讨论，简要回顾了“物联网数据”和“物联网数据挖掘”的特点，最后，讨论了该领域的变化、潜力、开放问题和未来趋势。
 
 -- [data mining for Internet of Things: A survey.](https://ieeexplore.ieee.org/iel7/9739/6734839/06674155.pdf)
 
-### 基于**云计算**的数据挖掘更低成本
+### 2.2.2. 基于**云计算**的数据挖掘更低成本
 
 数据挖掘技术和应用程序可以有效地用于云计算范式。云计算是一种能够支持广泛应用的通用技术。基于云计算的数据挖掘技术的实现将允许用户从几乎集成的数据仓库中检索有意义的信息，从而**降低基础设施和存储的成本，并且可以从云检索有用的和潜在的信息。
 
 -- [A review on data mining based cloud computing](http://ijrise.org/asset/archive/15SANKALP1.pdf)
 
-### 与统计与机器学习结合
+### 2.2.3. 与统计与机器学习结合
 
 -- [Data mining for business analytics: concepts, techniques, and applications in R](https://books.google.com/books?hl=en&lr=&id=ETwuDwAAQBAJ&oi=fnd&pg=PR19&dq=data+mining+Development+trend&ots=2NWgjl2RLK&sig=sQBatbtbXqXyebsmDBRzPVYNL_8)
 
-### 数据挖掘实现的集成库及平台化
+### 2.2.4. 数据挖掘实现的集成库及平台化
 
 - **SPMF——一个开源数据挖掘库** 2014
 
@@ -164,20 +164,20 @@ SPMF专门用于发现事务和序列数据库中的模式，如频繁项目集�
 - 支持移动环境  
 
 
-# 应用领域及行业应用
-## 应用领域
+# 3. 应用领域及行业应用
+## 3.1. 应用领域
 
 **数据挖掘有许多成功的应用，如电子商务、Web搜索、生物信息学、卫生保健信息学、商务智能、金融、数字图书馆和政府等。**
 
 
-## 行业应用
-### **动态资源的新闻识别**
+## 3.2. 行业应用
+### 3.2.1. **动态资源的新闻识别**
 
 **Kalmegh, Sushilkumar**讨论了动态资源的新闻识别可以通过所提出的模型来完成，使用REPTree、Simple Cart和RandomTree三种分类器来分析数据集。结果表明，随机树算法在对新闻进行分类时表现最佳。REPTree和Simple Cart算法的整体性能是不可接受的，因为可以看出，这两种算法都只能正确地对政治新闻进行分类。
 
 -- [Analysis of WEKA data mining algorithm REPTree, Simple CART and RandomTree for classification of Indian news](https://pdfs.semanticscholar.org/26d6/73f140807942313545489b38241c1f0401d0.pdf)
 
-### 教育数据挖掘(EDM)领域
+### 3.2.2. 教育数据挖掘(EDM)领域
 - 教育数据挖掘和学习分析
 
 **Sin, Katrina**近年来，学习管理系统在教育中的应用越来越多。学生们已经开始使用移动电话，主要是智能手机，它们已经成为他们日常生活的一部分，以获取在线内容。学生的在线活动产生了大量未使用的数据，由于传统的学习分析无法处理这些数据，这些数据被浪费了。这使得大数据技术和工具渗透到教育中，处理大量的数据。本研究探讨了大数据技术在教育领域的最新应用，并对教育数据挖掘和学习分析方面的文献进行了综述。
@@ -188,7 +188,7 @@ SPMF专门用于发现事务和序列数据库中的模式，如频繁项目集�
 
 --  [A systematic review on educational data mining](https://ieeexplore.ieee.org/iel7/6287639/6514899/07820050.pdf)
 
-### 地理信息科学和遥感方面
+### 3.2.3. 地理信息科学和遥感方面
 
 - 空间数据挖掘应用于**地理信息科学和遥感方面**
 
@@ -196,7 +196,7 @@ SPMF专门用于发现事务和序列数据库中的模式，如频繁项目集�
 
 -- [Spatial data mining](https://link.springer.com/content/pdf/10.1007/978-3-662-48538-5.pdf)
 
-### 医疗大数据
+### 3.2.4. 医疗大数据
 
 - 医疗大数据创新路径包括三个阶段：疾病早期发现、诊断、治疗和预后阶段、生命健康促进阶段和护理阶段。
 - 研究热点主要集中在三个维度：疾病维度(如流行病学、乳腺癌、肥胖、糖尿病)、技术维度(如数据挖掘、机器学习)、健康服务维度(如定制服务、养老护理)
@@ -211,16 +211,16 @@ SPMF专门用于发现事务和序列数据库中的模式，如频繁项目集�
 - 医学大数据研究的文献计量分析与可视化 --[**A bibliometric analysis** and **visualization** of **medical big data research**](https://www.mdpi.com/2071-1050/10/1/166)
 - 预测和解决乳腺癌生存率 --[Data mining techniques: To predict and resolve breast cancer survivability](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2994925)
 
-### 能源评估
+### 3.2.5. 能源评估
 - 全球水资源趋势和可持续发展的未来前景 --[Global water **trends** and future scenarios for sustainable development: The case of Russia](https://www.sciencedirect.com/science/article/pii/S0959652617321182)
 - 对智能电网环境下用电量数据的数据质量分析 --[data quality of electricity consumption data in a smart grid environment](https://www.sciencedirect.com/science/article/pii/S1364032116307109)
 
-### 业务运营和风险管理
+### 3.2.6. 业务运营和风险管理
 - 工业系统的可靠性和安全性以及它们的操作风险管理 --[Recent development in big data analytics for business operations and risk management](https://ieeexplore.ieee.org/abstract/document/7378465/)
 - 业务分析的数据挖掘 --[Data mining for business analytics: concepts, techniques, and applications in R](https://books.google.com/books?hl=en&lr=&id=ETwuDwAAQBAJ&oi=fnd&pg=PR19&dq=data+mining+Development+trend&ots=2NWgjl2RLK&sig=sQBatbtbXqXyebsmDBRzPVYNL_8)
 
-### 用于保险行业
+### 3.2.7. 用于保险行业
 数据挖掘技术在人寿保险中的应用 --[Applications of Data mining techniques in life insurance](https://www.researchgate.net/institution/Chh_Shahu_Institute_of_Business_Education_Research/publications)
 
-### 用于政府机构
+### 3.2.8. 用于政府机构
 - 可持续自然资源管理评价污染防治 --[How would big data support societal development and environmental sustainability? Insights and practices](https://www.sciencedirect.com/science/article/pii/S0959652616317115)

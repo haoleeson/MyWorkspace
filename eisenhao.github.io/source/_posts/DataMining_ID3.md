@@ -12,21 +12,21 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_ID3.png" class="full-image" />
 
-# ID3算法介绍
+# 1. ID3算法介绍
 ID3算法最早是由罗斯昆（J.Ross Quinlan）于1975年在悉尼大学提出的一种分类预测算法，算法的核心是“信息熵（Information entropy）”。ID3算法通过计算每个属性的信息增益，认为信息增益高的是好属性，每次划分选取信息增益最高的属性为划分标准，重复这个过程，直至生成一个能完美分类训练样例的决策树。
 
 <!-- more -->
 
-# Python编程实现ID3决策树建立算法
+# 2. Python编程实现ID3决策树建立算法
 **ID3决策树建立算法步骤**：
-* S1.决定分类属性；
-* S2.对目前的数据表，建立一个节点N
-* S3.如果数据库中的数据都属于同一个类，N就是树叶，在树叶上标出所属的类
-* S4.如果数据表中没有其他属性可以考虑，则N也是树叶，按照少数服从多数的原则在树叶上标出所属类别
-* S5.否则，根据平均信息期望值E或GAIN值选出一个最佳属性作为节点N的测试属性
-* S6.节点属性选定后，对于该属性中的每个值：从N生成一个分支，并将数据表中与该分支有关的数据收集形成分支节点的数据表，在表中删除节点属性那一栏如果分支数据表非空，则运用以上算法从该节点建立子树。
+- S1.决定分类属性；
+- S2.对目前的数据表，建立一个节点N
+- S3.如果数据库中的数据都属于同一个类，N就是树叶，在树叶上标出所属的类
+- S4.如果数据表中没有其他属性可以考虑，则N也是树叶，按照少数服从多数的原则在树叶上标出所属类别
+- S5.否则，根据平均信息期望值E或GAIN值选出一个最佳属性作为节点N的测试属性
+- S6.节点属性选定后，对于该属性中的每个值：从N生成一个分支，并将数据表中与该分支有关的数据收集形成分支节点的数据表，在表中删除节点属性那一栏如果分支数据表非空，则运用以上算法从该节点建立子树。
 
-## 计算样本的信息期望
+## 2.1. 计算样本的信息期望
 ```Python
 # 计算样本的信息期望
 def calcH(dataSet):
@@ -47,7 +47,7 @@ def calcH(dataSet):
     return H #返回样本的信息期望
 ```
 
-## 根据第 i 列属性值A划分子集
+## 2.2. 根据第 i 列属性值A划分子集
 ```Python
 #得到根据第 i 列属性值A划分成的子集
 #输入三个变量（待划分的数据集，特征，分类值）
@@ -61,7 +61,7 @@ def splitDataSet(dataSet, axis, value):
     return retDataSet #表示由当第 i 列属性值A划分成的子集（不含划分特征A）
 ```
 
-## 得到最大信息增益条件属性列下标
+## 2.3. 得到最大信息增益条件属性列下标
 ```Python
 def chooseBestFeatureToSplit(dataSet):
     numOfFeature = len(dataSet[0])-1  #条件属性值个数
@@ -89,7 +89,7 @@ def chooseBestFeatureToSplit(dataSet):
     return bestFeature #返回特征值（最佳分类列下标）
 ```
 
-## 建立ID3决策树核心函数
+## 2.4. 建立ID3决策树核心函数
 ```Python
 # 决策树构造函数
 def createTree(dataSet, labels):
@@ -114,7 +114,7 @@ def createTree(dataSet, labels):
     return myTree # 最后生成的决策树myTree是一个多层嵌套的字典
 ```
 
-## 使用Matplotlib绘制决策树
+## 2.5. 使用Matplotlib绘制决策树
 ```Python
 # ==================使用Matplotlib绘制决策树============================
 decisionNode = dict(boxstyle="square", ec='k', fc='yellow',)#决策点样式
@@ -197,7 +197,7 @@ def createPlot(inTree):
     plt.show()
 ```
 
-## 处理得到运动和不运动与天气之间的规则树
+## 2.6. 处理得到运动和不运动与天气之间的规则树
 数据存放于[ID3dataEn.csv](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/ID3dataEn.csv)文件
 ```[] 文件：ID3dataEn.csv
 sunny,85,85,unwindy,unsuitable
@@ -216,7 +216,7 @@ cloudy,81,75,unwindy,suitable
 rain,71,80,windy,unsuitable
 ```
 
-## 加载数据
+## 2.7. 加载数据
 ```Python
 # 加载数据文件函数
 def loadDataFile(filename):
@@ -229,7 +229,7 @@ dataLabels = ['weather', 'temperature', 'humidity', 'wind conditions', 'exercise
 data = loadDataFile('ID3dataEn.csv') #加载数据文件
 ```
 
-## 预处理 温度和湿度 数据
+## 2.8. 预处理 温度和湿度 数据
 由于温度和湿度数据量过多，故将温度和湿度数据进行整合，将数据取十位整数
 ```Python
 #预处理 温度和湿度 数据
@@ -245,7 +245,7 @@ data = dataWrangling(data, 1) #整理 温度数据 取“十位”整数
 data = dataWrangling(data, 2) #整理 湿度数据 取“十位”整数
 ```
 
-## 主函数
+## 2.9. 主函数
 ```Python
 # main函数
 if __name__ == '__main__':
@@ -261,7 +261,7 @@ if __name__ == '__main__':
     createPlot(myTree) #显示决策树
 ```
 
-## 得到的决策树图如下所示
+## 2.10. 得到的决策树图如下所示
 ![myTree决策树图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_ID3_Result_myTree.png)
 
 {% note success %}

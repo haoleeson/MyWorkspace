@@ -1,6 +1,6 @@
 layout: post
 title: syslog协议与Rsyslog系统日志软件简介
-date: 2021/08/03 14:45:44
+date: 2021/08/07 14:45:44
 updated: 2021/08/12 16:31:45
 comments: true
 tags:
@@ -13,15 +13,15 @@ categories:
 
 <!-- more -->
 
-# syslog系统日志协议
+# 1. syslog系统日志协议
 
-## syslog协议简介
+## 1.1. syslog协议简介
 - Unix/Linux系统中的**绝大部分日志**都是通过一种叫做**syslog**的机制**产生和维护**的。
 - **syslog协议**是一个<b><font color="red" style="">转发系统日志信息的标准</font></b>，它是在美国加州大学伯克利软件分布研究中心BSD的 TCP/IP 系统实施中开发的，目前已成为一种工业标准协议。
 - syslog协议可根据与日志消息的生产关系分为客户端和服务器端。其中**客户端**是产生日志消息的一方；**服务器端**负责接收客户端发送来的日志消息，并进行保存到特定的日志文件中或其他方式的处理。
 - **syslog记录着系统中的任何事件**，任何希望生成日志的程序都可以向 syslog 发送信息。 
 
-## syslog协议的日志信息结构
+## 1.2. syslog协议的日志信息结构
 
 标准syslog协议的日志信息结构主要由PRI（priority，优先级）、HEADER、MSG三部分组成。下方为某syslog消息示例：
 ```shell
@@ -60,7 +60,7 @@ categories:
 
 其中“<147>”是PRI部分，“Oct 9 22:33:20 hlfedora”是HEADER部分，“auditd[1787]: The audit daemon is exiting.”是MSG部分。
 
-### PRI部分
+### 1.2.1. PRI部分
 
 PRI（priority，优先级）部分由尖括号包含的一个数字构成，这个数字包含了程序模块（Facility）、严重性（Severity），这个数字是由 Facility 乘以 8 再加上 Severity 得来。
 ```shell
@@ -125,7 +125,7 @@ priNum = Facility * 8 + Severity
   - 低位3位(<b><font color="red" style="">011</font></b>B, 3)即可得到Severity的值(<b><font color="red" style="">Error</font></b>)；
   - 取PRI值的高5位（右移3位后）(<b><font color="green" style="">10010</font></b>B, 18)即可得到Facility的值(<b><font color="green" style="">local2</font></b>)。
 
-### HEADER部分
+### 1.2.2. HEADER部分
 HEADER部分包括两个字段，**时间**和**主机名（或IP）**。其格式如下：
 
 <table  border="1" cellspacing="1" style="border: 1ps dotted #666" >
@@ -150,7 +150,7 @@ HEADER部分包括两个字段，**时间**和**主机名（或IP）**。其格�
 - 某些不标准的syslog格式中包含了年份，若未做**容错处理**将会导致解析出错；
 - 大部分syslog都包含PRI和MSG部分，而HEADER可能没有，这个时候MSG部分紧跟在PRI后面，中间没有空格。
 
-### MSG部分
+### 1.2.3. MSG部分
 
 MSG由TAG部分（可选）和Content部分构成。其格式如下：
 
@@ -170,7 +170,7 @@ MSG由TAG部分（可选）和Content部分构成。其格式如下：
 
 其中，TAG域的值是产生日志消息的**程序或进程**的名称，TAG后面用一个冒号隔开Content部分，这部分的内容是应用程序自定义的日志正文。
 
-## 各日志文件的默认意义说明
+## 1.3. 各日志文件的默认意义说明
 
 <table border="1" cellspacing="1" style="border: 1ps dotted #666" >
     <tr>
@@ -215,15 +215,15 @@ MSG由TAG部分（可选）和Content部分构成。其格式如下：
     </tr>
 </table>
 
-# Rsyslog系统日志软件简介
+# 2. Rsyslog系统日志软件简介
 
-## 系统日志软件简介
+## 2.1. 系统日志软件简介
 
 - 系统日志软件可根据当条日志消息的**PRI属性值**，即对应syslog协议中的**程序模块（Facility）**和**严重性级别（Severity）**，对当条日志消息按配置文件中**指定的方式进行处理**，如：保存到不同的文件中、发送到远程服务器或数据库等。
 - <b><font color="red" style="">Syslog</font></b> 是早期大部分Linux发行版的内置**日志记录程序**，现已逐渐被 <b><font color="red" style="">Rsyslog</font></b> 取代（**优势**：性能和安全性更高，日志处理规模可达每秒百万条），Red Hat Enterprise Linux 6 之后的系统默认使用了Rsyslog。
 - 系统日志软件转发日志消息时，绝大多数情况下使用UDP协议转发syslog消息，少数情况使用TCP协议（RFC3195协议）转发syslog消息
 
-## 常用的系统日志软件（Syslog、Syslog-ng 与 Rsyslog）对比
+## 2.2. 常用的系统日志软件（Syslog、Syslog-ng 与 Rsyslog）对比
 
 <table border="1" cellspacing="1" style="border: 1ps dotted #666" >
     <tr>
@@ -260,7 +260,7 @@ MSG由TAG部分（可选）和Content部分构成。其格式如下：
 
 常用系统日志软件中，应用最广泛同时性能最强大的是**Rsyslog**（官网标语：The rocket-fast system for log processing）。
 
-## Rsyslog工作流
+## 2.3. Rsyslog工作流
 
 支持多线程的Rsyslog工作流示意图（多种输入输出方式并行处理）：
 
@@ -270,7 +270,7 @@ MSG由TAG部分（可选）和Content部分构成。其格式如下：
 
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/RsyslogMsgDeal.jpg" class="full-image" alt="Rsyslog消息处理流程" />
 
-## Rsyslog日志消息流向
+## 2.4. Rsyslog日志消息流向
 下面从 rsyslogd 进程的输入和输出两个方面概述的日志信息流向。
 
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/RsyslogFeaturesImagemap.png" class="full-image" alt="Rsyslog msg流向" />
@@ -286,7 +286,7 @@ MSG由TAG部分（可选）和Content部分构成。其格式如下：
 2. 发送给远程主机（eg. 远程ELK实时日志分析平台）
 3. 输出日志到数据库
 
-# 参考资料
+# 3. 参考文档
 - [linux syslog详解](https://www.cnblogs.com/skyofbitbit/p/3674664.html)
 - [Rsyslog官网](https://www.rsyslog.com/)
 - [rsyslog详解实战和避坑](https://www.cnblogs.com/taosiyu/p/12930410.html)

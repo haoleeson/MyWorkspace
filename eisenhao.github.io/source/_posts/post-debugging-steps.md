@@ -11,8 +11,8 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/post-debugging-steps.png" class="full-image" />
 
-## 博客文章编写＆调试＆发布
-### 进入Hexo根目录
+# 1. 博客文章编写＆调试＆发布
+## 1.1. 进入Hexo根目录
 1. 输入密码,进入root用户模式
 ```
 $ sudo su
@@ -23,7 +23,7 @@ $ cd /home/eisenhao/eisenhao.github.io
 ```
 <!-- more -->
 
-### 写文章
+## 1.2. 写文章
 
 1. 进入发布文件夹
 ```
@@ -38,7 +38,7 @@ $ touch example.md
 $ vim example.md
 ```
 
-### 本地调试
+## 1.3. 本地调试
 
 1. 开启测试
 ```c 命令执行目录：~/你的博客站点根目录
@@ -46,7 +46,7 @@ $ sudo hexo s
 ```
 2. 在浏览器中输入: [http://localhost:4000/](http://localhost:4000/)以查看效果.
 
-### 发布
+## 1.4. 发布
 
 1. 测试没问题后，我们就生成静态网页文件发布至我们的Github pages 中。
 ```c 命令执行目录：~/你的博客站点根目录
@@ -81,7 +81,7 @@ $ git config --global user.name "Your Name"
 
 ```
 
-## 主题配置
+# 2. 主题配置
 
 1. 主题配置文件在主题文件夹中,我们可以更改config.yml文件进行配置.
 ```
@@ -92,9 +92,9 @@ $ git config --global user.name "Your Name"
 $ vim /home/eisenhao/eisenhao.github.io/themes/next/_config.yml
 ```
 
-* * *
+- * *
 
-## Linux 技巧每日一练
+# 3. Linux 技巧每日一练
 
 用管理员运行文档管理器. sudo nautilus 会打开root版的文档管理器，可在终端键入ctrl+c就会关闭这个文档管理器。
 ```

@@ -11,25 +11,25 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/JavaStudyNote.png" class="full-image" />
 
-## Java基础知识
-### 引用 & 对象
+# 1. Java基础知识
+## 1.1. 引用 & 对象
 **对象**：类的实例化，实质为运行时堆内为类内各属性值顺序分配的一组内存空间。
 类变量(static)只在堆内分配一次，类内方法只在代码段内存一次。
 <!-- more -->
 [备注：Java中除基本类型外，其他类型都是类**class**，都能实例化为对象，eg. String]
 **引用**：传递消息的入口（通过引用访问与之关联的对象的各属性值或调用对象的方法，类似方法调用），引用可不指向对象单独存在（但仅声明无意义）
 
-#### Java引用与C/C++指针的区别
-##### 相同点：
+### 1.1.1. Java引用与C/C++指针的区别
+#### 1.1.1.1. 相同点：
 Java中的引用和C/C++中的指针本质上都是通过一个别名，找到要操作的目标（变量对象等），方便在程序里操作
-##### 不同点：
-* **指针可以改变所指向的对象；引用一旦绑定某个对象后总是指向该对象不可改变。**（原因：在编译时，指针变量在符号表上对应的地址值为指针变量的地址值，而引用在符号表上对应的地址值为引用对象的地址值。符号表生成后就不会再改，因此指针可以改变指向的对象（指针变量中的地址值可以改），而引用对象不能改。）
-* **指针在32位系统中占4字节（64位系统中占8字节）；引用为被Java封装后的所指向对象的实际地址**
-* **指针声明时不会占内存，用到时才会分配内存；引用（编译时被确定为对象的实际地址）没有实体不占空间**
-* **指针可能产生越界访问；引用通过'.'访问所属类的属性值，有边界控制，不会出现越界**
-#### equals()的引用和对象区别（忽视将会造成重大问题）
-* equals()默认行为是比较引用（而非对象的内容），如自定义类调用
-* 大多数Java类库实现了equals()可比较对象的内容
+#### 1.1.1.2. 不同点：
+- **指针可以改变所指向的对象；引用一旦绑定某个对象后总是指向该对象不可改变。**（原因：在编译时，指针变量在符号表上对应的地址值为指针变量的地址值，而引用在符号表上对应的地址值为引用对象的地址值。符号表生成后就不会再改，因此指针可以改变指向的对象（指针变量中的地址值可以改），而引用对象不能改。）
+- **指针在32位系统中占4字节（64位系统中占8字节）；引用为被Java封装后的所指向对象的实际地址**
+- **指针声明时不会占内存，用到时才会分配内存；引用（编译时被确定为对象的实际地址）没有实体不占空间**
+- **指针可能产生越界访问；引用通过'.'访问所属类的属性值，有边界控制，不会出现越界**
+### 1.1.2. equals()的引用和对象区别（忽视将会造成重大问题）
+- equals()默认行为是比较引用（而非对象的内容），如自定义类调用
+- 大多数Java类库实现了equals()可比较对象的内容
 ```java
 Test t1 = new Test(10);
 Test t2 = new Test(10);
@@ -39,14 +39,14 @@ String s1 = new String("Hello");
 String s2 = new String("Hello");
 System.out.println(s1.equals(s2));//输出true，Java的String类库实现了equals()比较对象的内容
 ```
-### String 用法小记
-#### String 当作对象处理需要new
+## 1.2. String 用法小记
+### 1.2.1. String 当作对象处理需要new
 Java将String视为一个对象，而非C/C++中的数据类型
 ```java
 String str1 = new String();
 String str2;//只是声明引用，但未与对象关联
 ```
-#### 初始化字符串的其他方法
+### 1.2.2. 初始化字符串的其他方法
 ```java
 String str = "Hello World";//静态初始化
 String str = new String("Hello World");//创建对象初始化
@@ -54,20 +54,20 @@ String str = new String(char Array[]);//将字符数组转化为字符串
 String str = new String(str1 + str2);
 String str = str1;//实测也是可以的，是根据str1重新分配内存并复制值，并非引用str1
 ```
-#### 访问字符串指定下标的字符
+### 1.2.3. 访问字符串指定下标的字符
 ```java
 str.charAt(1);//访问索引为1的字符（返回"Hello"中的'e'）
 ```
-#### 判断两个字符串是否相等
+### 1.2.4. 判断两个字符串是否相等
 ```java
 str1.equals(str2);//严格区分大小写
 str1.equalsIgnoreCase(str2);//不区分大小写
 ```
-#### 比较两个字符串
+### 1.2.5. 比较两个字符串
 ```java
 str1.compareTo(str2);//只有当str1与str2完全相等时才返回0, 否则返回按次序比较第一个不同字符的计算差值 eg:  "aB".compareTo("aC");//会返回'B'-'C'的值-1
 ```
-#### 分割字符串
+### 1.2.6. 分割字符串
 ```java
 String str = "Hello world xiao ming";
 String[] strArray = str.split(" ");//用空格字符串将上述字符串分割
@@ -91,32 +91,32 @@ world
 xiao ming
 */
 ```
-#### 查找子串
+### 1.2.7. 查找子串
 ```java
 str.indexOf(String s);//返回子串s第一次出现的下标
 str.lastIndexOf(String s);//返回子串s最后出现的下标
 ```
-#### 返回字符串去除前后空格的子串的副本
+### 1.2.8. 返回字符串去除前后空格的子串的副本
 ```java
 str = str.trim();//忽略字符串前后空格字符
 ```
-#### 替换子串
+### 1.2.9. 替换子串
 将字符串内的部分子串替换为另外子串
 ```java
 String newStr = str.replace("ABC", "abc");//将字符串str内所有“ABC”子串全部替换为“abc”
 ```
-#### 判断字符串是否以目标子串开始或结束
+### 1.2.10. 判断字符串是否以目标子串开始或结束
 ```java
 boolean a = str.startsWith("He");//字符串是否以子串“He”开头，返回true
 boolean b = str.endsWith("llo");//字符串是否以子串“llo”结尾，返回true
 ```
-#### 转换大小写字符
+### 1.2.11. 转换大小写字符
 ```java
 str = str.toLowerCase();//将字符串内所有大写字符全转换为对应小写字符
 str = str.toUpperCase();//将字符串内所有小写字符全转换为对应大写字符
 ```
-### 数组用法小记
-#### 声明初始化二维数组
+## 1.3. 数组用法小记
+### 1.3.1. 声明初始化二维数组
 ```java
 int array1[][] = {{0}, {1,2,3}, {4,5,6,7}};
 int array2[3][];
@@ -124,39 +124,39 @@ array2[0] = new int[1];
 array2[1] = new int[3];
 array2[2] = new int [4];
 ```
-#### 填充数组
+### 1.3.2. 填充数组
 ```java
 Arrays.fill(array, 8);//将array1数组的所有元素值更改为8
 ```
-#### 排序数组
+### 1.3.3. 排序数组
 ```java
 Arrays.sort(array);//用Java自带的(快排算法)对array1进行排序，默认从小到大
 ```
-#### 复制数组
-##### copyOf(int a[], int length);
-* 若length小于a.length，创建length大小的数组，然后复制a的前length长度的元素
-* 若length大于a.length，创建length大小的数组，复制整个数组a，其后部分默认值0填充
+### 1.3.4. 复制数组
+#### 1.3.4.1. copyOf(int a[], int length);
+- 若length小于a.length，创建length大小的数组，然后复制a的前length长度的元素
+- 若length大于a.length，创建length大小的数组，复制整个数组a，其后部分默认值0填充
 ```java
 int newArray[] = Arrays.copyOf(array, 5);//复制array前5个元素组成一个新数组
 ```
-##### copyOfRange(int a[], int fromIndex, int toIndex);
+#### 1.3.4.2. copyOfRange(int a[], int fromIndex, int toIndex);
 创建toIndex-fromIndex大小的数组（可大于原始数组，其后用0填充），复制数组a从下标fromIndex到下标toIndex-1的元素
 **备注**：
-* 若toIndex-1 > a.length-1，只复制到a[a.length-1]且其后填0
-* fromIndex 必须在取值范围[0, a.length-1]内，否则报错
+- 若toIndex-1 > a.length-1，只复制到a[a.length-1]且其后填0
+- fromIndex 必须在取值范围[0, a.length-1]内，否则报错
 
-##### 特殊用法，给已固定数组扩容
+#### 1.3.4.3. 特殊用法，给已固定数组扩容
 ```java
 array = Arrays.copyOf(array, array.length*2);//扩容array一倍，其后扩容的元素默认值为0
 ```
-### 产生随机数小记
+## 1.4. 产生随机数小记
 Java产生随机数的方式有两种：调用Math类的random()方法、调用Random类
-#### 调用Math类的random()方法
+### 1.4.1. 调用Math类的random()方法
 ```java
 double num = Math.random();//产生 [0, 1.0) 之间的随机数
 double num2 = a + Math.random() * (b - a);//产生 [a, b) 之间的随机数
 ```
-#### 调用Random类
+### 1.4.2. 调用Random类
 ```java
 Random r = new Random();//Java运行时JVM以当前系统时间为随机数生成器的种子
 Random r2 = new Random(SeedValue);//手动设置种子数值
@@ -171,8 +171,8 @@ double f = r.nextGaussian();//产生一个概率密度为高斯分布的随机�
 
 
 
-## Java核心技术
-### Java类的继承小记
+# 2. Java核心技术
+## 2.1. Java类的继承小记
 用代码更亲切地展示继承相关细节
 ```java
 //爷爷类
@@ -242,17 +242,17 @@ public class Main {
 销毁爷爷类实例
 */
 ```
-### Object类
+## 2.2. Object类
 Java每个类都直接或间接继承于java.lang.Object类。在Object类中主要包括: clone(), finalize(), equals(), toString()等可重写的方法，及getClass(), notify(), notifyAll(), wait()等不可重写方法（Object中被定义为final类型）
-#### getClass()方法
+### 2.2.1. getClass()方法
 返回对象执行时的Class实例，一般于获取类的名称getName()方法连用
 ```java
 String name = c.getClass().getName();//将返回实例c的类名“Childron”
 ```
-### Java 接口小记
+## 2.3. Java 接口小记
 接口是抽象类的延伸，可以将它看作是纯粹的抽象类，接口中的所有方法都没有方法体。接口的可以在子类中更灵活地选择方法功能，一个子类可以选择多个接口，然后每个接口类的方法都在该子类中有具体实现，不需要的方法直接不用接口就行，相比于在父类定义虚函数造成代码冗余和不能多继承，接口的出现更方便在子类中按需添加自定义方法。
-#### 对比接口与抽象父类 
-##### 1.先定义抽象父类实现子类不同方法的需求
+### 2.3.1. 对比接口与抽象父类 
+#### 2.3.1.1. 1.先定义抽象父类实现子类不同方法的需求
 ```java
 //定义抽象四边形类
 abstract class Quadrangle {
@@ -278,11 +278,11 @@ class Rectangle extends Quadrangle {
     void ba() {}//虽然不需要ba方法，但却不得不重写ba，否则报错，造成极大代码冗余
 }
 ```
-##### 抽象父类缺点：
-* 造成极大代码冗余
-* 引发逻辑问题，不需要某些方法的子类必须重写抽象父类的所有虚函数，与逻辑不符
+#### 2.3.1.2. 抽象父类缺点：
+- 造成极大代码冗余
+- 引发逻辑问题，不需要某些方法的子类必须重写抽象父类的所有虚函数，与逻辑不符
 
-##### 2.定义接口，子类灵活选择接口即可
+#### 2.3.1.3. 2.定义接口，子类灵活选择接口即可
 ```java
 //定义接口 1
 interface drwaTest {
@@ -315,14 +315,14 @@ class Square extends Quadrangle implements drwaTest, bala {
 class Rectangle extends Quadrangle {
 }
 ```
-##### 接口优点：
-* 逻辑清晰，随意加减接口，灵活实现
-* 精简代码，只需将子类所需的接口中的方法重写即可
-* 子类不能继承多个抽象父类（不能多重继承），但子类却可添加多个接口
-### 异常
+#### 2.3.1.4. 接口优点：
+- 逻辑清晰，随意加减接口，灵活实现
+- 精简代码，只需将子类所需的接口中的方法重写即可
+- 子类不能继承多个抽象父类（不能多重继承），但子类却可添加多个接口
+## 2.4. 异常
 常见异常：空指针，数组溢出，被除数为0，…...，自定义异常等。
 
-#### 自定义异常
+### 2.4.1. 自定义异常
 ```java
 //自定义异常类型
 class MyException extends Exception {
@@ -336,7 +336,7 @@ class MyException extends Exception {
     }
 }
 ```
-#### 捕获异常
+### 2.4.2. 捕获异常
 ```java
 public class Main {
     //定义可能会抛出异常的方法，在方法中抛出异常
@@ -383,15 +383,15 @@ public class Main {
 未发生异常
 */
 ```
-### Swing程序设计（跳过）
-### 集合类
+## 2.5. Swing程序设计（跳过）
+## 2.6. 集合类
 集合类，又称容器。常见的集合类有：List集合, Set集合, Map集合，其中List与Set继承了Collection接口。
 ![常见集合类的继承关系](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Inheritance-relationship-of-common-collection-classes.jpg)
 **与数组区别**：
-* 数组的长度固定，而集合的长度可变；
-* 数组存放基本类型的数据，集合存放对象的引用。
+- 数组的长度固定，而集合的长度可变；
+- 数组存放基本类型的数据，集合存放对象的引用。
 
-#### List集合
+### 2.6.1. List集合
 List的接口常用的实现类有：**ArrayList**与**LinkedList**。
 **ArrayList**：实现了可变长数组，允许保存所有元素，包括null，可根据索引快速访问数组内元素，但插入或删除元素时间较长。
 **LinkedList**：采用链表结构存储元素（数组元素上限仅受可用内存限制），类似链表，插入删除元素较快，但随机访问都会从头结点开始顺序向下遍历，故随机访问较慢。
@@ -404,7 +404,7 @@ list1.add('b');//添加元素'b'
 list1.remove(1);//删除索引为1的元素
 System.out.println(list1);
 ```
-#### Set接口
+### 2.6.2. Set接口
 Set接口的常用实现类有：**HashSet**与**TreeSet**
 **HashSet**：由哈希表支持（实际上是一个HashMap实例），不保证Set的迭代顺序（不稳定），允许使用null元素
 **TreeSet**：TreeSet实现的Set集合在遍历集合时按照自然顺序递增排序
@@ -427,12 +427,12 @@ WangWu
 ZhangSan
 */
 ```
-#### List集合 vs Set集合
-* List集合允许元素重复，而Set集合**不能包含重复对象**
-* List集合元素顺序为插入顺序（类似数组），而Set集合不保证顺序
-* List访问指定索引的元素<code>get(int index)</code>或<code>set<int index, Object obj></code>，而Set集合不能访问指定索引元素
+### 2.6.3. List集合 vs Set集合
+- List集合允许元素重复，而Set集合**不能包含重复对象**
+- List集合元素顺序为插入顺序（类似数组），而Set集合不保证顺序
+- List访问指定索引的元素<code>get(int index)</code>或<code>set<int index, Object obj></code>，而Set集合不能访问指定索引元素
 
-####  Map集合
+###  2.6.4. Map集合
 Map接口的常用实现类有**HashMap**(无序，允许null值)和**TreeMap**(升序，不允许null值)。
  Map提供key到value的映射，Map中不能包含相同的key，每个key只能映射一个value。Key还决定了存储对象在映射中的存储位置，但不是由key本身决定的，而是由key根据"散列技术"产生的散列码整数值（作为偏移量）。
 ```java
@@ -462,8 +462,8 @@ LiSi
 WangWu
 */
 ```
-### 文件File
-#### 文件的创建与删除
+## 2.7. 文件File
+### 2.7.1. 文件的创建与删除
 ```java
 File file = new File("/Users/eisenhao/Test/test.txt");//创建文件对象（于内存中）,绝对路径
 File file1 = new File("/Users/eisenhao/Test/", "test2.txt");//在目录下 创建文件对象（于内存中）,绝对路径
@@ -479,7 +479,7 @@ if (file.exists()) {
     }
 }
 ```
-#### File文件的常用方法
+### 2.7.2. File文件的常用方法
 ```java
 String FileName = file.getName();//获取文件名
 boolean isReadable = file.canRead();//返回文件是否可读
@@ -502,8 +502,8 @@ lastChangeTime = 1555158024000
 test.txt文件的最近修改时间为：2019-04-13 20:20:24
 */
 ```
-#### 文件输入输出流
-##### FileInputStream与FileOutputStream类
+### 2.7.3. 文件输入输出流
+#### 2.7.3.1. FileInputStream与FileOutputStream类
 操作磁盘文件，可满足简单的文件读写需求。但由于读写操作以字节或字节数组为单位，由于汉字占两个字节，若读取readBuff[]容量设置为单字节，或正好错开一字节会导致汉字乱码。
 ```java
 File file = new File("/Users/eisenhao/Test/test.txt");//创建文件对象（于内存中）,绝对路径
@@ -542,7 +542,7 @@ try {
 <END>
 */
 ```
-##### FileReader与FileWriter类
+#### 2.7.3.2. FileReader与FileWriter类
 能够避免FileInputStream与FileOutputStream类可能出现的汉字读写乱码现象。FileReader流顺序地读取文件，只要不关闭流，每次调用read()方法就顺序地读取源中的内容，直到源的末尾或流被关闭。
 ```java
 File file = new File("/Users/eisenhao/Test/test.txt");//创建文件对象（于内存中）,绝对路径
@@ -579,7 +579,7 @@ try {
 <END>
 */
 ```
-##### 带缓存的输入/输出流
+#### 2.7.3.3. 带缓存的输入/输出流
 **BufferedInputStream**与**BufferedOutputStream**类。BufferedInputStream类可以对所有的InputStream类进行带缓存区的包装以达到性能的优化。
 ```java
 BufferedInputStream(InputStream in);//创建一个带有32个字节的缓存流
@@ -649,7 +649,7 @@ bufferedWriter.write(writerStr, 0, writerStr.length());//写入字符串的某�
 bufferedWriter.flush();//强制将缓存区的内容写入到磁盘（不管缓存区满否）
 bufferedWriter.newLine();//将换行符写入文件
 ```
-##### 数据输入输出流
+#### 2.7.3.4. 数据输入输出流
 **DataInputStream**与**DataOutputStream**类
 ```java
 File file = new File("/Users/eisenhao/Test/test.txt");//创建文件对象（于内存中），绝对路径
@@ -687,9 +687,9 @@ try {
 以UTF格式读取的内容为: 尝试以UTF格式写入内容。<END>
 */
 ```
-##### ZIP压缩输入/输出流（压缩/解压文件）
+#### 2.7.3.5. ZIP压缩输入/输出流（压缩/解压文件）
 ZIP压缩管理文件（Zip archive）是一种十分典型的文件压缩形式。常用**ZipOutputStream**与**ZipInputStream**类来实现文件的**压缩**/**解压缩**。
-###### **压缩文件（ZipOutputStream类）**
+##### 2.7.3.5.1. **压缩文件（ZipOutputStream类）**
 若要将某个文件添加到ZIP压缩管理文件内，必须先写入待添加文件的目录进入点（待添加文件在ZIP文件内的位置），并且把待添加文件内容的位置移到此进入点说指的位置，然后再写入文件内容。
 ```java
 import java.io.*;
@@ -768,7 +768,7 @@ public class ZipTest {
 压缩完成:)
 */
 ```
-###### **解压缩文件（ZipInputStream类）**
+##### 2.7.3.5.2. **解压缩文件（ZipInputStream类）**
 若要从ZIP压缩管理文件内提取某个文件，要先找到待提取文件的目录进入点（该文件在ZIP文件内的位置），才能读取这个文件的内容。
 ```java
 import java.io.*;
@@ -835,12 +835,12 @@ public class UnzipTest {
 解压缩已完成:)
 */
 ```
-### 多线程
+## 2.8. 多线程
 在Java中可通过继承java.lang.Thread类与实现java.lang.Runnable接口两种方式。
-#### Theard类与Runnable类实现线程区别
+### 2.8.1. Theard类与Runnable类实现线程区别
 Thread实现必须继承Thread类，而继承Runnable接口则更方便
 
-#### 继承Thread类
+### 2.8.2. 继承Thread类
 ```java
 import java.lang.Thread;
 
@@ -901,7 +901,7 @@ public class TestThread extends Thread {
 */
 ```
 由此可知同一进程内的子线程，它们的运行先后顺序是随机的。
-#### 实现Runnable接口
+### 2.8.3. 实现Runnable接口
 ```java
 import java.lang.Runnable;
 import java.lang.Thread;
@@ -952,8 +952,8 @@ public class TestRunnable {
 4:A
 */
 ```
-#### 操作线程的方法
-##### 线程休眠
+### 2.8.4. 操作线程的方法
+#### 2.8.4.1. 线程休眠
 ```java
 try {
     Thread.sleep(1000);//线程休眠1秒
@@ -962,7 +962,7 @@ try {
 }
 ```
 sleep()方法通常在run()方法内循环使用，因sleep()方法的执行有可能抛出InterruptedException异常，所以需放在try-catch块中，该线程在1秒休眠结束后会进入**就绪态**（不一定是**运行态**）。
-##### 线程的加入（join()方法）
+#### 2.8.4.2. 线程的加入（join()方法）
 在当前线程A新建一个线程B，线程B调用join()方法，当线程A放弃CPU使用后执行线程B，只有线程B执行完毕后，才继续执行线程A。
 ```java
 import java.lang.Runnable;
@@ -1074,10 +1074,10 @@ public class InterruptedTest implements Runnable {
 3. Hello...
 */
 ```
-#### 线程的优先级
+### 2.8.5. 线程的优先级
 每个线程都具有各自的优先级，系统会从多个处于**就绪状态**选择优先级最高的线程进入运行状态（优先级较低的线程也有机会运行）。可用setPriority()方法调整线程优先级（优先级范围：1～10，设置需在线程执行start()前）
-#### 线程同步
-##### 线程安全
+### 2.8.6. 线程同步
+#### 2.8.6.1. 线程安全
 线程安全问题源于：多个线程同时存取单一对象的数据。
 ```java
 /**
@@ -1144,8 +1144,8 @@ ReadLeftNum = 1, After Purchase leftNum = -3
 */
 ```
 从运行结果可看出最后打印的剩余票数值为负值，这时因为有两个线程读取值的时候leftNum值时为1（满足leftNum>0）的时刻，已有其他线程进入"购票操作"只不过还未修改值，这就导致当最终这两个线程此时读到还有票，但等到其他线程完成修改值后（票数已为负），仍然执行-1操作导致票数为负。
-##### 线程同步机制
-###### synchronized (""){}同步块
+#### 2.8.6.2. 线程同步机制
+##### 2.8.6.2.1. synchronized (""){}同步块
 ```
 //同步锁
 synchronized (Object){
@@ -1291,33 +1291,33 @@ ReadLeftNum = 1, After Purchase leftNum = 0
 ```
 与第二种用**synchronized (""){}**同步块用修饰不同之处在于，这种是通过**synchronized**关键字修饰的同步方法，单位时间内，最多只有一个线程执行该方法purchaseAticket()，所以能达到线程同步效果避免不安全。
 
-### 网络通信
+## 2.9. 网络通信
 
-#### 网络协议
+### 2.9.1. 网络协议
 
-##### IP协议
+#### 2.9.1.1. IP协议
 
 IP是Internet Protocol的简称，它是一种网络协议。Internet采用的协议是TCP/IP协议。
 
-##### TCP传输控制协议(Transmission Control Protocol)
+#### 2.9.1.2. TCP传输控制协议(Transmission Control Protocol)
 
 TCP协议是一种 以固接线为基础的协议，它提供两台计算机间可靠的数据传送。
 
 特征：
 
-* 保证数据能够确实送达
-* 抵达的数据排列顺序与送出时的顺序相同
+- 保证数据能够确实送达
+- 抵达的数据排列顺序与送出时的顺序相同
 
 因此，TCP协议适合可靠性要求较高的场合（HTTP、FTP和Telnet等都需要使用可靠的通信频道）
 
-##### UDP用户数据协议(User Datagram Protocol)
+#### 2.9.1.3. UDP用户数据协议(User Datagram Protocol)
 
 UDP是无线连接通信协议，不保证可靠数据的传输。
 
 特征：
 
-* 能够向若干个目标发送数据
-* 能够接收发自若干个源的数据
-* 接收多个数据包时不保证接收数据包的顺序与源发送顺序相同
+- 能够向若干个目标发送数据
+- 能够接收发自若干个源的数据
+- 接收多个数据包时不保证接收数据包的顺序与源发送顺序相同
 
 因此 ，UDP协议适合一些对数据准确性要求不高，对传输速度和时效要求非常高但允许小部分数据包丢失或传送顺序有所不同也不会严重损害需求的场合(如：网络聊天室、在线影片等)
