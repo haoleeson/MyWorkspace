@@ -1,5 +1,5 @@
 layout: post
-title: 基于Hexo的博客文章编写＆调试＆发布步骤
+title: 基于Hexo的博文编写调试发布流程简介
 date: 2018/8/29 13:45:31
 updated: 2018/9/2 15:02:45
 comments: true
@@ -53,28 +53,8 @@ $ sudo hexo s
 $ cd /home/eisenhao/eisenhao.github.io
 $ hexo clean && hexo g && hexo d
 ```
-2. 可能会要求输入github账号密码：ei13911468370@gmail.com
-3. 如果上传失败显示如下信息,可能是由于我们没有配置root环境中的GitHub账号global
-```
-*** 请告诉我你是谁。
-
-运行
-
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
-
-来设置您账号的缺省身份标识。
-如果仅在本仓库设置身份标识，则省略 --global 参数。
-
-fatal: 无法自动探测邮件地址（得到 'root@g510.(none)'）
-Username for 'https://github.com': ei13911468370@gmail.com
-Password for 'https://ei13911468370@gmail.com@github.com': 
-Everything up-to-date
-分支 'master' 设置为跟踪来自 'https://github.com/EisenHao/eisenhao.github.io.git' 的远程分支 'master'。
-INFO  Deploy done: git
-
-```
-4. 按照提示配置一下GitHub的global账号即可.
+1. 可能会要求输入github账号密码
+2. 如果上传失败显示如下信息,可能是由于我们没有配置root环境中的GitHub账号global，按照提示配置一下GitHub的global账号即可.
 ```
 $ git config --global user.email "you@example.com"
 $ git config --global user.name "Your Name"
@@ -91,8 +71,6 @@ $ git config --global user.name "Your Name"
 ```
 $ vim /home/eisenhao/eisenhao.github.io/themes/next/_config.yml
 ```
-
-- * *
 
 # 3. Linux 技巧每日一练
 

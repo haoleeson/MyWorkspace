@@ -1,5 +1,5 @@
 layout: post
-title: ID3算法--数据挖掘
+title: ID3算法——数据挖掘
 date: 2018/11/16 17:05:44
 updated: 2019/2/18 16:45:45
 comments: true
@@ -12,8 +12,9 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_ID3.png" class="full-image" />
 
-# 1. ID3算法介绍
-ID3算法最早是由罗斯昆（J.Ross Quinlan）于1975年在悉尼大学提出的一种分类预测算法，算法的核心是“信息熵（Information entropy）”。ID3算法通过计算每个属性的信息增益，认为信息增益高的是好属性，每次划分选取信息增益最高的属性为划分标准，重复这个过程，直至生成一个能完美分类训练样例的决策树。
+# 1. ID3算法简介
+- ID3算法最早是由罗斯昆（J.Ross Quinlan）于1975年在悉尼大学提出的一种分类预测算法，算法的核心是“信息熵（Information entropy）”。
+- ID3算法通过计算每个属性的信息增益，认为信息增益高的是好属性，每次划分选取信息增益最高的属性为划分标准，重复这个过程，直至生成一个能完美分类训练样例的决策树。
 
 <!-- more -->
 

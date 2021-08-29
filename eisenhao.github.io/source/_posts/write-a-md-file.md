@@ -1,5 +1,5 @@
 layout: post
-title: 基于Hexo的上传博文Markdown文章写作格式＆语法
+title: 基于Hexo的Markdown博文语法简介
 date: 2018/8/31 12:10:44
 updated: 2018/10/04 19:15:45
 comments: true

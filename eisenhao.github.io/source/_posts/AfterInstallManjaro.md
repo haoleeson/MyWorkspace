@@ -128,7 +128,7 @@ match WhitespaceEOL /\s\+$/
 set list
 ```
 
-# 4. 安装Node.js的最佳方式
+# 4. 安装Node.js
 安装 Node.js 的最佳方式是使用 nvm。先卸载系统预装的nvm和nodejs
 - 卸载预装nvm
 ```

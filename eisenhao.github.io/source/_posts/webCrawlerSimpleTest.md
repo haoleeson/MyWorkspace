@@ -12,7 +12,7 @@ categories:
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/webCrawlerSimpleTest.jpg" class="full-image" />
 
 # 1. 爬取豆瓣一周口碑榜的电影列表
-先展示爬取结果：
+爬取结果展示：
 ```Python
 爬取豆瓣一周口碑榜的电影列表（十个）:
 复仇者联盟4：终局之战

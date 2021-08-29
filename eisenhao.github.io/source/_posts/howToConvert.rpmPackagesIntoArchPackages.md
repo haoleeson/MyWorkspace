@@ -1,5 +1,5 @@
 layout: post
-title: 如何在Manjaro系统安装.rpm或.deb后缀软件
+title: Manjaro系统安装.rpm或.deb软件
 date: 2018/9/30 15:39:45
 updated: 2018/9/30 16:34:45
 comments: true
@@ -11,7 +11,8 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/howToConvert.rpmPackagesIntoArchPackages.jpg" class="full-image" />
 
-尽管AUR被称为这个星球上最大的软件资源库，但不可避免的，我们有时会遇到在AUR库中没有待装软件，而待装软件官网只提供.rpm或.deb软件包的情况。本文将介绍如何利用.rpm或.deb软件包资源创建一个Arch软件包，然后在Manjaro系统下安装这些软件。如果你有兴趣读完本文，你会发现其实很简单。
+尽管AUR被称为这个星球上最大的软件资源库，但不可避免的，我们有时会遇到在AUR库中没有待装软件，而待装软件官网只提供.rpm或.deb软件包的情况。本文将介绍如何利用.rpm或.deb软件包资源创建一个Arch软件包，然后在Manjaro系统下安装这些软件。
+
 <!-- more -->
 
 # 1. 通过.deb包安装(推荐)
@@ -86,7 +87,7 @@ sudo pacman -U easyconnect-7.6.3.0.86415-1-x86_64.pkg.tar.xz
 ```
 恭喜，至此已顺利安装软件。
 
-4. **若安装失败或想卸载该软件**，执行以下命令即可
+4. 若安装失败或想卸载该软件，执行以下命令即可
 
 ```[] 命令执行目录：~
 sudo pacman -R easyconnect

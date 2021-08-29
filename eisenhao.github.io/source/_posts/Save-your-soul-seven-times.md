@@ -4,7 +4,7 @@ date: 2017/3/21 9:52:44
 updated: 2018/9/1 20:04:57
 comments: true
 tags:
-- 人生哲理
+- 人生观触动
 categories:
 - 心灵成长
 

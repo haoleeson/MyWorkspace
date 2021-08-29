@@ -65,7 +65,7 @@ ln -s /home/admin/node/bin/node node;
 /home/admin/node/bin/node helloworld.js
 ```
 
-## 1.3. 若脚本文件换行符正确、有脚本执行权限，无命令识别问题，但依然无法执行shell
+## 1.3. 若脚本文件换行符正确、有脚本执行权限，无命令识别问题，却依然无法执行shell
 **原因分析：**推测可能是在调用Runtime.getRuntime().exec(“CMD”)时，传递Shell命令字符串的某个实现环节出了问题。
 **解决方法：**实例化一个数据输出流，通过dataoutputstream对象的写字节方法往process写待执行的Shell命令字符串
 ```Java

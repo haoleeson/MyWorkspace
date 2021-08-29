@@ -1,10 +1,10 @@
 layout: post
-title: MBA关注：什么是真正的富人思维？（深度好文）
+title: 什么是真正的富人思维？
 date: 2017/1/7 9:51:44
 updated: 2018/9/1 10:09:45
 comments: true
 tags:
-- 富人思维
+- 深度好文
 categories:
 - 心灵成长
 
@@ -12,7 +12,7 @@ categories:
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/rich-thinking-by-mba.jpg" class="full-image" />
 
 {% note success %}
-摘自MBA中国网：
+全文摘自MBA中国网：
 <http://www.mbachina.com/html/zhaopin/201701/101719.html>
 {% endnote %}
 
@@ -84,3 +84,8 @@ categories:
 如果你的抽象思维能力实在有限，必须得看十分具体的例子去理解究竟什么才是寻找资源并整合资源，强烈推荐你上网看两个故事，一个是星巴克老板舒尔茨当年在西雅图开第一家咖啡店的始末，另一个是杨洁导演拍摄86版西游记的过程。
 
 以上，就是我在读了这么多年书，看了那么多案例，和自己在残酷的实践中，能给出的关于“不是富二代，不是官二代，很想成功，是不是就会成功了”的最好答案。至于你觉得它是醍醐灌顶还是勾兑鸡汤，看你的了。
+
+{% note success %}
+全文摘自MBA中国网：
+<http://www.mbachina.com/html/zhaopin/201701/101719.html>
+{% endnote %}

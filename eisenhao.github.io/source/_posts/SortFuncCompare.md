@@ -1,5 +1,5 @@
 layout: post
-title: 经典排序算法性能比较
+title: 经典排序算法的C++编码实现与性能对比
 date: 2019/11/17 19:26:44
 updated: 2019/12/15 13:51:45
 comments: true
@@ -12,7 +12,9 @@ categories:
 ---
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SortFuncComparePicture.png" class="full-image" />
 
-排序作为常用的解决实际问题的计算方法，被广泛应用于生活中的方方面面，如:成绩排名，价格升降序，相似产品比价等等。在数字化时代的今天，处理实际问题的数据规模常常十分庞大，同一个计算任务选用不同的算法，其执行效率可能相差几百倍，几千倍甚至更高，因此效率常被作入为评判一个算法优劣的重要指标。博主对七种经典排序算法（不止于此）进行编码实现和以处理同规模数据所耗时长为指标进行了性能比较（冒泡、选择、插入、希尔、堆、归并和快排）。
+排序作为常用的解决实际问题的计算方法，被广泛应用于生活中的方方面面。而处理实际问题的数据规模常常十分庞大，同一个计算任务选用不同的算法，其执行效率可能相差几百倍，几千倍甚至更高，因此效率常被作入为评判一个算法优劣的重要指标。
+博主对七种常见的排序算法进行编码实现，和以处理同规模数据所耗时长为指标进行了性能比较（冒泡、选择、插入、希尔、堆、归并和快排）。
+
 <!-- more -->
 
 # 1. 测试排序函数运行时间方法
@@ -66,7 +68,7 @@ void SortFuncCompare::testFuncRuntime(void) {
     delete[] runTime;
 }
 ```
-# 3. 七种经典排序算法的编码实现
+# 3. 七种经典排序算法的C++编码实现
 ## 3.1. 冒泡排序
 时间复杂度:O(N^2)，空间复杂度:O(1)，原地，稳定
 ```c++
@@ -268,7 +270,7 @@ ElementType SortFuncCompare::choosePivot(ElementType *pArray, int leftIndex, int
     return *(pArray + rightIndex - 1);
 }
 ```
-# 4. 实验结果
+# 4. 时耗测试
 各排序算法在各个数据规模下排序所耗时长（秒）。
 
 数据规模|冒泡|选择|插入|希尔|堆|归并|快排
@@ -281,22 +283,22 @@ ElementType SortFuncCompare::choosePivot(ElementType *pArray, int leftIndex, int
 百万| 9708.16| 3736.74| 1643.99| 0.93| 0.98| 0.5| 0.3
 
 ## 4.1. 分析
-### 4.1.1. 数据规模不超过一百时
+- 数据规模不超过一百时
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SortFuncComparePicture_size100.png" class="full-image" />
 当数据规模较小时，各排序算法所耗时长区别并不明显，但当数据规模为一百时已有明显区别，最快的排序算法与最满的排序算法效率相差一个数量级。
 
-### 4.1.2. 数据规模为一千时
+- 数据规模为一千时
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SortFuncComparePicture_size1000.png" class="full-image" />
 除了冒泡和选择排序耗时三十几毫秒，其他排序算法耗时均在一毫秒内，此时各排序算法最快与最满效率比值已达为四十多倍
 
-### 4.1.3. 数据规模为十万时
+- 数据规模为十万时
 <img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SortFuncComparePicture_size100000.png" class="full-image" />
 当排序数据规模达到十万时，可以发现排序最快的算法是快排仅12毫秒，效率是最慢的冒泡排序(38秒)的三千多倍，性能差异已十分明显。
 
-### 4.1.4. 数据规模为百万时
-当排序数据规模达到百万时，可以发现排序最快的算法是快排仅0.3秒，效率是最慢的冒泡排序(9708.16秒，约2.7小时)的三万多倍，性能差异已非常巨大。而且已知快排的平均时间复杂度为O(N*logN)，大胆推测当数据规模为千万级别时，快排算法在此平台下耗时仅需3秒多，而时间复杂度为O(N^2)的冒泡排序在此平台下预计耗时将达到11天，两种算法的效率有天壤之别。
+- 数据规模为百万时
+当排序数据规模达到百万时，可以发现排序最快的算法是快排仅0.3秒，效率是最慢的冒泡排序(9708.16秒，约2.7小时)的三万多倍，性能差异已非常巨大。而且已知快排的平均时间复杂度为O(N*logN)，可进一步推测当数据规模为千万级别时，快排算法在此平台下耗时仅需3秒多，而时间复杂度为O(N^2)的冒泡排序在此平台下预计耗时将达到11天，两种算法的效率显现出天壤之别。
 
-### 4.1.5. 经过此次实验收获
+## 4.2. 此次实验收获
 - 各种排序算法在数规模小于一百时还没有太大差距，此时选实现较简单的就好
 - 当数据达到一定规模后，不同算法执行效率差异巨大，此时追求算法效率显得十分重要
 
@@ -304,3 +306,4 @@ ElementType SortFuncCompare::choosePivot(ElementType *pArray, int leftIndex, int
 本次实验源代码详见博主的个人git仓库:
 - [SortFuncCompare.h](https://github.com/EisenHao/Cpp_Learning/blob/master/SortFuncCompare.h)
 - [SortFuncCompare.cpp](https://github.com/EisenHao/Cpp_Learning/blob/master/SortFuncCompare.cpp)
+
