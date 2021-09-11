@@ -1,2 +1,4 @@
-#./.gitignore
-/.idea/*
+.gitignore
+.idea/
+.vscode/
+*.o
