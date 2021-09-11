@@ -7,7 +7,40 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jars" level="project" />
     <orderEntry type="library" name="scala-sdk-2.11.12" level="application" />
+    <orderEntry type="library" name="SparkJars" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../opt/SparkStreamingKafkaJars" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../../opt/SparkStreamingKafkaJars" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../opt/spark-2.4.5-bin-hadoop2.7/jars" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../opt/spark-2.4.5-bin-hadoop2.7/jars" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/../../opt/spark-2.4.5-bin-hadoop2.7/jars" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../../opt/spark-2.4.5-bin-hadoop2.7/jars" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../opt/SparkStreamingFlumeJars" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../../opt/SparkStreamingFlumeJars" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="MySparkApplication:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9375d0a7-553c-41a1-a282-0f196eb1c028" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="WARN_ABOUT_CRLF" value="false" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.2\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1oabkrRBEw42UDtshoTHdHXonrr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GO_FMT" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../opt/SparkStreamingFlumeJars" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Workspace\MySparkApplication\data" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Workspace\MySparkApplication\src\main\scala\basic" />
+      <recent name="C:\Workspace\MySparkApplication\data" />
+      <recent name="C:\Workspace\MySparkApplication\src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.MyRandomForestClassification">
+    <configuration name="MyRandomForestClassification" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="main.scala.basic.MyRandomForestClassification" />
+      <module name="MySparkApplication" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;local&quot; &quot;$PROJECT_DIR$/data/extra1400.csv&quot; &quot;$PROJECT_DIR$/data/module/irrfidm&quot;" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.scala.basic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RandomForest" type="Application" factoryName="Application" temporary="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="JDK1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="main.scala.basic.RandomForest" />
+      <module name="MySparkApplication" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;local&quot; &quot;$PROJECT_DIR$/data/libsvmDataSet.txt&quot; &quot;$PROJECT_DIR$/data/module/rfmodule&quot;" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.scala.basic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WordCount" type="Application" factoryName="Application" temporary="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="JDK1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="main.scala.basic.WordCount" />
+      <module name="MySparkApplication" />
+      <option name="PROGRAM_PARAMETERS" value="local $PROJECT_DIR$/data/artic.txt" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.scala.basic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="svm" type="Application" factoryName="Application" temporary="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="JDK1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="main.scala.basic.svm" />
+      <module name="MySparkApplication" />
+      <option name="PROGRAM_PARAMETERS" value="local" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.scala.basic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="tree" type="Application" factoryName="Application" temporary="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="JDK1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="main.scala.basic.tree" />
+      <module name="MySparkApplication" />
+      <option name="PROGRAM_PARAMETERS" value="local" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.scala.basic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.WordCount" />
+      <item itemvalue="Application.RandomForest" />
+      <item itemvalue="Application.svm" />
+      <item itemvalue="Application.tree" />
+      <item itemvalue="Application.MyRandomForestClassification" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MyRandomForestClassification" />
+        <item itemvalue="Application.RandomForest" />
+        <item itemvalue="Application.tree" />
+        <item itemvalue="Application.svm" />
+        <item itemvalue="Application.WordCount" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9375d0a7-553c-41a1-a282-0f196eb1c028" name="Default Changelist" comment="" />
+      <created>1613527795708</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1613527795708</updated>
+      <workItem from="1613527797018" duration="6263000" />
+      <workItem from="1613542204544" duration="62000" />
+      <workItem from="1613542284288" duration="1593000" />
+      <workItem from="1613569146171" duration="2149000" />
+      <workItem from="1614004943351" duration="4000" />
+      <workItem from="1614330374088" duration="27000" />
+      <workItem from="1614337774183" duration="42000" />
+      <workItem from="1615434169390" duration="924000" />
+      <workItem from="1615435243713" duration="599000" />
+      <workItem from="1615436816928" duration="1000" />
+      <workItem from="1616857863798" duration="6135000" />
+      <workItem from="1616869467354" duration="63000" />
+      <workItem from="1616892540589" duration="36648000" />
+      <workItem from="1617001322077" duration="17662000" />
+      <workItem from="1617024555873" duration="25631000" />
+      <workItem from="1618891578766" duration="3000" />
+      <workItem from="1619599241651" duration="195000" />
+      <workItem from="1620007444907" duration="11000" />
+      <workItem from="1620274403165" duration="3946000" />
+      <workItem from="1620616825323" duration="1796000" />
+      <workItem from="1620781127924" duration="2000" />
+      <workItem from="1620919367332" duration="2841000" />
+      <workItem from="1621043546658" duration="2410000" />
+      <workItem from="1621068803596" duration="1140000" />
+      <workItem from="1621074942490" duration="6569000" />
+      <workItem from="1621130364883" duration="29234000" />
+      <workItem from="1621209868173" duration="23662000" />
+      <workItem from="1621266579632" duration="429000" />
+      <workItem from="1621267076073" duration="1838000" />
+      <workItem from="1621270891929" duration="3000" />
+      <workItem from="1621300245557" duration="2606000" />
+      <workItem from="1621513947203" duration="717000" />
+      <workItem from="1621526831510" duration="762000" />
+      <workItem from="1621746454714" duration="116000" />
+      <workItem from="1623662896480" duration="2000" />
+    </task>
+    <task id="LOCAL-00001" summary="增加运行参数说明">
+      <created>1613543985659</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613543985659</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add file">
+      <created>1617024747419</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1617024747419</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add file">
+      <created>1617041817824</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1617041817824</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add file">
+      <created>1617051736010</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1617051736010</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add file">
+      <created>1617052482543</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1617052482543</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add file">
+      <created>1617060283883</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1617060283883</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add file">
+      <created>1617064308769</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1617064308769</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add args(2) the save module path">
+      <created>1620277407779</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1620277407779</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TerminalProjectNonSharedOptionsProvider">
+    <option name="shellPath" value="C:\Program Files\Git\bin\bash.exe" />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="增加运行参数说明" />
+    <MESSAGE value="add file" />
+    <MESSAGE value="add args(2) the save module path" />
+    <option name="LAST_COMMIT_MESSAGE" value="add args(2) the save module path" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="710" y="0" key="#Auto_Import" timestamp="1616930000964">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="710" y="0" key="#Auto_Import/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1616930000964" />
+    <state x="440" y="94" key="#Project_Structure" timestamp="1615434190025">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="94" key="#Project_Structure/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1615434190025" />
+    <state x="690" y="275" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1621179900855">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="275" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1621179900855" />
+    <state x="690" y="275" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1621094886760" />
+    <state x="364" y="157" width="1311" height="807" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1621309910357">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="183" y="0" width="1311" height="1040" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1620920269621" />
+    <state x="364" y="157" width="1311" height="807" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1621309910357" />
+    <state x="236" y="334" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1621097880854" />
+    <state x="340" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1613538285674" />
+    <state x="2203" y="55" width="1092" height="740" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1600.860/0.0.1920.1040@1920.0.1600.860" timestamp="1613539693790" />
+    <state x="2504" y="227" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1613530769503">
+      <screen x="1920" y="0" width="1600" height="860" />
+    </state>
+    <state x="2504" y="227" key="#com.intellij.ide.util.TreeClassChooserDialog/1920.0.1600.860/0.0.1920.1040@1920.0.1600.860" timestamp="1613530769503" />
+    <state x="580" y="294" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1621096181676">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="580" y="294" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1621096181676" />
+    <state x="556" y="103" key="CommitChangelistDialog2" timestamp="1620277406662">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="556" y="103" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1620277406662" />
+    <state x="556" y="103" key="CommitChangelistDialog2/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1613543984852" />
+    <state x="-1849" y="184" width="1736" height="856" key="DiffContextDialog" timestamp="1616950283073">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1849" y="184" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1616950283073" />
+    <state x="740" y="212" key="FileChooserDialogImpl" timestamp="1621096660760">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1180" y="212" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1615434821273" />
+    <state x="740" y="212" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617041988466" />
+    <state x="740" y="212" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1621096660760" />
+    <state x="2537" y="175" key="FileChooserDialogImpl/1920.0.1600.860/0.0.1920.1040@1920.0.1600.860" timestamp="1613542262430" />
+    <state width="1877" height="287" key="GridCell.Tab.0.bottom" timestamp="1621329308854">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="373" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1615435096291" />
+    <state width="1877" height="287" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1621329308854" />
+    <state width="1860" height="484" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1621265985246" />
+    <state width="1877" height="366" key="GridCell.Tab.0.bottom/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1613538288133" />
+    <state width="1557" height="363" key="GridCell.Tab.0.bottom/1920.0.1600.860/0.0.1920.1040@1920.0.1600.860" timestamp="1613571337149" />
+    <state width="1877" height="287" key="GridCell.Tab.0.center" timestamp="1621329308854">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="373" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1615435096291" />
+    <state width="1877" height="287" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1621329308854" />
+    <state width="1860" height="484" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1621265985246" />
+    <state width="1877" height="366" key="GridCell.Tab.0.center/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1613538288133" />
+    <state width="1557" height="363" key="GridCell.Tab.0.center/1920.0.1600.860/0.0.1920.1040@1920.0.1600.860" timestamp="1613571337149" />
+    <state width="1877" height="287" key="GridCell.Tab.0.left" timestamp="1621329308853">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="373" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1615435096291" />
+    <state width="1877" height="287" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1621329308853" />
+    <state width="1860" height="484" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1621265985246" />
+    <state width="1877" height="366" key="GridCell.Tab.0.left/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1613538288133" />
+    <state width="1557" height="363" key="GridCell.Tab.0.left/1920.0.1600.860/0.0.1920.1040@1920.0.1600.860" timestamp="1613571337149" />
+    <state width="1877" height="287" key="GridCell.Tab.0.right" timestamp="1621329308854">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="373" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1615435096291" />
+    <state width="1877" height="287" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1621329308854" />
+    <state width="1860" height="484" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1621265985246" />
+    <state width="1877" height="366" key="GridCell.Tab.0.right/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1613538288133" />
+    <state width="1557" height="363" key="GridCell.Tab.0.right/1920.0.1600.860/0.0.1920.1040@1920.0.1600.860" timestamp="1613571337149" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1616959002026">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1616959002026" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1616959002026">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1616959002026" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1616959002026">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1616959002026" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1616959002026">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1616959002026" />
+    <state x="230" y="158" key="SettingsEditor" timestamp="1621096817888">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1519" y="11" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1615435071281" />
+    <state x="230" y="158" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617028459398" />
+    <state x="230" y="158" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1621096817888" />
+    <state x="2254" y="9" key="SettingsEditor/1920.0.1600.860/0.0.1920.1040@1920.0.1600.860" timestamp="1613542263737" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1620277417307">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1620277417307" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1613543989724" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1616950283073">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1616950283073" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1621221767604">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1621221767604" />
+    <state x="662" y="252" width="596" height="594" key="find.popup" timestamp="1621174290991">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="662" y="252" width="596" height="594" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1621174290991" />
+    <state x="662" y="252" width="596" height="594" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1621094656460" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1621240795540">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1621240795540" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1621043873857" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1617038365430">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617038365430" />
+  </component>
+</project>
