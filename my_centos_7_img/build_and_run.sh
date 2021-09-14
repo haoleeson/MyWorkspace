@@ -7,7 +7,7 @@
 
 # User Config Start
 IMAGE_NAME=my-centos-img
-IMAGE_TAG=v7
+IMAGE_TAG=v7.9
 CONTAINER_NAME=my-centos-container
 SHARED_DIR=/c/Workspace/MyDockers/commonShareDir
 # User Config End

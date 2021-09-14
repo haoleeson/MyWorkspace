@@ -1,5 +1,5 @@
 # Use an official centos runtime as a parent image
-FROM hub.c.163.com/netease_comb/centos:7
+FROM centos:7.9.2009
 
 # Update yum sorce
 RUN yum makecache fast && yum -y update glibc 
@@ -48,7 +48,7 @@ RUN yum clean all
 EXPOSE 22
 
 # Define environment variable
-ENV NAME=Centos7
+ENV NAME=Centos7.9
 
 # Run ssh
 CMD ["/usr/sbin/sshd", "-D"]
