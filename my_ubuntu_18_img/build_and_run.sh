@@ -29,7 +29,7 @@ echo "Build ubuntu image"
 docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
 echo "Run the image in a container"
-docker run -dit -p 2222:22 \
+docker run -dit -p 3333:22 \
         --name $CONTAINER_NAME \
         $IMAGE_NAME:$IMAGE_TAG
 
