@@ -1,0 +1,97 @@
+---
+name: 简体中文
+title:
+  archive: 时间轴
+  category: 主题
+  tag: 云标签
+  schedule: 日程表
+menu:
+  home: 首页
+  archives: 时间轴
+  categories: 主题
+  tags: 云标签
+  about: 关于
+  search: 搜索
+  schedule: 日程表
+  sitemap: 站点地图
+  commonweal: 公益 404
+sidebar:
+  overview: 概览
+  toc: 目录
+post:
+  posted: 编写
+  edited: 修改
+  created: 创建
+  modified: 修改
+  edit: 改动
+  in: 主题：
+  read_more: 展开阅读全文
+  untitled: 未命名
+  sticky: 置顶
+  views: 浏览
+  related_posts: 相关文章
+  copyright:
+    author: 本文作者
+    link: 本文链接
+    post_author: 原作者
+    post_link: 原文链接
+    license_title: 版权声明
+    license_content: "本博客所有文章除特别声明外，均采用 %s 许可协议。转载请注明出处！"
+footer:
+  powered: "由 %s 强力驱动"
+  total_views: 总访问量
+  total_visitors: 总访客量
+counter:
+  tag_cloud:
+    zero: 暂无关键词
+    one: 累计 1 个关键词
+    other: "累计 %d 个关键词"
+  categories:
+    zero: 暂无主题
+    one: 累计 1 个主题
+    other: "累计 %d 个主题"
+  archive_posts:
+    zero: 暂无文章。
+    one: 累计 1 篇文章。
+    other: "累计 %d 篇文章，"
+state:
+  posts: 文章
+  tags: 关键词
+  categories: 主题
+search:
+  placeholder: 搜索...
+  empty: "没有找到任何搜索结果：%s"
+  hits_time: "找到 %s 个搜索结果（用时 %s 毫秒）"
+  hits: "找到 %s 个搜索结果"
+cheers:
+  um: 嗯..
+  ok: 棒棒哒
+  nice: 不错
+  good: 很好
+  great: 非常好
+  excellent: 太棒了
+keep_on: 继续记录生活吧。。。
+symbol:
+  comma: "，"
+  period: "。"
+  colon: "："
+reward:
+  donate: 赞赏
+  wechatpay: 微信
+  alipay: 支付宝
+  paypal: PayPal
+  bitcoin: 比特币
+follow_me:
+  welcome: 欢迎关注我的其它发布渠道
+accessibility:
+  nav_toggle: 切换导航栏
+  prev_page: 上一页
+  next_page: 下一页
+  back_to_top: 返回顶部
+  select_lang: 选择语言
+symbols_count_time:
+  count: 本文字数
+  count_total: 站点总字数
+  time: 阅读时长
+  time_total: 站点阅读时长
+  time_minutes: 分钟
