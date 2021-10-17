@@ -1,4 +1,4 @@
-﻿;N字节二进制数转换为 十进制 压缩BCD数
+;N字节二进制数转换为 十进制 压缩BCD数
 SrcADR		EQU	40H		;源二进制数首地址
 BcdADR		EQU	50H		;转换后的BCD码首地址
 N		EQU	2		; N字节 的二进制数

@@ -1,4 +1,4 @@
-﻿DATAS SEGMENT
+DATAS SEGMENT
     ;此处输入数据段代码
     MS DB 0
     SEC DB 0

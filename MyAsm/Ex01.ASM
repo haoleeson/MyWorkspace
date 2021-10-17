@@ -1,4 +1,4 @@
-﻿;P1.0引脚的LED闪烁
+;P1.0引脚的LED闪烁
 		ORG		0000H
 		SJMP	MAIN
 		ORG		30H
