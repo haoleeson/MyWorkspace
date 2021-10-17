@@ -1,15 +1,15 @@
-# MyBlogSourceCode
-我的博客源码
+我的博客源码分享
 
-* 本博客采用[Hexo](https://hexo.io/zh-cn/docs/)博客框架
-* 本博客主题为[NexT v8.1.0](https://github.com/next-theme/hexo-theme-next)
+- 本博客采用[Hexo](https://hexo.io/zh-cn/docs/)博客引擎驱动
+- 本博客主题为[NexT v8.7.0](https://github.com/next-theme/hexo-theme-next)
 
-## 依赖
-* [Node.js](http://nodejs.org/), v15.3.0
-* [Git](http://git-scm.com/), v2.29.2
-* [Hexo](https://hexo.io/zh-cn/), hexo: v5.2.0, hexo-cli: v4.2.0
+# 1. 本博客所依赖的工具
+- **Node.js**: [官网下载安装Node.js](http://nodejs.org/)，（npm -v，6.14.15）
+- **Git**: [官网下载安装Git](http://git-scm.com/), （git --version，v2.29.2）
+- **Hexo**: [参考Hexo官网命令行安装](https://hexo.io/zh-cn/), （hexo: v5.2.0, hexo-cli: v4.2.0）
+- **Next主题**: [Next主题Git仓库](https://github.com/next-theme/hexo-theme-next)，（v8.7.0）
 
-## 依赖的 npm 组件列表
+# 2. 本博客所依赖的 npm 组件列表
 ```shell
 hexo-deployer-git@2.1.0
 hexo-generator-archive@1.0.0
@@ -31,87 +31,81 @@ pangu@4.0.7
 quicklink@2.0.0
 ```
 
-### 安装 npm 组件
+# 3. 本博客构建总体流程分享
+## 3.1. Hexo 生成基础 Blog 站点文件
 ```shell
-cd $YOUR_BLOG_SITE_DIR
-
-# Symbols count and time to read for articles in Hexo blog (后期移除)
-npm install hexo-word-counter
-
-# A hexo plugin that generates a list of links to related posts or popular posts.
-npm install hexo-related-popular-posts --save
-
-# Highly performant, light and configurable lazy loader in pure JS with no dependencies for images, iframes and more, using IntersectionObserver API
-npm install --save lozad
-
-# Automatically insert blank space between all Chinese characters and semi form English, numbers and symbols in the web page
-npm install pangu --save
-
-# automatically prefetch URLs for links that are in-viewport during idle time.
-npm install --save quicklink
-
-# A plugin to fix a serious security bug in leancloud visitor counter for NexT theme site and other site that integrated this function using a similar way.
-# npm install --save hexo-leancloud-counter-security
-
-# generating a search index file, which contains all the necessary data of your articles that you can use to write a local search engine for your blog
-npm install hexo-generator-searchdb
-
-npm install hexo-deployer-git --save
-npm install hexo-tag-dplayer --save
-npm install --save hexo-tag-aplayer
+YOUR_BLOG_DIR=eisenhao.github.io
+hexo init ${YOUR_BLOG_DIR}
+cd ${YOUR_BLOG_DIR}
 ```
 
-## 建站流程
-```shell 
-# 建站
-hexo init eisenhao.github.io
-cd eisenhao.github.io
-npm install
+## 3.2. 获取 Hexo 主题（eg. NexT）
+```shell
+git clone https://github.com/next-theme/hexo-theme-next themes/next
+```
 
-# 获取 NexT 主题
-mkdir themes/next
-# 下载最新 Release tar包
-cd themes/next
-curl -o next.tar.gz --insecure https://codeload.github.com/next-theme/hexo-theme-next/tar.gz/v8.1.0
-# 解压
-tar -zxf next.tar.gz
-# 重命名文件夹为 next
-mv hexo-theme-next-8.1.0 next
-cd ../../
-
-# 修改 Hexo 配置文件
+## 3.3. 自定义修改 Hexo 引擎配置文件
+```shell
 vi ./_config.yml
+```
 
-# 修改 NexT 配置文件
+## 3.4. 自定义修改 NexT 主题配置文件
+```shell
 vi ./themes/next/_config.yml
+```
 
-# 博文编写...
+## 3.5. 自定义安装所需 npm 小插件
+```shell
+# # Symbols count and time to read for articles in Hexo blog
+# npm install hexo-word-counter
+# # A hexo plugin that generates a list of links to related posts or popular posts.
+# npm install hexo-related-popular-posts --save
+# # Highly performant, light and configurable lazy loader in pure JS with no dependencies for images, iframes and more, using IntersectionObserver API
+# npm install --save lozad
+# # Automatically insert blank space between all Chinese characters and semi form English, numbers and symbols in the web page
+# npm install pangu --save
+# # automatically prefetch URLs for links that are in-viewport during idle time.
+# npm install --save quicklink
+# # A plugin to fix a serious security bug in leancloud visitor counter for NexT theme site and other site that integrated this function using a similar way.
+# # npm install --save hexo-leancloud-counter-security
+# # generating a search index file, which contains all the necessary data of your articles that you can use to write a local search engine for your blog
+# npm install hexo-generator-searchdb
+# npm install hexo-deployer-git --save
+# npm install hexo-tag-dplayer --save
+# npm install --save hexo-tag-aplayer
+```
 
-# 修改 style, css, njk 个性定制...
+## 3.6. 深度修改 style, css, njk 站点文件源码... 
 
-# 构建静态博客网站
-hexo Clean && hexo g
+## 3.7. 博文撰写...
 
-# 本地调试（http://localhost:4000）
+## 3.8. 本地构建博客站点文件与调测
+```shell
+# 生成站点文件
+hexo clean && hexo g
+
+# 启动本地调试服务
 hexo s
 
-# 发布
+# 打开浏览器访问 http://localhost:4000
+```
+
+## 3.9. 发布站点文件到远程服务器
 hexo d
-```
 
-## 克隆我的博客并调试步骤
+# 4. 克隆我的博客的调试步骤
+1. 安装前文提及的依赖工具
+2. 从博主的 [MyWorkspace](https://github.com/EisenHao/MyWorkspace) 仓库中，下载我的博客源码子文件（MyBlogSourceCode）
+3. 进入站点目录
 ```shell
-# 下载我的博客站点源码
-git clone https://github.com/EisenHao/MyBlogSourceCode.git
-
-# 进入站点目录
 cd MyBlogSourceCode/eisenhao.github.io
-
-# 下载 npm 依赖（会根据 package.json 的描述下载依赖）
-npm install
-
-# 调用 Hexo 的清理、构建与调试命令
-hexo clean && hexo g && hexo s
-
-# 本地浏览器访问 http://localhost:4000/ 以调试
 ```
+4. 一键安装本博客所需的 npm 插件
+```shell
+npm install
+```
+5. （本地）调用 Hexo 命令进行 **清理旧站点文件**、**构建站点文件**、**开启本地调试服务**
+```shell
+hexo clean && hexo g && hexo s
+```
+6. 本地浏览器访问 http://localhost:4000/ 以进行调试
