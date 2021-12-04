@@ -10,6 +10,30 @@ HOSTS_FILE="/etc/hosts"
 CHOWN="/usr/sbin/chown"
 
 ###############################################################
+# 获取 GitHub IP 的两种方式（推荐Way1）
+###############################################################
+# GitHub Hosts Start
+
+# Way 1：Query ip by powershell running nslookup （20211017）
+#                     - nslookup github.com
+#                     - nslookup github.global.ssl.fastly.net
+#                     - nslookup assets-cdn.github.com
+# 20.205.243.166    github.com
+# 103.200.31.172    github.global.ssl.fastly.net
+# 185.199.110.153   assets-cdn.github.com
+
+# Way 2：Query ip by ipaddress.com (20211204):
+#                     - https://websites.ipaddress.com/github.com
+#                     - https://websites.ipaddress.com/github.global.ssl.fastly.net
+#                     - https://websites.ipaddress.com/assets-cdn.github.com
+#140.82.113.3       github.com
+#199.232.69.194     github.global.ssl.fastly.net
+#185.199.108.153    assets-cdn.github.com
+
+# GitHub Hosts End
+
+
+###############################################################
 # 将 GitHub 的 Hosts 写入 /etc/hosts 文件
 ###############################################################
 funcAddGitHubHosts() {
