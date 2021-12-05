@@ -1,7 +1,7 @@
 import logging
 import datetime
 
-RUN_LOG_FILE='~/code/Python/test_logging.log'
+RUN_LOG_FILE='/Users/lihao52/code/Python/test_logging.log'
 TIME_FORMAT = '%Y-%m-%d %H:%M:%S'           # the format of log time
 
 def create_list_log():
@@ -18,7 +18,7 @@ def create_list_log():
 
 
 def main():
-    logging.basicConfig(filename= '~/code/Python/test_logging.log',
+    logging.basicConfig(filename= '/Users/lihao52/code/Python/test_logging.log',
         filemode='a', # w - 覆盖； ab - 追加；
         format= '[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)-8s : - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
