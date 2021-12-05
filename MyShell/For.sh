@@ -18,3 +18,11 @@ do
         logger -p user.info "==========Test inputting stream, num = $num"
     fi
 done
+
+
+# for i in 1 2 3 4 5;
+# do
+#     cmd_str="bcmcmd \"dsh -c 'phyd $i dsc'\""
+#     # 打印命令
+#     echo $cmd_str
+# done
