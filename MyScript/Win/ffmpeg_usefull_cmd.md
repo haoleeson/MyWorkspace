@@ -6,7 +6,9 @@ ffmpeg -itsoffset 00:00:00.45 -i index.mp4 -i index.aac -map 0:v -map 1:a -vcode
 ffmpeg -threads 2 -i index.mp4 -max_muxing_queue_size 1024 -vf transpose=1 index_r90.mp4
 
 # 3. 区间剪切视频
-ffmpeg -ss 00:00:01 -to 00:08:10 -i index.mp4 -vcodec copy -acodec copy index_cut1.mp4 -y
+ffmpeg -ss 00:00:00 -to 00:00:12.8 -i VideoOutput1.mp4 -vcodec copy -acodec copy index_cut1.mp4 -y
+
+ffmpeg -ss 00:00:18 -to 00:00:39 -i VideoOutput2.mp4 -vcodec copy -acodec copy index_cut2.mp4 -y
 
 # 4. 多个视频片段合并
 ## 4.1. 新建片段文件
@@ -17,6 +19,12 @@ file 'index_cut2.mp4'
 ```
 ## 4.2. 再合并多个片段
 ffmpeg -f concat -i filelist.txt -vcodec copy -acodec copy index.mp4
+ffmpeg -f concat -i filelist.txt -max_muxing_queue_size 1024 -vcodec copy -acodec copy index.mp4
+
+# 视频拼接
+ffmpeg -f concat -safe 0 -i filelist.txt -c copy index.mp4
+
+ffmpeg -i "concat:index_cut1.mp4|index_cut2.mp4" -c copy index.mp4
 
 # 5. 提取音频
 ffmpeg -i index.mp4 -acodec copy -vn output.aac
