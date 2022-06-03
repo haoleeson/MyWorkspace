@@ -7,7 +7,7 @@ type myStruct struct {
 	str string
 }
 
-func getMapVlaue(key string) string {
+func getMapValue(key string) string {
 	str2StrMap := map[string]string{
 		"A": "aaa",
 		"B": "bbb",
@@ -21,8 +21,8 @@ func getMapVlaue(key string) string {
 
 
 func main() {
-	fmt.Println(getMapVlaue("A"))
+	fmt.Println(getMapValue("A"))
 	s := myStruct{}
-	fmt.Println(getMapVlaue(s.str))
-	fmt.Println(getMapVlaue("B"))
+	fmt.Println(getMapValue(s.str))
+	fmt.Println(getMapValue("B"))
 }
