@@ -1,0 +1,138 @@
+#!/usr/bin/env expect
+
+#######################################################
+# 自动登录各机房 netadmin 服务器脚本 v0.0.5
+# 入参1：小写机房名（eg. yq01）
+# 入参2：目标机房中的某设备IP（若非空，则登录对应设备）
+#
+# author: lihao52
+# date: 2022-04-11
+#
+# 用法：
+# 1. 为本脚本添加别名:
+#    echo "alias na='expect $HOME/.myLoginScript_NetAdmin.exp'" >> ~/.bash_profile
+#    source ~/.bash_profile
+# 2. 使用别名自动登录 YQ01 中设备（100.121.103.132）:
+#    na yq01 100.121.103.132
+######################################################
+
+# 接收入参 1 2
+set PARAM1 [lindex $argv 0]
+set PARAM2 [lindex $argv 1]
+set ::env(IN_NETADMIN_NAME) "$PARAM1"
+# 机房名转小写
+set NETADMIN_NAME [exec sh -c {echo $IN_NETADMIN_NAME | tr \[A-Z\] \[a-z\]}]
+# puts "env IN_NETADMIN_NAME= $::env(IN_NETADMIN_NAME)"
+# puts "env NETADMIN_NAME: $NETADMIN_NAME"
+
+#################### 用户参数设定 ######################
+# 设置等待超时时间（秒）
+set timeout 30
+# 公司邮箱前缀
+set EMAIL_PREFIX "lihao52"
+# 邮箱密码
+set EMAIL_PWD "E^(*@6982"
+# AAA 密码（注意特殊字符逃逸，eg . 用"\\"代替"\"）
+set AAA_PWD "J3Q1\\XH69r=Nu2{"
+######################################################
+
+# 根据机房拼接 netadmin 服务器（入参1； or 默认值）
+if { $NETADMIN_NAME == "yq01" } {
+    set NETADMIN_SERVER "yq01-sys-netadmin02.yq01"
+} elseif { $NETADMIN_NAME == "yq02" } {
+    set NETADMIN_SERVER "yq02-sys-netadmin01.yq02"
+} elseif { $NETADMIN_NAME == "bb" } {
+    set NETADMIN_SERVER "bb-sys-netadmin01.bb01"
+} elseif { $NETADMIN_NAME == "szwg" } {
+    set NETADMIN_SERVER "szwg-sys-netadmin02.szwg01"
+} elseif { $NETADMIN_NAME != "" } {
+    set NETADMIN_SERVER "$NETADMIN_NAME-sys-netadmin00.$NETADMIN_NAME"
+} else {
+    set NETADMIN_SERVER "szzj-sys-netadmin00.szzj"
+}
+# 交换机 IP（入参2； or 默认值）
+if { $PARAM2 != "" } {
+    set SW_IP "$PARAM2"
+} else {
+    set SW_IP "100.122.184.34"
+}
+
+# 1.1 登录跳板机
+spawn ssh $EMAIL_PREFIX@relay.baidu-int.com
+
+# 打开调试模式
+# exp_internal 1
+
+expect {
+    # 1.2. RSA 验证（yes）
+    "*yes/no*" { send "yes\r"; exp_continue }
+
+    # 1.3 填充个人邮箱密码（当天第二次登录会跳过该验证）
+    "*assword:" { send "$EMAIL_PWD\r"; exp_continue }
+
+    # 2.1 登录开发机（免密）
+    "*-bash-baidu-ssl*" { send "ssh --silent $EMAIL_PREFIX@$NETADMIN_SERVER\r" }
+}
+
+expect {
+    # 2.2. RSA 验证（yes）
+    "*yes/no*" { send "yes\r"; exp_continue }
+
+    "*assword:" { send "$AAA_PWD\r"; exp_continue }
+
+    # 2.3. 已登录
+    "*$EMAIL_PREFIX@$NETADMIN_SERVER*" { send "pwd\r" }
+}
+
+# 3. 入参2 IP 为空，留在开发机
+if { $PARAM2 == "" } {
+    # 显示IP
+    expect "*$EMAIL_PREFIX@$NETADMIN_SERVER*" { send "ip addr show xgbe0 | grep -oP '\(\\d+\\.\){3}\\d+' | head -n +1\r"}
+
+    # 允许用户交互
+    interact
+
+    # 退出 expect
+    exit
+}
+
+# 3.1. 登录交换机
+expect "*$EMAIL_PREFIX@$NETADMIN_SERVER*" { send "telnet $SW_IP\r" }
+
+expect {
+    # 删除已过期 hosts
+    "*Host key verification failed*" { send "ssh-keygen -f ~/.ssh/known_hosts -R $SW_IP\r"; exp_continue }
+
+    "*known_hosts.old" { send "ssh $EMAIL_PREFIX@$SW_IP\r"; exp_continue }
+    "*Original*" { send "\r"; exp_continue }
+
+    # 再次登录
+    "*$EMAIL_PREFIX@$NETADMIN_SERVER**" { send "telnet $SW_IP\r"; exp_continue }
+
+    # 3.2. RSA 验证（yes）
+    "*yes/no*" { send "yes\r"; exp_continue }
+
+    # 3.3. 填充交换机用户名
+    "*login:" { send "$EMAIL_PREFIX\r"; exp_continue }
+
+    # 3.3. 填充交换机密码
+    "*assword:" { send "$AAA_PWD\r" }
+}
+
+
+# 关闭调试模式
+# exp_internal 0
+
+# 允许用户交互
+interact
+
+# 释放变量
+unset EMAIL_PREFIX
+unset EMAIL_PWD
+unset SW_IP
+unset EMAIL_PREFIX
+unset AAA_PWD
+unset NETADMIN_SERVER
+
+# 退出expect
+exit

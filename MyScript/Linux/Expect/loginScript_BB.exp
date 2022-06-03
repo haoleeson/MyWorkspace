@@ -1,0 +1,151 @@
+#!/usr/bin/env expect
+
+#######################################################
+# 自动登录开发机并跳转 BB 机房设备 v0.0.4
+# 入参1：开发机 IP 第四字节数字
+# 入参2：BB 机房中的某设备IP 第四字节数字
+#
+# author: lihao52
+# date: 2022-04-12
+#
+# 用法：
+# 1. 为本脚本添加别名:
+#    echo "alias dev='expect $HOME/.myLoginScript_BB.exp'" >> ~/.bash_profile
+#    source ~/.bash_profile
+# 2. 使用别名自动登录 BB 机房 中设备（192.168.3.35）:
+#    dev 35
+#    dev 98 35
+######################################################
+
+# 接收入参1
+set PARAM1 [lindex $argv 0]
+set PARAM2 [lindex $argv 1]
+
+# 设置等待超时时间（秒）
+set timeout 30
+# 最后是否登录至交换机
+set JUMP_TO_SW "TRUE"
+set JUMP_DIR "/home/admin/openssl"
+
+# 公司邮箱前缀
+set EMAIL_PREFIX "lihao52"
+# 邮箱密码
+set EMAIL_PWD "E^(*@6982"
+
+# 开发机名（ hostname ）
+set DEV_HOSTNAME "bb-sys-ip-base"
+# 开发机用户名
+set DEV_USR_NAME "lih"
+# 开发机用户密码
+set DEV_USR_PWD "e"
+# 跳转开发机目录
+set DEV_JUMP_DIR "~/code/baidu/bin/sti-switch-sonic/"
+
+
+if { $PARAM2 != "" } {
+    set DEV_IP "10.32.19.$PARAM1"
+    set SW_IP "192.168.3.$PARAM2"
+} elseif { $PARAM1 != "" } {
+    set DEV_IP "10.32.19.98"
+    set SW_IP "192.168.3.$PARAM1"
+} else {
+    set DEV_IP "10.32.19.98"
+    set SW_IP "192.168.3.35"
+}
+
+
+# 交换机用户名
+set SW_USR_NAME "admin"
+# 交换机用户密码
+set SW_USR_PWD "admin"
+
+# 1.1 登录跳板机
+spawn ssh $EMAIL_PREFIX@relay.baidu-int.com
+
+# 打开调试模式
+# exp_internal 1
+
+expect {
+    # 1.2. RSA 验证（yes）
+    "*yes/no*" { send "yes\r"; exp_continue }
+
+    # 1.3 填充个人邮箱密码（当天第二次登录会跳过该验证）
+    "*assword:" { send "$EMAIL_PWD\r"; exp_continue }
+
+    # 2.1 自动登录开发机
+    "*-bash-baidu-ssl*" { send "ssh --silent $DEV_USR_NAME@$DEV_IP\r" }
+}
+
+# 2.2 填充开发机密码
+expect {
+    # 2.2. RSA 验证（yes）
+    "*yes/no*" { send "yes\r"; exp_continue }
+
+    # 2.3 填充个人邮箱密码（当天第二次登录会跳过该验证）
+    "*assword:" { send "$DEV_USR_PWD\r" }
+}
+
+# 2.3 跳转到代码库
+expect "*$DEV_HOSTNAME*" { send "cd $DEV_JUMP_DIR\r" }
+
+# 3. 继续登录交换机 or 留在开发机
+if { $JUMP_TO_SW == "FALSE" } {
+    # 3.2.1. 查看当前分支
+    expect -re "$DEV_HOSTNAME*" { send "git branch\r" }
+    # 3.2.2. 拉取新提交
+    # expect -re "$DEV_HOSTNAME*" { send "git pull\r" }
+
+    # 退出 expect
+    exit
+}
+
+# 3.1.1. 登录交换机
+expect "*bb-sys-ip-base*" { send "ssh $SW_USR_NAME@$SW_IP\r" }
+
+# 3.1.2. 填充交换机密码
+expect {
+    # 删除已过期 hosts
+    "*Host key verification failed*" { send "ssh-keygen -f ~/.ssh/known_hosts -R $SW_IP\r"; exp_continue }
+
+    "*known_hosts.old" { send "ssh $SW_USR_NAME@$SW_IP\r"; exp_continue }
+
+    # 再次登录
+    "$DEV_USR_NAME@$DEV_HOSTNAME:*" { send "ssh $SW_USR_NAME@$SW_IP\r"; exp_continue }
+
+    # 输出 yes
+    "*yes/no*" { send "yes\r"; exp_continue }
+
+    # 输入密码
+    "*assword:" { send "$SW_USR_PWD\r" }
+}
+
+# 4.1. 跳转目录
+expect "$SW_USR_NAME@*" { send "cd /var/log/\r"}
+
+# 4.2. 显示IP
+# expect "$SW_USR_NAME@sonic*" { send "ip addr show eth0 | grep -oP '\(\\d+\\.\){3}\\d+'\r"}
+expect "$SW_USR_NAME@*" { send "ip addr show eth0 | grep -oE '\(\[0-9\]+\\.\){3}\[0-9\]+' | head -n +1\r"}
+
+# 关闭调试模式
+# exp_internal 0
+
+# 允许用户交互
+interact
+
+# 释放变量
+unset PARAM1
+unset JUMP_TO_SW
+unset JUMP_DIR
+unset EMAIL_PREFIX
+unset EMAIL_PWD
+unset DEV_USR_NAME
+unset DEV_IP
+unset DEV_USR_PWD
+unset SW_IP
+unset DEV_HOSTNAME
+unset SW_USR_NAME
+unset SW_USR_PWD
+unset DEV_JUMP_DIR
+
+# 退出expect
+exit
