@@ -14,6 +14,17 @@ do
         break
     else
         echo "Loop time $num/$MAX_LOOP_NUM"
-        let num+=1
+        let num++
     fi
+done
+
+
+str1="I am chinese"
+array1=(${str1// / })
+echo "----------::::While循环遍历未知长度数组::::----------"
+i=0
+while [ $i -lt ${#array1[@]} ]
+do
+    echo "arr[$i] = ${array1[$i]}"
+    let i++
 done

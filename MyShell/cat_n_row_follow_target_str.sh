@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ################################################
 # 获取文件中目标字段及其下方 n 行
 # Param1: 目标字段
 # Param2: 目标文件
 # Param3: 要展示的其下 n 行
+# other way: grep -A 10 'target_str' file_path
 ################################################
 cat_n_row_follow_target_str(){
     TARGET_STR=$1

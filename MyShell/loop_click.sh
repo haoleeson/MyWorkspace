@@ -6,9 +6,13 @@
 # - $2 : x坐标
 # - $3 : y坐标
 ##########################
+
+#获取当前鼠标指针位置
+CHECK_XY=$(/opt/homebrew/bin/cliclick p)
+
 MAX_LOOP_NUM=5
-X_POSITION=1209
-Y_POSITION=427
+X_POSITION=${CHECK_XY%%,*}
+Y_POSITION=${CHECK_XY##*,}
 echo 'loop time='"$1"
 if [[ 0 -lt $1 ]]; then
     MAX_LOOP_NUM=$1
@@ -32,7 +36,7 @@ do
         echo "\t$num\t/\t$MAX_LOOP_NUM"
         # nohup /home/main_exe -t &
         cliclick c:$X_POSITION,$Y_POSITION
-        sleep 0.125 # Delay 1 s
+        sleep 0.125 # Delay 0.125 s
     fi
 done
 

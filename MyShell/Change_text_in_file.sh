@@ -3,7 +3,7 @@
 User='user1'
 OldPwd='abc'
 NewPwd='def'
-FilePath='/Users/lihao52/code/Python/a.txt'
+FilePath='./a.txt'
 
 echo ${User}
 echo ${OldPwd}

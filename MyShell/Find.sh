@@ -64,5 +64,3 @@ sudo find ./ -cmin - 3
 ## 2.6. 根据上一次修改时间 查找（3分钟内修改过modify time）
 sudo find ./ -mmin - 3
 
-## 2.7. 
-
