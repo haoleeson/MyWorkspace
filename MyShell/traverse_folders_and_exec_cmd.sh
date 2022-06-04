@@ -35,4 +35,4 @@ traverse_folders_and_exec_cmd(){
     done
 }
 
-traverse_folders_and_exec_cmd '/Users/lihao52/test/' 'ls '
+traverse_folders_and_exec_cmd '/Users/admin/test/' 'ls '

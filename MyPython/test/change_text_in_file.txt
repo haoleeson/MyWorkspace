@@ -1,0 +1,3 @@
+user1:!@#$%^&:otherStr
+user2:abc:otherStr
+user3:def:otherStr

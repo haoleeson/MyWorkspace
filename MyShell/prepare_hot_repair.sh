@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Describe: 自动根据机房从远程服务器拉脚本和设备列表文件、自动补全配置环境，执行脚本和将运行日志汇总到远程服务器
+# Describe: 自动根据MR从远程服务器拉脚本和设备列表文件、自动补全配置环境，执行脚本和将运行日志汇总到远程服务器
 # Param1:   远程服务器密码
 # Param2:   指定日期（eg. 2022-03-31）
 
@@ -19,14 +19,14 @@ if [ $2 ]; then
     NOW_DATE=$2
 fi
 
-# 机房名
+# MR名
 COMPUTER_ROOM=${HOSTNAME%%-*}
 # 热修复脚本文件
 SCRIPT_NAME='batch_hot_repair_BIN-14327.py'
-# 热修复执行日志名（截取机房名）
+# 热修复执行日志名（截取MR名）
 LOG_NAME="$RUN_PATH/$NOW_DATE-BIN-14327-repair-$COMPUTER_ROOM.log"
 # 远程修复文件仓库
-REMOTE_REPOSITORY='lih@10.32.19.100:/home/lih/Repair_Operation_Files'
+REMOTE_REPOSITORY='admin@A.B.C.D:/home/admin/Repair_Operation_Files'
 
 
 # 拉取 批量热修复脚本 和 待修复列表文件

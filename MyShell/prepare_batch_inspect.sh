@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Describe: 自动根据机房从远程服务器拉脚本和设备列表文件、自动补全配置环境，执行脚本和将运行日志汇总到远程服务器
-# Param1:   netadmin 服务器 IP（可选）
+# Param1:   MR_IP（可选）
 # Param2:   指定日期（eg. 2022-04-12，可选）
 
 if [ $1 ]; then
@@ -27,20 +27,20 @@ EMAIL_PREFIX='xxx'
 PY_SCRIPT_NAME='batch_log_inspect.py'
 SH_SCRIPT_NAME='extract_error_log.sh'
 # 远程修复文件仓库
-REMOTE_REPOSITORY='xxx@10.32.19.98:/home/disk1/xxx/inspect_error_log/'
+REMOTE_REPOSITORY='xxx@A.B.C.D:/home/disk1/xxx/inspect_error_log/'
 PASSWD='e'
 # 机房名
-NETADMIN_NAME=${HOSTNAME%%-*}
+MR_NAME=${HOSTNAME%%-*}
 # 运行目录
 RUN_PATH=$HOME/inspect_error_log
 # 脚本执行日志名（截取机房名）
-LOG_NAME="$RUN_PATH/${NOW_DATE}--${NETADMIN_NAME}--batch_log_inspect.log"
+LOG_NAME="$RUN_PATH/${NOW_DATE}--${MR_NAME}--batch_log_inspect.log"
 
 
 # 函数：准备脚本运行环境
 func_prepare_environment() {
     # 创建运行文件夹
-    mkdir -p $RUN_PATH/${NETADMIN_NAME}/ && cd $RUN_PATH/
+    mkdir -p $RUN_PATH/${MR_NAME}/ && cd $RUN_PATH/
 
     # 拉取 执行脚本 和 待修复列表文件
     expect -c "
@@ -52,7 +52,7 @@ spawn scp $REMOTE_REPOSITORY/$SH_SCRIPT_NAME $RUN_PATH/
 expect \"assword:\"
 send \"$PASSWD\r\"
 
-spawn scp $REMOTE_REPOSITORY/dev_list/$NOW_DATE/dev_info_${NETADMIN_NAME}.csv $RUN_PATH/
+spawn scp $REMOTE_REPOSITORY/dev_list/$NOW_DATE/dev_info_${MR_NAME}.csv $RUN_PATH/
 expect \"assword:\"
 send \"$PASSWD\r\"
 expect eof
@@ -66,7 +66,7 @@ expect eof
     chmod u+x $RUN_PATH/$PY_SCRIPT_NAME
 
     # 查看待操作设备数
-    echo -e "\033[47;30m $(wc -l $RUN_PATH/dev_info_${NETADMIN_NAME}.csv | cut -d ' ' -f 1) \033[0m"
+    echo -e "\033[47;30m $(wc -l $RUN_PATH/dev_info_${MR_NAME}.csv | cut -d ' ' -f 1) \033[0m"
 }
 
 
@@ -91,12 +91,12 @@ expect eof
         # 跳转至解压后的目录
         cd $RUN_PATH/pexpect-2.3/
         # 执行修复
-        echo "python2 $RUN_PATH/pexpect-2.3/$PY_SCRIPT_NAME $RUN_PATH/dev_info_${NETADMIN_NAME}.csv $LOG_NAME $NETADMIN_NAME $NETADMIN_IP"
-        python2 $RUN_PATH/pexpect-2.3/$PY_SCRIPT_NAME $RUN_PATH/dev_info_${NETADMIN_NAME}.csv $LOG_NAME $NETADMIN_NAME $NETADMIN_IP
+        echo "python2 $RUN_PATH/pexpect-2.3/$PY_SCRIPT_NAME $RUN_PATH/dev_info_${MR_NAME}.csv $LOG_NAME $MR_NAME $NETADMIN_IP"
+        python2 $RUN_PATH/pexpect-2.3/$PY_SCRIPT_NAME $RUN_PATH/dev_info_${MR_NAME}.csv $LOG_NAME $MR_NAME $NETADMIN_IP
     else
         # 直接执行修复
-        echo "$RUN_PATH/$PY_SCRIPT_NAME $RUN_PATH/dev_info_${NETADMIN_NAME}.csv $LOG_NAME $NETADMIN_NAME $NETADMIN_IP"
-        $RUN_PATH/$PY_SCRIPT_NAME $RUN_PATH/dev_info_${NETADMIN_NAME}.csv $LOG_NAME $NETADMIN_NAME $NETADMIN_IP
+        echo "$RUN_PATH/$PY_SCRIPT_NAME $RUN_PATH/dev_info_${MR_NAME}.csv $LOG_NAME $MR_NAME $NETADMIN_IP"
+        $RUN_PATH/$PY_SCRIPT_NAME $RUN_PATH/dev_info_${MR_NAME}.csv $LOG_NAME $MR_NAME $NETADMIN_IP
     fi
 }
 
@@ -116,7 +116,7 @@ func_after_operator() {
     # echo "Check success operate num: $(grep 'notice \@\[' $LOG_NAME | wc -l)"
 
     # 将 /tftpboot/ 中暂存的异常日志文档 移动到归档本目录
-    mv /tftpboot/${NETADMIN_NAME}_*.tar.gz $RUN_PATH/${NETADMIN_NAME}/
+    mv /tftpboot/${MR_NAME}_*.tar.gz $RUN_PATH/${MR_NAME}/
 
     # 删除 /tftpboot/ 暂存的执行脚本
     if [ -f /tftpboot/$SH_SCRIPT_NAME ]; then
@@ -134,8 +134,8 @@ expect eof
     sleep 1s
 
     # 上传归档文件
-    for i in $(ls $RUN_PATH/${NETADMIN_NAME}/${NETADMIN_NAME}_*.tar.gz); do
-        upload_cmd_str="scp $i $REMOTE_REPOSITORY/err_log_tar/${NETADMIN_NAME}/"
+    for i in $(ls $RUN_PATH/${MR_NAME}/${MR_NAME}_*.tar.gz); do
+        upload_cmd_str="scp $i $REMOTE_REPOSITORY/err_log_tar/${MR_NAME}/"
         expect -c "
 set timeout 60
 spawn $upload_cmd_str
@@ -165,7 +165,7 @@ main() {
 main
 
 unset NOW_DATE
-unset NETADMIN_NAME
+unset MR_NAME
 unset PASSWD
 unset PY_SCRIPT_NAME
 unset LOG_NAME

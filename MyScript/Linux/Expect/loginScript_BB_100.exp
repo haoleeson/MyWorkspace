@@ -4,16 +4,16 @@
 set timeout 30
 
 # 公司邮箱前缀
-set EMAIL_PREFIX "lihao52"
+set EMAIL_PREFIX "admin"
 # 邮箱密码
 set EMAIL_PWD "E^(*@6982"
 
 # 开发机IP
-set DEV_IP "10.32.19.100"
+set DEV_IP "A.B.C.D"
 # 开发机名（ hostname ）
 set DEV_HOSTNAME "bb-sys-ip-base"
 # 开发机用户名
-set DEV_USR_NAME "lih"
+set DEV_USR_NAME "admin"
 # 开发机用户密码
 set DEV_USR_PWD "e"
 # 跳转开发机目录

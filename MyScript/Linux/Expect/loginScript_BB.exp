@@ -1,18 +1,18 @@
 #!/usr/bin/env expect
 
 #######################################################
-# 自动登录开发机并跳转 BB 机房设备 v0.0.4
+# 自动登录开发机并跳转 A_RM设备 v0.0.4
 # 入参1：开发机 IP 第四字节数字
-# 入参2：BB 机房中的某设备IP 第四字节数字
+# 入参2：A_RM中的某设备IP 第四字节数字
 #
-# author: lihao52
+# author: admin
 # date: 2022-04-12
 #
 # 用法：
 # 1. 为本脚本添加别名:
 #    echo "alias dev='expect $HOME/.myLoginScript_BB.exp'" >> ~/.bash_profile
 #    source ~/.bash_profile
-# 2. 使用别名自动登录 BB 机房 中设备（192.168.3.35）:
+# 2. 使用别名自动登录 A_MR 中设备（A.B.C.D）:
 #    dev 35
 #    dev 98 35
 ######################################################
@@ -28,14 +28,14 @@ set JUMP_TO_SW "TRUE"
 set JUMP_DIR "/home/admin/openssl"
 
 # 公司邮箱前缀
-set EMAIL_PREFIX "lihao52"
+set EMAIL_PREFIX "admin"
 # 邮箱密码
 set EMAIL_PWD "E^(*@6982"
 
 # 开发机名（ hostname ）
 set DEV_HOSTNAME "bb-sys-ip-base"
 # 开发机用户名
-set DEV_USR_NAME "lih"
+set DEV_USR_NAME "admin"
 # 开发机用户密码
 set DEV_USR_PWD "e"
 # 跳转开发机目录
@@ -46,11 +46,11 @@ if { $PARAM2 != "" } {
     set DEV_IP "10.32.19.$PARAM1"
     set SW_IP "192.168.3.$PARAM2"
 } elseif { $PARAM1 != "" } {
-    set DEV_IP "10.32.19.98"
+    set DEV_IP "A.B.C.D"
     set SW_IP "192.168.3.$PARAM1"
 } else {
-    set DEV_IP "10.32.19.98"
-    set SW_IP "192.168.3.35"
+    set DEV_IP "A.B.C.D"
+    set SW_IP "A.B.C.D"
 }
 
 

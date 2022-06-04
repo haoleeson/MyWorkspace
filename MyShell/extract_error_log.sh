@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 ################################################################
 # 捞取设备各类异常日志，并压缩归档
-# Param1： 执行设备所属机房名
-# Param2： netadmin 机房同网段IP（可选，默认空）
+# Param1： 执行设备所属MR名
+# Param2： netadmin MR同网段IP（可选，默认空）
 
 # Usage: sh extract_error_log.sh bb
 
@@ -14,7 +14,7 @@
 #   - /var/log/monit.log
 ################################################################
 
-# 入参1：获取小写 netadmin 机房名
+# 入参1：获取小写 netadmin MR名
 if [ ! $1 ]; then
     NETADMIN_NAME='bb'
 else
@@ -26,7 +26,7 @@ RUN_TIME=$(date +%Y-%m-%d--%H-%M-%S)
 # 设备管理IP
 DEV_IP=$(ip addr show eth0 | grep -oP \(\\d+\\.\){3}\\d+ | head -n +1)
 
-# 入参2：获取 netadmin 机房同网段IP
+# 入参2：获取 netadmin MR同网段IP
 if [ $2 ]; then
     NETADMIN_IP=$2
 else
@@ -36,8 +36,8 @@ fi
 # 临时暂存"捞取的异常日志"文件夹
 SAVE_LOG_DIR="$HOME/${NETADMIN_NAME}_${DEV_IP}_${RUN_TIME}"
 # 远程错误日志汇总文件仓库
-REMOTE_REPOSITORY='admin@192.168.3.98:/home/admin/inspect_error_log/scp'
-REMOTE_SFTP_REPOSITORY='admin@192.168.3.98:/home/admin/inspect_error_log/sftp'
+REMOTE_REPOSITORY='admin@A.B.C.D:/home/admin/inspect_error_log/scp'
+REMOTE_SFTP_REPOSITORY='admin@A.B.C.D:/home/admin/inspect_error_log/sftp'
 REMOTE_SERVER_PWD='e'
 
 # 函数：从各日志文件捞取指定异常字段的日志
@@ -117,7 +117,7 @@ func_upload_then_del_tar() {
 
 # 主函数
 main() {
-    # 删除历史捞取的异常日志归档文件（eg. bb_192.168.3.60_*.tar.gz）
+    # 删除历史捞取的异常日志归档文件（eg. bb_A.B.C.D_*.tar.gz）
     rm -rf $HOME/${NETADMIN_NAME}_${DEV_IP}_*.tar.gz
 
     # 新建此次巡检的 临时暂存"捞取的异常日志"文件夹
