@@ -1,0 +1,9 @@
+.gitignore
+.git/
+.idea/
+build/
+src/tests/test_graphical_print
+*.o
+main
+cmake-build-debug/
+
