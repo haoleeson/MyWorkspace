@@ -107,6 +107,9 @@ deploy:
     repo: git@e.coding.net:EisenHao/eisenhao/eisenhao.git
     branch: master
   - type: git
+    repo: git@gitee.com:eisenhao/eisenhao.git
+    branch: master
+  - type: git
     repo: git@github.com:EisenHao/eisenhao.github.io.git
     branch: master
 
