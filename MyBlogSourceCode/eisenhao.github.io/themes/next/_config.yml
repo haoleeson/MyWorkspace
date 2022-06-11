@@ -161,16 +161,16 @@ social_icons:
 # Blog rolls
 links_settings:
   icon: fa fa-link # fa fa-globe
-  title: Links
+  title: Friendly links
   # Available values: block | inline
   layout: block
 
 links:
   reuixiy: https://reuixiy.github.io/
   IIssNan: https://notes.iissnan.com/
-  kisence: https://www.kisence.com/
+  # kisence: https://www.kisence.com/
   sunxiaohang: https://sunxiaohang.github.io/
-  Doublemine: https://notes.wanghao.work/
+  # Doublemine: https://notes.wanghao.work/
   #Title: https://example.com
 
 # Table of Contents in the Sidebar
