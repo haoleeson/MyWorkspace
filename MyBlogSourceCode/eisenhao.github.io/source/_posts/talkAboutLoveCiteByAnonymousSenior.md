@@ -13,7 +13,7 @@ categories:
 
 
 {% note success %}
-[全文转自西电睿思学姐(内网)](http://rs.xidian.edu.cn/forum.php?mod=viewthread&tid=935336)详细成熟了如何树立正确的爱情观，约束而又不失个性，理性与感性并存，遂与大家分享。
+[全文转自西电睿思学姐(内网)](http://rs.xidian.edu.cn/forum.php?mod=viewthread&tid=935336)分享了如何树立正确的爱情观（约束而又不失个性，理性与感性并存），观点很正，值得学习，遂与大家分享。
 {% endnote %}
 
 <!-- more -->
