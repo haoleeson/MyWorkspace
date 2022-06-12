@@ -51,10 +51,3 @@ add_executable(test_load
         src/skip_list/skip_list.h
         src/skip_list/skip_list_node.h
         src/tests/test_load.cpp)
-
-add_executable(test_mul_thread_read
-        src/log/vlog.cpp
-        src/log/vlog.h
-        src/skip_list/skip_list.h
-        src/skip_list/skip_list_node.h
-        )

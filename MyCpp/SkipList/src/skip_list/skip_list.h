@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include <ctime>    // use its time() for genning a random number as seed
 #include <atomic>   // use its std::atomic_bool for multiply thread status check
 #include <iomanip>  // use its std::setw() for printing
@@ -26,7 +27,7 @@ namespace my_skip_list_namespace {
 #define MAX_LEVEL 16
 // 定义默认 dump load 文件路径
 #define DEFAULT_DUMP_FILE_PATH "./skip_list_cache.tmp"
-#define DELIMITER ","
+#define DELIMITER ','
 // 产生 (0, b) 范围内的随机数
 #define random(b) (rand() % b)
 #define FILE_EXIST 0
@@ -45,10 +46,11 @@ namespace my_skip_list_namespace {
         Node<K, V>* find(const K key);              // 查找位置(未找到，得到其上一个位置)
         bool insert(K key, V val, int level = -1);  // 增/改值
         bool del(K key);                            // 删值
-        V* get(K key);                               // 取值
+        V* get(K key);                              // 取值
         bool dump(std::string file_path_to_dump = DEFAULT_DUMP_FILE_PATH);  // 备份
         bool load(std::string file_path_to_load = DEFAULT_DUMP_FILE_PATH);  // 加载
         void graphical_print(void);                 // 可视化打印
+        std::vector<std::string> stringSplit(const std::string& str, char delim);
     private:
         inline int gen_rand_Level();
     private:
@@ -339,13 +341,36 @@ namespace my_skip_list_namespace {
         ptr = _pre_header->_next_nodes[0];
 
         while (ptr) {
-            ofs << ptr->_key << DELIMITER << ptr->_val << std::endl;
+            ofs << ptr->_key << DELIMITER << ptr->_level << DELIMITER << ptr->_val << std::endl;
             ptr = ptr->_next_nodes[0];
         }
         ofs.close();
         return true;
     }
 
+    /**
+     * 字符串分割
+     * @param str
+     * @param delim
+     * @return
+     */
+    template<typename K, typename V>
+    std::vector<std::string> SkipList<K, V>::stringSplit(const std::string& str, char delim) {
+        std::size_t previous = 0;
+        std::size_t current = str.find(delim);
+        std::vector<std::string> elems;
+        while (current != std::string::npos) {
+            if (current > previous) {
+                elems.push_back(str.substr(previous, current - previous));
+            }
+            previous = current + 1;
+            current = str.find(delim, previous);
+        }
+        if (previous != str.size()) {
+            elems.push_back(str.substr(previous));
+        }
+        return elems;
+    }
 
     /**
      * 加载文件数据到 SkipList 内存
@@ -361,16 +386,27 @@ namespace my_skip_list_namespace {
             return false;
         }
         std::ifstream ifs;
+        std::string line;
 
         ifs.open(file_path_to_load, std::ios::in);
         if (!ifs.is_open()) {
             log_error("Open file failed!");
             return false;
         }
-        std::string line;
-        while (std::getline(ifs, line)) {
-            std::cout << line << std::endl;
 
+        while (std::getline(ifs, line)) {
+            std::vector<std::string> elems = stringSplit(line, DELIMITER);
+            if (elems.size() != 3) {
+                continue;
+            }
+
+            // Assume K is Int and V is string
+            int key = std::stoi(elems[0]);
+            int level = std::stoi(elems[1]);
+            std::string val = elems[2];
+
+            // std::cout << "key: " << key << ", level: " << level << ", val: " << val.c_str() << std::endl;
+            insert(key, val, level);
         }
         ifs.close();
         return true;
