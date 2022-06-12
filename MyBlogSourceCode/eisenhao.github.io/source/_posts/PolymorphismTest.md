@@ -1,6 +1,6 @@
 layout: post
 title: C++中的四种多态
-date: 2018/10/14 19:30:44
+date: 2018/10/14 19:30:30
 updated: 2018/10/16 23:06:45
 comments: true
 tags:

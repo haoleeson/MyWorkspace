@@ -1,6 +1,6 @@
 layout: post
 title: syslog协议与Rsyslog系统日志软件简介
-date: 2021/08/07 14:45:44
+date: 2021/08/07 14:45:30
 updated: 2021/08/12 16:31:45
 comments: true
 tags:

@@ -362,8 +362,8 @@ codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
   theme:
-    light: solarized-light # default
-    dark: zenburn # tomorrow-night
+    light: androidstudio # default
+    dark: androidstudio # tomorrow-night
   prism:
     light: prism-solarizedlight
     dark: prism-tomorrow

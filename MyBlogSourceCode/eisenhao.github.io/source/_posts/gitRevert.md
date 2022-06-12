@@ -1,6 +1,6 @@
 layout: post
 title: git撤销已push到远端仓库的提交
-date: 2019/10/26 9:18:44
+date: 2019/10/26 9:18:30
 updated: 2019/10/26 10:04:45
 comments: true
 tags:

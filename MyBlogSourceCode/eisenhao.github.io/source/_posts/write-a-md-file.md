@@ -1,6 +1,6 @@
 layout: post
 title: 基于Hexo的Markdown博文语法简介
-date: 2018/8/31 12:10:44
+date: 2018/8/31 12:10:30
 updated: 2018/10/04 19:15:45
 comments: true
 tags:
@@ -31,7 +31,7 @@ permalink|覆盖文章网址|
 ```
 layout: post
 title: Markdown文章写作格式＆语法
-date: 2018/8/31 12:10:44
+date: 2018/8/31 12:10:30
 updated: 2018/9/1 19:24:45
 comments: true
 tags:

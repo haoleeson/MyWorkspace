@@ -1,6 +1,6 @@
 layout: post
 title: 对于阶级固化下人生追求的思考  
-date: 2017/11/12 11:53:44
+date: 2017/11/12 11:53:30
 updated: 2018/9/1 15:15:45
 comments: true
 tags:

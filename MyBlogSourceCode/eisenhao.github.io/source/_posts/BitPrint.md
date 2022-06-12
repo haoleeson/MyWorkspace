@@ -1,6 +1,6 @@
 layout: post
 title: 测试内存中变量的存储方式
-date: 2019/07/24 21:44:44
+date: 2019/07/24 21:44:30
 updated: 2019/07/25 00:31:45
 comments: true
 tags:
