@@ -11,7 +11,7 @@ categories:
 
 ---
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Skiplist_add_element.gif" class="full-image" />
+<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SkipList_search.jpg" class="full-image" />
 
 # 1. 背景
 1990 年，William Pugh 提出了一种用于替换平衡树的数据结构 Skip lists: a probabilistic alternative to balanced trees，即跳表。
