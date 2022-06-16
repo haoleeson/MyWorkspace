@@ -103,13 +103,15 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
+  # Website Pages
+  - type: git
+    repo: git@github.com:EisenHao/eisenhao.github.io.git
+    branch: master
+  # Images Database
   - type: git
     repo: git@e.coding.net:EisenHao/eisenhao/eisenhao.git
     branch: master
   # - type: git
   #   repo: git@gitee.com:eisenhao/eisenhao.git
   #   branch: master
-  - type: git
-    repo: git@github.com:EisenHao/eisenhao.github.io.git
-    branch: master
 
