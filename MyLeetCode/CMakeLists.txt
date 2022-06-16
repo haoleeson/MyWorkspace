@@ -6,4 +6,4 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(RunSingle
-        No76.minimum-window-substring.cpp)
+        No567.permutation-in-string.cpp)
