@@ -6,4 +6,5 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(RunSingle
-        No567.permutation-in-string.cpp)
+        No99.recover-binary-search-tree.cpp
+        )
