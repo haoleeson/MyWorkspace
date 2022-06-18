@@ -6,5 +6,5 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(RunSingle
-        No99.recover-binary-search-tree.cpp
+        No236.lowest-common-ancestor-of-a-binary-tree.cpp
         )
