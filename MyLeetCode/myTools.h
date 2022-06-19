@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <stack>
+#include <list>
 #include <queue>
 
 // Definition for a binary tree node.
@@ -15,7 +16,9 @@ struct TreeNode {
     int val;
     TreeNode *left;
     TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
 // Definition for singly-linked list.
@@ -57,6 +60,9 @@ public:
 
     // 二叉树的 后序遍历 (左 右 根)（迭代）
     static std::vector<int> postorderTraversal(TreeNode* root);
+
+    // 字符串分割
+    std::list<std::string> stringSplit(const std::string& str, char delim);
 };
 
 void MyTools::trim(std::string& str) {
@@ -237,6 +243,26 @@ std::vector<int> MyTools::postorderTraversal(TreeNode* root) {
         }
     }
     return ans;
+}
+
+
+std::list<std::string> stringSplit(const std::string& str, char delim) {
+    size_t previous = 0;
+    size_t current = str.find(delim);
+    std::list<std::string> l;
+
+    while (current != std::string::npos) {
+        if (current > previous) {
+            l.push_back(str.substr(previous, current - previous));
+        }
+        previous = current + 1;
+        current = str.find(delim, previous);
+    }
+
+    if (previous != str.size()) {
+        l.push_back(str.substr(previous));
+    }
+    return l;
 }
 
 #endif //__MYTOOLS_H_

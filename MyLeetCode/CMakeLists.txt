@@ -6,5 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(RunSingle
-        No236.lowest-common-ancestor-of-a-binary-tree.cpp
+        myTools.h
+        No437.path-sum-iii.cpp
         )
