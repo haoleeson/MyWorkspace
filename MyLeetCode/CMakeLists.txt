@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No652.find-duplicate-subtrees.cpp
+        No1425.constrained-subsequence-sum.cpp
         )
