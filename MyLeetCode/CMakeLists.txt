@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No1425.constrained-subsequence-sum.cpp
+        No89.gray-code.cpp
         )
