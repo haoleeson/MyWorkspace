@@ -18,11 +18,17 @@ RUN mkdir -p /app/files
 # Copy the current directory contents into the container at /app
 COPY ["./files", "/app/files"]
 
+# Solve Linux 8 hours earlier than host
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+# Change hostname
+echo 'myDebian11' > /etc/hostname
+
 # Install usefull applications
-# RUN apt-get install -y \
-#         ca-certificates \
-#         vim \
-#         openssh-server
+RUN apt-get install -y \
+        vim \
+        gcc \
+        openssh-server
 
 # Initialization SSH
 # RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''

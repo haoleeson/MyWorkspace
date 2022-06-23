@@ -2,7 +2,7 @@
 FROM ubuntu:18.04
 
 # Update apt-get sorce
-RUN apt-get update
+RUN apt-get update && apt-get install sudo
 
 # Set the working directory to /app
 WORKDIR /app
@@ -14,6 +14,7 @@ COPY ["./files", "/app/files"]
 
 # Install usefull applications
 RUN apt-get install -y \
+        net-tools \
         openssh-server \
         vim \
         tar \
@@ -25,8 +26,15 @@ RUN apt-get install -y \
         tcpdump \
         less \
         telnet \
-        net-tools \
         lsof
+
+# Install gcc, g++
+RUN apt-get install -y make
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y gcc
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y g++
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y gdb
 
 # Initialization SSH
 # RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
@@ -36,6 +44,12 @@ RUN apt-get install -y \
 
 # Clean cache
 RUN apt-get clean all
+
+# Solve Linux 8 hours earlier than host
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+# Change hostname
+echo 'myUbuntu18' > /etc/hostname
 
 # Close Firewall
 # RUN service iptables stop

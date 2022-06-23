@@ -9,6 +9,9 @@ RUN mkdir -p /app/files
 # Copy the current directory contents into the container at /app
 COPY ["./files", "/app/files"]
 
+# Solve Linux 8 hours earlier than host
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r /app/files/requirements.txt
 
