@@ -6,7 +6,7 @@ Language:        Cpp
 AccessModifierOffset: -4
 # 开括号(开圆括号、开尖括号、开方括号)后的对齐: Align, DontAlign, AlwaysBreak(总是在开括号后换行)
 AlignAfterOpenBracket: Align
-AlignArrayOfStructures: None
+#AlignArrayOfStructures: None
 # 对齐连续宏定义
 AlignConsecutiveMacros: None
 # 连续赋值时，对齐所有等号
@@ -112,7 +112,7 @@ EmptyLineAfterAccessModifier: Never
 EmptyLineBeforeAccessModifier: LogicalBlock
 # 自动检测函数的调用和定义是否被格式为每行一个参数(Experimental)
 ExperimentalAutoDetectBinPacking: false
-PackConstructorInitializers: NextLine
+#PackConstructorInitializers: NextLine
 BasedOnStyle:    ''
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 AllowAllConstructorInitializersOnNextLine: true
@@ -123,8 +123,8 @@ ForEachMacros:
   - foreach
   - Q_FOREACH
   - BOOST_FOREACH
-IfMacros:
-  - KJ_IF_MAYBE
+#IfMacros:
+#  - KJ_IF_MAYBE
 # 多个#include块合并在一起并排序为一个
 IncludeBlocks:   Regroup
 # 可以定义负数优先级从而保证某些#include永远在最前面
@@ -174,7 +174,7 @@ JavaScriptWrapImports: true
 # 保留在块开始处的空行
 KeepEmptyLinesAtTheStartOfBlocks: false
 # 相对于 lambda 签名对齐 lambda 主体
-LambdaBodyIndentation: Signature
+#LambdaBodyIndentation: Signature
 # 开始一个块的宏的正则表达式
 MacroBlockBegin: ''
 # 结束一个块的宏的正则表达式
@@ -237,7 +237,7 @@ RawStringFormats:
 # ReferenceAlignment: Pointer
 # 允许重新排版注释
 ReflowComments:  true
-RemoveBracesLLVM: false
+#RemoveBracesLLVM: false
 # SeparateDefinitionBlocks: Leave
 # 短命名空间跨越的最大展开行数
 ShortNamespaceLines: 1
@@ -265,14 +265,14 @@ SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
 # 开圆括号之前添加一个空格: Never, ControlStatements, Always
 SpaceBeforeParens: ControlStatements
-SpaceBeforeParensOptions:
-  AfterControlStatements: true
-  AfterForeachMacros: true
-  AfterFunctionDefinitionName: false
-  AfterFunctionDeclarationName: false
-  AfterIfMacros:   true
-  AfterOverloadedOperator: false
-  BeforeNonEmptyParentheses: false
+#SpaceBeforeParensOptions:
+#  AfterControlStatements: true
+#  AfterForeachMacros: true
+#  AfterFunctionDefinitionName: false
+#  AfterFunctionDeclarationName: false
+#  AfterIfMacros:   true
+#  AfterOverloadedOperator: false
+#  BeforeNonEmptyParentheses: false
 # 不要确保指针限定符周围有空格，而是使用 PointerAlignment
 SpaceAroundPointerQualifiers: Default
 # 在基于范围的for循环冒号之前添加空格
