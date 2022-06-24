@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No56.merge-intervals.cpp
+        No752.open-the-lock.cpp
         )
