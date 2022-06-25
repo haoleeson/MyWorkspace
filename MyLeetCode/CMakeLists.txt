@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No752.open-the-lock.cpp
+        No256.paint-house.cpp
         )
