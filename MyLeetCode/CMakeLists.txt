@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No256.paint-house.cpp
+        No710.random-pick-with-blacklist.cpp
         )
