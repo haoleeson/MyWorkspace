@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No710.random-pick-with-blacklist.cpp
+        No68.text-justification.cpp
         )

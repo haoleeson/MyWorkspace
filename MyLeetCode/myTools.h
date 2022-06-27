@@ -5,26 +5,26 @@
 #ifndef __MYTOOLS_H_
 #define __MYTOOLS_H_
 #include <iostream>
-#include <vector>
-#include <string>
-#include <stack>
 #include <list>
 #include <queue>
+#include <stack>
+#include <string>
+#include <vector>
 
 // Definition for a binary tree node.
 struct TreeNode {
     int val;
-    TreeNode *left;
-    TreeNode *right;
+    TreeNode* left;
+    TreeNode* right;
     TreeNode() : val(0), left(nullptr), right(nullptr) {}
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
 // Definition for singly-linked list.
 struct ListNode {
     int val;
-    ListNode *next;
+    ListNode* next;
     ListNode(int x) : val(x), next(nullptr) {}
 };
 
@@ -34,7 +34,7 @@ public:
     static void trim(std::string& str);
 
     // 构造链表
-    template<typename T>
+    template <typename T>
     static ListNode* genList(std::vector<T>& vec);
 
     // 释放链表
@@ -46,10 +46,13 @@ public:
     // 打印二叉树
     static void printTree(TreeNode* root);
 
+    // 输出 n 个质数
+    static void printPrime(unsigned int n);
+
     // 打印数组
-    template<typename T>
+    template <typename T>
     static void printVec(std::vector<T>& vec);
-    template<typename T>
+    template <typename T>
     static void printVec2D(std::vector<std::vector<T>>& vec2D);
 
     // 二叉树的 前序遍历 (根 左 右) (迭代)
@@ -72,7 +75,7 @@ void MyTools::trim(std::string& str) {
     }
 }
 
-template<typename T>
+template <typename T>
 ListNode* MyTools::genList(std::vector<T>& vec) {
     int size = vec.size(), i = 0;
     if (size == 0) {
@@ -115,8 +118,8 @@ void MyTools::printTree(TreeNode* root) {
     que.push(root);
     std::cout << "[";
     while (!que.empty()) {
-        ptr = que.front();// 先读取队列的首元素
-        que.pop();// 弹出队列的首元素
+        ptr = que.front(); // 先读取队列的首元素
+        que.pop();         // 弹出队列的首元素
         if (ptr != nullptr) {
             // 若子节点均为空，则不必入队列
             if (ptr->left != nullptr || ptr->right != nullptr) {
@@ -139,7 +142,42 @@ void MyTools::printTree(TreeNode* root) {
     std::cout << "]" << std::endl;
 }
 
-template<typename T>
+// 输出 n 个质数
+void MyTools::printPrime(unsigned int n) {
+    if (n < 2) {
+        if (n == 1) {
+            std::cout << 2 << std::endl;
+        }
+        return;
+    }
+
+    auto isPrime = [](int num) {
+        if (num == 0 || num == 1) {
+            return false;
+        }
+        for (int i = 2; (i * i) <= num; ++i) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    int cnt = 0;
+    std::cout << "2";
+    int i = 3;
+    while (true) {
+        if (isPrime(i)) {
+            std::cout << ", " << i;
+            if (++cnt > n) {
+                return;
+            }
+        }
+        ++i;
+    }
+}
+
+template <typename T>
 void MyTools::printVec(std::vector<T>& vec) {
     int size = vec.size();
     std::cout << "[";
@@ -152,7 +190,7 @@ void MyTools::printVec(std::vector<T>& vec) {
     std::cout << "]" << std::endl;
 }
 
-template<typename T>
+template <typename T>
 void MyTools::printVec2D(std::vector<std::vector<T>>& vec2D) {
     int size = vec2D.size(), size2;
     std::cout << "[" << std::endl;
@@ -173,7 +211,7 @@ void MyTools::printVec2D(std::vector<std::vector<T>>& vec2D) {
             if (size2 > 0) {
                 std::cout << vec2D[i][0];
                 for (int j = 1; j < size2; ++j) {
-                    std::cout << "\t," << vec2D[i][j];
+                    std::cout << ",\t" << vec2D[i][j];
                 }
             }
             std::cout << "]";
@@ -184,7 +222,7 @@ void MyTools::printVec2D(std::vector<std::vector<T>>& vec2D) {
 
 std::vector<int> MyTools::preorderTraversal(TreeNode* root) {
     std::vector<int> ans;
-    std::stack<TreeNode* > s;
+    std::stack<TreeNode*> s;
     while (root != nullptr || !s.empty()) {
         if (root != nullptr) {
             // 输出 根
@@ -244,7 +282,6 @@ std::vector<int> MyTools::postorderTraversal(TreeNode* root) {
     }
     return ans;
 }
-
 
 std::list<std::string> stringSplit(const std::string& str, char delim) {
     size_t previous = 0;
