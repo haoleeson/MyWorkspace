@@ -55,8 +55,11 @@ public:
     template <typename T>
     static void printVec2D(std::vector<std::vector<T>>& vec2D);
 
-    // 二叉树的 前序遍历 (根 左 右) (迭代)
-    static std::vector<int> preorderTraversal(TreeNode* root);
+    // 二分查找
+    static int binSearch(vector<int>& nums, int begin, int end, int target)
+
+        // 二叉树的 前序遍历 (根 左 右) (迭代)
+        static std::vector<int> preorderTraversal(TreeNode* root);
 
     // 二叉树的 中序遍历 (左 根 右) (迭代)
     static std::vector<int> inorderTraversal(TreeNode* root);
@@ -65,7 +68,10 @@ public:
     static std::vector<int> postorderTraversal(TreeNode* root);
 
     // 字符串分割
-    std::list<std::string> stringSplit(const std::string& str, char delim);
+    static std::list<std::string> stringSplit(const std::string& str, char delim);
+
+    // 快速选择数组的第 n 大的数（双指针，相向而行）O(N)
+    void quickSelect(std::vector<int>& nums, int begin, int end, int n);
 };
 
 void MyTools::trim(std::string& str) {
@@ -283,7 +289,7 @@ std::vector<int> MyTools::postorderTraversal(TreeNode* root) {
     return ans;
 }
 
-std::list<std::string> stringSplit(const std::string& str, char delim) {
+std::list<std::string> MyTools::stringSplit(const std::string& str, char delim) {
     size_t previous = 0;
     size_t current = str.find(delim);
     std::list<std::string> l;
@@ -300,6 +306,48 @@ std::list<std::string> stringSplit(const std::string& str, char delim) {
         l.push_back(str.substr(previous));
     }
     return l;
+}
+
+// 快速选择数组的第 n 大的数（双指针，相向而行）O(N)
+void MyTools::quickSelect(std::vector<int>& nums, int begin, int end, int n) {
+    if (begin >= end) {
+        return;
+    }
+
+    int left = begin;
+    int key = (nums[begin] + nums[end]) / 2; // 关键字
+
+    for (int i = begin; i <= end; ++i) {
+        if (nums[i] <= key) {
+            if (i > left) {
+                std::swap(nums[i], nums[left]);
+            }
+            ++left;
+        }
+    }
+    --left;
+
+    if (left > n) {
+        quickSelect(nums, begin, left - 1, n);
+    } else if (left < n) {
+        quickSelect(nums, left + 1, end, n);
+    }
+}
+
+// 二分查找
+int MyTools::binSearch(vector<int>& nums, int begin, int end, int target) {
+    int left = begin, right = end, mid = (begin + end) / 2;
+    while (left <= right) {
+        if (target == nums[mid]) {
+            return mid;
+        } else if (target < nums[mid]) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+        mid = (left + right) / 2;
+    }
+    return -1;
 }
 
 #endif //__MYTOOLS_H_
