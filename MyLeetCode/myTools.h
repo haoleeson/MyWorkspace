@@ -56,10 +56,10 @@ public:
     static void printVec2D(std::vector<std::vector<T>>& vec2D);
 
     // 二分查找
-    static int binSearch(vector<int>& nums, int begin, int end, int target)
+    static int binSearch(std::vector<int>& nums, int begin, int end, int target);
 
-        // 二叉树的 前序遍历 (根 左 右) (迭代)
-        static std::vector<int> preorderTraversal(TreeNode* root);
+    // 二叉树的 前序遍历 (根 左 右) (迭代)
+    static std::vector<int> preorderTraversal(TreeNode* root);
 
     // 二叉树的 中序遍历 (左 根 右) (迭代)
     static std::vector<int> inorderTraversal(TreeNode* root);
@@ -335,7 +335,7 @@ void MyTools::quickSelect(std::vector<int>& nums, int begin, int end, int n) {
 }
 
 // 二分查找
-int MyTools::binSearch(vector<int>& nums, int begin, int end, int target) {
+int MyTools::binSearch(std::vector<int>& nums, int begin, int end, int target) {
     int left = begin, right = end, mid = (begin + end) / 2;
     while (left <= right) {
         if (target == nums[mid]) {
