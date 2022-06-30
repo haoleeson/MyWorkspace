@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No93.restore-ip-addresses.cpp
+        No80.remove-duplicates-from-sorted-array-ii.cpp
         )
