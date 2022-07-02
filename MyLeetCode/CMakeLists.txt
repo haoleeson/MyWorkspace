@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No91.decode-ways.cpp
+        No871.minimum-number-of-refueling-stops.cpp
         )
