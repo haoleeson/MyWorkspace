@@ -30,6 +30,12 @@ struct ListNode {
 
 class MyTools {
 public:
+    // 字符串转整数
+    static std::string uint2str(uint32_t num);
+
+    // 字符串转整数
+    static int str2uint(std::string& str);
+
     // 去除字符串前后空格
     static void trim(std::string& str);
 
@@ -73,6 +79,54 @@ public:
     // 快速选择数组的第 n 大的数（双指针，相向而行）O(N)
     void quickSelect(std::vector<int>& nums, int begin, int end, int n);
 };
+
+// 整数转字符串
+std::string MyTools::uint2str(uint32_t num) {
+    if (num == 0) {
+        return "0";
+    }
+
+    char buff[11] = {'\0'};
+    int iterator = 0;
+
+    uint32_t tmp = num;
+    while (tmp) {
+        buff[iterator++] = '0' + char(tmp % 10);
+        tmp /= 10;
+    }
+
+    // 反转 buff 数组
+    char tmpCh;
+    int i = 0, j = iterator - 1;
+    while (i < j) {
+        tmpCh = buff[i];
+        buff[i] = buff[j];
+        buff[j] = tmpCh;
+        ++i;
+        --j;
+    }
+    buff[iterator] = '\0';
+    return std::string(buff);
+}
+
+// 字符串转整数
+int MyTools::str2uint(std::string& str) {
+    long num = 0, chNum;
+    int lenS = str.length();
+    if (lenS == 0 || lenS > 11) {
+        return 0;
+    }
+
+    for (int i = 0; i < lenS; ++i) {
+        chNum = str[i] - '0';
+        if (chNum < 0 || chNum > 9) {
+            return 0;
+        }
+        num = num * 10 + chNum;
+    }
+
+    return (num > UINT32_MAX || num < 0) ? 0 : num;
+}
 
 void MyTools::trim(std::string& str) {
     if (!str.empty()) {

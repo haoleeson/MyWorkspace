@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No871.minimum-number-of-refueling-stops.cpp
+        No62.unique-paths.cpp
         )
