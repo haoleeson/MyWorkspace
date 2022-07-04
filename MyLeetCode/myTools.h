@@ -25,7 +25,9 @@ struct TreeNode {
 struct ListNode {
     int val;
     ListNode* next;
+    ListNode() : val(0), next(nullptr) {}
     ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
 
 class MyTools {
@@ -260,7 +262,7 @@ void MyTools::printVec2D(std::vector<std::vector<T>>& vec2D) {
         if (size2 > 0) {
             std::cout << vec2D[0][0];
             for (int j = 1; j < size2; ++j) {
-                std::cout << "\t," << vec2D[0][j];
+                std::cout << ",\t" << vec2D[0][j];
             }
         }
         std::cout << "]";
