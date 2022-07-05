@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No2327.number-of-people-aware-of-a-secret.cpp
+        test3.cpp
         )
