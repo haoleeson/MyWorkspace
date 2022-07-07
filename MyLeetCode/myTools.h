@@ -63,6 +63,10 @@ public:
     template <typename T>
     static void printVec2D(std::vector<std::vector<T>>& vec2D);
 
+    // 生成指定长度的链表
+    template <typename T>
+    static ListNode* genListByArr(T arr[], int len);
+
     // 二分查找
     static int binSearch(std::vector<int>& nums, int begin, int end, int target);
 
@@ -280,6 +284,19 @@ void MyTools::printVec2D(std::vector<std::vector<T>>& vec2D) {
         }
     }
     std::cout << std::endl << "]" << std::endl;
+}
+
+// 生成指定长度的链表
+template <typename T>
+ListNode* MyTools::genListByArr(T arr[], int len) {
+    ListNode* preHead = new ListNode(-1);
+    ListNode* ptr = preHead;
+    for (int i = 0; i < len; ++i) {
+        ptr->next = new ListNode(arr[i]);
+        ptr = ptr->next;
+    }
+
+    return preHead->next;
 }
 
 std::vector<int> MyTools::preorderTraversal(TreeNode* root) {
