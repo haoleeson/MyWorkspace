@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        test3.cpp
+        No74.search-a-2d-matrix.cpp
         )
