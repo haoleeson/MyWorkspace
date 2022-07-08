@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No74.search-a-2d-matrix.cpp
+        No82.remove-duplicates-from-sorted-list-ii.cpp
         )
