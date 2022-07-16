@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No558.logical-or-of-two-binary-grids-represented-as-quad-trees.cpp
+        No346.moving-average-from-data-stream.cpp
         )
