@@ -7,6 +7,6 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No731.my-calendar-ii.cpp
+        No1260.shift-2d-grid.cpp
         )
 
