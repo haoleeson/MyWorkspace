@@ -7,6 +7,6 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No1260.shift-2d-grid.cpp
+        No814.binary-tree-pruning.cpp
         )
 
