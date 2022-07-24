@@ -7,6 +7,6 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No814.binary-tree-pruning.cpp
+        No1184.distance-between-bus-stops.cpp
         )
 
