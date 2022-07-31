@@ -7,6 +7,6 @@ include_directories(.)
 
 add_executable(RunSingle
         myTools.h
-        No1184.distance-between-bus-stops.cpp
+        No1161.maximum-level-sum-of-a-binary-tree.cpp
         )
 
