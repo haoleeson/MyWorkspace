@@ -14,7 +14,7 @@ COPY ["./files", "/app/files"]
 
 # Install usefull applications
 RUN apt-get install -y \
-        net-tools \
+        net-tools nc telnet \
         openssh-server \
         vim \
         tar \
@@ -24,6 +24,7 @@ RUN apt-get install -y \
         bzip2 \
         iptables \
         tcpdump \
+        tmux \
         less \
         telnet \
         lsof

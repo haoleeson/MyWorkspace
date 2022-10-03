@@ -28,6 +28,13 @@ echo 'myDebian11' > /etc/hostname
 RUN apt-get install -y \
         vim \
         gcc \
+        net-tools \
+        tar \
+        wget \
+        curl \
+        iptables \
+        tcpdump \
+        tmux \
         openssh-server
 
 # Initialization SSH

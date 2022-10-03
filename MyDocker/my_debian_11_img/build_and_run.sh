@@ -28,9 +28,21 @@ fi
 echo "Build debian image"
 docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
+echo "Check or build my own net"
+ret=$(docker network ls | grep mynet >> /etc/null)
+if [ "$?" == "1" ]; then
+    echo "Creating my own net"
+    docker network create --driver bridge --subnet 172.16.13.0/24 --gateway 172.16.13.1 mynet
+    # remove manually
+    # docker network rm mynet
+else
+    echo "My own net is existed"
+fi
+
 echo "Run the image in a container"
 docker run -dit \
         --name $CONTAINER_NAME \
+        --network=mynet --ip=172.16.13.11 \
         $IMAGE_NAME:$IMAGE_TAG
 
 echo "done."
