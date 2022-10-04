@@ -16,10 +16,11 @@ COPY ["./files", "/app/files"]
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # Change hostname
-echo 'myCentOs7' > /etc/hostname
+RUN echo 'myCentOs7' > /etc/hostname
 
 # Install usefull applications
 RUN yum install -y \
+        initscripts \
         openssh-server \
         vim \
         tar \
@@ -64,9 +65,6 @@ RUN ln -s /root/cmake-3.19.8-Linux-x86_64/bin/cmake /usr/bin/cmake \
 && ln -s /root/cmake-3.19.8-Linux-x86_64/bin/cpack /usr/bin/cpack \
 && ln -s /root/cmake-3.19.8-Linux-x86_64/bin/ctest /usr/bin/ctest
 
-# Clean cache
-RUN yum clean all
-
 # Close Firewall
 # RUN service iptables stop
 # RUN chkconfig iptables off
@@ -81,7 +79,12 @@ EXPOSE 22
 ENV NAME=Centos7.9
 
 # Run ssh
+RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak
+RUN cp /app/files/sshd_config /etc/ssh/sshd_config
 CMD ["/usr/sbin/sshd", "-D"]
+
+# Clean cache
+RUN yum clean all
 
 # Run a program that never exits
 CMD ["/bin/bash", "/app/files/nevers_stop.sh"]

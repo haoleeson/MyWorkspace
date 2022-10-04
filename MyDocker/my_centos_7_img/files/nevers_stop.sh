@@ -4,5 +4,5 @@ while true
 do
     # command
     echo "hello world."
-    sleep 1
+    sleep 10
 done

@@ -14,7 +14,8 @@ COPY ["./files", "/app/files"]
 
 # Install usefull applications
 RUN apt-get install -y \
-        net-tools nc telnet \
+        net-tools \
+        telnet \
         openssh-server \
         vim \
         tar \
@@ -50,7 +51,7 @@ RUN apt-get clean all
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # Change hostname
-echo 'myUbuntu18' > /etc/hostname
+RUN echo 'myUbuntu18' > /etc/hostname
 
 # Close Firewall
 # RUN service iptables stop
