@@ -36,6 +36,12 @@ RUN yum install -y \
         telnet \
         lsof
 
+
+# Run ssh
+RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak
+RUN cp /app/files/sshd_config /etc/ssh/sshd_config
+CMD ["/usr/sbin/sshd", "-D"]
+
 # Initialization SSH
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 # RUN service sshd start
@@ -77,11 +83,6 @@ EXPOSE 22
 
 # Define environment variable
 ENV NAME=Centos7.9
-
-# Run ssh
-RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak
-RUN cp /app/files/sshd_config /etc/ssh/sshd_config
-CMD ["/usr/sbin/sshd", "-D"]
 
 # Clean cache
 RUN yum clean all

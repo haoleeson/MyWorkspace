@@ -1,15 +1,15 @@
 From debian:stretch
 
 #更新apt-get源 使用 阿里云 的源
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
-    echo "deb https://mirrors.aliyun.com/debian/ stretch main non-free contrib" > /etc/apt/sources.list && \
-    echo "deb-src https://mirrors.aliyun.com/debian/ stretch main non-free contrib" >> /etc/apt/sources.list && \
-    echo "deb https://mirrors.aliyun.com/debian-security stretch/updates main" >> /etc/apt/sources.list && \
-    echo "deb-src https://mirrors.aliyun.com/debian-security stretch/updates main" >> /etc/apt/sources.list && \
-    echo "deb https://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >> /etc/apt/sources.list && \
-    echo "deb-src https://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >> /etc/apt/sources.list && \
-    echo "#deb https://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list && \
-    echo "#deb-src https://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list
+# RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
+#     echo "deb https://mirrors.aliyun.com/debian/ stretch main non-free contrib" > /etc/apt/sources.list && \
+#     echo "deb-src https://mirrors.aliyun.com/debian/ stretch main non-free contrib" >> /etc/apt/sources.list && \
+#     echo "deb https://mirrors.aliyun.com/debian-security stretch/updates main" >> /etc/apt/sources.list && \
+#     echo "deb-src https://mirrors.aliyun.com/debian-security stretch/updates main" >> /etc/apt/sources.list && \
+#     echo "deb https://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >> /etc/apt/sources.list && \
+#     echo "deb-src https://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >> /etc/apt/sources.list && \
+#     echo "#deb https://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list && \
+#     echo "#deb-src https://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list
 
 # RUN cp /etc/apt/sources.list.d/raspi.list /etc/apt/sources.list.d/raspi.list.bak && \
 #     echo "deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ stretch main" > /etc/apt/sources.list.d/raspi.list
@@ -34,17 +34,26 @@ RUN apt-get install -y \
         vim \
         gcc \
         g++ \
-        tar
-        # git \
-        # python3-pip \
-        # tmux \
-        # wget \
-        # curl \
-        # net-tools \
-        # iptables \
-        # tcpdump \
-        # openssh-server \
+        curl \
+        git \
+        zsh \
+        tar \
+        python3-pip \
+        tmux \
+        wget \
+        net-tools \
+        iptables \
+        iproute2 \
+        iputils-ping \
+        openssh-server \
+        tcpdump
         # openssh-client
+
+# Run ssh
+RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak
+RUN cp /app/files/sshd_config /etc/ssh/sshd_config
+RUN /etc/init.d/ssh restart
+# CMD ["/usr/sbin/sshd", "-D"]
 
 RUN apt autoremove
 
