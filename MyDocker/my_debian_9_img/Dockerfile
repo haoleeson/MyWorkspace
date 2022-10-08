@@ -33,14 +33,14 @@ COPY ["./files/pip.conf", "/etc/pip.conf"]
 
 # Install usefull applications
 RUN apt-get install -y --force-yes \
-    sudo vim git systemd gcc g++ cpp tar zip unzip expect tmux zsh \
+    sudo vim git systemd openssh-server supervisor gcc g++ cpp tar zip unzip expect tmux rsyslog zsh \
     python-pip python3 python3-pip python-setuptools python-dev python-cffi python-scapy python-ply \
     # compare
     autoconf bridge-utils libtool make automake cmake build-essential libbz2-dev libc6-dev libelf-dev libgmp10 \ 
     bison libevent-dev libssl-dev libusb-1.0-0-dev libcurl4-gnutls-dev libnl-route-3-dev libxml-simple-perl libjudy-dev \
     libgc-dev libpcap-dev libglib2.0-dev libgoogle-perftools-dev doxygen cscope flex aspell aspell-en pkg-config \
     # net
-    curl wget net-tools ethtool iptables iproute2 iputils-ping tcpdump openssh-server \
+    curl wget net-tools ethtool iptables iproute2 iputils-ping tcpdump \
     # SONiC dependenceies
     libpq-dev libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libffi-dev \
     # others
@@ -52,7 +52,7 @@ RUN apt-get install -y --force-yes \
 # Install python lib
 RUN pip install crc16 crcmod doxypy ipaddress jsl jsonschema==2.6.0 packaging ply simplejson
 
-# SONiC lib
+# Install SONiC dependency lib
 # RUN pip install -U --default-timeout=100 paramiko>=2.11.0 Jinja2==2.10 j2cli
 # RUN pip3 install -U --default-timeout=100 nose setuptools
 # RUN python3 -m pip install mockredispy>=2.9.3
@@ -60,46 +60,35 @@ RUN pip install crc16 crcmod doxypy ipaddress jsl jsonschema==2.6.0 packaging pl
 # RUN pip3 install -U redis==2.10.6 natsort pytest-runner pytest==3.0.5 python_arptable>=0.0.1 psutil>=4.0 pyyaml
 # RUN pip install -U redis==2.10.6
 
-# Run ssh
+# Initialization SSH
 RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak
 COPY ["./files/sshd_config", "/etc/ssh/sshd_config"]
-CMD ["/etc/init.d/ssh", "restart"]
+RUN mkdir -p /var/run/sshd
+# RUN ssh-keygen -y -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 
-RUN apt autoremove
+# Setting oh-my-zsh (GnuTLS recv error (-110): The TLS connection was non-properly terminated.)
+# RUN /usr/bin/curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+## RUN git clone git://github.com/robbyrussell/oh-my-zsh.git /root/.oh-my-zsh
+# CMD ["/bin/cp", "/root/.zshrc", "/root/.zshrc_bak"]
+# CMD ["/bin/cp", "/root/.oh-my-zsh/templates/zshrc.zsh-template", "/root/.zshrc"]
+# RUN /bin/sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/g' /root/.zshrc
+# CMD ["/usr/bin/chsh", "-s", "/bin/zsh"]
 
-# RUN /etc/init.d/ssh start
+# Supervisord
+COPY ["./files/start.sh", "/root/"]
+COPY ["./files/supervisord.conf", "/etc/supervisor/conf.d/supervisord.conf"]
+RUN mkdir -p /var/log/supervisor
 
-# Initialization SSH
-# RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
-# RUN service sshd start
-# RUN chkconfig sshd on
-# RUN mkdir -p /var/run/sshd
-
-# Make port 22 available to the world outside this container
-# EXPOSE 22
 
 # Clean up apt
 # Remove /var/lib/apt/lists/*, could be obsoleted for derived images
 # RUN apt-get clean -y; apt-get autoclean -y; apt-get autoremove -y
 # RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get autoremove -y
 
-# Change hostname
-ENV IMAGE_NAME="myDebian9"
-RUN /bin/echo "$IMAGE_NAME" > /etc/hostname
-
-CMD ["/bin/echo", "hello Docker $IMAGE_NAME"]
-
-CMD ["/bin/ls", "-l", "/app/files"]
-
-CMD ["/bin/bash", "/app/files/sayHello.sh", "5"]
-
-# setting zsh
-RUN curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-# RUN git clone git://github.com/robbyrussell/oh-my-zsh.git /root/.oh-my-zsh
-RUN cp /root/.zshrc /root/.zshrc_bak
-RUN cp /root/.oh-my-zsh/templates/zshrc.zsh-template /root/.zshrc
-RUN sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/g' /root/.zshrc
-CMD ["/usr/bin/chsh", "-s", "/bin/zsh"]
+# Make port 22 80 available to the world outside this container
+EXPOSE 22 
+EXPOSE 80
 
 # Run a program that never exits
-CMD ["/bin/bash", "/app/files/nevers_stop.sh"]
+ENTRYPOINT ["/usr/bin/supervisord"]
