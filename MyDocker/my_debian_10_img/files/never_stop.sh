@@ -3,6 +3,6 @@
 while true
 do
     # command
-    echo "hello world."
+    # echo "hello world."
     sleep 10
 done

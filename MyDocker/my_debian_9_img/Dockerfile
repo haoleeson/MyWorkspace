@@ -90,5 +90,8 @@ RUN apt-get autoremove -y
 EXPOSE 22 
 EXPOSE 80
 
+# set root passwd
+RUN echo "root:e" | chpasswd
+
 # Run a program that never exits
 ENTRYPOINT ["/usr/bin/supervisord"]

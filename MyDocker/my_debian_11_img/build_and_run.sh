@@ -8,7 +8,7 @@
 # User Config Start
 IMAGE_NAME=my-debian-img
 IMAGE_TAG=v11
-CONTAINER_NAME=my-debian-container
+CONTAINER_NAME=my-debian-container-11
 SHARED_DIR=/c/Workspace/MyDockers/commonShareDir
 Docker_vEthernet_IP=172.24.32.1
 MY_NET_PREFIX=172.148.0
