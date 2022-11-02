@@ -111,6 +111,10 @@ deploy:
   - type: git
     repo: git@e.coding.net:EisenHao/eisenhao/eisenhao.git
     branch: master
+  # My Git
+  - type: git
+    repo: git@173.82.50.66:/home/git/repos/blog.git
+    branch: master
   # - type: git
   #   repo: git@gitee.com:eisenhao/eisenhao.git
   #   branch: master
