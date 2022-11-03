@@ -8,7 +8,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BPlusTree1.jpg" class="full-image" />
+<img src="../../../../uploads/BPlusTree1.jpg" class="full-image" />
 
 # 1. B+树
 ## 1.1. B+树简介
@@ -36,7 +36,7 @@ B+树通常用于数据库和操作系统的文件系统中。NTFS, ReiserFS, NS
   - 为所有叶子结点增加一个链指针；
   - 所有关键字都在叶子结点出现；
 
-![B+树](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BPlusTree2.PNG)
+![B+树](../../../../uploads/BPlusTree2.PNG)
 
 备注：B+的搜索与B树也基本相同，区别是B+树只有达到叶子结点才命中（B树可以在非叶子结点命中），其性能也等价于在关键字全集做一次二分查找；
 
@@ -49,7 +49,7 @@ B+树通常用于数据库和操作系统的文件系统中。NTFS, ReiserFS, NS
 
 # 2. B\*树
 
-![B*树](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BStartTree.PNG)
+![B*树](../../../../uploads/BStartTree.PNG)
 
 ## 2.1. B\*树的定义
 

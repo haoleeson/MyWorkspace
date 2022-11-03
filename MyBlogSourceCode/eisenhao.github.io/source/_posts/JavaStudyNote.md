@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/JavaStudyNote.png" class="full-image" />
+<img src="../../../../uploads/JavaStudyNote.png" class="full-image" />
 
 # 1. Java基础知识
 
@@ -425,7 +425,7 @@ public class Main {
 
 ## 2.6. 集合类
 集合类，又称容器。常见的集合类有：List集合, Set集合, Map集合，其中List与Set继承了Collection接口。
-![常见集合类的继承关系](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Inheritance-relationship-of-common-collection-classes.jpg)
+![常见集合类的继承关系](../../../../uploads/Inheritance-relationship-of-common-collection-classes.jpg)
 **与数组区别**：
 - 数组的长度固定，而集合的长度可变；
 - 数组存放基本类型的数据，集合存放对象的引用。

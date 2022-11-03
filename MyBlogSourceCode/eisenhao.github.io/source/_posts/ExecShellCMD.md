@@ -10,7 +10,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/execShellCMD.jpg" class="full-image" />
+<img src="../../../../uploads/execShellCMD.jpg" class="full-image" />
 
 在大部分Java开发过程中需要调用一些Shell脚本命令来实现某些功能，如：文本处理过程中调脚本使开发更便捷、其他组件只提供了Shell脚本调用方式或调脚本与系统直接交互等场景。
 博主总结了一些Java进程执行Shell命令的常见问题及解决方法，或能在大家开发过程中避坑有积极作用。

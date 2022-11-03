@@ -8,7 +8,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CppConfusedNotes.png" class="full-image" />
+<img src="../../../../uploads/CppConfusedNotes.png" class="full-image" />
 
 # 1. struct 和 union 的区别
 - 结构体struct：把不同类型的数据组合成一个整体，自定义类型。

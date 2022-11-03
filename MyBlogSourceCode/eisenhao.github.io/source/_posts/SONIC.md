@@ -10,7 +10,7 @@ categories:
 
 ---
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SONICArchitecture.png" class="full-image" />
+<img src="../../../../uploads/SONICArchitecture.png" class="full-image" />
 
 <!-- more -->
 
@@ -45,7 +45,7 @@ categories:
 
 SONIC 采用模块化体系结构，将每个模块放在独立的 **Docker 容器**中。其在保持组件之间的**高内聚性**的同时**减少**组件之间的**耦合**。<br>其主要组件包括：DHCP-Relay、Pmon、Snmp、LLDP、BGP、Teamd、Database、Swss、Syncd。其系统架构如下图所示。
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SONICArchitecture.png" class="full-image" />
+<img src="../../../../uploads/SONICArchitecture.png" class="full-image" />
 
 # 6. SONIC 中各容器功能简介
 
@@ -158,7 +158,7 @@ SONIC 采用模块化体系结构，将每个模块放在独立的 **Docker 容�
 
 SONIC 各**容器**与**各 Redis 表**间数据流交互关系如下图所示（详细交互流程可参见：[SONIC Architecture](https://github.com/Azure/SONiC/wiki/Architecture)）：
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataflowBetweenSONICContainerAndRedisTable.png" class="full-image" />
+<img src="../../../../uploads/DataflowBetweenSONICContainerAndRedisTable.png" class="full-image" />
 
 ## 6.8. Swss container
 

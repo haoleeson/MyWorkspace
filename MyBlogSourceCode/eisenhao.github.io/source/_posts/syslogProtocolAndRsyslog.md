@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/syslogProtocol.png"  style="zoom:75%;" />
+<img src="../../../../uploads/syslogProtocol.png"  style="zoom:75%;" />
 
 <!-- more -->
 
@@ -264,16 +264,16 @@ MSG由TAG部分（可选）和Content部分构成。其格式如下：
 
 支持多线程的Rsyslog工作流示意图（多种输入输出方式并行处理）：
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/RsyslogWorkFlow.png" class="full-image" alt="Rsyslog工作流" />
+<img src="../../../../uploads/RsyslogWorkFlow.png" class="full-image" alt="Rsyslog工作流" />
 
 对单个日志消息，日志message先进入主队列再过滤到分支队列，最后在各个processor线程中输出内容，输出到指定的输出方式中（如：写文件、发送远程主机、存数据库等）。
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/RsyslogMsgDeal.jpg" class="full-image" alt="Rsyslog消息处理流程" />
+<img src="../../../../uploads/RsyslogMsgDeal.jpg" class="full-image" alt="Rsyslog消息处理流程" />
 
 ## 2.4. Rsyslog日志消息流向
 下面从 rsyslogd 进程的输入和输出两个方面概述的日志信息流向。
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/RsyslogFeaturesImagemap.png" class="full-image" alt="Rsyslog msg流向" />
+<img src="../../../../uploads/RsyslogFeaturesImagemap.png" class="full-image" alt="Rsyslog msg流向" />
 
 **输入**：
 1. 接收Linux内核进程发送到/dev/klog（特殊的设备，读取内核发出的消息）的日志消息

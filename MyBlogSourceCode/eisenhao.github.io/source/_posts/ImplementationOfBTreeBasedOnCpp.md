@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BTreeNodeStruct1.png" class="full-image" />
+<img src="../../../../uploads/BTreeNodeStruct1.png" class="full-image" />
 
 # 1. B树的原理及性能
 ## 1.1. 定义
@@ -43,7 +43,7 @@ categories:
 
 ## 3.1. B树节点的数据结构设计
 ### 3.1.1. 最大m-1个关键字及m个关键字对应值的存放
-![myBtree](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BTreeNodeStruct1.png)
+![myBtree](../../../../uploads/BTreeNodeStruct1.png)
 - 在一个m阶的B树（多叉树）中，每个节点最多包含m-1个关键字及m个关键字指向的值。其中关键字指向的值可能非值的地址（依然为中间节点的地址），则该关键字对应的值采取逐层下放到下一节点Ptr0所指向的值（可能依然为中间节点），直至叶子节点Ptr0指向的值；同理，其他关键字：Key0 ~ Key(m-2)对应的值为：Ptr1 ~ Ptr(m-1)，若非叶子节点则逐层下放直至叶子节点的Ptr0所指向的值。
 
 - 考虑到不是每个节点都存满m-1个关键字，故还需要一个变量记录当前节点已有关键字数。尽管可以通过遍历Ptrs1~Ptr(m-1)，统计为NULL的个数cnt，从而得到已有关键字数：m - 1 - cnt，但当m阶数过大(实际应用阶数m一般大于100)时，浪费很多不必要的CPU资源计算现有关键字数，故采用4字节int直接记录当前节点所包含关键字数
@@ -126,7 +126,7 @@ private:
 
 # 4. B树支持的操作及编码实现
 ## 4.1. 实例化一个m阶的B树实例
-![myBtree](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/newBTree.png)
+![myBtree](../../../../uploads/newBTree.png)
 1. 实例化BTree，申请BTree类所需内存，根据输入的阶数m初始化成员变量: 阶数(m)，最少关键字数(minKeyNum)，最多关键字个数(maxKeyNum)
 2. 实例化一个B树节点BTreeNode作为根节点(根节点为叶子节点)，初始化BTreeNode成员变量，并根据此实例化B树的阶数申请关键字数组keys 和 指向value的指针数组valuePtrs所需内存。
 
@@ -271,13 +271,13 @@ VALUE_TYPE BTreeNode<KEY_TYPE, VALUE_TYPE>::getValue(KEY_TYPE key) {
 - 若向下搜索到叶节点都未找到key，则该叶子节点即为我们要插入<key, value>键值对的节点
 
 ### 4.4.2. 未满节点插入<key, value>键值对
-![BTreeNotFullInsert](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BTreeNotFullInsert.png)
+![BTreeNotFullInsert](../../../../uploads/BTreeNotFullInsert.png)
 
 对于节点关键字节点未满插入，只需将新的<key, value>键值对对应插入尾部即可。
 
 
 ### 4.4.3. 已满节点插入<key, value>键值对
-![BTreeSplitInsert](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BTreeSplitInsert.png)
+![BTreeSplitInsert](../../../../uploads/BTreeSplitInsert.png)
 对于关键字已满的节点，需新增右兄弟节点，将原已满节点的后半部分挪到右兄弟节点（“**分裂**”），会上升一个key到其父节点作为新增右兄弟节点对应的key（若无则创建新父节点），再插入新节点。博主这里将这两步操作(分裂 + 插入)合为一步以提高效率：
 
 - 新增右兄弟节点 rightBrotherPtr
@@ -292,27 +292,27 @@ VALUE_TYPE BTreeNode<KEY_TYPE, VALUE_TYPE>::getValue(KEY_TYPE key) {
 - B树作为一颗m阶搜索树，存在搜索树的缺陷——退化为链表的，另一方面为了降低层高，B树还要求了每个节点的最少关键字数(m/2, m阶)，以保证查询效率，若删除键值对后发现关键字数小于m/2，还需进行一系列平衡操作。
 
 ### 4.5.1. 删除<key, value>键值对 (假设删除后 keyNum > m/2，无需考虑平衡)
-![BTreeRemoveWithoutBalance](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BTreeRemoveWithoutBalance.png)
+![BTreeRemoveWithoutBalance](../../../../uploads/BTreeRemoveWithoutBalance.png)
 - 若此节点非叶子节点，记录该key地址recordKey，继续下落到叶子节点执行删除（若子树非空，需更新整个子树的key，若子树为空，还需递归上层删除）
 - 若下落的到叶子节点，关键字数为0，释放该叶子节点，并执行递归向上删除
 - 若下落到叶子节点，关键字数非0，则截取下一个key以更新recordKey，删除叶子节点对应的valuePtr值，其他key及对应记录的value地址前挪。
 
 ## 4.6. 删除<key, value>键值对后的平衡操作
 ### 4.6.1. 尝试从左、右兄弟节点挪借关键字
-![BTreeBalanceBrowFromBro](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BTreeBalanceBrowFromBro.png)
+![BTreeBalanceBrowFromBro](../../../../uploads/BTreeBalanceBrowFromBro.png)
 - 若无左（或右）兄弟节点，或左右节点无法提供可挪借关键字，则挪借失败
 - 若存在左（或右）兄弟节点 且 左（或右）兄弟节点关键字字数大于 minKeyNum，则可从左（或右）兄弟挪借关键字
 - 若左、右兄弟节点均可挪借关键字数，从平衡角度选择可挪借关键字数较多的一方挪借
 
 ### 4.6.2. 尝试与左或右兄弟节点合并
-![BTreeBalanceMergeWithBro](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BTreeBalanceMergeWithBro.png)
+![BTreeBalanceMergeWithBro](../../../../uploads/BTreeBalanceMergeWithBro.png)
 - 若存在左兄弟节点，且左兄弟节点关键字 + 本节点关键字 + 1 <= 最大关键字数，则可与左兄弟节点合并
 - 若存在右兄弟节点，且右兄弟节点关键字 + 本节点关键字 + 1 <= 最大关键字数，则可与右兄弟节点合并
 - 若左、右兄弟节点均不可合并，则返回合并失败
 - 若均可合并，选取左右兄弟节点中，从平衡角度选择关键字数较少的一方合并
 
 ### 4.6.3. 若节点的关键词数为0，且非叶子节点（降层）
-![BTreeBalanceReduceLevel](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/BTreeBalanceReduceLevel.png)
+![BTreeBalanceReduceLevel](../../../../uploads/BTreeBalanceReduceLevel.png)
 - 若当前节点关键字数大于0，或为叶子节点，不进行降层
 - 若其兄弟节点与其node->childPtrs[0] 是否是叶子节点属性不同，则不降层
 - 降层处理，将其父节点指向其的childPtrs[i]指针，指向其node->childPtrs[0]指向的值，后释放node节点

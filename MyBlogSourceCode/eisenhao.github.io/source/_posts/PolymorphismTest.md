@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/PolymorphismTest.jpg" class="full-image" />
+<img src="../../../../uploads/PolymorphismTest.jpg" class="full-image" />
 
 # 1. 多态的意义
 - 使程序中的数学运算符合常规的数学运算规则，使程序提供更强的表达能力;

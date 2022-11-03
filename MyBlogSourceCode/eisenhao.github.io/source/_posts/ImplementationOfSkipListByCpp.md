@@ -11,7 +11,7 @@ categories:
 
 ---
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SkipList_search.jpg" class="full-image" />
+<img src="../../../../uploads/SkipList_search.jpg" class="full-image" />
 
 # 1. 背景
 1990 年，William Pugh 提出了一种用于替换平衡树的数据结构 Skip lists: a probabilistic alternative to balanced trees，即跳表。
@@ -28,7 +28,7 @@ categories:
 
 > 不同于一般单链表各节点只有 1 个 next 指针，SkipList 各节点有 x 个 next 指针（x 为随机生成），且这 x 个 next 指针还有“层级概念”
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SkipList.png" class="full-image" />
+<img src="../../../../uploads/SkipList.png" class="full-image" />
 
 - 如上图所示，跳表在递增链表各节点的第 i/x 层 next 指针（1 <= i <= x），记录了后续首个层数不低于 i 的节点的地址。
 - 查询时从首节点顶层开始查找：
@@ -91,7 +91,7 @@ private:
 
 ## 5.1. 查询
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SkipList_search.jpg" class="full-image" />
+<img src="../../../../uploads/SkipList_search.jpg" class="full-image" />
 
 如上图所示，查询节点 key 为 7 的步骤如下：
 - 以首节点顶层起，此时层数为 4 且本层 next 指针指向节点的 key 为 1（小于目标 7），则跳转到 next 指向的 1 节点
@@ -137,7 +137,7 @@ Node<K, V>* SkipList<K, V>::find(const K key) {
 
 ## 5.2. 新增节点
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Skiplist_add_element.gif" class="full-image" />
+<img src="../../../../uploads/Skiplist_add_element.gif" class="full-image" />
 
 如上图插入的动图所示，新增节点的过程大致可分为两步：第一步是与上文查找类似的需要先“查找”到节点的拟插入位置，找到其前后节点、第二步是插入节点后根据其“层高”更新相关节点的第 1 到 x 层 next 指针指向（这里可通过事先记录其查找走过的节点层级“路径”，然后根据记录值找到应该修改哪部分 next 指针），具体编码实现如下：
 ```c++
@@ -355,7 +355,7 @@ void SkipList<K, V>::graphical_print() {
 ```
 
 可视化打印效果如下：
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SkipList_graphical_print.png" class="full-image" />
+<img src="../../../../uploads/SkipList_graphical_print.png" class="full-image" />
 
 {% note success %} 欢迎访问我的 Git 仓库阅读更多详细实现细节
 https://github.com/EisenHao/MyWorkspace/MyCpp/SkipList/src/skip_list/skip_list_node.h

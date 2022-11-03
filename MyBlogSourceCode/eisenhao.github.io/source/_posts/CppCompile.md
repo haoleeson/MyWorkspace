@@ -8,7 +8,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CppCompile.jpg" class="full-image" />
+<img src="../../../../uploads/CppCompile.jpg" class="full-image" />
 
 
 # 1. step1.预编译

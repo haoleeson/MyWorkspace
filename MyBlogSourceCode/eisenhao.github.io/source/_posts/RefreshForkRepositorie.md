@@ -8,7 +8,7 @@ tags:
 categories:
 - 技术
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/RefreshForkRepositorie.png" class="full-image" />
+<img src="../../../../uploads/RefreshForkRepositorie.png" class="full-image" />
 
 Fork仓库是对应官方源仓库的一份完全备份（类似快照，但却不能再接收到官方源仓库的更新内容），然而有时咱们需要Fork仓库涵盖官方源仓库的最新提交代码。
 

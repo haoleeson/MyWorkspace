@@ -10,7 +10,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DockerSimpleUsing.png" class="full-image" />
+<img src="../../../../uploads/DockerSimpleUsing.png" class="full-image" />
 
 # 1. 安装Docker
 
@@ -140,7 +140,7 @@ uname -r
 # 显示Docker的进程
 ps a | grep docker
 ```
-![Docker容器&宿主机对比](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DockerContainerAndHostComparison.png)
+![Docker容器&宿主机对比](../../../../uploads/DockerContainerAndHostComparison.png)
 
 **左图**为Docker运行的Ubuntu16.04容器； **右图**为宿主操作系统
 

@@ -8,7 +8,7 @@ tags:
 categories:
 - 心灵成长
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Meanning-reading.jpg" class="full-image" />
+<img src="../../../../uploads/Meanning-reading.jpg" class="full-image" />
 
 孩子，我要求你读书用功，不是因为我要你跟别人比成绩，而是因为，我希望你将来会拥有选择的权利。选择有意义、有时间的工作，而不是被迫谋生。当你的工作在你心中有意义，你就有成就感。当你的工作给你时间，不剥夺你的生活，你就有尊严。成就感和尊严，给你快乐。
 <!-- more -->

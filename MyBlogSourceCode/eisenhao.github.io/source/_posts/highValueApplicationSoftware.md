@@ -9,7 +9,7 @@ categories:
 - 效率
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/highValueApplicationSoftware.jpg" class="full-image" />
+<img src="../../../../uploads/highValueApplicationSoftware.jpg" class="full-image" />
 
 # 1. **浏览器**
 

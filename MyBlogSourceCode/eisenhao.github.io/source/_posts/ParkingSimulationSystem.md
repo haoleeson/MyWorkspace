@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/showFunction.gif" class="full-image" />
+<img src="../../../../uploads/showFunction.gif" class="full-image" />
 
 <!-- more -->
 
@@ -68,13 +68,13 @@ Time: 2019-01-23
 
 ### 1.4.1. 类图
 
-![parkingSimulationSystemUMLClassDiagram](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/parkingSimulationSystemUMLClassDiagram.png)
+![parkingSimulationSystemUMLClassDiagram](../../../../uploads/parkingSimulationSystemUMLClassDiagram.png)
 
 主要有：停车场类、汽车类、后台管理M系统类、IC读卡器类、栏杆类、传感器类。与栏杆类、传感器类是整体与部分关系。
 
 ### 1.4.2. 用例图
 
-![parkingSimulationSystemUMLUseCaseDiagram](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/parkingSimulationSystemUMLUseCaseDiagram.png)
+![parkingSimulationSystemUMLUseCaseDiagram](../../../../uploads/parkingSimulationSystemUMLUseCaseDiagram.png)
 
 
 

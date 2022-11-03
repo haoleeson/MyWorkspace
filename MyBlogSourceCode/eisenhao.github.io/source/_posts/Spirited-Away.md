@@ -9,7 +9,7 @@ categories:
 - 心灵成长
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Spirited-Away.jpg" class="full-image" />
+<img src="../../../../uploads/Spirited-Away.jpg" class="full-image" />
 <!-- 标签方式引用，要求版本在0.4.5或以上 -->
 
 {% centerquote %}

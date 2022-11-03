@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/howToConvert.rpmPackagesIntoArchPackages.jpg" class="full-image" />
+<img src="../../../../uploads/howToConvert.rpmPackagesIntoArchPackages.jpg" class="full-image" />
 
 尽管AUR被称为这个星球上最大的软件资源库，但不可避免的，我们有时会遇到在AUR库中没有待装软件，而待装软件官网只提供.rpm或.deb软件包的情况。本文将介绍如何利用.rpm或.deb软件包资源创建一个Arch软件包，然后在Manjaro系统下安装这些软件。
 

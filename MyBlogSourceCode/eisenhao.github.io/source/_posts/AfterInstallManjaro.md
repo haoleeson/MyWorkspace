@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AfterInstallManjaro.png" class="full-image" />
+<img src="../../../../uploads/AfterInstallManjaro.png" class="full-image" />
 
 # 1. Manjaro设置国内源
 

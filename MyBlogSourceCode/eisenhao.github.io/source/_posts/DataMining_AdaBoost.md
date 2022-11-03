@@ -10,7 +10,7 @@ categories:
 - 算法
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_AdaBoost.png" class="full-image" />
+<img src="../../../../uploads/DataMining_AdaBoost.png" class="full-image" />
 
 # 1. 集成学习AdaBoost算法简介
 AdaBoost全称是adaptive boosting，该算法基本思想:多个结构较为简单，分类或预测精度较低的弱学习算法可以通过某种方式结合成具有较强学习能力的强学习算法。根据统计学习方法的三要素，AdaBoost 方法=加法模型+指数损失函数(策略)+前向分步 算法。
@@ -196,6 +196,6 @@ total error: 0.0
 **备注**
 **运行平台**：Arch Linux
 **运行环境**：Intellij IDEA
-**源代码**：[AdaBoost.py](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AdaBoost.py)
+**源代码**：[AdaBoost.py](../../../../uploads/AdaBoost.py)
 {% endnote %}
 

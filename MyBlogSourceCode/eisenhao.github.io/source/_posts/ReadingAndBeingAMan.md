@@ -8,7 +8,7 @@ categories:
 - 心灵成长
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/QianMu.jpg" class="full-image" />
+<img src="../../../../uploads/QianMu.jpg" class="full-image" />
 
 {% note success %}
 钱穆（1895年7月30日-1990年8月30日），字宾四，笔名公沙，江苏省无锡人，中国现代历史学家。

@@ -10,7 +10,7 @@ categories:
 - 算法
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Apriori.png" class="full-image" />
+<img src="../../../../uploads/DataMining_Apriori.png" class="full-image" />
 
 # 1. Apriori算法简介
 - Apriori是一种在事务数据库上进行频繁项集挖掘和关联规则学习的算法。
@@ -132,5 +132,5 @@ Process finished with exit code 0
 **备注**
 **运行平台**：Arch Linux
 **运行环境**：Intellij IDEA
-**源代码**：[Apriori.py](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Apriori.py)
+**源代码**：[Apriori.py](../../../../uploads/Apriori.py)
 {% endnote %}

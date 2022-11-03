@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/MinHeapAndMaxHeap.jpg" class="full-image" />
+<img src="../../../../uploads/MinHeapAndMaxHeap.jpg" class="full-image" />
 
 - 堆是一种经过排序的完全二叉树，对其中任一非终端节点，其数据值不大于（或不小于）其左右子节点的值。
 - 最小堆(最大堆)堆能保证堆顶元素最小(最大)，相比于用数组存放数据，如果要查找所有数据中最小(最大)的数据时，数组的时间复杂度为O(n)，而最小堆(最大堆)的时间复杂度为O(1)。

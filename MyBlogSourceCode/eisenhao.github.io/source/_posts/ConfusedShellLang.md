@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/ConfusedShellLang.jpg" class="full-image" />
+<img src="../../../../uploads/ConfusedShellLang.jpg" class="full-image" />
 
 博文记录了一些实用 Shell 指令，以备不时之需。
 

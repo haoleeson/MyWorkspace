@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/post-debugging-steps.png" class="full-image" />
+<img src="../../../../uploads/post-debugging-steps.png" class="full-image" />
 
 # 1. 博客文章编写＆调试＆发布
 ## 1.1. 进入Hexo根目录

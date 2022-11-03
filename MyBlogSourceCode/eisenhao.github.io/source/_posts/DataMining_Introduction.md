@@ -9,7 +9,7 @@ categories:
 - 算法
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Introduction.jpg" class="full-image" />
+<img src="../../../../uploads/DataMining_Introduction.jpg" class="full-image" />
 
 {% centerquote %}
 Data mining, the science of extracting useful knowledge from such huge data repositories, has emerged as a young and interdisciplinary field in computer science.  -- by **KDD**
@@ -69,7 +69,7 @@ Apriori是一种用于在事务数据库上进行频繁项集挖掘和关联规�
 
 -- [A comparative study of classification techniques in data mining algorithms](https://pdfs.semanticscholar.org/7c97/57ee09afa570db37f04e3b6cc4da0e2f3571.pdf)
 
-![AdvantagesAndDisadvantagesOfClassificationAlgorithm](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AdvantagesAndDisadvantagesOfClassificationAlgorithm.png)
+![AdvantagesAndDisadvantagesOfClassificationAlgorithm](../../../../uploads/AdvantagesAndDisadvantagesOfClassificationAlgorithm.png)
 
 - 基于**神经网络**和**遗传算法**的数据挖掘技术
 

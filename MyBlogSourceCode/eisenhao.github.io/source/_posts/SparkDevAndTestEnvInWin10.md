@@ -10,7 +10,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/SparkDevAndTestEnvInWin10.jpg" class="full-image" />
+<img src="../../../../uploads/SparkDevAndTestEnvInWin10.jpg" class="full-image" />
 
 试想一下，将精心编写的Spark业务代码Jar包上传到Spark集群环境，却出现了简单错误或预期之外的结果，势必会破坏一天的心情和积极性，这时一套桌面级的Spark开发&测试环境的优势就展露无遗了。可以在本地开发Spark代码，并测试基础功能，让开发者可以不必担心上传jar包的代码逻辑正确性、代码质量等基础问题。接下来就跟随本文一起搭建一套Win10下的Spark开发&测试环境吧！
 

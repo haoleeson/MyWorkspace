@@ -10,7 +10,7 @@ categories:
 - 算法
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Kmeans.png" class="full-image" />
+<img src="../../../../uploads/DataMining_Kmeans.png" class="full-image" />
 
 # 1. 实现K-means算法对无噪声的waveform数据集进行分割
 ## 1.1. K-means算法简介
@@ -204,8 +204,8 @@ centroids:
 **备注**
 **运行平台**：Arch Linux
 **运行环境**：Intellij IDEA
-**待处理文件**：[waveform.data](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/waveform.data)
-**源代码**：[kmeans.py](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/kmeans.py)
+**待处理文件**：[waveform.data](../../../../uploads/waveform.data)
+**源代码**：[kmeans.py](../../../../uploads/kmeans.py)
 {% endnote %}
 
 
@@ -348,18 +348,18 @@ def main():
 ### 2.2.1. 当最大迭代次数限制为20次时：
 
 - **k=3时的效果图如下**：<br>（只用“平均后”的3种颜色替代原图）
-![iteration=20,k=3时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Kmeans_result_k=3_iteration=20.png)
+![iteration=20,k=3时的效果图](../../../../uploads/DataMining_Kmeans_result_k=3_iteration=20.png)
 
 - **k=8时的效果图如下**：<br>（只用“平均后”的8种颜色替代原图）
-![iteration=20,k=8时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Kmeans_result_k=8_iteration=20.png)
+![iteration=20,k=8时的效果图](../../../../uploads/DataMining_Kmeans_result_k=8_iteration=20.png)
 
 ### 2.2.2. 当最大迭代次数限制为50次时：
 
 - **k=3时的效果图如下**：<br>（只用“平均后”的3种颜色替代原图）
-![iteration=50,k=3时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Kmeans_result_k=3_iteration=50.png)
+![iteration=50,k=3时的效果图](../../../../uploads/DataMining_Kmeans_result_k=3_iteration=50.png)
 
 - **k=8时的效果图如下**：<br>（只用“平均后”的8种颜色替代原图）
-![iteration=50,k=8时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Kmeans_result_k=8_iteration=50.png)
+![iteration=50,k=8时的效果图](../../../../uploads/DataMining_Kmeans_result_k=8_iteration=50.png)
 
 ### 结论
 - 通过反复测试，得出在一定的迭代次数限制下，设置的种子数越多，图像分割越明显，细节越丰富；
@@ -371,6 +371,6 @@ def main():
 **备注**
 **运行平台**：Arch Linux
 **运行环境**：Intellij IDEA
-**待聚类图片**：[KmeansTestPicture.jpg](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/KmeansTestPicture.jpg)
-**源代码**：[kmeansPicture.py](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/kmeansPicture.py)
+**待聚类图片**：[KmeansTestPicture.jpg](../../../../uploads/KmeansTestPicture.jpg)
+**源代码**：[kmeansPicture.py](../../../../uploads/kmeansPicture.py)
 {% endnote %}

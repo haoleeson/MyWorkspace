@@ -10,14 +10,14 @@ categories:
 
 ---
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/gitRevert.jpg" style="zoom:45%;"  />
+<img src="../../../../uploads/gitRevert.jpg" style="zoom:45%;"  />
 
 记录Git生僻进阶用法，以备不时之需
 
 <!-- more -->
 
 常用基础命令速查：
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/gitUsuallyUseCmd.png" style="zoom:35%;" />
+<img src="../../../../uploads/gitUsuallyUseCmd.png" style="zoom:35%;" />
 
 # 1. Git 实用命令记录
 ## 1.1. Git 取出暂存区文件（保留文件更改）

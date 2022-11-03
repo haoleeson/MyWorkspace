@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/pointerFunction.jpg" class="full-image" />
+<img src="../../../../uploads/pointerFunction.jpg" class="full-image" />
 
 # 1. 指针函数
 
@@ -95,7 +95,7 @@ int main(void) {
 ```
 
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/functionPointer.jpg" class="full-image" />
+<img src="../../../../uploads/functionPointer.jpg" class="full-image" />
 # 2. 函数指针
 ```c++
 int (*fun)(char ch);//函数指针

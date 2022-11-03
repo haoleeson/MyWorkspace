@@ -10,7 +10,7 @@ categories:
 - 算法
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_PAM.png" class="full-image" />
+<img src="../../../../uploads/DataMining_PAM.png" class="full-image" />
 
 # 1. 实现PAM算法对部分含有高斯噪声的waveform数据集进行聚类
 ## 1.1. PAM算法简介
@@ -133,8 +133,8 @@ center
 **备注**
 **运行平台**：Arch Linux
 **运行环境**：Intellij IDEA
-**含高斯噪声文件**：[waveform-+noise.data](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/waveform-+noise.data)
-**源代码**：[pam.py](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/pam.py)
+**含高斯噪声文件**：[waveform-+noise.data](../../../../uploads/waveform-+noise.data)
+**源代码**：[pam.py](../../../../uploads/pam.py)
 {% endnote %}
 
 # 2. 编写Python程序实现PAM算法并对一副噪声图像进行分割
@@ -291,15 +291,15 @@ def main():
 ## 2.9. PAM算法分割图片效果图
 ### 2.9.1. 当最大迭代次数限制为10次时：
 **k=3时的效果图如下**：
-![PAMiteration=10,k=3时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Pam_result_k=3_iteration=10.png)
+![PAMiteration=10,k=3时的效果图](../../../../uploads/DataMining_Pam_result_k=3_iteration=10.png)
 **k=8时的效果图如下**：
-![PAMiteration=10,k=8时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Pam_result_k=8_iteration=10.png)
+![PAMiteration=10,k=8时的效果图](../../../../uploads/DataMining_Pam_result_k=8_iteration=10.png)
 
 ### 2.9.2. 当最大迭代次数限制为30次时：
 **k=3时的效果图如下**：
-![PAMiteration=30,k=3时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Pam_result_k=3_iteration=30.png)
+![PAMiteration=30,k=3时的效果图](../../../../uploads/DataMining_Pam_result_k=3_iteration=30.png)
 **k=8时的效果图如下**：
-![PAMiteration=30,k=8时的效果图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_Pam_result_k=8_iteration=30.png)
+![PAMiteration=30,k=8时的效果图](../../../../uploads/DataMining_Pam_result_k=8_iteration=30.png)
 通过反复运行测试，得出的结论基本与K-mean算法一致：在一定的迭代次数限制下，设置的种子数越多，图像分割越明显，细节越丰富；在一定种子数范围内，最大迭代次数越多，图像分割效果并不一定更好。并且程序的运行时间会随着集群k、最大迭代次数iteration的增加而增加。
 
 # 3. 对比PAM算法与Kmeans算法
@@ -310,6 +310,6 @@ def main():
 **备注**
 **运行平台**：Arch Linux
 **运行环境**：Intellij IDEA
-**含噪声图片**：[PamTestPicture.jpg](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/PamTestPicture.jpg)
-**源代码**：[pamPicture.py](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/pamPicture.py)
+**含噪声图片**：[PamTestPicture.jpg](../../../../uploads/PamTestPicture.jpg)
+**源代码**：[pamPicture.py](../../../../uploads/pamPicture.py)
 {% endnote %}

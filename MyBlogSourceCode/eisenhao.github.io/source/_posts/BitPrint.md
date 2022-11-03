@@ -10,7 +10,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/bitPrint.jpg" class="full-image" />
+<img src="../../../../uploads/bitPrint.jpg" class="full-image" />
 
 众所周知，程序中的变量存放于计算机内存中，程序对这些变量执行特定的赋值和计算等操作以实现某种功能。你是否好奇变量是如何被存储和表示于内存之中呢？
 

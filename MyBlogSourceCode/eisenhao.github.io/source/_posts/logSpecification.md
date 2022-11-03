@@ -96,7 +96,7 @@ categories:
 
 日志级别选择流程：
 
-![CloudComputing-20190617100822880](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/logLevelChoose.png)
+![CloudComputing-20190617100822880](../../../../uploads/logLevelChoose.png)
 
 ## 4.2. 日志格式规约
 

@@ -9,7 +9,7 @@ categories:
 - 心灵成长
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/GuofanZeng-six-rings.jpg" class="full-image" />
+<img src="../../../../uploads/GuofanZeng-six-rings.jpg" class="full-image" />
 
 {% centerquote %}
 一勤天下无难事

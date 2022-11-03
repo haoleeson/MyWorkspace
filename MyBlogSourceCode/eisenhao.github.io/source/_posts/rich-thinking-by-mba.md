@@ -9,7 +9,7 @@ categories:
 - 心灵成长
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/rich-thinking-by-mba.jpg" class="full-image" />
+<img src="../../../../uploads/rich-thinking-by-mba.jpg" class="full-image" />
 
 {% note success %}
 全文摘自MBA中国网：

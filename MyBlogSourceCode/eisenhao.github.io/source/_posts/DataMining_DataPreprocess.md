@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_DataPreprocess.jpg" class="full-image" />
+<img src="../../../../uploads/DataMining_DataPreprocess.jpg" class="full-image" />
 
 # 1. 在Linux系统安装Python及数据处理所需的numpy、pandas库
 之前尝试手动下载numpy库，解压，然后按提示安装，却发现numpy库依赖上级库nose,又下载nose库，但在手动安装pandas库时出错...后发现可通过pip的简单方式安装，自动解决依赖，相比于需要手动下载安装上级依赖的手动安装方式更方便，安装代码如下
@@ -153,7 +153,7 @@ plt.tick_params(axis='both', which='major', labelsize=14)
 plt.axis([0, len(data['Item_Weight']), min(data['Item_Weight']), max(data['Item_Weight'])])
 plt.show()
 ```
-!['Item_Weight'数据分布散点图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_DataPreprocess_Item_Weight.png)
+!['Item_Weight'数据分布散点图](../../../../uploads/DataMining_DataPreprocess_Item_Weight.png)
 
 从图中可看出'Item_Weight'分布较为均匀（5.5～21之间），未发现异常值
 
@@ -172,7 +172,7 @@ plt.tick_params(axis='both', which='major', labelsize=14)
 plt.axis([0, len(data['Item_Visibility']), min(data['Item_Visibility']), max(data['Item_Visibility'])])
 plt.show()
 ```
-!['Item_Visibility'数据分布散点图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_DataPreprocess_Item_Visibility.png)
+!['Item_Visibility'数据分布散点图](../../../../uploads/DataMining_DataPreprocess_Item_Visibility.png)
 
 从图中可看出'Item_Visibility'分布主要集中于0～0.2区间内，分布随着值增加逐渐稀疏，未发现异常值
 
@@ -192,7 +192,7 @@ plt.axis([0, len(data['Item_MRP']), min(data['Item_MRP']), max(data['Item_MRP'])
 plt.psd(y_Item_MRP, 10, 10) #Draw Grid
 plt.show()
 ```
-!['Item_MRP'数据分布散点图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_DataPreprocess_Item_MRP.png)
+!['Item_MRP'数据分布散点图](../../../../uploads/DataMining_DataPreprocess_Item_MRP.png)
 
 从图中可看出'Item_MRP'分布较为阶梯型分布，大致可分为4段(31~70, 70~135, 135~200, >200)，未发现异常值
 
@@ -211,7 +211,7 @@ plt.tick_params(axis='both', which='both', labelsize=14)
 plt.axis([0, len(data['Outlet_Establishment_Year']), min(data['Outlet_Establishment_Year']), max(data['Outlet_Establishment_Year'])])
 plt.show()
 ```
-!['Outlet_Establishment_Year'数据分布散点图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_DataPreprocess_Outlet_Establishment_Year.png)
+!['Outlet_Establishment_Year'数据分布散点图](../../../../uploads/DataMining_DataPreprocess_Outlet_Establishment_Year.png)
 
 从图中可看出'Outlet_Establishment_Year'值集仅有有限几个，值集为1985～2009，未发现异常值
 
@@ -415,13 +415,13 @@ data['Outlet_Size'] = (data['Outlet_Size'] - Outlet_Size_min) / (Outlet_Size_max
 ```
 数据预处理后如下：
 
-![“Train_UWu5bXk.csv”文件中的Bigmart销售数据预处理后](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_DataPreprocess_Output_Train_afterProprecess.png)
+![“Train_UWu5bXk.csv”文件中的Bigmart销售数据预处理后](../../../../uploads/DataMining_DataPreprocess_Output_Train_afterProprecess.png)
 
 
 {% note success %}
 **备注**
 **运行平台**：Arch Linux
 **运行环境**：Intellij IDEA
-**待处理文件**：[Test_u94Q5KV.csv](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Test_u94Q5KV.csv)、[Train_UWu5bXk.csv](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Train_UWu5bXk.csv)
-**源代码**：[datapreprocess.py](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/datapreprocess.py)
+**待处理文件**：[Test_u94Q5KV.csv](../../../../uploads/Test_u94Q5KV.csv)、[Train_UWu5bXk.csv](../../../../uploads/Train_UWu5bXk.csv)
+**源代码**：[datapreprocess.py](../../../../uploads/datapreprocess.py)
 {% endnote %}

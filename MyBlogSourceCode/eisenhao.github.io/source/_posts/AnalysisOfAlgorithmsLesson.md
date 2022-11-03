@@ -9,7 +9,7 @@ categories:
 - 算法
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson.jpg" class="full-image" />
+<img src="../../../../uploads/AnalysisOfAlgorithmsLesson.jpg" class="full-image" />
 
 # 1. 算法分析与设计练习
 完整源代码已在本文尾部给出
@@ -29,7 +29,7 @@ categories:
 **弹出操作**：弹出最大值（即数组首地址元素a[0]）。先交换交换堆顶与堆末，再弹出堆末（最大值），然后再将现堆顶元素执行迭代的下降操作，若其子节点存在与其子节点比较，若比子节点小则交换，然后再与交换后的子节点相互比较交换，直到放置在合适位置。（最坏递归到叶子节点）
 
 **最大堆运行结果**
-![1_Max_Heap](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson_Max_Heap.png)
+![1_Max_Heap](../../../../uploads/AnalysisOfAlgorithmsLesson_Max_Heap.png)
 
 ### 1.1.2. 最小堆概念
 
@@ -43,7 +43,7 @@ categories:
 
 
 最小堆运行结果
-![1_Min_Heap](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson_Min_Heap.png)
+![1_Min_Heap](../../../../uploads/AnalysisOfAlgorithmsLesson_Min_Heap.png)
 
 
 ## 1.2. No2. Quicksort
@@ -99,7 +99,7 @@ void Quick_Sort ( vector<ElementType> &A, long int Number ) {
 }
 ```
 ### 1.2.3. Quick Sort 运行结果
-![2_QuickSort](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson_QuickSort.png)
+![2_QuickSort](../../../../uploads/AnalysisOfAlgorithmsLesson_QuickSort.png)
 
 ### 1.2.4. 延伸思考🤔:
 #### 1.2.4.1. (1)Quick sort会在n个具有相同的值的元素列表中进行多少次比较？
@@ -215,7 +215,7 @@ Y:MAEEEVAKLEKHLMLLRQEYVKLQKKLAETEKRCTLLAAQANKENSNESFISRLLAIVAG
 
 ### 1.4.1. 求解思路
 因为，我们需要找到X 和 Y中最长的那个公共子序列。而要找X 和 Y的LCS，首先考虑X的最后一个元素和Y的最后一个元素。最长公共子序列的递归式如下：
-![最长公共子序列的递归式](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson_LCS_Formula.png)
+![最长公共子序列的递归式](../../../../uploads/AnalysisOfAlgorithmsLesson_LCS_Formula.png)
 
 ### 1.4.2. C++编程实现LCS
 ```c++
@@ -325,7 +325,7 @@ MAEEEVAKLEKHLMLLRQEYVKLQKKLAETEKRCLLAAQANKESESFISRLLAIVA
 
 ## 1.5. No5. 多级图中的最短路径
 **多级图是图(1)G=(V,E),其中V被划分为K>=2个不相交的子集,使得如果(a,b)在E中,则a在Vi中,并且b在Vi+1对于分区中的某些子集中;和(2)|V1|=|Vk|=1.**
-![Shortest_path_in_multistage_graphs](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson_SPIMG.png)
+![Shortest_path_in_multistage_graphs](../../../../uploads/AnalysisOfAlgorithmsLesson_SPIMG.png)
 ### 1.5.1. 求解思路
 Dijkstra算法。以起始点为中心向外层层扩展，直到扩展到终点为止。
 ### 1.5.2. Dijkstra算法实现：
@@ -449,7 +449,7 @@ E          -3
 
 ### 1.7.1. 分析
 手动绘制单向图如下所示：
-![single source graph](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson_single_source_graph.jpg)
+![single source graph](../../../../uploads/AnalysisOfAlgorithmsLesson_single_source_graph.jpg)
 由图可知，图中节点A只有出度，节点C只有入度，其他不得而知，且题目给的较为模糊，不知是(1)求解从节点A->节点C的最短路径，或是（2）求解从节点A出发到任意节点中路径最短的一条。姑且按（2）求解
 
 ### 1.7.2. 解题思路
@@ -614,5 +614,5 @@ The answer of 8 queens problem is:   0  4  7  5  2  6  1  3
 **备注**
 **运行平台**：Arch Linux
 **运行环境**：C++
-**所有实验题目完整源代码**：[AnalysisOfAlgorithmsLesson_code.zip](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AnalysisOfAlgorithmsLesson_code.zip)
+**所有实验题目完整源代码**：[AnalysisOfAlgorithmsLesson_code.zip](../../../../uploads/AnalysisOfAlgorithmsLesson_code.zip)
 {% endnote %}

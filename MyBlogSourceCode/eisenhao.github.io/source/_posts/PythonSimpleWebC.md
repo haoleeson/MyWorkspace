@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/PythonSimpleWebCTest.jpg" class="full-image" />
+<img src="../../../../uploads/PythonSimpleWebCTest.jpg" class="full-image" />
 
 # 1. 查看豆瓣周口碑榜的电影列表
 执行结果展示：
@@ -60,7 +60,7 @@ for i in result:
 - 网址，eg.上述事例代码中的<code>https://movie.douban.com/</code>
 - 数据格式，eg.上述事例代码中的<code>'//td[@class="title"]//a/text()'</code>
     - 具有一定规律，可通过查看 HTML 源码（浏览器 F12）得出
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/PythonSimpleWebCTest2.jpg" class="full-image" />
+<img src="../../../../uploads/PythonSimpleWebCTest2.jpg" class="full-image" />
     - 其中：
       - <code>//td</code> ：相当于大目录；
       - <code>[@class="title"]</code>：相当于小目录；

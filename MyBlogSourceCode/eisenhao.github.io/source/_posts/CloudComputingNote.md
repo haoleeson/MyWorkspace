@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/cloudComputing.jpg" class="full-image" />
+<img src="../../../../uploads/cloudComputing.jpg" class="full-image" />
 
 # 1. Bigtable————分布式结构化数据表
 
@@ -26,7 +26,7 @@ categories:
 
 Bigtable是一个分布式多维映射表，表中的数据通过一个行关键字（Row Key）、一个列关键字（Column Key）以及一个时间戳（Time Stamp）进行索引
 
-![CloudComputing-20190617095713134](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190617095713134.png)
+![CloudComputing-20190617095713134](../../../../uploads/CloudComputing-20190617095713134.png)
 
 ### 1.2.1. 行关键字（Row Key）
 
@@ -52,11 +52,11 @@ Bigtable是一个分布式多维映射表，表中的数据通过一个行关键
 
 #### 1.2.4.1. 读写操作有很大差异
 
-![CloudComputing-20190618161018598](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190618161018598.png)
+![CloudComputing-20190618161018598](../../../../uploads/CloudComputing-20190618161018598.png)
 
 ## 1.3. Bigtable基本架构
 
-![CloudComputing-20190617100822880](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190617100822880.png)
+![CloudComputing-20190617100822880](../../../../uploads/CloudComputing-20190617100822880.png)
 
 ### 1.3.1. 其中Chubby的作用
 
@@ -76,7 +76,7 @@ Bigtable是一个分布式多维映射表，表中的数据通过一个行关键
 
 每个子表服务器上保存几十～几千哥子表。SSTable是Google为Bigtable设计的内部数据存储格式。所有的SSTable文件都存储在GFS上，用户可以通过键来查询相应的值。
 
-![CloudComputing-20190617104500323](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190617104500323.png)
+![CloudComputing-20190617104500323](../../../../uploads/CloudComputing-20190617104500323.png)
 
 #### 1.3.3.2. 子表的组成
 
@@ -85,17 +85,17 @@ Bigtable是一个分布式多维映射表，表中的数据通过一个行关键
 - 日志内容按照键值排序
 - 每个子表服务器上保存几十～几千个子表（平均100个子表）
 
-![CloudComputing-20190617104904894](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190617104904894.png)
+![CloudComputing-20190617104904894](../../../../uploads/CloudComputing-20190617104904894.png)
 
 #### 1.3.3.3. 子表地址
 
 Bigtable系统内部采用的是一种类似B+树的三层查询体系
 
-![CloudComputing-20190617110037290](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190617110037290.png)
+![CloudComputing-20190617110037290](../../../../uploads/CloudComputing-20190617110037290.png)
 
 #### 1.3.3.4. 三种形式压缩之间的关系
 
-![CloudComputing-20190618161124154](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190618161124154.png)
+![CloudComputing-20190618161124154](../../../../uploads/CloudComputing-20190618161124154.png)
 
 
 ## 1.4. Bigtable中的性能优化
@@ -107,7 +107,7 @@ Bigtable允许用户将存储在不同区域的数据组织在一个单独的SST
 - 可筛选在意的数据内容（类似数据库中投影）
 - 改善经常被读取的局部数据的访问速率
 
-![CloudComputing-20190618161816332](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190618161816332.png)
+![CloudComputing-20190618161816332](../../../../uploads/CloudComputing-20190618161816332.png)
 
 ### 1.4.2. 压缩
 
@@ -143,7 +143,7 @@ Bigtable中广泛应用压缩（eg.用于构成局部性群组的SSTable中）
 - 对于高可用性，Megastore实现了一个同步的、容错的、适合远距离传输的**复制机制**
 - 对高扩展性，Megastore将数据分割成很多小数据分区（存放于NoSQL数据库中）
 
-![CloudComputing-20190618163837063](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190618163837063.png)
+![CloudComputing-20190618163837063](../../../../uploads/CloudComputing-20190618163837063.png)
 
 - 在Megastore中，这些小的数据分区被称为实体组集（Entity Groups）
 - 每个实体组集包含若干的实体组（Entity Group，相当于分区中表的概念）
@@ -198,7 +198,7 @@ Bigtable的列名实际上是表名和属性名结合在一起得到，不同表
 
 ### 2.6.3. Megastore中的事务机制
 
-![CloudComputing-20190618171208831](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190618171208831.png)
+![CloudComputing-20190618171208831](../../../../uploads/CloudComputing-20190618171208831.png)
 
 ## 2.7. Megastore基本架构
 
@@ -208,7 +208,7 @@ Bigtable的列名实际上是表名和属性名结合在一起得到，不同表
 - 见证者副本（Witness Replica）
 - 只读副本（Read-only Replica）
 
-![CloudComputing-20190618171436506](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190618171436506.png)
+![CloudComputing-20190618171436506](../../../../uploads/CloudComputing-20190618171436506.png)
 
 ## 2.8. 快速读与快速写
 
@@ -234,19 +234,19 @@ Bigtable的列名实际上是表名和属性名结合在一起得到，不同表
 
 - Megastore允许副本不按顺序接受日志，这些日志将独立的存储在Bigtable中
 
-![CloudComputing-20190618171942921](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190618171942921.png)
+![CloudComputing-20190618171942921](../../../../uploads/CloudComputing-20190618171942921.png)
 
 ### 2.9.2. 读取数据
 
 本地查询 -> 发现位置 -> 追赶 -> 验证 -> 查询数据
 
-![CloudComputing-20190618172138062](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190618172138062.png)
+![CloudComputing-20190618172138062](../../../../uploads/CloudComputing-20190618172138062.png)
 
 ### 2.9.3. 写入数据
 
 接收leader -> 准备 -> 接收 -> 失效 -> 生效
 
-![CloudComputing-20190618172312027](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190618172312027.png)
+![CloudComputing-20190618172312027](../../../../uploads/CloudComputing-20190618172312027.png)
 
 ### 2.9.4. 协调者的可用性 
 
@@ -264,13 +264,13 @@ Bigtable的列名实际上是表名和属性名结合在一起得到，不同表
 
 ## 3.2. 监控信息的汇总
 
-![CloudComputing-20190710111630677](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190710111630677.png)
+![CloudComputing-20190710111630677](../../../../uploads/CloudComputing-20190710111630677.png)
 
 ## 3.3. 关键性技术
 
 ### 3.3.1. 轻量级核心功能库
 
-![CloudComputing-20190710111819223](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190710111819223.png)
+![CloudComputing-20190710111819223](../../../../uploads/CloudComputing-20190710111819223.png)
 
 - 最关键的代码基础是——基本RPC、线程和控制流函数库的实现
 - 主要功能是——实现区间创建、抽样和在本地磁盘上记录日志。
@@ -321,7 +321,7 @@ Bigtable的列名实际上是表名和属性名结合在一起得到，不同表
 
 Google的Dremel是第一个在嵌套数据模型基础上实现列存储的系统。
 
-![Dremel面向记录和面向列的存储](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-Dremel.png)
+![Dremel面向记录和面向列的存储](../../../../uploads/CloudComputing-Dremel.png)
 
 优势：
 
@@ -423,7 +423,7 @@ Google App Engine是一个由Python应用服务器群、Bigtable数据库及GFS�
 
 ## 7.1. Google App Engine的整体架构
 
-![CloudComputing-20190710161656740](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/CloudComputing-20190710161656740.png)
+![CloudComputing-20190710161656740](../../../../uploads/CloudComputing-20190710161656740.png)
 
 ## 7.2. 应用程序环境的特性
 

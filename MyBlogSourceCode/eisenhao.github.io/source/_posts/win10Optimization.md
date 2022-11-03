@@ -9,7 +9,7 @@ categories:
 - 效率
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/win10Optimization.jpg" class="full-image" />
+<img src="../../../../uploads/win10Optimization.jpg" class="full-image" />
 
 # 1. Win + R 常用命令
 命令|描述

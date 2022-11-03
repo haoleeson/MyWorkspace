@@ -9,7 +9,7 @@ categories:
 - 心灵成长
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Social-stratification-and-personal-life-goals.jpg" class="full-image" />
+<img src="../../../../uploads/Social-stratification-and-personal-life-goals.jpg" class="full-image" />
 
 # 1. 《北京的无奈》引发的思考
 《北京的无奈：海淀区拼娃是怎么拼的》——一篇字字扎心却又让你醍醐灌顶的文章。就连被广泛认同公平圣洁的教育，在精英家庭氛围、文化底蕴潜移默化的影响、优质且稀缺教育资源的倾斜等作用下还会公平么？

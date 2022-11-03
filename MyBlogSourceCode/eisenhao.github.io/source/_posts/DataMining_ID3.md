@@ -10,7 +10,7 @@ categories:
 - 算法
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_ID3.png" class="full-image" />
+<img src="../../../../uploads/DataMining_ID3.png" class="full-image" />
 
 # 1. ID3算法简介
 - ID3算法最早是由罗斯昆（J.Ross Quinlan）于1975年在悉尼大学提出的一种分类预测算法，算法的核心是“信息熵（Information entropy）”。
@@ -199,7 +199,7 @@ def createPlot(inTree):
 ```
 
 ## 2.6. 处理得到运动和不运动与天气之间的规则树
-数据存放于[ID3dataEn.csv](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/ID3dataEn.csv)文件
+数据存放于[ID3dataEn.csv](../../../../uploads/ID3dataEn.csv)文件
 ```[] 文件：ID3dataEn.csv
 sunny,85,85,unwindy,unsuitable
 sunny,80,90,windy,unsuitable
@@ -263,12 +263,12 @@ if __name__ == '__main__':
 ```
 
 ## 2.10. 得到的决策树图如下所示
-![myTree决策树图](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/DataMining_ID3_Result_myTree.png)
+![myTree决策树图](../../../../uploads/DataMining_ID3_Result_myTree.png)
 
 {% note success %}
 **备注**
 **运行平台**：Arch Linux
 **运行环境**：Intellij IDEA
-**待分类数据集文件**：[ID3dataEn.csv](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/ID3dataEn.csv)
-**源代码**：[ID3.py](https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/ID3.py)
+**待分类数据集文件**：[ID3dataEn.csv](../../../../uploads/ID3dataEn.csv)
+**源代码**：[ID3.py](../../../../uploads/ID3.py)
 {% endnote %}

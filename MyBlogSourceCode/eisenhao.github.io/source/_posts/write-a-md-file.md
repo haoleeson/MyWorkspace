@@ -9,7 +9,7 @@ categories:
 - 技术
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/write-a-md-file.jpg" class="full-image" />
+<img src="../../../../uploads/write-a-md-file.jpg" class="full-image" />
 
 # 1. md文件预定义参数
 
@@ -436,20 +436,20 @@ https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc #歌词 //暂时无法
 
 ## 8.4. 下方测试插件插入音乐（无歌词，lrc方式歌词失效）：
 ```
-{% aplayer "爱你" "陈芳语" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
+{% aplayer "爱你" "陈芳语" "../../../../uploads/22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
 ```
 
-{% aplayer "爱你" "陈芳语" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
+{% aplayer "爱你" "陈芳语" "../../../../uploads/22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
 
 ## 8.5. 下方测试插件插入内嵌音乐歌词：
 
 ```
-{% aplayerlrc "爱你" "陈芳语" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/22852057.mp3" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/loveYou.jpg" %}
+{% aplayerlrc "爱你" "陈芳语" "../../../../uploads/22852057.mp3" "../../../../uploads/loveYou.jpg" %}
 [00:00.25]Kimberley(陈芳语) - 爱你[00:06.43]我闭上眼睛 贴着你心跳呼吸[00:13.42]而此刻地球 只剩我们而已[00:20.16]你微笑的唇型 总勾着我的心[00:26.73]每一秒初吻 我每一秒都想要吻你[00:36.11]就这样 爱你 爱你 爱你 随时都要一起[00:42.43]我喜欢 爱你 外套 味道 还有你的怀里[00:49.11]把我们 衣服 钮扣 互扣 那就不用分离[00:56.49]美好爱情 我就爱这样贴近 因为你[01:16.85]有时没生气 故意闹脾气[01:23.42]你的紧张在意 让我觉得安心[01:30.04]从你某个角度 我总看见自己[01:36.76]到底你懂我 或其时我本来就像你[01:46.17]就这样 爱你 爱你 爱你 随时都要一起[01:52.70]我喜欢 爱你 外套 味道 还有你的怀里[01:59.28]把我们 衣服 钮扣 互扣 那就不用分离[02:06.80]美好爱情 我就爱这样贴近 因为你[02:17.73]想变成你的氧气 溜进你身体里[02:31.49]好好看看在你心里 你有多麽宝贝 我爱你[02:44.44]就这样 爱你 爱你 爱你 随时都要一起 （爱你）[02:49.27]我喜欢 爱你 外套 味道 还有你的怀里[02:55.92]把我们 衣服 钮扣 互扣 那就不用分离[03:03.50]美好爱情 我就爱这样贴近 因为你[03:10.28]我们爱情 会一直没有距离 最美丽
 {% endaplayerlrc %}
 ```
 
-{% aplayerlrc "爱你" "陈芳语" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/22852057.mp3" "https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/loveYou.jpg" %}
+{% aplayerlrc "爱你" "陈芳语" "../../../../uploads/22852057.mp3" "../../../../uploads/loveYou.jpg" %}
 [00:00.25]Kimberley(陈芳语) - 爱你[00:06.43]我闭上眼睛 贴着你心跳呼吸[00:13.42]而此刻地球 只剩我们而已[00:20.16]你微笑的唇型 总勾着我的心[00:26.73]每一秒初吻 我每一秒都想要吻你[00:36.11]就这样 爱你 爱你 爱你 随时都要一起[00:42.43]我喜欢 爱你 外套 味道 还有你的怀里[00:49.11]把我们 衣服 钮扣 互扣 那就不用分离[00:56.49]美好爱情 我就爱这样贴近 因为你[01:16.85]有时没生气 故意闹脾气[01:23.42]你的紧张在意 让我觉得安心[01:30.04]从你某个角度 我总看见自己[01:36.76]到底你懂我 或其时我本来就像你[01:46.17]就这样 爱你 爱你 爱你 随时都要一起[01:52.70]我喜欢 爱你 外套 味道 还有你的怀里[01:59.28]把我们 衣服 钮扣 互扣 那就不用分离[02:06.80]美好爱情 我就爱这样贴近 因为你[02:17.73]想变成你的氧气 溜进你身体里[02:31.49]好好看看在你心里 你有多麽宝贝 我爱你[02:44.44]就这样 爱你 爱你 爱你 随时都要一起 （爱你）[02:49.27]我喜欢 爱你 外套 味道 还有你的怀里[02:55.92]把我们 衣服 钮扣 互扣 那就不用分离[03:03.50]美好爱情 我就爱这样贴近 因为你[03:10.28]我们爱情 会一直没有距离 最美丽
 {% endaplayerlrc %}
 

@@ -9,7 +9,7 @@ categories:
 - 心灵成长
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/AfterWatch7upAndRenJianShi.jpg" class="full-image" />
+<img src="../../../../uploads/AfterWatch7upAndRenJianShi.jpg" class="full-image" />
 
 最近疲于找实习，感觉自己能力不足，有些迷茫，遂重温了《人生七年》、《人间世》，竟有些新的感受。
 
@@ -32,7 +32,7 @@ categories:
   - 单亲家庭的Symon收养了几千个孩子，付出了许多，也收获了无与伦比的快乐。
 - 思考自己究竟以什么模式活着，找到自己内心真正想要什么？当然，这值得我们用一生来寻找答案。
 
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/RenJianShiNewLife.jpg" class="full-image" />
+<img src="../../../../uploads/RenJianShiNewLife.jpg" class="full-image" />
 
 # 2. 《人间世》观后感
 

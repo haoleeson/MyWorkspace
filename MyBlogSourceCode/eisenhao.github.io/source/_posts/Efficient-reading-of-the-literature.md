@@ -9,7 +9,7 @@ categories:
 - 效率
 
 ---
-<img src="https://eisenhao.coding.net/p/eisenhao/d/eisenhao/git/raw/master/uploads/Efficient-reading-of-the-literature.jpg" class="full-image" />
+<img src="../../../../uploads/Efficient-reading-of-the-literature.jpg" class="full-image" />
 
 你是否时常苦于获取不到精确且优质的信息？据统计科研人员花费在文献阅读的时间占比总科研时间超过一半。在信息时代，如何从海量的数据中快速筛选出有用的信息已成为当代人的一项重要技能，博主收集了几项对高效地阅读文献、提升检索信息效率有积极作用的方法，或将提升信息检索的效率。
 
