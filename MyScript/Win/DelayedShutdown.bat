@@ -3,5 +3,5 @@
 set /a waitMinutes=5
 set /a waitSeconds=%waitMinutes%*60
 
-echo "This computer will shut down in %waitMinutes% minutes"
+echo "This PC will shutdown after %waitMinutes% minutes ..."
 shutdown -S -T %waitSeconds%

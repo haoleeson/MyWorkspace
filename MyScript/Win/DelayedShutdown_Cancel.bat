@@ -1,4 +1,4 @@
 @echo off
 shutdown -a
-echo "Delayed shutdown schedule cancelled"
+echo "Cancel shutdown task succ :)"
 pause
