@@ -1,11 +1,11 @@
 搭建远程Git私库
 
-依赖项：
+<!-- 依赖项：
 ```shell
 git --version
 yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-devel
 yum install -y git
-```
+``` -->
 
 # 1. 在Remote Host创建git私库
 
@@ -15,36 +15,63 @@ yum install -y git
 
 ```shell
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 
+# check
+iptables -n -L
+
+# 配置开机启动
 iptables-save > /etc/iptables.up.rules
 
 /etc/init.d/ssh restart
 ```
 
-## 1.2. 安装 Nginx
+## 1.2. 安装 PHP7.4
+```shell
+# 添加 SURY PHP PPA 存储库
+sudo apt -y install lsb-release apt-transport-https ca-certificates 
+sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+echo "deb https://packages.sury.org/php/$(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
+# 更新添加的存储库上的系统软件包列表
+sudo apt update
+# 安装 php7.4 和相关插件（Debian 11）
+sudo apt install -y php7.4-cli php7.4-fpm php7.4-cgi php7.4-mysql php7.4-curl php7.4-json php7.4-mbstring php7.4-imagick php7.4-xml php7.4-zip php7.4-opcache
+# 卸载
+#sudo apt-get remove --purge -y php7.4-cli php7.4-fpm php7.4-cgi php7.4-mysql php7.4-curl php7.4-json php7.4-mbstring php7.4-imagick php7.4-xml php7.4-zip php7.4-opcache
+```
+
+## 1.3. 安装 Nginx
 因为 Nginx 在 Debian 的默认存储库中可用，所以可以使用 apt 打包系统从这些存储库安装它。
 ```shell
 sudo apt update
 sudo apt install nginx
 
-# 修改 nginx 配置文件
-vi /etc/nginx/nginx.conf
+# 解决 systemd 在执行 ExecStart 启动过快导致 parse PID 失败
+mkdir /etc/systemd/system/nginx.service.d
+printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
+systemctl daemon-reload
+service nginx restart
 
-# 检查 nginx 服务运行库状态
-systemctl status nginx.service
+# check
+service nginx status
 
-# 创建 index.html
+# 创建 站点目录
 mkdir -p /var/www/html/
 echo 'Hello world!' > /var/www/html/index.html
 chmod -R 777 /var/www/html/
+
+# 修改 nginx 配置文件 (my_nginx_for_private_git_repo.config)
+vi /etc/nginx/nginx.conf
+
+# 检查 nginx 与 php-fpm 服务运行库状态
+systemctl status nginx.service php7.4-fpm.service
+systemctl restart nginx.service php7.4-fpm.service
 
 # 浏览器测试
 http://A.B.C.D/index.html
 ```
 
-## 1.3. 创建 git 用户及属组
+## 1.4. 创建 git 用户及属组
 ```shell
 # 
 groupadd git
@@ -55,7 +82,7 @@ passwd git
 su git
 ```
 
-## 1.4. 配置git仓库
+## 1.5. 配置git仓库
 ```shell
 # 创建git私库目录
 mkdir -p $HOME/blog

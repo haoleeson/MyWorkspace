@@ -7,6 +7,8 @@ WordPress 建站
 ```shell
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+# check
+iptables -n -L
 iptables-save > /etc/iptables.up.rules
 /etc/init.d/ssh restart
 ```
@@ -15,6 +17,15 @@ iptables-save > /etc/iptables.up.rules
 ```shell
 sudo apt update
 sudo apt install nginx
+
+# 解决 systemd 在执行 ExecStart 启动过快导致 parse PID 失败
+mkdir /etc/systemd/system/nginx.service.d
+printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
+systemctl daemon-reload
+service nginx restart
+
+# check
+service nginx status
 ```
 # 3. 安装 MariaDB
 ```shell
@@ -134,6 +145,7 @@ echo 'Hello world!' > /var/www/html/index.html
 # 9. 检查 nginx 与 php-fpm 服务运行库状态
 ```shell
 systemctl status nginx.service php7.4-fpm.service
+systemctl restart nginx.service php7.4-fpm.service
 ```
 # 10. 浏览器配置
 http://A.B.C.D/
