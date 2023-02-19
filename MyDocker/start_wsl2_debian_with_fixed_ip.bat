@@ -30,4 +30,12 @@ if !errorlevel! equ 0 (
 
 endlocal
 
+:: Execute Docker Desktop.exe
+cd C:\Program Files\Docker\Docker\
+start Docker" "Desktop.exe
+
+:: Execute Docker MobaXterm.exe
+cd C:\Program Files (x86)\Mobatek\MobaXterm\
+start MobaXterm.exe
+
 pause

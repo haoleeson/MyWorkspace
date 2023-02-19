@@ -14,25 +14,21 @@ From debian:stretch
 # RUN cp /etc/apt/sources.list.d/raspi.list /etc/apt/sources.list.d/raspi.list.bak && \
 #     echo "deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ stretch main" > /etc/apt/sources.list.d/raspi.list
 
-# Update sorce list
-RUN apt-get update
-# RUN apt-get upgrade
-RUN apt-get clean
-
-# Solve Linux 8 hours earlier than host
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-
 # Set the working directory to /root/
 WORKDIR /root/
 
-RUN mkdir -p /app/files
-
-# Copy the current directory contents into the container at /app
+# Copy files directory to container /app/files
+RUN mkdir -p /app/files/
 COPY ["./files", "/app/files"]
-COPY ["./files/pip.conf", "/etc/pip.conf"]
+
+RUN apt-get update && \
+    cp /app/files/pip.conf /etc/pip.conf && \
+
+# Solve Linux 8 hours earlier than host
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 
 # Install usefull applications
-RUN apt-get install -y --force-yes \
+    apt-get install -y --force-yes \
     sudo vim git systemd openssh-server supervisor gcc g++ cpp tar zip unzip expect tmux rsyslog zsh \
     python-pip python3 python3-pip python-setuptools python-dev python-cffi python-scapy python-ply \
     # compare
@@ -47,51 +43,53 @@ RUN apt-get install -y --force-yes \
     zlib1g-dev xz-utils dh-make libssl1.0.2 python-crcmod python-jsonschema \
     libboost-dev libboost-test-dev libboost-thread-dev libboost-system-dev \
     apt-transport-https ca-certificates ca-certificates-java \
-    default-jdk default-jre default-jre-headless
+    default-jdk default-jre default-jre-headless; \
 
 # Install python lib
-RUN pip install crc16 crcmod doxypy ipaddress jsl jsonschema==2.6.0 packaging ply simplejson
+    pip install crc16 crcmod doxypy ipaddress jsl jsonschema==2.6.0 packaging ply simplejson; \
 
 # Install SONiC dependency lib
-# RUN pip install -U --default-timeout=100 paramiko>=2.11.0 Jinja2==2.10 j2cli
-# RUN pip3 install -U --default-timeout=100 nose setuptools
-# RUN python3 -m pip install mockredispy>=2.9.3
+#     pip install -U --default-timeout=100 paramiko>=2.11.0 Jinja2==2.10 j2cli && \
+#     pip3 install -U --default-timeout=100 nose setuptools && \
+#     python3 -m pip install mockredispy>=2.9.3 && \
+
 # SONiC libsairedis dependenceies
-# RUN pip3 install -U redis==2.10.6 natsort pytest-runner pytest==3.0.5 python_arptable>=0.0.1 psutil>=4.0 pyyaml
-# RUN pip install -U redis==2.10.6
+#     pip3 install -U redis==2.10.6 natsort pytest-runner pytest==3.0.5 python_arptable>=0.0.1 psutil>=4.0 pyyaml && \
+#     pip install -U redis==2.10.6 && \
 
 # Initialization SSH
-RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak
-COPY ["./files/sshd_config", "/etc/ssh/sshd_config"]
-RUN mkdir -p /var/run/sshd
-# RUN ssh-keygen -y -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
+    mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
+    cp /app/files/sshd_config /etc/ssh/sshd_config && \
+    mkdir -p /var/run/sshd; \
+#     ssh-keygen -y -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''; \
 
 # Setting oh-my-zsh (GnuTLS recv error (-110): The TLS connection was non-properly terminated.)
-# RUN /usr/bin/curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-## RUN git clone git://github.com/robbyrussell/oh-my-zsh.git /root/.oh-my-zsh
-# CMD ["/bin/cp", "/root/.zshrc", "/root/.zshrc_bak"]
-# CMD ["/bin/cp", "/root/.oh-my-zsh/templates/zshrc.zsh-template", "/root/.zshrc"]
-# RUN /bin/sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/g' /root/.zshrc
-# CMD ["/usr/bin/chsh", "-s", "/bin/zsh"]
+#     /usr/bin/curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh && \
+#     #git clone git://github.com/robbyrussell/oh-my-zsh.git /root/.oh-my-zsh && \
+#     mv /root/.zshrc /root/.zshrc_bak && \
+#     cp /root/.oh-my-zsh/templates/zshrc.zsh-template /root/.zshrc && \
+#     /bin/sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/g' /root/.zshrc && \
+#     /usr/bin/chsh -s /bin/zsh; \
 
 # Supervisord
-COPY ["./files/start.sh", "/root/"]
-COPY ["./files/supervisord.conf", "/etc/supervisor/conf.d/supervisord.conf"]
-RUN mkdir -p /var/log/supervisor
+    cp /app/files/start.sh /root/start.sh && \
+    cp /app/files/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
+    mkdir -p /var/log/supervisor; \
 
 
 # Clean up apt
 # Remove /var/lib/apt/lists/*, could be obsoleted for derived images
-# RUN apt-get clean -y; apt-get autoclean -y; apt-get autoremove -y
-# RUN rm -rf /var/lib/apt/lists/*
-RUN apt-get autoremove -y
+#     apt-get clean -y; apt-get autoclean -y; apt-get autoremove -y && \
+#     rm -rf /var/lib/apt/lists/* && \
+    apt-get autoremove -y && \
+    apt-get clean; \
+
+# set root passwd
+    echo "root:e" | chpasswd
 
 # Make port 22 80 available to the world outside this container
 EXPOSE 22 
 EXPOSE 80
-
-# set root passwd
-RUN echo "root:e" | chpasswd
 
 # Run a program that never exits
 ENTRYPOINT ["/usr/bin/supervisord"]
