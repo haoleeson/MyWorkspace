@@ -1,10 +1,10 @@
 layout: post
-title: 开源白盒交换机系统 SONIC 简介
+title: 开源白盒交换机系统 SONiC 简介
 date: 2021/9/12 22:30:45
 updated: 2021/9/12 22:10:45
 comments: true
 tags: 
-- Network
+- sonic
 categories:
 - 技术
 
@@ -41,13 +41,13 @@ categories:
 - 提供了将传统交换机 OS 拆分成多个容器化组件的解决方案
 - 进而也定义了**控制面的容器化架构**，囊括了诸多组件和编程端口
 
-# 5. SONIC 系统架构
+# 5. SONiC 系统架构
 
-SONIC 采用模块化体系结构，将每个模块放在独立的 **Docker 容器**中。其在保持组件之间的**高内聚性**的同时**减少**组件之间的**耦合**。<br>其主要组件包括：DHCP-Relay、Pmon、Snmp、LLDP、BGP、Teamd、Database、Swss、Syncd。其系统架构如下图所示。
+SONiC 采用模块化体系结构，将每个模块放在独立的 **Docker 容器**中。其在保持组件之间的**高内聚性**的同时**减少**组件之间的**耦合**。<br>其主要组件包括：DHCP-Relay、Pmon、Snmp、LLDP、BGP、Teamd、Database、Swss、Syncd。其系统架构如下图所示。
 
 <img src="../../../../uploads/SONICArchitecture.png" class="full-image" />
 
-# 6. SONIC 中各容器功能简介
+# 6. SONiC 中各容器功能简介
 
 <table border="1" cellspacing="1" style="border: 1ps dotted #666" >
     <tr>
@@ -156,7 +156,7 @@ SONIC 采用模块化体系结构，将每个模块放在独立的 **Docker 容�
 4.  <b><font color="red">ASIC_DB</font></b>： 存储驱动特殊应用集成电路（Application Specific　Integrated Circuit，ASIC）的<b>配置和操作所需的状态</b>。这里的状态以 ASIC 友好的格式保存，以便于 Syncd 和 ASIC SDK 之间的交互。
 5.  <font color="red">COUNTERS_DB</font>： 存储系统中每个端口相关联的<b>计数器/统计</b>信息。该信息可用于响应 CLI 的本地请求（查询统计信息）或用于为远程遥测提供信息。
 
-SONIC 各**容器**与**各 Redis 表**间数据流交互关系如下图所示（详细交互流程可参见：[SONIC Architecture](https://github.com/Azure/SONiC/wiki/Architecture)）：
+SONiC 各**容器**与**各 Redis 表**间数据流交互关系如下图所示（详细交互流程可参见：[SONiC Architecture](https://github.com/Azure/SONiC/wiki/Architecture)）：
 
 <img src="../../../../uploads/DataflowBetweenSONICContainerAndRedisTable.png" class="full-image" />
 
@@ -186,6 +186,6 @@ SONIC 各**容器**与**各 Redis 表**间数据流交互关系如下图所示�
 
 # 7. 参考资料
 
-- [SONIC 社区 WiKi](https://github.com/azure/sonic/wiki)
+- [SONiC 社区 WiKi](https://github.com/azure/sonic/wiki)
 - [SONiC 用户手册](https://github.com/Azure/SONiC/blob/master/doc/SONiC-User-Manual.md)
-- [SONIC 命令行参考](https://github.com/Azure/sonic-utilities/blob/master/doc/Command-Reference.md)
+- [SONiC 命令行参考](https://github.com/Azure/sonic-utilities/blob/master/doc/Command-Reference.md)
