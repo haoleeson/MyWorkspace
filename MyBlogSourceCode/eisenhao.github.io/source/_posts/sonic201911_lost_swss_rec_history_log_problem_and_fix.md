@@ -27,9 +27,9 @@ sonic版本：201911
 - 怀疑为 Docker 同步问题。<br>/var/log/swss/ 路径为 swss 容器（rw形式）挂载宿主机同路径文件夹，怀疑可能同步问题导致，但同路径 <code>sairedis.rec</code> 正常，排除。
 - 怀疑 orchagent 进程未正常关闭、重启可能导致正在打开的 <code>swss.rec</code> 内容丢失。<br>但相似模式的 <code>sairedis.rec</code> 无此问题，排除。
 - 怀疑 orchagent 进程对 <code>swss.rec</code> 读写业务流程中与 <code>sairedis.rec</code> 存在差异的地方导致的此问题。<br>分析源码 swss.rec 读写流涉及函数，发现 main.cpp 中必打的日志丢失。
-<img src="../../../../uploads/Analyze_the_source_code_swss.rec_read_and_write_flow_involves_functions.png" class="full-image" />
+<img src="../../../../uploads/Analyze_the_source_code_swss_rec.png" class="full-image" />
 - 怀疑 "pgrep -x orchagent | xargs /bin/kill -HUP 2>/dev/null || true" 触发 Orch::logfileReopen() 后，文件打开方式为默认，可能会覆盖之前内容。<br>swss.rec 与 sairedis.rec 重载参数对比：
-<img src="../../../../uploads/Comparison_of_swss.rec_and_sairedis.rec_overload_parameters.png" class="full-image" />
+<img src="../../../../uploads/Comparison_of_swss_rec_and_sairedis_rec.png" class="full-image" />
 
 ### 2.2.1. 测试 logfileReopen() 函数调用前后 swss.rec 文件变化
 <img src="../../../../uploads/Test_logfileReopen_the_swss.rec.png" class="full-image" />

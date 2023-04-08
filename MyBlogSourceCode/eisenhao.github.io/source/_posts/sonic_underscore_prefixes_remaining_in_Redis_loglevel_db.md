@@ -58,7 +58,7 @@ Redis loglevel_db 中残留2~n个下划线前缀的冗余表项问题
 -  <code>src/sonic-swss-common/common/loglevel.cpp</code> 中的 <code>setLoglevel()</code> 。
   - 而调用其的地方没考虑到做过滤带下划线前缀临时表项的操作
 
-<img src="../../../../uploads/redis_loglevel_db_The_code_calls_setLoglevel_without_filtering_temporary_entries.png" class="full-image" />
+<img src="../../../../uploads/redis_loglevel_db_The_code_calls_setLoglevel.png" class="full-image" />
 
 ## 2.3. 根因
 swssloglevel 未过滤 loglevel_db 中的临时表项。swss 启动时会调 <code>swssloglevel -l WARN -a</code>，由于 swssloglevel 程序的 <code>setLoglevel()</code> 未过滤带下划线前缀的临时表项，导致其也被当做正常表项处理。最终导致会增量创建“临时表项的临时表项”问题，重启 n 次则创建 n 个。
@@ -66,7 +66,7 @@ swssloglevel 未过滤 loglevel_db 中的临时表项。swss 启动时会调 <co
 # 3. 问题影响
 - 在 Redis loglevel_db 中存在下划线前缀的临时表项时，调用 swssloglevel 必出 core
 
-<img src="../../../../uploads/redis_loglevel_db_analysis_log_level.c++_code_is_not_judged_empty.png" class="full-image" />
+<img src="../../../../uploads/redis_loglevel_db_analysis_log_level.png" class="full-image" />
 
 - 冗余表项虽不影响 swss 正常运行，但多出的异常表项会占用内存资源，且会对定位排障造成一定干扰。
 
