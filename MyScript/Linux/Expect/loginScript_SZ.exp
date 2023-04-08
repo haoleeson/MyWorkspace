@@ -8,7 +8,7 @@ set timeout 30
 # 公司邮箱前缀
 set EMAIL_PREFIX "admin"
 # 邮箱密码
-set EMAIL_PWD "E^(*@6982"
+set EMAIL_PWD "yourpasswd"
 # 开发机名
 set ENV_INFO "szm3b-szlab-dev07.szm3b"
 
@@ -24,7 +24,7 @@ set SW_USR_NAME "admin"
 set SW_USR_PWD "admin"
 
 # 1.1 登录跳板机
-spawn ssh $EMAIL_PREFIX@relay.baidu-int.com
+spawn ssh $EMAIL_PREFIX@jump_device
 
 # 打开调试模式
 # exp_internal 1
@@ -37,7 +37,7 @@ expect {
     "*assword:" { send "$EMAIL_PWD\r"; exp_continue }
 
     # 2.1 登录开发机（免密）
-    "*-bash-baidu-ssl*" { send "ssh --silent $EMAIL_PREFIX@$ENV_INFO\r" }
+    "*your_hostname*" { send "ssh --silent $EMAIL_PREFIX@$ENV_INFO\r" }
 }
 
 expect {
