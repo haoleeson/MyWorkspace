@@ -1,35 +1,35 @@
 layout: post
-title: 安装sonic
+title: 安装SONiC
 date: 2021/9/28 22:30:45
 updated: 2021/9/28 22:40:45
 comments: true
 tags: 
-- sonic
+- SONiC
 categories:
 - 技术
 
 ---
 
 # 1. 准备工作
-## 1.1. 制作 sonic 安装U盘
+## 1.1. 制作 SONiC 安装U盘
 ### 1.1.1. 依赖材料
 1. 一台带 USB 接口的白盒交换机（已安装 SONiC 系统）
 2. 一个空U盘 （容量高于2G）
 3. 两个<font color="red" style="">安装文件</font>：sonic.bin 和 sonic-recovery.bin
-  - sonic.bin，全量安装 sonic 系统的二进制文件（六百多MB）
+  - sonic.bin，全量安装 SONiC 系统的二进制文件（六百多MB）
   - sonic-recovery.bin，构建/恢复 SONiC-OS 系统基础环境的二进制文件（约三百MB）
 
 <!-- more -->
 
 其中，sonic.bin 和 sonic-recovery.bin 的编译方式如下：
 >备注：
->- 编译 sonic 版本需确保当前登录用户已加入 <b><font color="#7E3D76" style="">docker</font></b> 组
+>- 编译 SONiC 版本需确保当前登录用户已加入 <b><font color="#7E3D76" style="">docker</font></b> 组
 >- 查询当前 <b><font color="#7E3D76" style="">docker</font></b> 组用户列表的命令为： <code>sudo cat /etc/group | grep docker</code> 
 >- 若当前登录用户不在 <b><font color="#7E3D76" style="">docker</font></b> 组用户列表中，则需添加到 <b><font color="#7E3D76" style="">docker</font></b> 组用户列表，命令为：  <code>sudo usermod -aG docker ${当前用户名} </code> 
 
 
 ```shell
-# 1. 进入 sonic 源码目录
+# 1. 进入 SONiC 源码目录
 cd $SONIC_CODE_DIR
 # 2. 设置芯片厂商（eg. broadcom）
 make configure PLATFORM=broadcom
@@ -40,7 +40,7 @@ make target/sonic-recovery.bin
 ```
 
 ### 1.1.2. 制作安装U盘
-1. 上传两个<font color="red" style="">安装文件</font>到（用于制作安装U盘的）SONIC白盒交换机的 /host/ 目录
+1. 上传两个<font color="red" style="">安装文件</font>到（用于制作安装U盘的）SONiC白盒交换机的 /host/ 目录
 
 ```shell
 # 拷贝安装文件到交换机（eg. 通过 scp 命令传输）
@@ -153,8 +153,8 @@ minicom -s
 
 备注： ESC + Z 可调出 minicom 工具的命令菜单
 
-# 2. 安装 sonic
-## 2.1. 通过 U 盘安装 sonic 系统
+# 2. 安装 SONiC
+## 2.1. 通过 U 盘安装 SONiC 系统
 
 <b><font color="#7E3D76" style="">1. 从U盘启动</font></b><br>
   - 交换机插入安装U盘
@@ -162,7 +162,7 @@ minicom -s
   - 输入U盘中 SONiC 系统的用户/密码: admin/admin
   - 进入 /host/ 目录，确认存在两个<font color="red" style="">安装文件</font> ：sonic.bin 和 sonic-recovery.bin
 
-<b><font color="#7E3D76" style="">2. （交换机）硬盘分区并准备SONIC-OS基础环境</font></b><br>
+<b><font color="#7E3D76" style="">2. （交换机）硬盘分区并准备SONiC-OS基础环境</font></b><br>
 
 > 通过 sonic-recovery.bin 对（交换机）硬盘进行分区并准备 SONiC-OS 基础环境
 
@@ -177,9 +177,9 @@ minicom -s
 ```shell
 ./sonic-recovery.bin -n /dev/nvme0n1
 ```
-  - (3). 再次通过 <code>blkid</code> 命令查看硬盘分区信息，确认硬盘分区信息囊括下方所有 **LABEL** <br>（GRUB、SONIC-OS、Recovery、Diag、Reserved、Log）
+  - (3). 再次通过 <code>blkid</code> 命令查看硬盘分区信息，确认硬盘分区信息囊括下方所有 **LABEL** <br>（GRUB、SONiC-OS、Recovery、Diag、Reserved、Log）
 
-<b><font color="#7E3D76" style="">3. 安装 sonic 系统</font></b>
+<b><font color="#7E3D76" style="">3. 安装 SONiC 系统</font></b>
 
 执行下方命令安装 SONiC 系统
 
@@ -189,6 +189,39 @@ minicom -s
 
 <b><font color="#7E3D76" style="">4. 拔掉U盘，重启</font></b>
 
+## 2.2. 通过 ONIE 重装 SONiC
+<b><font color="#7E3D76" style="">1. 卸载旧 SONiC</font></b><br>
+- 串口访问设备（切COM-E），手动重启；
+- 在 GRUB 菜单选择 ONIE: Uninstall OS，等待其卸载旧 SONiC 系统后自动重启；
+- 在重启后的 GRUB 菜单选择 ONIE: Rescue；
+- 在提示 "please press enter to activate this console" 后，按回车进入 ONIE 系统
+
+<b><font color="#7E3D76" style="">2. 手动配置 ONIE 系统的管理 IP</font></b><br>
+> 配置同网段IP
+
+```shell
+ifconfig eth0 1.2.3.4 netmask 255.255.255.0
+```
+
+<b><font color="#7E3D76" style="">3. 拷贝 SONiC 安装镜像到 ONIE 系统的 /tmp 路径</font></b><br>
+```shell
+scp admin@4.5.6.7:/home/admin/sonic.bin /tmp/
+```
+
+
+<b><font color="#7E3D76" style="">4. 通过 onie-nos-install 安装 SONiC 镜像</font></b><br>
+
+```shell
+onie-nos-install /tmp/sonic.bin
+```
+
+## 2.3. 通过 sonic_installer 更新 SONiC
+若设备已安装旧版 SONiC，可直接通过 sonic_installer 指令更新版本
+
+```shell
+sudo sonic_installer install -f /home/admin/new-sonic.bin
+```
+
 # 3. 配置交换机IP及管理网路由
 > 备注：
 > - 建议串口访问下执行下述操作，ssh 访问可能会因重新分配 IP 导致断连
@@ -196,7 +229,7 @@ minicom -s
 > - 若发现设备缺失配置文件 <code>/etc/sonic/config_db.json</code> ，执行下方 3(a) 步即可配置IP并生成配置文件。
 > - 若发现设备管理 IP 丢失（ <code>/etc/network/interfaces</code>文件被删 ），执行下方 3(b) 步即可配置静态 IP（此文件为生成文件，不推荐手动配置）。
 
-（现 sonic 已支持通过 cli 配置，可作为接线后临时测试的配置参考）
+（SONiC 支持通过 cli 配置，可作为接线后临时测试的配置参考）
 
 1. <b><font color="#7E3D76" style="">查看设备状态信息</font></b>
 

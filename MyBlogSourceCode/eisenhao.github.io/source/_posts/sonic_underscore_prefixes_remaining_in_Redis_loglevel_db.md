@@ -4,7 +4,7 @@ date: 2021/12/17 22:30:45
 updated: 2021/12/17 23:10:45
 comments: true
 tags: 
-- sonic
+- SONiC
 categories:
 - 技术
 
