@@ -20,7 +20,7 @@ RUN mv /bin/uname /bin/uname.old && \
     cp /sde/uname-deb9 /bin/uname && \
     chmod +x /bin/uname && \
     apt-get update && \
-    apt install -y --force-yes sudo dh-make && \
+    apt install -y --force-yes sudo ssh dh-make && \
     sudo apt-get install -y linux-headers-amd64; \
 
 # Install dependencies
@@ -62,11 +62,12 @@ RUN mv /bin/uname /bin/uname.old && \
     packaging ply simplejson Tenjin -i http://mirrors.aliyun.com/pypi/simple/; \
 
     # # Install sde build dependences
-    # git clone --single-branch -b bf-sde-9.3.2 git@your-bf-sde.git /sde/bf-sde-9.3.2 && \
-    # cp /sde/set_sde.bash /sde/bf-sde-9.3.2/ && \
-    # cd /sde/bf-sde-9.3.2/ && \
-    # /bin/bash -c "source /etc/profile; source set_sde.bash; cd p4studio_build; \
-    #               ./p4studio_build.py -fa -wk -up switch_p416_profile_sai15 -sp x1_tofino" && \
-    # rm -rf /sde/bf-sde-9.3.2/ && \
+    # git clone --single-branch -b bf-sde-9.9.0 git@your-bf-sde.git /sde/bf-sde-9.9.0 && \
+    # cp /sde/set_sde.bash /sde/bf-sde-9.9.0/ && \
+    # cd /sde/bf-sde-9.9.0/ && export SDE=$PWD && export SDE_INSTALL=$SDE/install && \
+    # /bin/bash -c "source /etc/profile; source set_sde.bash; cd $SDE/p4studio; \
+    #         ./install-p4studio-dependencies.sh; ./p4studio dependencies install; \
+    #         ./p4studio profile apply $SDE/p4studio/profiles/switch-p4-16-sai15.yaml" && \
+    # rm -rf /sde/bf-sde-9.9.0/ && \
 
     apt-get clean

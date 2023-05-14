@@ -7,8 +7,8 @@
 
 ################# User Config Start #################
 IMAGE_NAME=sde_build_image_simple
-IMAGE_TAG=v9.3.2
-CONTAINER_NAME=bf_sde_9_3_2_simulation
+IMAGE_TAG=v9.9.0
+CONTAINER_NAME=bf_sde_9_9_0_simulation
 ################# User Config End #################
 
 echo "Remove the old same name container (if exist)"
@@ -35,6 +35,6 @@ docker run -dit --name $CONTAINER_NAME --privileged=true \
     -v /usr/share/zoneinfo:/usr/share/zoneinfo:ro \
     -v /etc/localtime:/etc/localtime:ro \
     -w /sde/ \
-    -p 10932:22 -p 4000:4000 $IMAGE_NAME:$IMAGE_TAG bash
+    -p 10990:22 -p 3000:3000 $IMAGE_NAME:$IMAGE_TAG bash
 
 echo "done."
