@@ -7,6 +7,8 @@ WordPress 建站
 ```shell
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 9098 -j ACCEPT
 # check
 iptables -n -L
 iptables-save > /etc/iptables.up.rules
@@ -66,15 +68,19 @@ sudo apt install -y php7.4-cli php7.4-fpm php7.4-cgi php7.4-mysql php7.4-curl ph
 curl https://get.acme.sh | sh -s email=ei13911468370@gmail.com
 ```
 
-## 5.1. Option1: 通过 http 方式自动生成证书
+## 5.1. 【推荐，可自动更新】Option1: 通过 http 方式自动生成证书
 ```shell
 MY_DOMAIN='eisenhao.cn'
+MY_DOMAIN='sea.eisenhao.cn'
 # 方式 1.a: http 方式验证
 ~/.acme.sh/acme.sh --issue -d $MY_DOMAIN --nginx
 # 方式 1.b: http 方式之 Webroot 模式验证
 ~/.acme.sh/acme.sh --issue -d $MY_DOMAIN --webroot /home/git/blog/
-# 方式 1.c: http 方式之 standalone 模式验证
-~/.acme.sh/acme.sh  --issue  -d $MY_DOMAIN  --standalone --httpport 80
+
+# 方式 1.c:【亲测可行】 http 方式之 standalone 模式验证（需将 nginx 中服务的 port 设置为 80，并关闭对应的 ssl 的服务 ）
+~/.acme.sh/acme.sh  --issue  -d $MY_DOMAIN  --standalone --httpport 8443
+~/.acme.sh/acme.sh  --issue  -d "sea.eisenhao.cn" --webroot /home/git/blog/  --standalone --httpport 8443 -k ec-256 --server "letsencrypt"
+
 # 方式 1.d: http 方式之 standalone tls alpn 模式验证（用 443 端口）
 ~/.acme.sh/acme.sh  --issue  -d $MY_DOMAIN  --alpn
 ~/.acme.sh/acme.sh  --issue  -d $MY_DOMAIN  --alpn --tlsport 8443
@@ -111,7 +117,7 @@ mkdir -p $CERT_PATH
     --reloadcmd     "service nginx force-reload"
 
 # 查看已安装证书信息
-~/.acme.sh/acme.sh --info -d $MY_DOMAIN
+~/.acme.sh/acme.sh --list -d $MY_DOMAIN
 ```
 
 # 6. 修改 nginx 配置文件
