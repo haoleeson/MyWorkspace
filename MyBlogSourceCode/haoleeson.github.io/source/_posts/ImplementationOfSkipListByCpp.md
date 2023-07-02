@@ -358,6 +358,6 @@ void SkipList<K, V>::graphical_print() {
 <img src="../../../../uploads/SkipList_graphical_print.png" class="full-image" />
 
 {% note success %} 欢迎访问我的 Git 仓库阅读更多详细实现细节
-https://github.com/EisenHao/MyWorkspace/MyCpp/SkipList/src/skip_list/skip_list_node.h
-https://github.com/EisenHao/MyWorkspace/MyCpp/SkipList/src/skip_list/skip_list.h
+https://github.com/haoleeson/MyWorkspace/MyCpp/SkipList/src/skip_list/skip_list_node.h
+https://github.com/haoleeson/MyWorkspace/MyCpp/SkipList/src/skip_list/skip_list.h
 {% endnote %}

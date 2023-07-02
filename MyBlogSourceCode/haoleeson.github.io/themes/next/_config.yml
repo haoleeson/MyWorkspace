@@ -141,7 +141,7 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  GitHub: https://github.com/EisenHao || fab fa-github # fab fa-github
+  GitHub: https://github.com/haoleeson || fab fa-github # fab fa-github
   #E-Mail: mailto:yourname@gmail.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fab fa-weibo
   CSDN: https://blog.csdn.net/u013229297 || fab fa-cuttlefish # globe #csdn
@@ -403,7 +403,7 @@ bookmark:
 # `Follow me on GitHub` banner in the top-right corner.
 github_banner:
   enable: false
-  permalink: https://github.com/EisenHao
+  permalink: https://github.com/haoleeson
   title: Welcome to my Github
 
 

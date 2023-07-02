@@ -77,7 +77,7 @@ ssh-keygen -C 'you email address@gmail.com' -t rsa
 - 复制公钥
 打开刚刚新建的公钥，并复制文件所有内容 Ctrl + A
 ```
-gedit /home/eisenhao/.ssh/id_rsa.pub
+gedit /home/haoleeson/.ssh/id_rsa.pub
 ```
 
 - 上传公钥到GitHub
@@ -468,7 +468,7 @@ JDK=$HOME/Environment/JAVA/jdk1.8.0_181 #待添加强制定义JDK路径代码，
 压缩文件／文件夹
 ```
 7za a -t7z -r Mytest.7z /opt/phpMyAdmin-3.3.8.1-all-languages/*
-7za a -t7z -r eisenhao.github.io_backup20180928.7z /home/eisenhao/eisenhao.github.io/*  #压缩本站所有文件
+7za a -t7z -r haoleeson.github.io_backup20180928.7z /home/haoleeson/haoleeson.github.io/*  #压缩本站所有文件
 ```
 其中：
 - a  代表添加文件／文件夹到压缩包

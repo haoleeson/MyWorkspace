@@ -34,7 +34,7 @@ quicklink@2.0.0
 # 3. 本博客构建总体流程分享
 ## 3.1. Hexo 生成基础 Blog 站点文件
 ```shell
-YOUR_BLOG_DIR=eisenhao.github.io
+YOUR_BLOG_DIR=haoleeson.github.io
 hexo init ${YOUR_BLOG_DIR}
 cd ${YOUR_BLOG_DIR}
 ```
@@ -95,10 +95,10 @@ hexo d
 
 # 4. 克隆我的博客的调试步骤
 1. 安装前文提及的依赖工具
-2. 从博主的 [MyWorkspace](https://github.com/EisenHao/MyWorkspace) 仓库中，下载我的博客源码子文件（MyBlogSourceCode）
+2. 从博主的 [MyWorkspace](https://github.com/haoleeson/MyWorkspace) 仓库中，下载我的博客源码子文件（MyBlogSourceCode）
 3. 进入站点目录
 ```shell
-cd MyBlogSourceCode/eisenhao.github.io
+cd MyBlogSourceCode/haoleeson.github.io
 ```
 4. 一键安装本博客所需的 npm 插件
 ```shell

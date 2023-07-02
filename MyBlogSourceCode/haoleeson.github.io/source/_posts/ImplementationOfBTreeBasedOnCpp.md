@@ -321,5 +321,5 @@ VALUE_TYPE BTreeNode<KEY_TYPE, VALUE_TYPE>::getValue(KEY_TYPE key) {
 
 ## 4.7. 更多详细的实现细节，请阅读我上传到Git的源码吧:)
 {% note success %} 博主基于C++的B树的数据结构设计与编码实现源码详见：
-https://github.com/EisenHao/Cpp_Learning/blob/master/myBTree.h
+https://github.com/haoleeson/Cpp_Learning/blob/master/myBTree.h
 {% endnote %}

@@ -20,12 +20,12 @@ Platform：基于QT5.9.1开发，程序语言C++
 
 desc: 西电课程大作业
 
-coder：eisenhao
+coder: haoleeson
 
 Time: 2019-01-23
 
 
-{% note success %}完整源码详见:[我的Git仓库](https://github.com/EisenHao/ParkingSimulationSystem){% endnote %}
+{% note success %}完整源码详见:[我的Git仓库](https://github.com/haoleeson/ParkingSimulationSystem){% endnote %}
 ## 1.1. 设计说明
 
 某企业欲为其内部停车场建设一套信息系统，已经调查到的需求如下：

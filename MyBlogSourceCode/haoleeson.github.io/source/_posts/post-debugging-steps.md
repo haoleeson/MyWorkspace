@@ -19,7 +19,7 @@ $ sudo su
 ```
 2. 进入Hexo站点根目录
 ```
-$ cd /home/eisenhao/eisenhao.github.io
+$ cd /home/haoleeson/haoleeson.github.io
 ```
 <!-- more -->
 
@@ -27,7 +27,7 @@ $ cd /home/eisenhao/eisenhao.github.io
 
 1. 进入发布文件夹
 ```
-$ cd /home/eisenhao/eisenhao.github.io/source/_posts
+$ cd /home/haoleeson/haoleeson.github.io/source/_posts
 ```
 2. 新建md文件
 ```
@@ -50,7 +50,7 @@ $ sudo hexo s
 
 1. 测试没问题后，我们就生成静态网页文件发布至我们的Github pages 中。
 ```c 命令执行目录：~/你的博客站点根目录
-$ cd /home/eisenhao/eisenhao.github.io
+$ cd /home/haoleeson/haoleeson.github.io
 $ hexo clean && hexo g && hexo d
 ```
 1. 可能会要求输入github账号密码
@@ -65,11 +65,11 @@ $ git config --global user.name "Your Name"
 
 1. 主题配置文件在主题文件夹中,我们可以更改config.yml文件进行配置.
 ```
-/home/eisenhao/eisenhao.github.io/themes/next/_config.yml
+/home/haoleeson/haoleeson.github.io/themes/next/_config.yml
 ```
 2. 用文本编辑器打开编辑主题配置文件,点击查看[设置详细介绍.](http://theme-next.iissnan.com/getting-started.html#theme-settings)
 ```
-$ vim /home/eisenhao/eisenhao.github.io/themes/next/_config.yml
+$ vim /home/haoleeson/haoleeson.github.io/themes/next/_config.yml
 ```
 
 # 3. Linux 技巧每日一练

@@ -54,7 +54,7 @@ categories:
 7. **图片：** 在需要添加图片的位置<code>\!\[图片](图片地址)</code>便可，图片地址可以是本地路径，或网络地址
 8. **表格：** - 和 | 分割行和列 ，<code>:</code>与<code>-</code>的相对位置控制当前列的左对齐、居中对齐、右对齐方式(<code>:\--\--\|:\--\--:\|\--\--:</code>)，表格代码段可能需要与上部分代码空一行
 9. **代码块：** 每行代码前加四个空格(不显示行号)，或 使用<code>\`\`\`代码内容\`\`\`</code>(显示行号，<code>\`</code>为键盘Esc下方按键)
-10. **文本链接：** \[文字链接名称\](链接地址)，eg: [我的博客](https://eisenhao.github.io/) (<code>\[我的博客\]\(https://eisenhao.github.io/</code>)
+10. **文本链接：** \[文字链接名称\](链接地址)，eg: [我的博客](https://haoleeson.github.io/) (<code>\[我的博客\]\(https://haoleeson.github.io/</code>)
 11. **小型文本：** <small>小型文本</small>
 ```
 <small>小型文本</small>
@@ -425,21 +425,21 @@ npm install hexo-tag-aplayer --save
 例如：在网易云网页版点击"陈芳语-爱你"，从浏览器地址栏发现"陈芳语-爱你"的id为：22852057，则将下方代码'id='后的数字更改为‘22852057’之后就是"陈芳语-爱你"mp3格式的外链，新建标签页粘贴该地址可直接播放，应用在博客里插入外链还是很方便的（ps:在网易云还没禁用此bug之前）。
 
 将歌词文件放在“hexo站点文件夹/source/uploads/”文件夹内，封面图、歌词文件引用地址为：
-"https://eisenhao.github.io/uploads/封面图.jpg"、"https://eisenhao.github.io/uploads/歌词.lrc"
+"https://haoleeson.github.io/uploads/封面图.jpg"、"https://haoleeson.github.io/uploads/歌词.lrc"
 
 ```
 # 网易云网页版关于"陈芳语-爱你"的歌曲id=22852057
 http://music.163.com/song/media/outer/url?id=22852057.mp3 #可直接播放外链（已失效）
-https://eisenhao.github.io/uploads/loveYou.jpg #封面图
-https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc #歌词 //暂时无法添加lrc歌词，只能内嵌歌词
+https://haoleeson.github.io/uploads/loveYou.jpg #封面图
+https://haoleeson.github.io/uploads/fangyuchen_loveyou.lrc #歌词 //暂时无法添加lrc歌词，只能内嵌歌词
 ```
 
 ## 8.4. 下方测试插件插入音乐（无歌词，lrc方式歌词失效）：
 ```
-{% aplayer "爱你" "陈芳语" "../../../../uploads/22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
+{% aplayer "爱你" "陈芳语" "../../../../uploads/22852057.mp3" "https://haoleeson.github.io/uploads/loveYou.jpg" "lrc:https://haoleeson.github.io/uploads/fangyuchen_loveyou.lrc" %}
 ```
 
-{% aplayer "爱你" "陈芳语" "../../../../uploads/22852057.mp3" "https://eisenhao.github.io/uploads/loveYou.jpg" "lrc:https://eisenhao.github.io/uploads/fangyuchen_loveyou.lrc" %}
+{% aplayer "爱你" "陈芳语" "../../../../uploads/22852057.mp3" "https://haoleeson.github.io/uploads/loveYou.jpg" "lrc:https://haoleeson.github.io/uploads/fangyuchen_loveyou.lrc" %}
 
 ## 8.5. 下方测试插件插入内嵌音乐歌词：
 

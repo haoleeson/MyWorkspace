@@ -363,7 +363,7 @@ Google的Dremel是第一个在嵌套数据模型基础上实现列存储的系�
 
 PowerDrill采用的是一个双层数据字典结构
 
-![CloudComputing-20190710154540235](/Users/eisenhao/Documents/CloudComputing/CloudComputing-20190710154540235.png)
+![CloudComputing-20190710154540235](/Users/haoleeson/Documents/CloudComputing/CloudComputing-20190710154540235.png)
 
 ## 6.4. PowerDrill采用的性能优化
 

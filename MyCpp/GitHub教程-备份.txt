@@ -21,7 +21,7 @@ gcc filename.c -o filename	//编完后保存，生成一个可执行文件，退
 
 ******************************************************************************
 ************************************【GitHub常用命令】*****************************
-克隆代码到本地 $ git clone https://github.com/EisenHao/Cpp_Learning.git
+克隆代码到本地 $ git clone https://github.com/haoleeson/Cpp_Learning.git
 $ cd ~/GitHub		//跳转到相应目录       
 $ git init		//初始化
 $ git add .		//把所有文件加入到索引(不想把所有文件加入，可以用gitignore或add 具体文件)
@@ -51,7 +51,7 @@ $ git push -u origin master	##推送代码到远程代码库
 $ git remote add origin git_address ##git_address即现有仓库的地址
 $ git push -u origin master
 把GitHub里的项目复制到本地：
-$ git clone git_address(https://github.com/EisenHao/Cpp_Learning.git)
+$ git clone git_address(https://github.com/haoleeson/Cpp_Learning.git)
 
 五、【分支】
 (1)创建分支

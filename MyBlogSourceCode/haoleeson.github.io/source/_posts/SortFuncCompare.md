@@ -304,6 +304,6 @@ ElementType SortFuncCompare::choosePivot(ElementType *pArray, int leftIndex, int
 
 # 5. 附件
 本次实验源代码详见博主的个人git仓库:
-- [SortFuncCompare.h](https://github.com/EisenHao/Cpp_Learning/blob/master/SortFuncCompare.h)
-- [SortFuncCompare.cpp](https://github.com/EisenHao/Cpp_Learning/blob/master/SortFuncCompare.cpp)
+- [SortFuncCompare.h](https://github.com/haoleeson/Cpp_Learning/blob/master/SortFuncCompare.h)
+- [SortFuncCompare.cpp](https://github.com/haoleeson/Cpp_Learning/blob/master/SortFuncCompare.cpp)
 
