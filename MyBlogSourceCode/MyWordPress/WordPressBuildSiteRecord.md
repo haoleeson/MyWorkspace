@@ -51,7 +51,7 @@ exit
 # 4. 安装 PHP7.4
 ```shell
 # 添加 SURY PHP PPA 存储库
-sudo apt -y install lsb-release apt-transport-https ca-certificates 
+sudo apt -y install lsb-release apt-transport-https ca-certificates
 sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 echo "deb https://packages.sury.org/php/$(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
 # 更新添加的存储库上的系统软件包列表
@@ -71,19 +71,18 @@ curl https://get.acme.sh | sh -s email=ei13911468370@gmail.com
 ## 5.1. 【推荐，可自动更新】Option1: 通过 http 方式自动生成证书
 ```shell
 MY_DOMAIN='eisenhao.cn'
-MY_DOMAIN='sea.eisenhao.cn'
 # 方式 1.a: http 方式验证
-~/.acme.sh/acme.sh --issue -d $MY_DOMAIN --nginx
+acme.sh --issue -d $MY_DOMAIN --nginx
 # 方式 1.b: http 方式之 Webroot 模式验证
-~/.acme.sh/acme.sh --issue -d $MY_DOMAIN --webroot /home/git/blog/
+acme.sh --issue -d $MY_DOMAIN --webroot /home/git/blog/
 
 # 方式 1.c:【亲测可行】 http 方式之 standalone 模式验证（需将 nginx 中服务的 port 设置为 80，并关闭对应的 ssl 的服务 ）
-~/.acme.sh/acme.sh  --issue  -d $MY_DOMAIN  --standalone --httpport 8443
-~/.acme.sh/acme.sh  --issue  -d "sea.eisenhao.cn" --webroot /home/git/blog/  --standalone --httpport 8443 -k ec-256 --server "letsencrypt"
+#acme.sh  --issue  -d $MY_DOMAIN  --standalone --httpport 8443
+acme.sh  --issue  -d $MY_DOMAIN --webroot /home/git/blog/  --standalone --httpport 80 -k ec-256 --server "letsencrypt"
 
 # 方式 1.d: http 方式之 standalone tls alpn 模式验证（用 443 端口）
-~/.acme.sh/acme.sh  --issue  -d $MY_DOMAIN  --alpn
-~/.acme.sh/acme.sh  --issue  -d $MY_DOMAIN  --alpn --tlsport 8443
+acme.sh  --issue  -d $MY_DOMAIN  --alpn
+acme.sh  --issue  -d $MY_DOMAIN  --alpn --tlsport 8443
 ```
 
 ## 5.2. Option2: 通过手动在域名上添加一条 txt 解析记录, 验证域名所有权（坏处，无法自动更新证书）
@@ -91,18 +90,18 @@ MY_DOMAIN='sea.eisenhao.cn'
 MY_DOMAIN='eisenhao.cn'
 # 方式1：手动添加一条TXT解析记录
 # 方式1：setp1. 生成相应的解析记录显示出来（ Domain: 'XXXX'; TXT value: 'YYYY'）
-~/.acme.sh/acme.sh --issue --dns -d $MY_DOMAIN --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --issue --dns -d $MY_DOMAIN --yes-I-know-dns-manual-mode-enough-go-ahead-please
 # 方式1：setp2. 登录云解析厂商，在域名云解析控制台添加 TXT 解析记录
  Domain: 'XXXXXX.eisenhao.cn'
  TXT value: 'YYYYY'
 # 方式1：step3. 等待解析后，重新生成证书（--renew）
 ## 生成证书位置：~/.acme.sh/<your_domain>/
-~/.acme.sh/acme.sh --renew -d $MY_DOMAIN --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --renew -d $MY_DOMAIN --yes-I-know-dns-manual-mode-enough-go-ahead-please
 # 方式2：配置解析商的自动集成
 # 方式2： setp1. 登录云解析厂商，查看 api id 和 api key （e.g. DnsPod 中 APPID 和 SecretKey）
 export DP_Id="1234"
 export DP_Key="ABCDE"
-~/.acme.sh/acme.sh --issue --dns dns_dp -d $MY_DOMAIN
+acme.sh --issue --dns dns_dp -d $MY_DOMAIN
 ```
 
 ## 5.3. copy/安装 证书
@@ -111,13 +110,55 @@ export DP_Key="ABCDE"
 CERT_PATH='/root/cert'
 mkdir -p $CERT_PATH
 # 安装证书到指定路径
-~/.acme.sh/acme.sh --install-cert -d $MY_DOMAIN \
+acme.sh --install-cert -d $MY_DOMAIN \
     --key-file       $CERT_PATH/key.pem  \
     --fullchain-file $CERT_PATH/cert.pem \
     --reloadcmd     "service nginx force-reload"
 
 # 查看已安装证书信息
-~/.acme.sh/acme.sh --list -d $MY_DOMAIN
+acme.sh --list -d $MY_DOMAIN
+```
+
+## 手动更新指定域名的证书
+```shell
+MY_DOMAIN='eisenhao.cn'
+
+# check domain period of validity
+acme.sh --list -d $MY_DOMAIN
+
+# update acme.sh manually
+acme.sh --upgrade
+# or set auto update acme.sh
+acme.sh --upgrade --auto-upgrade
+
+# edit nginx conf (comment(stop) ssl server)
+vi /etc/nginx/nginx.conf
+systemctl restart nginx.service php7.4-fpm.service
+systemctl status nginx.service php7.4-fpm.service
+
+# try1: renew all certs
+acme.sh --renew-all --force
+
+# try2: update target domain cert manually ( acme only support 80 and 443 ports)
+acme.sh  --issue  -d $MY_DOMAIN --webroot /home/git/blog/  --standalone --httpport 80 -k ec-256 --server "letsencrypt"
+
+# update cert
+acme.sh --renew -d $MY_DOMAIN -d $MY_DOMAIN2 --force
+
+# install new cert to external path
+acme.sh --install-cert -d $MY_DOMAIN \
+    --key-file       $CERT_PATH/key.pem  \
+    --fullchain-file $CERT_PATH/cert.pem \
+    --reloadcmd     "service nginx force-reload"
+
+# edit nginx conf (uncomment(start) ssl server)
+vi /etc/nginx/nginx.conf
+systemctl restart nginx.service php7.4-fpm.service
+systemctl status nginx.service php7.4-fpm.service
+
+# 配置 crontab 定时任务
+#* 1 1 *  *  acme.sh --renew-all --force
+# crontab -l
 ```
 
 # 6. 修改 nginx 配置文件
