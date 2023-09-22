@@ -140,7 +140,8 @@ systemctl status nginx.service php7.4-fpm.service
 acme.sh --renew-all --force
 
 # try2: update target domain cert manually ( acme only support 80 and 443 ports)
-acme.sh  --issue  -d $MY_DOMAIN --webroot /home/git/blog/  --standalone --httpport 80 -k ec-256 --server "letsencrypt"
+acme.sh  --issue  -d $MY_DOMAIN --webroot /home/git/blog/  --standalone --httpport 80 -k ec-256 --server "letsencrypt" --debug
+acme.sh  --issue  -d $MY_DOMAIN --webroot /usr/share/nginx/html/  --standalone --httpport 80 -k ec-256 --server "letsencrypt" --debug
 
 # update cert
 acme.sh --renew -d $MY_DOMAIN -d $MY_DOMAIN2 --force
