@@ -4,12 +4,13 @@
 # Update local ssl cert
 #
 # dependencies: acme.sh, nginx, php7
+# Date 2023-12-23 11:46
 
 
-MY_DOMAIN_1='eisenhao.cn'
-MY_DOMAIN_ROOT_1='/home/git/blog'
-MY_DOMAIN_2='sea.eisenhao.cn'
-MY_DOMAIN_ROOT_2='/usr/share/nginx/html/'
+DOMAIN_1='your.domain1'
+DOMAIN_1_ROOT_DIR='/home/git/blog'
+DOMAIN_2='your.domain2'
+DOMAIN_2_ROOT_DIR='/usr/share/nginx/html/'
 
 
 # FIXED ENV
@@ -17,9 +18,10 @@ NGINX_CONF_PATH='/etc/nginx/nginx.conf'
 TMP_BACKUP_PATH='/tmp/nginx.conf'
 ACME_CMD='/root/.acme.sh/acme.sh'
 EXT_CERT_PATH='/root/cert'
+ACME_CERT_DIR='/root/.acme.sh'
 
 
-function check_open_firewall_port() {
+function check_open_a_firewall_port() {
     local port=$1
 
     iptables -n -L | egrep ":$port$" > /dev/null
@@ -36,11 +38,11 @@ function backup_file() {
     local dst_file=$2
     
     if [ ! -f $src_file ]; then
-        echo "src_file: $src_file is not existed!!!"
+        echo -e "\033[31mErr src_file: $src_file is not existed!!!\033[0m"
         exit 1
     fi
 
-    echo -e "\nBackup file '$src_file' > '$dst_file'"
+    echo -e "\033[32m\nBackup file '$src_file' > '$dst_file'\033[0m"
     cp $src_file $dst_file
 }
 
@@ -50,11 +52,11 @@ function restore_file() {
     local dst_file=$2
     
     if [ ! -f $src_file ]; then
-        echo "src_file: $src_file is not existed!!!"
+        echo -e "\033[31mErr src_file: $src_file is not existed!!!\033[0m"
         exit 1
     fi
 
-    echo -e "\nRestore file '$src_file' > '$dst_file'"
+    echo -e "\033[32m\nRestore file '$src_file' > '$dst_file'\033[0m"
     cp $src_file $dst_file
 }
 
@@ -107,14 +109,15 @@ http {
 }
 EOF
 
-    echo -e "\n================== Debug rewrite_nginx_config '$tmp_nginx_conf_path' ===================="
-    cat $tmp_nginx_conf_path
-    echo "===================================================="
+    # Option
+    # echo -e "\033[32m\n================== Debug rewrite_nginx_config '$tmp_nginx_conf_path' ====================\033[0m"
+    # cat $tmp_nginx_conf_path
+    # echo "===================================================="
 }
 
 
 function restart_nginx() {
-    echo -e "\nRestart nginx...\n     ----------------------------\n"
+    echo -e "\033[32m\nRestart nginx...\033[0m\n     ----------------------------\n"
     systemctl status nginx.service php7.4-fpm.service | grep 'Active:'
     echo -e "\n     ----------------------------\n"
     echo "     systemctl restart nginx.service php7.4-fpm.service"
@@ -128,7 +131,16 @@ function install_new_cert_to_external_path() {
     local my_domain=$1
     local external_cert_path=$2
 
-    echo -e "\nInstall new cert to external path"
+    if [ "$my_domain" == "" ]; then
+        echo -e "\033[31mNotice func install_new_cert_to_external_path() with an empty my_domain param, skip it\033[0m"
+        return 1
+    fi
+    if [ "$external_cert_path" == "" ]; then
+        echo -e "\033[31mNotice func install_new_cert_to_external_path() with an empty external_cert_path param, skip it\033[0m"
+        return 1
+    fi
+
+    echo -e "\033[32m\nInstall new cert to external path $external_cert_path \033[0m"
     $ACME_CMD --install-cert -d $my_domain --key-file $external_cert_path/key.pem --fullchain-file $external_cert_path/cert.pem --reloadcmd "service nginx force-reload"
 }
 
@@ -148,7 +160,7 @@ function try_update_cert() {
     echo "====================================================="
 
     # check and open port 80
-    check_open_firewall_port '80'
+    check_open_a_firewall_port '80'
 
     # backup old nginx config
     backup_file "$NGINX_CONF_PATH" "$TMP_BACKUP_PATH"
@@ -160,38 +172,48 @@ function try_update_cert() {
 
     sleep 2
 
-    # update target domain cert
-    echo -e "\nUpdate $my_domain domain cert ...\nExec:\n=================================\n$ACME_CMD  --issue  -d $my_domain --webroot $my_domain_root  --standalone --httpport 80 -k ec-256 --server letsencrypt\n=================================\n"
+    # (option) remove cron job
+    # $ACME_CMD --uninstall-cronjob
+
+    # remove old cert
+    echo -e "\033[32m\nRemove old $my_domain domain cert ...\n\033[0m"
+    $ACME_CMD --remove -d $my_domain
+    echo -e "\033[32m\nDelete old $my_domain domain cert files ...\n\033[0m"
+    rm -rf $ACME_CERT_DIR/$my_domain*
+
+    # Create target domain cert
+    echo -e "\033[32m\nCreate $my_domain domain cert ...\033[0m\nExec:\n=================================\n$ACME_CMD  --issue  -d $my_domain --webroot $my_domain_root  --standalone --httpport 80 -k ec-256 --server letsencrypt\n=================================\n"
     $ACME_CMD  --issue  -d $my_domain --webroot $my_domain_root  --standalone --httpport 80 -k ec-256 --server letsencrypt
     ret=$?
 
-    # restore old nginx config
-    restore_file "$TMP_BACKUP_PATH" "$NGINX_CONF_PATH"
-
-    restart_nginx
+    # check
+    if [ "$ret" == "2" ]; then
+        echo -e "\033[32m\n\nNotice domain $my_domain No need to update, skip refresh :D\033[0m"
+    elif [ "$ret" != "0" ]; then
+        echo -e "\033[31m\n\nUpdate $my_domain domain cert FAILED !!!\033[0m"
+    elif [ "$ret" == "0" ]; then
+        if [ "$install_to_ext_path" == 'true' ]; then
+            install_new_cert_to_external_path "$my_domain" "$EXT_CERT_PATH"
+        fi
+        echo -e "\033[32m\n\nUpdate $my_domain domain cert SUCCESS ^_^\033[0m"
+    fi
 
     echo -e "\n================== After update ===================="
     $ACME_CMD --list -d $my_domain | egrep 'Domain|TimeStr'
     echo "===================================================="
 
-    if [ "$ret" != "2" ]; then
-        echo -e "\n\n domain $my_domain No need to update, skip refresh :D"
-    elif [ "$ret" != "0" ]; then
-        echo -e "\n\n update $my_domain domain cert FAILED !!!"
-    else
-        if [ "$install_to_ext_path" == 'true' ]; then
-            install_new_cert_to_external_path "$my_domain" "$EXT_CERT_PATH"
-        fi
-        echo -e "\n\n update $my_domain domain cert SUCCESS ^_^"
-        echo "Done."
-    fi
+    # restore old nginx config
+    echo -e "\033[32m\n\nRestore old nginx config, and restart nginx \033[0m"
+    restore_file "$TMP_BACKUP_PATH" "$NGINX_CONF_PATH"
+
+    restart_nginx
 }
 
 
 function main() {
-    try_update_cert "$MY_DOMAIN_1" "$MY_DOMAIN_ROOT_1" "true"
+    try_update_cert "$DOMAIN_1" "$DOMAIN_1_ROOT_DIR" "true"
     sleep 3
-    try_update_cert "$MY_DOMAIN_2" "$MY_DOMAIN_ROOT_2" "false"
+    try_update_cert "$DOMAIN_2" "$DOMAIN_2_ROOT_DIR" "false"
 }
 
 main

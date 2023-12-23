@@ -109,6 +109,14 @@ acme.sh --issue --dns dns_dp -d $MY_DOMAIN
 # 创建存放证书路径（注意 nginx 配置中 ssl 会用到）
 CERT_PATH='/root/cert'
 mkdir -p $CERT_PATH
+# 列出当前证书
+acme.sh --list
+# 删除定时任务
+acme.sh --uninstall-cronjob
+# 删除旧证书
+acme.sh --remove -d $MY_DOMAIN
+rm -rf /root/.acme.sh/$MY_DOMAIN*
+
 # 安装证书到指定路径
 acme.sh --install-cert -d $MY_DOMAIN \
     --key-file       $CERT_PATH/key.pem  \
