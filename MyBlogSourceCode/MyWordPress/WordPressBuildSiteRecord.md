@@ -170,6 +170,33 @@ systemctl status nginx.service php7.4-fpm.service
 # crontab -l
 ```
 
+## reload cert
+```shell
+# close
+./install.sh
+16
+3
+netstat -npld | grep :443
+
+# reinstall
+./install.sh
+1
+2
+n
+<domain>
+n
+443
+n
+n
+<path>
+n
+[enter]
+y
+<uuid>
+y
+netstat -npld | grep :443
+```
+
 # 6. 修改 nginx 配置文件
 vi /etc/nginx/nginx.conf
 

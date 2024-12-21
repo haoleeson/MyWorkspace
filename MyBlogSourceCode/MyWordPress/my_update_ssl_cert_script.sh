@@ -1,10 +1,14 @@
 #!/bin/bash
 
+##################################################
 #
 # Update local ssl cert
 #
 # dependencies: acme.sh, nginx, php7
-# Date 2023-12-23 11:46
+# create date: 2023-12-23 11:46
+# update date: 2024-12-21 10:35
+#
+##################################################
 
 
 DOMAIN_1='your.domain1'
@@ -18,6 +22,7 @@ NGINX_CONF_PATH='/etc/nginx/nginx.conf'
 TMP_BACKUP_PATH='/tmp/nginx.conf'
 ACME_CMD='/root/.acme.sh/acme.sh'
 EXT_CERT_PATH='/root/cert'
+EXT_CERT_PATH2='/etc/v2ray-agent/tls'
 ACME_CERT_DIR='/root/.acme.sh'
 
 
@@ -36,13 +41,13 @@ function check_open_a_firewall_port() {
 function backup_file() {
     local src_file=$1
     local dst_file=$2
-    
+
     if [ ! -f $src_file ]; then
-        echo -e "\033[31mErr src_file: $src_file is not existed!!!\033[0m"
+        echo -e "\033[31mErr src_file '$src_file' is not existed!!!\033[0m"
         exit 1
     fi
 
-    echo -e "\033[32m\nBackup file '$src_file' > '$dst_file'\033[0m"
+    echo -e "\033[32m\nBackup file '$src_file' > '$dst_file' ...\033[0m"
     cp $src_file $dst_file
 }
 
@@ -50,13 +55,13 @@ function backup_file() {
 function restore_file() {
     local src_file=$1
     local dst_file=$2
-    
+
     if [ ! -f $src_file ]; then
-        echo -e "\033[31mErr src_file: $src_file is not existed!!!\033[0m"
+        echo -e "\033[31mErr src_file '$src_file' is not existed!!!\033[0m"
         exit 1
     fi
 
-    echo -e "\033[32m\nRestore file '$src_file' > '$dst_file'\033[0m"
+    echo -e "\033[32m\nRestore file '$src_file' > '$dst_file' ...\033[0m"
     cp $src_file $dst_file
 }
 
@@ -65,7 +70,7 @@ function rewrite_nginx_config() {
     local tmp_domain=$1
     local tmp_domain_root=$2
     local tmp_nginx_conf_path=$3
-    
+
     if [ ! -f $tmp_nginx_conf_path ]; then
         touch $tmp_nginx_conf_path
     fi
@@ -131,17 +136,17 @@ function install_new_cert_to_external_path() {
     local my_domain=$1
     local external_cert_path=$2
 
-    if [ "$my_domain" == "" ]; then
+    if [ -z "$my_domain" ]; then
         echo -e "\033[31mNotice func install_new_cert_to_external_path() with an empty my_domain param, skip it\033[0m"
         return 1
     fi
-    if [ "$external_cert_path" == "" ]; then
+    if [ -z "$external_cert_path" ]; then
         echo -e "\033[31mNotice func install_new_cert_to_external_path() with an empty external_cert_path param, skip it\033[0m"
         return 1
     fi
 
-    echo -e "\033[32m\nInstall new cert to external path $external_cert_path \033[0m"
-    $ACME_CMD --install-cert -d $my_domain --key-file $external_cert_path/key.pem --fullchain-file $external_cert_path/cert.pem --reloadcmd "service nginx force-reload"
+    echo -e "\033[32m\nInstall new cert to external path '$external_cert_path' ...\033[0m"
+    $ACME_CMD --install-cert -d $my_domain --key-file "$external_cert_path/$my_domain.key" --fullchain-file "$external_cert_path/$my_domain.crt" --reloadcmd "service nginx force-reload"
 }
 
 
@@ -150,10 +155,6 @@ function try_update_cert() {
     local my_domain_root=$2
     local install_to_ext_path=$3
     local ret='1'
-
-    if [ "$install_to_ext_path" == "" ]; then
-        install_to_ext_path="false"
-    fi
 
     echo -e "\n================== Before update ===================="
     $ACME_CMD --list -d $my_domain | egrep 'Domain|TimeStr'
@@ -178,8 +179,8 @@ function try_update_cert() {
     # remove old cert
     echo -e "\033[32m\nRemove old $my_domain domain cert ...\n\033[0m"
     $ACME_CMD --remove -d $my_domain
-    echo -e "\033[32m\nDelete old $my_domain domain cert files ...\n\033[0m"
-    rm -rf $ACME_CERT_DIR/$my_domain*
+    echo -e "\033[32m\nDelete old $my_domain domain cert files '$ACME_CERT_DIR/${my_domain}*' ...\nrm -rf $ACME_CERT_DIR/${my_domain}*\n\033[0m"
+    rm -rf $ACME_CERT_DIR/${my_domain}*
 
     # Create target domain cert
     echo -e "\033[32m\nCreate $my_domain domain cert ...\033[0m\nExec:\n=================================\n$ACME_CMD  --issue  -d $my_domain --webroot $my_domain_root  --standalone --httpport 80 -k ec-256 --server letsencrypt\n=================================\n"
@@ -192,8 +193,8 @@ function try_update_cert() {
     elif [ "$ret" != "0" ]; then
         echo -e "\033[31m\n\nUpdate $my_domain domain cert FAILED !!!\033[0m"
     elif [ "$ret" == "0" ]; then
-        if [ "$install_to_ext_path" == 'true' ]; then
-            install_new_cert_to_external_path "$my_domain" "$EXT_CERT_PATH"
+        if [ ! -z "$install_to_ext_path" ]; then
+            install_new_cert_to_external_path "$my_domain" "$install_to_ext_path"
         fi
         echo -e "\033[32m\n\nUpdate $my_domain domain cert SUCCESS ^_^\033[0m"
     fi
@@ -211,9 +212,9 @@ function try_update_cert() {
 
 
 function main() {
-    try_update_cert "$DOMAIN_1" "$DOMAIN_1_ROOT_DIR" "true"
+    try_update_cert "$DOMAIN_1" "$DOMAIN_1_ROOT_DIR" "$EXT_CERT_PATH"
     sleep 3
-    try_update_cert "$DOMAIN_2" "$DOMAIN_2_ROOT_DIR" "false"
+    try_update_cert "$DOMAIN_2" "$DOMAIN_2_ROOT_DIR" "$EXT_CERT_PATH2"
 }
 
 main
