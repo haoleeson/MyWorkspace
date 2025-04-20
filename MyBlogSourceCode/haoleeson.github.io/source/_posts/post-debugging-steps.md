@@ -33,7 +33,7 @@ $ cd /home/haoleeson/haoleeson.github.io/source/_posts
 ```
 $ touch example.md
 ```
-3. 编辑example.md文件，编写文章(用Markdown大肆发挥吧，可参考[Markdown文章语法](https://eisenhao.cn/2018/08/31/write-a-md-file/))
+3. 编辑example.md文件，编写文章(用Markdown大肆发挥吧，可参考[Markdown文章语法](https://haoleeson.cn/2018/08/31/write-a-md-file/))
 ```
 $ vim example.md
 ```

@@ -30,8 +30,8 @@ categories:
 <!-- more -->
 
 # 2. 准备工作
-- 安装Python环境。详见[安装Python3.7](https://eisenhao.cn/2018/09/23/AfterInstallManjaro/#%E5%AE%89%E8%A3%85Python3-7)
-- 使用pip3安装requests、lxml模块。参考[使用pip3安装Numpy模块](https://eisenhao.cn/2018/09/23/AfterInstallManjaro/#%E4%BD%BF%E7%94%A8pip3%E5%AE%89%E8%A3%85Numpy%E6%A8%A1%E5%9D%97)
+- 安装Python环境。详见[安装Python3.7](https://haoleeson.cn/2018/09/23/AfterInstallManjaro/#%E5%AE%89%E8%A3%85Python3-7)
+- 使用pip3安装requests、lxml模块。参考[使用pip3安装Numpy模块](https://haoleeson.cn/2018/09/23/AfterInstallManjaro/#%E4%BD%BF%E7%94%A8pip3%E5%AE%89%E8%A3%85Numpy%E6%A8%A1%E5%9D%97)
 - 运行平台：终端或Python IDE软件(eg.[PyCharm](http://www.jetbrains.com/pycharm/))
 
 # 3. 练习1：查看豆瓣一周口碑榜

@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: EisenHao's Note
+title: Haoleeson's Notes
 subtitle: 'Record growth and enjoy life!'
 description: '记录成长，享受生活！'
 keywords:
-author: EisenHao
+author: haoleeson
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: https://eisenhao.cn
+url: https://haoleeson.cn
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -109,7 +109,7 @@ deploy:
   #   branch: master
   # Images Database
   # - type: git
-  #   repo: git@e.coding.net:EisenHao/myblog/haoleeson.git
+  #   repo: git@e.coding.net:haoleeson/myblog/haoleeson.git
   #   branch: master
   # Private git repo
   - type: git

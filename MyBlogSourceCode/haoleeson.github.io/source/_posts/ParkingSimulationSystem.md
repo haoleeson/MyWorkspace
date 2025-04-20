@@ -25,7 +25,7 @@ coder: haoleeson
 Time: 2019-01-23
 
 
-{% note success %}完整源码详见:[我的Git仓库](https://github.com/haoleeson/ParkingSimulationSystem){% endnote %}
+{% note success %}完整源码详见:[我的Git仓库](https://github.com/haoleeson/MyCppApp_ParkingSimulationSystem){% endnote %}
 ## 1.1. 设计说明
 
 某企业欲为其内部停车场建设一套信息系统，已经调查到的需求如下：

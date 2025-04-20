@@ -433,14 +433,14 @@ font:
   # Global font settings used for all elements inside <body>.
   global:
     external: true
-    family: Noto Serif SC #思源宋体 #Lato       Microsoft YaHei #微软雅黑
+    family: Noto Serif Simplified Chinese #Noto Serif SC #思源宋体 #Lato       Microsoft YaHei #微软雅黑
     size:
 
   # Font settings for site title (.site-title).
   title:
-    external: false # true
-    family:
-    size:
+    external: true # true
+    family: Microsoft YaHei
+    size: 1.25
 
   # Font settings for headlines (<h1> to <h6>).
   headings:

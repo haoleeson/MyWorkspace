@@ -67,9 +67,9 @@ categories:
 ```
 <!-- 注释内容 -->
 ```
-14. **网址链接：** <网址链接>，eg: 我的博客:<https://eisenhao.cn/>
+14. **网址链接：** <网址链接>，eg: 我的博客:<https://haoleeson.cn/>
 ```
-我的博客:<https://eisenhao.cn/>
+我的博客:<https://haoleeson.cn/>
 ```
 15. **阅读全文：** 常用于文章过长，只显示文章前半部分，结合Hexo实现文章截断，点击阅读更多后显示全文
 ```
