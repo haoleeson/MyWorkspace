@@ -149,3 +149,22 @@ Port  Vendor           PN               rev Serial#          code     Bit Rate  
  39:  Hisense(海信 100G SR4)          LTA8531-PC+      01  UPAA8000022      200801   25500 MBps   00:00:00   2 (2.0 W max.)   (Optical): 50 m   (OM3): 70 m
  40:  FINISAR CORP.(FINISAR 100G-SM-2KM+)    FTLC4352RJPL     A   X6FARV3          211110   25500 MBps   00:00:00   6 (4.5 W max.)   (SMF): 2 km
 ```
+
+# 9. bfshell 抓包
+```shell
+# 创建 snapshot（获取返回句柄 0x2581）
+snap-create -d 0 -p 2 -s 0 -e 11 -i 0
+
+# 
+# snap-trig-add -h 0x141 -n hdr_ipv4_dst_addr  -v 0xc0a80000 -m 0x1fff0000
+
+snap-trig-add -h 0x2581 -n local_md_ingress_port -v 0x140 -m 0x1ff
+
+# 开启抓包
+snap-state-set -h 0x2581 -e 1
+# 关闭抓包
+snap-state-set -h 0x2581 -e 0
+
+# 查看抓包结果
+snap-capture-get -h 0x2581
+```
