@@ -172,6 +172,10 @@ systemctl status nginx.service php7.4-fpm.service
 
 ## reload cert
 ```shell
+# upgrade cert
+cd ~/scripts
+./my_update_ssl_cert_script.sh
+
 # close
 ./install.sh
 16
@@ -183,16 +187,16 @@ netstat -npld | grep :443
 1
 2
 n
-<domain>
+sea.haoleeson.cn
 n
 443
 n
 n
-<path>
+erozrswcv
 n
 [enter]
 y
-<uuid>
+6b33099b-29f0-023d-ad99-05ac8a43b166
 y
 netstat -npld | grep :443
 ```
