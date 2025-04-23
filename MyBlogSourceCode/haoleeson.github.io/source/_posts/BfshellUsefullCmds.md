@@ -114,7 +114,131 @@ oper
 bf_port_stats_clear 0 0 8
 ```
 
-# 7. 手动 UP/DOWN 端口
+# 7. 使能端口
+```shell
+bfshell> ucli
+pm
+port-add 17/0 100G RS
+port-add 18/0 100G RS
+port-add 19/0 100G RS
+port-add 20/0 100G RS
+port-add 21/0 100G RS
+port-add 22/0 100G RS
+port-add 23/0 100G RS
+port-add 24/0 100G RS
+port-add 25/0 100G RS
+port-add 26/0 100G RS
+port-add 27/0 100G RS
+port-add 28/0 100G RS
+port-add 29/0 100G RS
+port-add 30/0 100G RS
+port-add 31/0 100G RS
+port-add 32/0 100G RS
+
+port-add 33/0 100G RS
+port-add 34/0 100G RS
+port-add 35/0 100G NONE
+port-add 36/0 100G NONE
+port-add 37/0 100G NONE
+port-add 38/0 100G NONE
+port-add 39/0 100G RS
+port-add 40/0 100G RS
+port-add 41/0 100G NONE
+port-add 42/0 100G NONE
+port-add 43/0 100G NONE
+port-add 44/0 100G NONE
+port-add 45/0 100G RS
+port-add 46/0 100G RS
+port-add 47/0 100G RS
+port-add 48/0 100G RS
+port-add 49/0 100G RS
+port-add 50/0 100G NONE
+port-add 51/0 100G NONE
+port-add 52/0 100G NONE
+port-add 53/0 100G NONE
+port-add 54/0 100G RS
+port-add 55/0 100G RS
+port-add 56/0 100G RS
+port-add 57/0 100G NONE
+port-add 58/0 100G NONE
+port-add 59/0 100G NONE
+port-add 60/0 100G NONE
+port-add 61/0 100G RS
+port-add 62/0 100G RS
+port-add 63/0 100G RS
+port-add 64/0 100G RS
+
+port-loopback 17/0 mac-near
+port-loopback 18/0 mac-near
+port-loopback 19/0 mac-near
+port-loopback 20/0 mac-near
+port-loopback 21/0 mac-near
+port-loopback 22/0 mac-near
+port-loopback 23/0 mac-near
+port-loopback 24/0 mac-near
+port-loopback 25/0 mac-near
+port-loopback 26/0 mac-near
+port-loopback 27/0 mac-near
+port-loopback 28/0 mac-near
+port-loopback 29/0 mac-near
+port-loopback 30/0 mac-near
+port-loopback 31/0 mac-near
+port-loopback 32/0 mac-near
+
+port-enb 17/0
+port-enb 18/0
+port-enb 19/0
+port-enb 20/0
+port-enb 21/0
+port-enb 22/0
+port-enb 23/0
+port-enb 24/0
+port-enb 25/0
+port-enb 26/0
+port-enb 27/0
+port-enb 28/0
+port-enb 29/0
+port-enb 30/0
+port-enb 31/0
+port-enb 32/0
+port-enb 33/0
+port-enb 34/0
+port-enb 35/0
+port-enb 36/0
+port-enb 37/0
+port-enb 38/0
+port-enb 39/0
+port-enb 40/0
+port-enb 41/0
+port-enb 42/0
+port-enb 43/0
+port-enb 44/0
+port-enb 45/0
+port-enb 46/0
+port-enb 47/0
+port-enb 48/0
+port-enb 49/0
+port-enb 50/0
+port-enb 51/0
+port-enb 52/0
+port-enb 50/0
+port-enb 51/0
+port-enb 52/0
+port-enb 53/0
+port-enb 54/0
+port-enb 55/0
+port-enb 56/0
+port-enb 57/0
+port-enb 58/0
+port-enb 59/0
+port-enb 60/0
+port-enb 61/0
+port-enb 62/0
+port-enb 63/0
+port-enb 64/0
+```
+
+# 8. 手动 UP/DOWN 端口
 bf-sde.pm> 中手动 up down 端口
 > ucli
 > pm
@@ -135,7 +259,7 @@ port-dis 39/0
 port-dis 40/0
 ```
 
-# 8. 查看光模块厂商信息
+# 9. 查看光模块厂商信息
 ```shell
 # 查看硬件 QSFP 信息
 bf-sde.bf_pltfm.qsfp> info
@@ -150,7 +274,23 @@ Port  Vendor           PN               rev Serial#          code     Bit Rate  
  40:  FINISAR CORP.(FINISAR 100G-SM-2KM+)    FTLC4352RJPL     A   X6FARV3          211110   25500 MBps   00:00:00   6 (4.5 W max.)   (SMF): 2 km
 ```
 
-# 9. bfshell 抓包
+# 10. 按需下业务表项
+```shell
+bfshell> bfrt_python
+bfrt
+
+switch.pipe.SwitchIngress.tunnel.dst_classifyv4.add_with_local_region_hit(0x1000064,31)
+
+switch.servicepipe1.TableServiceEgress.tunnel_rewrite.set_gw_ip.set_default_with_set_gw_src_ip(0xc0c0c01,0xc0c0c010000000000000000)
+switch.servicepipe1.tunnel_encap_1.add_with_encap_ipv4_vxlan(0b01,0x12b5)
+switch.tablepipe23.TableIngress.tunnel_match.eip_to_eid.add_with_eip_hit(1,0x1000064,0x0007,0x0007)
+switch.tablepipe23.TableIngress.tunnel_match.eip_info.add_with_set_eip_info(0x0007,0x0,0xC0A80003,0x0007e6,0xA000005)
+switch.tablepipe23.TableIngress.tunnel_match.eid_add_bridge.add_with_encap_tunnel4in4(0x0007,0)
+switch.tablepipe23.TableIngress.tunnel_match.eip_in_meter.add_with_set_eip_in_color(0x0007)
+switch.tablepipe23.TableIngress.tunnel_match.eip_in_drop.add_with_in_drop_count(0x0007)
+```
+
+# 11. bfshell 抓包
 ```shell
 # 创建 snapshot（获取返回句柄 0x2581）
 snap-create -d 0 -p 2 -s 0 -e 11 -i 0
