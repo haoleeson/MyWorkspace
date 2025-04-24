@@ -308,3 +308,40 @@ snap-state-set -h 0x2581 -e 0
 # 查看抓包结果
 snap-capture-get -h 0x2581
 ```
+
+# 12. 其他常用命令
+
+```shell
+ucli
+
+# 查看光模块DDM信息
+get-ddm      # Optical Module Digital Diagnostic Monitoring (DDM)
+
+# 查看光模块信息
+qsfp info  #Checking what's plugged in
+
+# 展示光模块信息
+qsfp show 
+
+# 展示端口信息
+pm show    Port Status Report
+
+# pipeline 管理
+pipe_mgr
+snap-create/snap-capture-get Packet Capture
+
+# bfrt表项管理入口
+bfrt_python
+# 表项信息
+info
+# 导出表项内容
+dump
+# 添加/删除/查看表项
+entry_add/delete/get
+```
+
+
+注： 当bfshell要执行的命令较多时，也直接传入文件执行批量命令内容
+```shell
+/opt/bfn/install/bin/bfshell -b /root/multiple_cmds
+```
