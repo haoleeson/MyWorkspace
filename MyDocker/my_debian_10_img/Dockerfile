@@ -59,11 +59,34 @@ COPY ["./files/start.sh", "/root/"]
 COPY ["./files/supervisord.conf", "/etc/supervisor/conf.d/supervisord.conf"]
 RUN mkdir -p /var/log/supervisor
 
+
+# Install shell_integration
+    curl -sL https://iterm2.com/shell_integration/install_shell_integration.sh -o /root/install_shell_integration.sh && \
+    bash /root/install_shell_integration.sh 2&>1 && \
+    if [ -f /root/.iterm2_shell_integration.bash ]; then \
+        rm -rf /root/install_shell_integration.sh; \
+        echo "# iterm2 config" >> /root/.bashrc; \
+        echo "ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=yes" >> /root/.bashrc; \
+        echo "source /root/.iterm2_shell_integration.bash" >> /root/.bashrc; \
+    fi; \
+
+# alias
+    echo "# alias" >> /root/.bashrc; \
+    echo "alias ll=\"ls -l --color=auto \"" >> /root/.bashrc; \
+    echo "alias myspeak='f(){ echo befor \"\$@\" after;  unset -f f; }; f'" >> /root/.bashrc; \
+
+# modify vimrc
+    cp /etc/vim/vimrc /root/.vimrc && \
+    echo "set termencoding=utf-8" >> /root/.vimrc && \
+    echo "set encoding=utf-8" >> /root/.vimrc && \
+    echo "set fileencodings=utf-8" >> /root/.vimrc && \
+    echo "set clipboard=unnamedplus" >> /root/.vimrc; \
+
 # Clean up apt
-# Remove /var/lib/apt/lists/*, could be obsoleted for derived images
-# RUN apt-get clean -y; apt-get autoclean -y; apt-get autoremove -y
-# RUN rm -rf /var/lib/apt/lists/*
-RUN apt-get autoremove -y
+    # Remove /var/lib/apt/lists/*, could be obsoleted for derived images
+    # apt-get clean -y; apt-get autoclean -y; apt-get autoremove -y; \
+    # rm -rf /var/lib/apt/lists/* ; \
+    apt-get autoremove -y
 
 # Make port 22 available to the world outside this container
 EXPOSE 22
