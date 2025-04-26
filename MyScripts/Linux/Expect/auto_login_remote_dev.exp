@@ -1,0 +1,43 @@
+#!/usr/bin/env expect
+
+# 设置超时等待时间
+set timeout 3
+
+# 设置常量
+set USR_NAME "username"
+set USR_PWD "password"
+set REMOTE_IP "1.2.3.4"
+set REMOTE_HOSTNAME "hostname"
+set TMUX_SESSION_NAME "mySession"
+
+# 打开调试模式
+# exp_internal 1
+
+# 自动登录 BOE
+spawn ssh $USR_NAME@$REMOTE_IP
+expect {
+    # RSA 验证（yes）
+    "*yes/no*" { send "yes\r"; exp_continue }
+    "*Would you like to update*" { send "n\r"; exp_continue }
+    "*assword:*" { send "$USR_PWD\r" }
+    # "*$REMOTE_HOSTNAME*" { send "ls -l\r" }
+}
+
+# 开启 tmux
+send "pwd\r"
+expect "/home/$USR_NAME" { send "tmux -CC a -t $TMUX_SESSION_NAME\r" }
+
+unset USR_NAME
+unset USR_PWD
+unset REMOTE_IP
+unset REMOTE_HOSTNAME
+unset TMUX_SESSION_NAME
+
+# 关闭调试模式
+# exp_internal 0
+
+# 允许用户交互
+interact
+
+# 退出 expect
+exit
