@@ -10,6 +10,10 @@ categories:
 
 ---
 
+本文记录一些SONiC硬件、端口、协议、系统类典型日志，便于快速定位问题。
+
+<!-- more -->
+
 # 1. 硬件类
 > 本地日志：/var/log/syslog
 
@@ -35,8 +39,6 @@ logger.log_warning(device + ' is pulled out. ')
 2022-02-14 17:56:02.614955 HOSTNAME <local2.warning> WARNING pmon#hwmgrd: :dev_alarm_log:- Psu2 is alarm: no power
 2021-12-22 03:42:27.825952 HOSTNAME <local2.warning> WARNING pmon#hwmgrd: :dev_alarm_log:- Psu1 is alarm: from normal to no power, vol error
 ```
-
-<!-- more -->
 
 - 正常
 ```shell

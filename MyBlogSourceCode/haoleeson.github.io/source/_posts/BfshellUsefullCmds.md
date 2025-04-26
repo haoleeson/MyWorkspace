@@ -38,12 +38,19 @@ bf_pltfm qsfp dump-info 20/0
 bf_pltfm qsfp dump-info 35/0
 ```
 
-# 3. 查看设备眼图信息
+# 3. 重启光模块
+```shell
+ucli
+# 重启光模块 Ethernet34
+bf-sde> bf_pltfm qsfp qsfp-reset 34 1
+```
+
+# 4. 查看设备眼图信息
 ```shell
 bf-sde.bf_pltfm.rtmr> rtmr_eye_margin_show_all_chan 33 1
 ```
 
-# 4. 端口的port-sd-show
+# 5. 端口的port-sd-show
 ```shell
 pm show
 info
@@ -52,7 +59,7 @@ bf_pltfm qsfp dump-info 33/0
 pm port-sd-show 33/0
 ```
 
-# 5. P4 查看 VLAN subinterface 表项
+# 6. P4 查看 VLAN subinterface 表项
 ```shell
 docker exec -it syncd /opt/bfn/install/bin/bfshell
 bf_switch
@@ -72,7 +79,7 @@ show hostif handle 2
 
 bf-sde.pm show
 
-# 6. 禁用/启用端口相关指令
+# 7. 禁用/启用端口相关指令
 ```shell
 # 对比 配置值与实际值 
 # Compare sw/hw port cfg <dev> <pipe> <port>
@@ -114,7 +121,7 @@ oper
 bf_port_stats_clear 0 0 8
 ```
 
-# 7. 使能端口
+# 8. 使能端口
 ```shell
 bfshell> ucli
 pm
@@ -238,7 +245,7 @@ port-enb 63/0
 port-enb 64/0
 ```
 
-# 8. 手动 UP/DOWN 端口
+# 9. 手动 UP/DOWN 端口
 bf-sde.pm> 中手动 up down 端口
 > ucli
 > pm
@@ -259,7 +266,7 @@ port-dis 39/0
 port-dis 40/0
 ```
 
-# 9. 查看光模块厂商信息
+# 10. 查看光模块厂商信息
 ```shell
 # 查看硬件 QSFP 信息
 bf-sde.bf_pltfm.qsfp> info
@@ -274,7 +281,7 @@ Port  Vendor           PN               rev Serial#          code     Bit Rate  
  40:  FINISAR CORP.(FINISAR 100G-SM-2KM+)    FTLC4352RJPL     A   X6FARV3          211110   25500 MBps   00:00:00   6 (4.5 W max.)   (SMF): 2 km
 ```
 
-# 10. 按需下业务表项
+# 11. bfrt 按需下业务表项
 ```shell
 bfshell> bfrt_python
 bfrt
@@ -290,7 +297,7 @@ switch.tablepipe23.TableIngress.tunnel_match.eip_in_meter.add_with_set_eip_in_co
 switch.tablepipe23.TableIngress.tunnel_match.eip_in_drop.add_with_in_drop_count(0x0007)
 ```
 
-# 11. bfshell 抓包
+# 12. bfshell 抓包
 ```shell
 # 创建 snapshot（获取返回句柄 0x2581）
 snap-create -d 0 -p 2 -s 0 -e 11 -i 0
@@ -309,7 +316,7 @@ snap-state-set -h 0x2581 -e 0
 snap-capture-get -h 0x2581
 ```
 
-# 12. 其他常用命令
+# 13. 其他常用命令
 
 ```shell
 ucli

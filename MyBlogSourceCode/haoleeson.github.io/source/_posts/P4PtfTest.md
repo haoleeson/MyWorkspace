@@ -1,7 +1,7 @@
 layout: post
 title: P4 PTF 测试简介
-date: 2024/4/24 00:41:45
-updated: 2024/4/24 00:41:45
+date: 2024/11/30 00:41:45
+updated: 2024/11/30 00:41:45
 comments: true
 tags:
 - SDE
@@ -40,7 +40,7 @@ docker run -dit --name bf_sde_9_3_2_simulation --privileged \
     -v /sys/devices/system/node:/sys/devices/system/node \
     -v /usr/share/zoneinfo:/usr/share/zoneinfo:ro \
     -v /etc/localtime:/etc/localtime:ro \
-    -v /home/lihao.213/code/bf-sde-9.3.2-upgrade-sai:/root/bf-sde-9.3.2-upgrade-sai:rw \
+    -v /home/haoleeson/code/bf-sde-9.3.2-upgrade-sai:/root/bf-sde-9.3.2-upgrade-sai:rw \
     -w /sde/ \
     -p 10932:22 -p 4000:4000 sde_build_image_simple:v9.3.2 bash
 
@@ -51,8 +51,8 @@ docker run -dit --name ptf_sde_9_3_2 --privileged \
     -v /sys/devices/system/node:/sys/devices/system/node \
     -v /usr/share/zoneinfo:/usr/share/zoneinfo:ro \
     -v /etc/localtime:/etc/localtime:ro \
-    -v /home/lihao.213/code/bf-sde-9.3.2-upgrade-sai-with-ptf-updating:/root/bf-sde-9.3.2-upgrade-sai:rw \
-    -v /home/lihao.213/my_scripts:/root/my_scripts:rw \
+    -v /home/haoleeson/code/bf-sde-9.3.2-upgrade-sai-with-ptf-updating:/root/bf-sde-9.3.2-upgrade-sai:rw \
+    -v /home/haoleeson/my_scripts:/root/my_scripts:rw \
     -w /root/ \
     -p 11932:22 -p 4100:4100 sde_build_image_simple:v9.3.2 bash
 
@@ -65,7 +65,7 @@ docker exec -it bf_sde_9_3_2_simulation bash
 
 # 2. 创建可远程 ssh 登录的容器 9.9.0（独立网络）
 ```shell
-HOST_CODE_DIR='/home/lihao.213/code/bf-sde-9.9.0-igw-xlt' && \
+HOST_CODE_DIR='/home/haoleeson/code/bf-sde-9.9.0-igw-xlt' && \
 CONTAIN_CODE_DIR='/root/bf-sde-9.9.0-igw-xlt' && \
 docker run -dit --name bf_sde_9_9_0_simulation --privileged \
     -v /sys/bus/pci/devices:/sys/bus/pci/devices \
