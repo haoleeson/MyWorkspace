@@ -17,7 +17,9 @@ BFShell 作为 Barefoot 开发工具链中的重要一部分，可用于与 Tofi
 
 <!-- more -->
 
-# 1. 查看端口
+
+# 1. 端口
+## 1.1. 查看端口
 
 ```shell
 docker exec -it syncd /opt/bfn/install/bin/bfshell
@@ -27,101 +29,28 @@ ucli
 pm show
 ```
 
-# 2. 进 sde 查看 光模块信息
+## 1.2. 手动 UP/DOWN 端口
+bf-sde.pm> 中手动 up down 端口
+> ucli
+> pm
 ```shell
-docker exec -it syncd /opt/bfn/install/bin/bfshell
-ucli
+port-enb 1/0
+port-enb 2/0
+port-enb 17/0
+port-enb 19/0
+port-enb 39/0
+port-enb 35/0
+port-enb 40/0
 
-# 读取端口1 光模块信息
-bf_pltfm qsfp dump-info 1/0
-bf_pltfm qsfp dump-info 20/0
-bf_pltfm qsfp dump-info 35/0
+port-dis 1/0
+port-dis 2/0
+port-dis 17/0
+port-dis 19/0
+port-dis 39/0
+port-dis 40/0
 ```
 
-# 3. 重启光模块
-```shell
-ucli
-# 重启光模块 Ethernet34
-bf-sde> bf_pltfm qsfp qsfp-reset 34 1
-```
-
-# 4. 查看设备眼图信息
-```shell
-bf-sde.bf_pltfm.rtmr> rtmr_eye_margin_show_all_chan 33 1
-```
-
-# 5. 端口的port-sd-show
-```shell
-pm show
-info
-bf_pltfm qsfp oper
-bf_pltfm qsfp dump-info 33/0
-pm port-sd-show 33/0
-```
-
-# 6. P4 查看 VLAN subinterface 表项
-```shell
-docker exec -it syncd /opt/bfn/install/bin/bfshell
-bf_switch
-show hostif handle 2
-
-```
-
-34/0 |41/0|280|2/24|100G   | RS |Ds|Au|YES|ENB|UP |  NONE  |           63753|           63735|
-
-35/0 |42/0|276|2/20|100G   | RS |Ds|Au|YES|ENB|DWN|  NONE  |               0|               0|
-
-> 华工 100G CWDM4:    port 1、2
-> 旭创 100G CWDM4:    port 17
-> 旭创 100G CWDM4TR:  port 19
-> 海信 100G SR4:      port 39
-> FINISAR 100G-SM-2KM+: port 40
-
-bf-sde.pm show
-
-# 7. 禁用/启用端口相关指令
-```shell
-# 对比 配置值与实际值 
-# Compare sw/hw port cfg <dev> <pipe> <port>
-warm 0 0 8
-warm 0 0 12
-warm 0 1 52
-warm 0 1 60
-warm 0 2 24
-warm 0 2 20
-
-# enabled 端口
-# bf_port_enable  Enable a port <dev> <pipe> <port>
-bf_port_enable 0 0 8
-bf_port_enable 0 0 12
-bf_port_enable 0 1 52
-bf_port_enable 0 1 60
-bf_port_enable 0 2 0
-bf_port_enable 0 2 4
-bf_port_enable 0 2 20
-
-# disabled 端口
-# bf_port_disable Disable a port <dev> <pipe> <port>
-bf_port_disable 0 0 8
-bf_port_disable 0 0 12
-bf_port_disable 0 1 52
-bf_port_disable 0 1 60
-bf_port_disable 0 2 0
-bf_port_disable 0 2 4
-bf_port_disable 0 2 20
-
-# bf_port_mtu_set Set MTU on a port <dev> <tx_mtu> <rx_mtu> <pipe> <port>
-bf_port_mtu_set 0 9000 9000 0 8
-
-# oper 查看端口状态值
-oper
-
-# 清除端口状态
-# Clear stats on <dev> <pipe> <port>
-bf_port_stats_clear 0 0 8
-```
-
-# 8. 使能端口
+## 1.3. 使能端口
 ```shell
 bfshell> ucli
 pm
@@ -245,28 +174,100 @@ port-enb 63/0
 port-enb 64/0
 ```
 
-# 9. 手动 UP/DOWN 端口
-bf-sde.pm> 中手动 up down 端口
-> ucli
-> pm
+## 1.4. 禁用/启用端口相关指令
 ```shell
-port-enb 1/0
-port-enb 2/0
-port-enb 17/0
-port-enb 19/0
-port-enb 39/0
-port-enb 35/0
-port-enb 40/0
+# 对比 配置值与实际值 
+# Compare sw/hw port cfg <dev> <pipe> <port>
+warm 0 0 8
+warm 0 0 12
+warm 0 1 52
+warm 0 1 60
+warm 0 2 24
+warm 0 2 20
 
-port-dis 1/0
-port-dis 2/0
-port-dis 17/0
-port-dis 19/0
-port-dis 39/0
-port-dis 40/0
+# enabled 端口
+# bf_port_enable  Enable a port <dev> <pipe> <port>
+bf_port_enable 0 0 8
+bf_port_enable 0 0 12
+bf_port_enable 0 1 52
+bf_port_enable 0 1 60
+bf_port_enable 0 2 0
+bf_port_enable 0 2 4
+bf_port_enable 0 2 20
+
+# disabled 端口
+# bf_port_disable Disable a port <dev> <pipe> <port>
+bf_port_disable 0 0 8
+bf_port_disable 0 0 12
+bf_port_disable 0 1 52
+bf_port_disable 0 1 60
+bf_port_disable 0 2 0
+bf_port_disable 0 2 4
+bf_port_disable 0 2 20
+
+# bf_port_mtu_set Set MTU on a port <dev> <tx_mtu> <rx_mtu> <pipe> <port>
+bf_port_mtu_set 0 9000 9000 0 8
+
+# oper 查看端口状态值
+oper
+
+# 清除端口状态
+# Clear stats on <dev> <pipe> <port>
+bf_port_stats_clear 0 0 8
 ```
 
-# 10. 查看光模块厂商信息
+## 1.5. 端口的port-sd-show
+```shell
+pm show
+info
+bf_pltfm qsfp oper
+bf_pltfm qsfp dump-info 33/0
+pm port-sd-show 33/0
+```
+
+## 1.6. 定位端口丢包信息
+```shell
+fec
+sd perf mon
+port-error-show 33/0
+port-sd-show 33/0
+```
+
+
+# 2. 光模块
+## 2.1. 查看光模块信息
+```shell
+docker exec -it syncd /opt/bfn/install/bin/bfshell
+ucli
+
+# 读取端口1 光模块信息
+bf_pltfm qsfp dump-info 1/0
+bf_pltfm qsfp dump-info 20/0
+bf_pltfm qsfp dump-info 35/0
+
+# 查看光模块DDM信息
+get-ddm      # Optical Module Digital Diagnostic Monitoring (DDM)
+
+# 查看光模块信息
+qsfp info  #Checking what's plugged in
+
+# 展示光模块信息
+qsfp show 
+```
+
+## 2.2. 重启光模块
+```shell
+ucli
+# 重启光模块 Ethernet34
+bf-sde> bf_pltfm qsfp qsfp-reset 34 1
+```
+
+## 2.3. 查看光模块眼图信息
+```shell
+bf-sde.bf_pltfm.rtmr> rtmr_eye_margin_show_all_chan 33 1
+```
+
+## 2.4. 查看光模块厂商信息
 ```shell
 # 查看硬件 QSFP 信息
 bf-sde.bf_pltfm.qsfp> info
@@ -281,7 +282,28 @@ Port  Vendor           PN               rev Serial#          code     Bit Rate  
  40:  FINISAR CORP.(FINISAR 100G-SM-2KM+)    FTLC4352RJPL     A   X6FARV3          211110   25500 MBps   00:00:00   6 (4.5 W max.)   (SMF): 2 km
 ```
 
-# 11. bfrt 按需下业务表项
+# 3. P4 查看 VLAN subinterface 表项
+```shell
+docker exec -it syncd /opt/bfn/install/bin/bfshell
+bf_switch
+show hostif handle 2
+
+```
+
+34/0 |41/0|280|2/24|100G   | RS |Ds|Au|YES|ENB|UP |  NONE  |           63753|           63735|
+
+35/0 |42/0|276|2/20|100G   | RS |Ds|Au|YES|ENB|DWN|  NONE  |               0|               0|
+
+> 华工 100G CWDM4:    port 1、2
+> 旭创 100G CWDM4:    port 17
+> 旭创 100G CWDM4TR:  port 19
+> 海信 100G SR4:      port 39
+> FINISAR 100G-SM-2KM+: port 40
+
+bf-sde.pm show
+
+
+# 4. bfrt 按需下业务表项
 ```shell
 bfshell> bfrt_python
 bfrt
@@ -297,7 +319,7 @@ switch.tablepipe23.TableIngress.tunnel_match.eip_in_meter.add_with_set_eip_in_co
 switch.tablepipe23.TableIngress.tunnel_match.eip_in_drop.add_with_in_drop_count(0x0007)
 ```
 
-# 12. bfshell 抓包
+# 5. bfshell抓包
 ```shell
 # 创建 snapshot（获取返回句柄 0x2581）
 snap-create -d 0 -p 2 -s 0 -e 11 -i 0
@@ -316,22 +338,34 @@ snap-state-set -h 0x2581 -e 0
 snap-capture-get -h 0x2581
 ```
 
-# 13. 其他常用命令
+# 6. 查看流统信息
+查看 port 及 queue 流统
+> queue.n = 8 * (port.n - 6) + 8 + 32，
+> 其中 8 是每个 port 的队列数
+> 6 除面板口外初始化的端口数（比如 CPU、RECIRC）
+> 32 是 CPU 的队列数
+
+```shell
+docker exec -it syncd /opt/bfn/install/bin/bfshell
+bf_switch
+
+# 查看所有 port 流统 ( has port.[1~35]     value: only port.[4~7]  对应 front ethernet33~36 )
+show counter port all
+# 查看 port.6 流统（ port.6 == ethernet35 ）
+show counter port handle 6
+
+# 查看所有 queue 流统  ( queue.[1~288] ,          )
+show counter queue all
+# 查看所有 queue.40 流统  ( queue.[1~288] ,          )
+show counter queue handle 40
+
+```
+
+
+# 7. 其他常用命令
 
 ```shell
 ucli
-
-# 查看光模块DDM信息
-get-ddm      # Optical Module Digital Diagnostic Monitoring (DDM)
-
-# 查看光模块信息
-qsfp info  #Checking what's plugged in
-
-# 展示光模块信息
-qsfp show 
-
-# 展示端口信息
-pm show    Port Status Report
 
 # pipeline 管理
 pipe_mgr

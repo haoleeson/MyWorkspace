@@ -546,6 +546,71 @@ display trace-logfile
 display logbuffer | include 1/0/60
 ```
 
+
+## 4.3. snmp
+### 4.3.1. snmp查询交换机系统及端口统计信息
+```shell
+H3C_VTEP='10.0.0.2'
+
+# 查看 H3C 交换机所有物理组件名 (entPhysicalName)，可获取 Board phy_index
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.2.1.47.1.1.1.1.7
+
+# 查看 H3C 交换机所有物理组件名 (entPhysicalName)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.2.1.47.1.1.1.1.7
+
+# 查看H3C交换机【Board CPU 使用率】 (hh3cEntityExtCpuUsage)
+# snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.6.1.1.1.1.6.<phy_index>
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.6.1.1.1.1.6.14
+
+# 查看H3C交换机【Board MEM 使用率】 (hh3cEntityExtMemUsage)
+# snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.6.1.1.1.1.8.<phy_index>
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.6.1.1.1.1.8.14
+```
+
+### 4.3.2. snmp 查询交换机 Qos queue 信息
+```shell
+H3C_VTEP='10.0.0.2'
+IF_INDEX='5'  # HundredGigE1/1/1
+IF_INDEX='37'  # FourHundredGigE1/0/31
+QUEUE_ID='2'
+
+# 查看H3C交换机指定 IF 指定 QUEUE_ID 的【已转发的报文 包数】 (hh3cIfQoSPassPackets)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.1.${IF_INDEX}.${QUEUE_ID}
+
+# 查看H3C交换机指定 IF 指定 QUEUE_ID 的【已转发的报文 字节数】 (hh3cIfQoSPassBytes)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.3.${IF_INDEX}.${QUEUE_ID}
+
+# 查看H3C交换机指定 IF 指定 QUEUE_ID 的【转发 报文速率 PPS】 (hh3cIfQoSPassPPS)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.4.${IF_INDEX}.${QUEUE_ID}
+
+# 查看H3C交换机指定 IF 指定 QUEUE_ID 的【转发 字节速率 BPS】 (hh3cIfQoSPassBPS)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.5.${IF_INDEX}.${QUEUE_ID}
+
+# 查看H3C交换机指定 IF 指定 QUEUE_ID 的【丢包 包数】 (hh3cIfQoSDropPackets)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.2.${IF_INDEX}.${QUEUE_ID}
+
+# 查看H3C交换机指定 IF 指定 QUEUE_ID 的【丢包 字节数】 (hh3cIfQoSDropBytes)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.6.${IF_INDEX}.${QUEUE_ID}
+
+
+
+# (不支持). 查看H3C交换机指定 IF 指定 QUEUE_ID 的【队列长度 包数】 (hh3cIfQoSQueueLengthInPkts)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.7.${IF_INDEX}.${QUEUE_ID}
+
+# (不支持). 查看H3C交换机指定 IF 指定 QUEUE_ID 的【队列长度 字节数】 (hh3cIfQoSQueueLengthInBytes)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.8.${IF_INDEX}.${QUEUE_ID}
+
+# (不支持). 查看H3C交换机指定 IF 指定 QUEUE_ID 的【当前排队的报文 包数】 (hh3cIfQoSCurQueuePkts)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.9.${IF_INDEX}.${QUEUE_ID}
+
+# (不支持). 查看H3C交换机指定 IF 指定 QUEUE_ID 的【转发峰值速率 PPS】 (hh3cIfQoSPeakPassPPS)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.24.${IF_INDEX}.${QUEUE_ID}
+
+# (不支持). 查看H3C交换机指定 IF 指定 QUEUE_ID 的【转发峰值速率 BPS】 (hh3cIfQoSPeakPassBPS)
+snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.25.${IF_INDEX}.${QUEUE_ID}
+```
+
+
 ## 4.4. LLDP邻居信息
 （缺省关闭）
 ```shell
@@ -566,7 +631,6 @@ display lldp neighbor-information
 display lldp neighbor-information interface HundredGigE 1/0/32
 ```
 
-
 ## 4.5. QinQ
 ```shell
 # 显示开启了QinQ功能的端口
@@ -575,17 +639,17 @@ display qinq
 display qinq interface HundredGigE 1/0/1
 ```
 
-## 4.3. Ping
+## 4.6. Ping
 ```shell
 ping A.B.C.D
 ```
 
-## 4.6. 收集H3C设备诊断信息
+## 4.7. 收集H3C设备诊断信息
 ```shell
 display diagnostic-information flash:/di.tar.gz
 ```
 
-## 4.7. 查询 H3C 设备 SN Serial Number
+## 4.8. 查询 H3C 设备 SN Serial Number
 ```shell
 display device manuinfo
 ```
