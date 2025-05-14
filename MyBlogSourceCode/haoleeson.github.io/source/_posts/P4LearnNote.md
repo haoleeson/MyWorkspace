@@ -11,14 +11,11 @@ categories:
 
 ---
 
-intel 收购 Barefoot 后推出的可编程交换机芯片 Tofino 所采用的编程语言为P4，本文记录P4基础及常用抓包方法等笔记。
+intel 收购 Barefoot 后推出的可编程交换机芯片 Tofino 所采用的编程语言为P4，本文记录P4基础语法、常用指令、及抓包排障等指令。
 
 <!-- more -->
 
-
-
 # 1. P4基础语法
-
 
 ## 1.1. 变量类型
 > P4 是一种静态类型的语言
@@ -39,12 +36,8 @@ enum、header、header stacks、struct、header_union、tuple、type specializat
   - 只能在控制平台设置的“行为参数”
   - 能被其他“调用行为”直接设置的值，如同局部变量
 
-
 ### 1.1.4. L-values vs I-values
 - L-values: 出现在赋值操作左侧、或作为 out 和 inout 函数参数（代表“存储”）
-
-
-
 
 ## 1.2. 基本语法
 ### 1.2.1. 支持运算类型
@@ -115,8 +108,6 @@ bfrt.switch.pipe.SwitchIngress.smac
 
 switch_bridged_metadata_h
 
-
-
 # 3. snapshot抓包示例
 
 control: 类
@@ -124,9 +115,7 @@ table： 函数 （if else）
 key: 入参（需关注参数）
 action: 子函数 （一般在 table 上实现/被调用）
 
-
 entry 中删表：
-
 
 ## 3.1. 在 table 中添加表（执行逻辑: 条件 + action）
 ### 3.1.1. 删表
@@ -141,10 +130,7 @@ gw: get way 硬件
 
 Inhibited 抑制（硬件匹配，但代码逻辑抑制gw ）
 
-
-
 entry 中删表：
-
 
 ## 3.2. 在 table 中添加表（执行逻辑: 条件 + action）
 当前是 "agent" 来「替人为添加这些 逻辑」
@@ -156,7 +142,6 @@ delete(表名)
 add_with_<function>()
 
 添加表项（添加执行逻辑）
-
 
 ## 3.3. snapshort 抓包
 > 两个方向
@@ -220,7 +205,6 @@ phv-dump -d 0 -p 3 -s 0 -i 0
 phv-dump -d 0 -p 3 -s 0 -i 1
 ```
 
-
 ```shell
 # 抓特定 DIP 10.0.0.32（0xA000020）
 snap-trig-add -h 0x581 -n hdr_ipv4_dst_addr  -v 0xA000020 -m 0xffffffff
@@ -248,7 +232,6 @@ snap-trig-add -h 0x1583 -n local_md_ingress_port -v 0x144 -m 0x1ff
 snap-trig-add -h 0x2583 -n local_md_egress_port -v 0x134 -m 0x1ff
 # 抓特定状态
 snap-trig-add -h 0x1583 -n hdr_table_1_result_valid  -v 0x1 -m 0xf
-
 
 ```
 
@@ -295,9 +278,6 @@ snap-state-set -h 0x3581 -e 0
 snap-state-set -h 0x3583 -e 0
 ```
 
-
-
-
 # 4. 为什么编译器 flexible 很重要
 
 flexible 加在哪儿？ （PHV、ALU、ALC 实现）
@@ -312,8 +292,6 @@ flexible 加在哪儿？ （PHV、ALU、ALC 实现）
 修饰符：让编译器不做优化
 
 （pa_mutually_exclusive("ingress", "lkp.mpls_lookup_label", "lkp.ip_src_addr")）
-
-
 
 # 5. P4编译中常见PHV、ALU资源分配错误问题解决思路
 P4编译遇到PHV和ALU资源冲突问题解决思路

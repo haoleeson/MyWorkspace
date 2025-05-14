@@ -382,7 +382,13 @@ entry_add/delete/get
 ```
 
 
-注： 当bfshell要执行的命令较多时，也直接传入文件执行批量命令内容
+注：
+- 当bfshell要执行的命令较多时，也直接传入文件执行批量命令内容
 ```shell
 /opt/bfn/install/bin/bfshell -b /root/multiple_cmds
 ```
+
+- 操作action_selector表项删除时出现 coredump
+
+gRPC 使用 ROLLBACK_ON_ERROR 在操作 action_selector 的表项删除时出现 coredump
+从 ROLLBACK_ON_ERROR 改成 CONTINUE_ON_ERROR 之后就不 coredump 了
