@@ -184,25 +184,25 @@ sudo systemctl restart docker
 sudo docker pull ubuntu:16.04
 ```
 
-## 5.3. 列出本地镜像：
+## 5.3. 列出本地镜像
 ```bash
 sudo docker image ls
 ```
 
-## 5.4. 删除本地镜像：
+## 5.4. 删除本地镜像
 ```bash
 sudo docker image rm [选项] <镜像1> [<镜像2> ...]
 ```
 
 # 6. 容器 常用命令
 
-## 6.1. 显示当前容器：
+## 6.1. 显示当前容器
 ```bash
 sudo docker container ls #显示当前正在运行的容器
 sudo docker container ls -a #显示所有状态的容器（包括终止状态的容器）
 ```
 
-## 6.2. 新建并启动:
+## 6.2. 新建并启动
 ```bash
 sudo docker run -t -i ubuntu:16.04 /bin/bash # 创建一个Ubuntu16.04容器并在内运行bash
 ```
@@ -215,7 +215,7 @@ sudo docker run -d ubuntu:16.04 /bin/sh -c "while true; do echo hello world; sle
 sudo docker run ubuntu:16.04 /bin/sh -c "while true; do echo hello world; sleep 1; done"    #容器会把输出的结果 (STDOUT) 打印到宿主机上面
 ```
 
-## 6.4. 终止容器：
+## 6.4. 终止容器
 ```bash
 sudo docker container stop [容器名/容器ID]
 ```
@@ -255,4 +255,187 @@ sudo docker export [容器名/容器ID] > FileName.tar
 ```bash
 sudo cat FileName.tar | docker import - test/FileName:v1.0
 sudo docker image ls
+```
+
+# 7. Docker工作中常用高阶用法
+## 7.1. 重载 docker daemon 配置而保持 container running 的方法
+```shell
+Docker 支持这个“live-restore”功能，https://docs.docker.com/config/containers/live-restore/。
+用法：
+daemon.json 中配置 "live-restore": true 
+然后执行： systemctl reload docker
+```
+
+## 7.2. 时差 8 小时
+解决方式 1：直接拷贝 HOST
+```shell
+CONTAINER_NAME='ansible'
+docker cp /usr/share/zoneinfo $CONTAINER_NAME:/usr/share/
+docker cp /etc/localtime $CONTAINER_NAME:/etc/
+```
+
+解决方式 2：创建容器时挂载宿主
+```shell
+CONTAINER_NAME='ansible'
+docker run -dit --name $CONTAINER_NAME --net=host \
+    -v /usr/share/zoneinfo:/usr/share/zoneinfo \
+    -v /etc/localtime:/etc/localtime \
+    <docker_image>
+```
+
+## 7.3. 导出镜像到文件
+```shell
+# 查看镜像
+docker image list
+
+# 导出镜像到 tar 文件
+# docker save -o jihaix-sonic-dev-v1.1.3.tar <IMAGE ID> 
+docker save -o jihaix-sonic-dev-v1.1.3.tar e6249ced1016 
+
+# 导入 image 文件到 Docker
+docker load -i jihaix-sonic-dev-v1.1.3.tar
+
+# 为导入的镜像添加标签
+docker tag 066d3e7d2396 jmeter-slave:jmeter-slave
+docker tag c5c8334a1c3a ubuntu:tbsvr_v2
+docker tag ef545a8be92f fpga_agent_img:8.0_debug_rte_ring
+```
+
+## 7.4. tag 更名
+```shell
+# create a new tag ( has same image-id )
+docker tag old-image-name:old-tag new-image-name:new-tag
+
+# delete old tag ( Note: not image-id )
+docker rmi old-image-name:old-tag
+```
+
+
+
+## 7.5. 将容器保存为新的镜像
+```shell
+# docker commit (-a="Author" -m "Commit message") <container_name/ID> <save_images_name>
+docker commit tbsvr_v2 ubuntu:tbsvr_v2.0.1
+docker commit -a="Author" -m "Commit message" c9a2f98234c7 tomcat04:1.0
+docker commit 581b4b5682dd sde-build-image:v9.9.0
+```
+
+
+## 7.6. 推送镜像至内网 images registry
+```shell
+# 拉取原始镜像
+docker pull arm64v8/golang:1.20.5-buster
+
+# 重命名 images name 至命名空间
+docker tag 15f4e972a5df self-arm64v8/golang:1.20.5-buster
+
+# 删除原 tag
+#docker rmi golang:1.17-stretch
+
+
+# 用服务账号登录内网私有厂库
+docker login A.B.C.org
+
+# check
+cat ~/.docker/config.json
+
+# 上传镜像至内网 images registry
+docker push self-arm64v8/golang:1.20.5-buster
+
+# 退出登录内网私有厂库
+docker logout A.B.C.org
+
+# check
+cat ~/.docker/config.json
+```
+
+
+## 7.7. 查看 docker 退出原因
+```shell
+# docker logs -f -t --since="2022-08-12" --tail=20 docker_container_name
+docker logs -f -t --since="2022-08-12" --tail=20 ansible
+```
+
+## 7.8. 清理容器日志
+```shell
+sudo truncate -s 0 $(docker inspect syncd -f {{.LogPath}} patrol_pktinjector)
+```
+
+
+## 7.9. 限制容器占用内存大小
+```shell
+# 法1: 创建容器参数
+在 docker run 阶段加 '-m 1g' 参数
+# 法2: cgroup 系统级策略
+创建新 cgroup 并设置内存限制，docker 守护进程启动时指定这个 cgroup 以限制全局所有容器内存
+```
+
+## 7.10. 运行镜像，生成容器
+```shell
+docker run -d -it --name CONTAINER_NAME --net=host jihaix/sonic-dev:v1.1.3
+docker run -d -it --name tacplus_server_20220301 --net=host jihaix/sonic-dev:v1.1.3
+
+docker run -d -it --name tacplus_server_20220301 --net=host jihaix/sonic-dev:v1.1.3
+
+
+docker run -dit --name tbsvr_v2 --network host --privileged \
+    -v /data00/var-lib-docker/tbsvr_v2/docker:/var/lib/docker ubuntu:tbsvr_v2
+
+docker run -dit --name tbsvr_v2.0.2 --network host --privileged \
+    -v /data00/var-lib-docker/tbsvr_v2/docker:/var/lib/docker \
+    -v /data00/var-lib-docker/tbsvr_v2/veos-vm/disks:/home/sonic/veos-vm/disks \
+    ubuntu:tbsvr_v2.0.1
+```
+
+### 7.10.1. 选择运行容器的网络方式
+> Docker 容器的四种网络方式
+> - host 网络：           与宿主机共用一个网络空间
+> - bridge 桥接网络（默认）： n 个桥接网络  < == >  (docker 0)  < == >  宿主机（网桥/iptables net 表）
+> - container 共享：       与某已创建容器共享网卡、IP 等
+> - none：               无网络
+
+```shell
+docker run ...  --network='host'
+docker run ...  --network='bridge'
+docker run ...  --network='container:<name|id>'
+docker run ...  --network='none'
+```
+
+## 7.11. 查看 Docker 容器启动时间（eg. database 容器）
+```shell
+date -d @$(date -d $(docker inspect --format='{{.Created}}' database) +%s) +"%Y-%m-%d %H:%M:%S.%N"
+```
+
+
+## 7.12. 查看容器版本信息
+```shell
+docker inspect -f '{{json .Config.Labels.Tag}}' database
+```
+
+## 7.13. 查看容器某项 详细信息
+```shell
+docker inspect -f '{{json .HostConfig.Binds}}' snmp | jq
+docker inspect -f '{{json .NetworkSettings.Networks}}' snmp | jq
+```
+
+## 7.14. 各个 container 容器执行相同命令
+```shell
+# 如：查看各容器时间
+docker ps -a | tail -n +2 | awk '{ print $NF}' | xargs -I {} docker exec {} date
+```
+
+## 7.15. 遍历各容器查找文件
+```shell
+FIND_FILE='psud'
+echo telemetry; docker exec -it telemetry find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo snmp; docker exec -it snmp find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo lldp; docker exec -it lldp find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo dhcp_relay; docker exec -it dhcp_relay find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo radv; docker exec -it radv find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo syncd; docker exec -it syncd find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo teamd; docker exec -it teamd find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo swss; docker exec -it swss find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo bgp; docker exec -it bgp find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo pmon; docker exec -it pmon find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
+echo database; docker exec -it database find / -name $FIND_FILE 2>&1 | fgrep -v 'find:'
 ```
