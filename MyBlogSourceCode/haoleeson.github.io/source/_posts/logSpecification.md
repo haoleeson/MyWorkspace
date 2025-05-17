@@ -3,7 +3,7 @@ title: 日志规范
 date: 2021/8/26 22:30:45
 updated: 2021/8/26 23:10:45
 comments: true
-tags: 
+tags:
 - syslog
 categories:
 - 技术
@@ -156,7 +156,6 @@ categories:
         <td>client 29 says hello and bids fair.</td>
     </tr>
 </table>
-
 
 ## 4.3. 日志内容规约
 

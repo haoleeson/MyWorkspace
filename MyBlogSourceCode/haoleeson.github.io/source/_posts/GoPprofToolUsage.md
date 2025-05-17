@@ -3,7 +3,7 @@ title: Go pprof性能分析工具
 date: 2024/6/26 19:53:45
 updated: 2024/6/26 19:53:45
 comments: true
-tags: 
+tags:
 - Go
 categories:
 - 技术
@@ -55,7 +55,6 @@ go tool pprof http://localhost:$PPROF_PORT/debug/pprof/profile
 
 # 内存分析
 go tool pprof http://localhost:$PPROF_PORT/debug/pprof/heap
-
 
 # 查看当前内存使用最多的 10 个函数
 echo -e "top 10\nexit" | go tool pprof -inuse_space http://localhost:${PPROF_PORT}/debug/pprof/heap

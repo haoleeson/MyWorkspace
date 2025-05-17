@@ -3,7 +3,7 @@ title: Redis loglevel_db 中残留2至n个下划线前缀的冗余表项问题
 date: 2021/12/17 22:30:45
 updated: 2021/12/17 23:10:45
 comments: true
-tags: 
+tags:
 - SONiC
 - Network
 categories:
@@ -17,7 +17,6 @@ Redis loglevel_db 中残留2~n个下划线前缀的冗余表项问题
 
 在 Redis 因忙或服务异常未及时处理带下划线前缀的临时表项时，重启 swss 容器将导致 loglevel_db 出现 2 ~ n 个下划线前缀的冗余表项，且在 Redis 恢复后也不会被删除，将一直残留在 loglevel_db 中。
 
-
 # 2. 问题分析
 
 ## 2.1. 定位
@@ -28,9 +27,7 @@ Redis loglevel_db 中残留2~n个下划线前缀的冗余表项问题
 
 <img src="../../../../uploads/The_first_time_a_temporary_table_appears_as_a_monitoring_record_of_a_normal_table_item.png" class="full-image" />
 
-
 <!-- more -->
-
 
 由上图中
 -  <code>_vxlanmgrd_KEY_SET</code> ，
@@ -40,8 +37,8 @@ Redis loglevel_db 中残留2~n个下划线前缀的冗余表项问题
 
 可知是 key 多了 n 个下划线，且 TableBase 及 TableName_KeySet 创建实例时入参 **tableName** 就已经多了 n 个下划线。进而可推知在
 
--  <code>ProducerStateTable : TableBase(tableName), TableName_KeySet(tableName)...</code> 
-- 或 <code>ConsumerStateTable : ConsumerStateTable(tableName), TableName_KeySet(tableName)</code> 
+-  <code>ProducerStateTable : TableBase(tableName), TableName_KeySet(tableName)...</code>
+- 或 <code>ConsumerStateTable : ConsumerStateTable(tableName), TableName_KeySet(tableName)</code>
 创建实例时，其 入参 **tableName** 就已包含  n 个下划线
 
 （2）第一次异常监测： <code>ProducerStateTable::set()</code> 的入参key已多出冗余下划线前缀：

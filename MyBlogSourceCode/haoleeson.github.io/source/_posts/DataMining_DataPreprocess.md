@@ -417,7 +417,6 @@ data['Outlet_Size'] = (data['Outlet_Size'] - Outlet_Size_min) / (Outlet_Size_max
 
 ![“Train_UWu5bXk.csv”文件中的Bigmart销售数据预处理后](../../../../uploads/DataMining_DataPreprocess_Output_Train_afterProprecess.png)
 
-
 {% note success %}
 **备注**
 **运行平台**：Arch Linux

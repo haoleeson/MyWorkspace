@@ -3,7 +3,7 @@ title: Bfshell常用命令
 date: 2023/2/28 10:30:45
 updated: 2023/2/28 10:30:45
 comments: true
-tags: 
+tags:
 - SDE
 - Network
 - Barefoot
@@ -16,7 +16,6 @@ categories:
 BFShell 作为 Barefoot 开发工具链中的重要一部分，可用于与 Tofino 交换机进行交互，例如加载 P4 程序、调试数据平面或配置交换机行为，此文记录日常调试中常用命令。
 
 <!-- more -->
-
 
 # 1. 端口
 ## 1.1. 查看端口
@@ -176,7 +175,7 @@ port-enb 64/0
 
 ## 1.4. 禁用/启用端口相关指令
 ```shell
-# 对比 配置值与实际值 
+# 对比 配置值与实际值
 # Compare sw/hw port cfg <dev> <pipe> <port>
 warm 0 0 8
 warm 0 0 12
@@ -233,7 +232,6 @@ port-error-show 33/0
 port-sd-show 33/0
 ```
 
-
 # 2. 光模块
 ## 2.1. 查看光模块信息
 ```shell
@@ -252,7 +250,7 @@ get-ddm      # Optical Module Digital Diagnostic Monitoring (DDM)
 qsfp info  #Checking what's plugged in
 
 # 展示光模块信息
-qsfp show 
+qsfp show
 ```
 
 ## 2.2. 重启光模块
@@ -302,7 +300,6 @@ show hostif handle 2
 
 bf-sde.pm show
 
-
 # 4. bfrt 按需下业务表项
 ```shell
 bfshell> bfrt_python
@@ -324,7 +321,7 @@ switch.tablepipe23.TableIngress.tunnel_match.eip_in_drop.add_with_in_drop_count(
 # 创建 snapshot（获取返回句柄 0x2581）
 snap-create -d 0 -p 2 -s 0 -e 11 -i 0
 
-# 
+#
 # snap-trig-add -h 0x141 -n hdr_ipv4_dst_addr  -v 0xc0a80000 -m 0x1fff0000
 
 snap-trig-add -h 0x2581 -n local_md_ingress_port -v 0x140 -m 0x1ff
@@ -361,7 +358,6 @@ show counter queue handle 40
 
 ```
 
-
 # 7. 其他常用命令
 
 ```shell
@@ -380,7 +376,6 @@ dump
 # 添加/删除/查看表项
 entry_add/delete/get
 ```
-
 
 注：
 - 当bfshell要执行的命令较多时，也直接传入文件执行批量命令内容

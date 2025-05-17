@@ -3,7 +3,7 @@ title: 编码规范笔记
 date: 2021/7/14 22:30:45
 updated: 2021/7/14 22:10:45
 comments: true
-tags: 
+tags:
 - Code
 categories:
 - 技术
@@ -14,7 +14,7 @@ categories:
 
 ## 1.1. include
 include guards 或#pragma once
-include guards 必须使用<CODEPATH>_<FILE>_H（或 HPP）的全大写形式。CODEPATH 中需要去掉标示主干/分支的关键词如：trunk, branch-xxx 
+include guards 必须使用<CODEPATH>_<FILE>_H（或 HPP）的全大写形式。CODEPATH 中需要去掉标示主干/分支的关键词如：trunk, branch-xxx
 
 <!-- more -->
 

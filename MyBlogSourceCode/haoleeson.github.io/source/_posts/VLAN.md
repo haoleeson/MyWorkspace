@@ -3,13 +3,12 @@ title: VLAN
 date: 2021/8/3 22:30:45
 updated: 2021/8/3 22:10:45
 comments: true
-tags: 
+tags:
 - Network
 categories:
 - 技术
 
 ---
-
 
 # 1. 简介
 - 虚拟局域网（Virtual Local Area Network，VLAN），是将局域网从逻辑上划分为一个个网段，从而实现虚拟工作组的一种交换技术。

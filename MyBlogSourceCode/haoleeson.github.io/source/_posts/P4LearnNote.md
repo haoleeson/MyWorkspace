@@ -3,7 +3,7 @@ title: P4学习笔记
 date: 2023/12/24 9:21:45
 updated: 2023/12/24 9:21:45
 comments: true
-tags: 
+tags:
 - Network
 - P4
 categories:
@@ -31,7 +31,7 @@ enum、header、header stacks、struct、header_union、tuple、type specializat
 - in， 只读
 - out， 未标记、视作无方法或函数体的值
 - inout， both in and out
-- 'No direction' 
+- 'No direction'
   - 编译阶段值
   - 只能在控制平台设置的“行为参数”
   - 能被其他“调用行为”直接设置的值，如同局部变量
@@ -155,7 +155,7 @@ add_with_<function>()
 ucli
 pipe_mgr
 
-bf-sde.pipe_mgr > 
+bf-sde.pipe_mgr >
 ```
 
 ### 3.3.1. 删除旧 snapshort 句柄
@@ -282,7 +282,7 @@ snap-state-set -h 0x3583 -e 0
 
 flexible 加在哪儿？ （PHV、ALU、ALC 实现）
 变量初始化
- 
+
 编译宏 -- 结构体
 
 注解  @flexible 自动优化变量结构/字节序/panding

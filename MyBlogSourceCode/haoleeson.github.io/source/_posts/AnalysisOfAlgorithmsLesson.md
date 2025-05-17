@@ -41,10 +41,8 @@ categories:
 
 **弹出操作**：弹出最小值（即数组首地址元素a[0]）。先交换交换堆顶与堆末，再弹出堆末（最小值），然后再将现堆顶元素执行迭代的下降操作，若其子节点存在与其子节点比较，若比子节点小则交换，然后再与交换后的子节点相互比较交换，直到放置在合适位置。（最坏递归到叶子节点）
 
-
 最小堆运行结果
 ![1_Min_Heap](../../../../uploads/AnalysisOfAlgorithmsLesson_Min_Heap.png)
-
 
 ## 1.2. No2. Quicksort
 快速排序（Quick Sort）由C. A. R. Hoare在1962年提出。它的基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。
@@ -52,7 +50,7 @@ categories:
 
 ### 1.2.1. Quick Sort 实现思想
 快速排序算法是一种基于交换的高效的排序算法，它采用了分治法的思想：
-- 1、从数列中取出一个数作为基准数（枢轴，pivot）。 
+- 1、从数列中取出一个数作为基准数（枢轴，pivot）。
 - 2、将数组进行划分(partition)，将比基准数大的元素都移至枢轴右边，将小于等于基准数的元素都移至枢轴左边。
 - 3、再对左右的子区间重复第二步的划分操作，直至每个子区间只有Cutoff（阈值）个元素。
 - 4、对Cutoff（阈值）个元素进行插入排序（实践经验小于一定数量后插入排序快于快速排序），然后返回上一调用堆栈。
@@ -170,7 +168,6 @@ int LookUp_Chain(int p[], int i, int j)
     }
 }
 
-
 /* *
  * 备忘录，矩阵链最小计算次数
  * 传入参数：矩阵链容器，存储顺序的矩阵相乘下标
@@ -210,7 +207,7 @@ int main(void)
 ## 1.4. No4．**最长公共子序列**（LCS）
 实例输入：
 - a)X: xzyzzyx   Y: zxyyzxz
-- b)X:MAEEEVAKLEKHLMLLRQEYVKLQKKLAETEKRCALLAAQANKESSSESFISRLLAIVAD               
+- b)X:MAEEEVAKLEKHLMLLRQEYVKLQKKLAETEKRCALLAAQANKESSSESFISRLLAIVAD
 Y:MAEEEVAKLEKHLMLLRQEYVKLQKKLAETEKRCTLLAAQANKENSNESFISRLLAIVAG
 
 ### 1.4.1. 求解思路
@@ -316,7 +313,7 @@ int main(int argc, const char * argv[]) {
 max = 4
 xyzz
 ```
-- b)X:MAEEEVAKLEKHLMLLRQEYVKLQKKLAETEKRCALLAAQANKESSSESFISRLLAIVAD               
+- b)X:MAEEEVAKLEKHLMLLRQEYVKLQKKLAETEKRCALLAAQANKESSSESFISRLLAIVAD
 Y:MAEEEVAKLEKHLMLLRQEYVKLQKKLAETEKRCTLLAAQANKENSNESFISRLLAIVAG
 ```c++
 max = 56
@@ -442,7 +439,7 @@ j3 -> j2 -> j4 -> j1
   A  B  C  D  E
 A    -1 3
 B       3  2  2
-C       
+C
 D    1  5
 E          -3
 ```
@@ -608,7 +605,6 @@ The answer of 8 queens problem is:   0  4  7  5  2  6  1  3
 - Dijkstra算法实现过程中的问题，图节点的遍历，及根据中间记录的选择过程逆向遍历得到最短路径；
 - 回溯算法中什么时候k++,什么时候k--，以及x[k]的初值问题；
 - 及各类算法编程实现的通用问题，算法实现、边界条件、状态转换、初值等等。
-
 
 {% note success %}
 **备注**

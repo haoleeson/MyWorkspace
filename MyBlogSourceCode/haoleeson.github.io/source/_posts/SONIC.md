@@ -3,7 +3,7 @@ title: 开源白盒交换机系统 SONiC 简介
 date: 2021/9/12 22:30:45
 updated: 2021/9/12 22:10:45
 comments: true
-tags: 
+tags:
 - SONiC
 - Network
 categories:

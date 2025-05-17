@@ -94,7 +94,6 @@ int main(void) {
 }
 ```
 
-
 <img src="../../../../uploads/functionPointer.jpg" class="full-image" />
 # 2. 函数指针
 ```c++

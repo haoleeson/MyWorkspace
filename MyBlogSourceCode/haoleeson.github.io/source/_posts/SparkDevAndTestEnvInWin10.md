@@ -91,7 +91,6 @@ Idea中Spark工程会用到Spark的jar依赖，故需下载spark的依赖包。
 
 下载[spark-2.4.5-bin-hadoop2.7.tgz](https://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-2.4.5/spark-2.4.5-bin-hadoop2.7.tgz)后解压备用
 
-
 ## 1.5. 安装Intellij IDEA Community（社区免费版）
 [官网](https://www.jetbrains.com/idea/)下载[Intellij IDEA Community（社区免费版）](https://download.jetbrains.8686c.com/idea/ideaIC-2020.1.2.exe)，并安装
 
@@ -166,7 +165,6 @@ object SparkPi {
 - 运行Spark程序
 
 点击"object SparkPi"旁的绿色小三角即可运行Spark程序（注意设置启动参数）
-
 
 # 3. 参考博文
 - [IntelliJ IDEA（Community版本）的下载、安装和WordCount的初步使用](https://www.cnblogs.com/zlslch/p/5880926.html)

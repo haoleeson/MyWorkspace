@@ -68,15 +68,15 @@ def kmeans(dataSet, k):
 
 	# 一直迭代直到没有1个'种子'的所属('种子')集群发生改变
     while clusterChanged:
-   
+
         # 迭代前为'种子'是否改变标志赋初值(False:未改变，如果执行完循环体后仍未False,视作迭代完成，退出迭代)
-        clusterChanged = False 
-                
+        clusterChanged = False
+
         ## 依次求解每个元素对k个'种子'的最小距离
         for i in range(numSamples):
             minDist = 100000.0
             minIndex = 0
-            
+
             #比较当前(第i个)元素 对应 k个'种子' 的欧式距离，求出最小（存于minDist），并记录对应种子编号（存于minIndex）
             for j in range(k):
                 distance = caclEucDistance(centroids[j, :], dataSet[i, :])
@@ -208,7 +208,6 @@ centroids:
 **源代码**：[kmeans.py](../../../../uploads/kmeans.py)
 {% endnote %}
 
-
 # 2. K-means算法对一副无噪图像进行分割
 **加载图片数据**
 ```python
@@ -279,7 +278,7 @@ def calNewCenter(features, imageRGB, k):
     for i in range(len(features)): #Rows
         for j in range(len(features[i])): #Columns
             centercolor[features[i][j]] += imageRGB[i, j]
-    
+
     for i in range(len(centercolor)):
         centercolor[i] /= temp.count(i) #求每个集群的RGB 均值
         # 将求得的均值[取整]
@@ -365,7 +364,6 @@ def main():
 - 通过反复测试，得出在一定的迭代次数限制下，设置的种子数越多，图像分割越明显，细节越丰富；
 - 在一定种子数范围内，最大迭代次数越多，图像分割效果并不一定更好。
 - 并且程序的运行时间会随着集群k、最大迭代次数iteration的增加而增加。
-
 
 {% note success %}
 **备注**

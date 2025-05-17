@@ -3,13 +3,12 @@ title: 以太帧与MAC
 date: 2021/7/23 22:30:45
 updated: 2021/7/23 22:10:45
 comments: true
-tags: 
+tags:
 - Network
 categories:
 - 技术
 
 ---
-
 
 # 1. 以太网数据帧结构
 ##  1.1. 802.3 Type 以太帧数据结构（又称 Ethernet II 封装，目前使用最广泛）：
@@ -151,8 +150,6 @@ Org Code代表机构编码；PID为协议标志，很少使用
 
 IP协议支持两种封装（**Ethernet II** 和 **SNAP RFC1042**封装，Type均为**0x0800**）。
 
-
-
 # 2. MAC地址简介
 MAC（Media Access Control）地址，是OSI模型第二层（数据链路层）数据包转发的依据，一个MAC地址有6字节，足以标识281万亿台设备，一般联网设备在出厂时会打上具有唯一标识的物理MAC地址。
 ## 2.1. MAC地址应用
@@ -184,7 +181,6 @@ MAC（Media Access Control）地址，是OSI模型第二层（数据链路层）
         <td>用于标志同一网段的所有设备</td>
     </tr>
 </table>
-
 
 # 3. 参考文献
 * 《H3C网络之路第六期——交换专题》

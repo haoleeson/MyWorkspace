@@ -34,7 +34,7 @@ container_pid=$(sudo docker inspect --format='{{.State.Pid}}' manager_container1
 ip link set netns ${container_pid} dev veth${y} && docker exec -i $container_name ip link set name eth1 dev veth${y}
 
 # 创建 veth 设备对，加入 container
-/Users/bytedance/code/myShell/create_veth_into_container.sh
+/Users/admin/code/myShell/create_veth_into_container.sh
 ```
 
 ## 1.2. 创建 Vxlan Tunnel
@@ -812,6 +812,11 @@ curl -d '{"v4_ips":["192.168.138.10/32"],"v6_ips":[]}' -H "Content-Type: applica
 
 curl -d '{}' -H "Content-Type: application/json" -X POST http://10.11.112.137:11001/is_lambda
 curl -d '{"name":"xgw_controller"}' -H "Content-Type: application/json" -X POST http://10.11.112.137:11001/restart_docker
+```
+
+## 2.16. 查看 Linux TCP keepalive 配置
+```shell
+sudo sysctl -a | grep keepalive
 ```
 
 # 3. 测试

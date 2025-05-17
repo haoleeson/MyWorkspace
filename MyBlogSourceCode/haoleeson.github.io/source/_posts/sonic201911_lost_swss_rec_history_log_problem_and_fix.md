@@ -3,7 +3,7 @@ title: sonic201911 丢失 swss.rec 历史日志问题及修复
 date: 2021/11/22 22:30:45
 updated: 2021/11/22 22:40:45
 comments: true
-tags: 
+tags:
 - SONiC
 - Network
 categories:
@@ -45,7 +45,7 @@ sonic版本：201911
 - 默认无参 open() 打开文件将覆盖旧内容，造成历史日志丢失。
 - 而带 out 及 app 参数的 open() 打开文件将采用追加形式写入新内容，历史内容会被保留。
   - ofstream::out，Open for output.  Default for @c ofstream and fstream.
-  - ofstream::app，eek to end before each write. 
+  - ofstream::app，eek to end before each write.
 
 ### 2.2.3. 根因总结
 上述分析可知根因为： <code>swss.rec</code> 的重载函数中 open() 未携带 out 及 app 参数，导致后续内容覆盖了历史日志，造成日志丢失。

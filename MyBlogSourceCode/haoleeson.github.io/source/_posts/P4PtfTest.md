@@ -92,7 +92,6 @@ exit
 ssh -p 10990 root@localhost
 ```
 
-
 # 3. 编译
 ## 3.1. 环境装备
 ```shell
@@ -110,7 +109,17 @@ cd $SDE/p4studio
 ./p4studio dependencies install
 ```
 
-## 3.2. 开始编译
+## 3.2. 编译时添加头文件、链接库路径
+```shell
+# 添加额外头文件搜索路径
+export C_INCLUDE_PATH=$SDE_INSTALL/include
+export CPLUS_INCLUDE_PATH=$SDE_INSTALL/include
+
+# 添加额外链接库路径
+export LD_LIBRARY_PATH=$SDE_INSTALL/lib
+```
+
+## 3.3. 开始编译
 ```shell
 cd $SDE/p4studio
 BUILD_PROFILES_FILE="$SDE/p4studio/profiles/switch-p4-16-sai15-xlt.yaml"
@@ -122,7 +131,7 @@ BUILD_PROFILES_FILE="$SDE/p4studio/profiles/switch-p4-16-sai15-xlt.yaml"
 ./p4studio profile apply $BUILD_PROFILES_FILE --skip-dependencies --skip-system-check
 ```
 
-## 3.3. 只编译修改的内容
+## 3.4. 只编译修改的内容
 ```shell
 cd build
 make install x1_tofino
@@ -190,18 +199,15 @@ SINGLE_TEST='saitunnel'             # orig sai 15 error
 # ./run_p4_tests.sh -p tna_checksum
 # ./run_p4_tests.sh -p tna_checksum -s Ipv4TranslateUpdTest
 
-
 # sde-9.3 (sai1.10)
 # pip install termcolor pysubnettree # 安装依赖
 SINGLE_TEST='sail2'
 SINGLE_TEST='sail3'
 ./run_p4_tests_sai110.sh --arch tofino -p switch -t pkgsrc/switch-p4-16/ptf/sai/ -f pkgsrc/switch-p4-16/ptf/ports.json --test-params "port_map_file='pkgsrc/switch-p4-16/ptf/sai/default_interface_to_front_map.ini'" --target asic-model -s $SINGLE_TEST
 
-
 # sde_9_13_0
 SINGLE_TEST='sail3.L3IPv4HostTest'
 ./run_p4_tests.sh -p switch -t pkgsrc/switch-p4-16/ptf/sai/ -f pkgsrc/switch-p4-16/ptf/ports.json --test-params "port_map_file='pkgsrc/switch-p4-16/ptf/sai/default_interface_to_front_map.ini'" -s $SINGLE_TEST
-
 
 # for xgw
 ./run_p4_tests.sh -p switch -t pkgsrc/switch-p4-16/ptf/sai15/ -f pkgsrc/switch-p4-16/ptf/ports_multipipe.json --test-params "port_map_file='pkgsrc/switch-p4-16/ptf/sai15/multipipe_interface_to_front_map.ini'" -s xgw_test_all
@@ -258,7 +264,6 @@ cd /sde/bf-sde-9.3.2 && source ../set_sde.bash
 sudo python2 $SDE/pkgsrc/ptf-modules/ptf/ptf --test-dir $SDE/pkgsrc/switch-p4-16/submodules/SAI15/test/ptf/ptf_nn/ptf_nn_test --device-socket 0-{0-64}@tcp://127.0.0.1:10001 --device-socket 1-{0-64}@tcp://127.0.0.1:10002 --platform nn
 ```
 
-
 #### 4.4.1.3. 测试 hostif
 ```shell
 # win1: start Tofino Model
@@ -270,7 +275,6 @@ sudo $SDE_INSTALL/bin/veth_setup.sh 128
 # win2: start switchd
 cd /sde/bf-sde-9.3.2 && source ../set_sde.bash
 ./run_switchd.sh -c $SDE_INSTALL/share/p4/targets/tofino/switch-sai-cpu-veth.conf
-
 
 # win3: start the PTF agent 1 (PTF local host)
 cd /sde/bf-sde-9.3.2 && source ../set_sde.bash
@@ -303,8 +307,6 @@ sudo env "PATH=$PATH" "PYTHONPATH=$PYTHONPATH" "GEN_XML_OUTPUT=$GEN_XML_OUTPUT" 
     --device-socket 0-1@tcp://127.0.0.1:10001 --device-socket 1-1@tcp://127.0.0.1:10002
 ```
 
-
-
 ## 4.5. 窗口 4. （仅 XLT 需要）设置回环口
 ```shell
 python3 $SDE/pkgsrc/data-path-test/loopbackport.py
@@ -320,6 +322,5 @@ python3 $SDE/pkgsrc/data-path-test/loopbackport.py
 # 9.3.2 【 some failed： L3EcmpLagTestMini, L3EcmpLagTest, L3EcmpSeedTest, L3IPv6EcmpLpmTest, L3VlanNeighborMacUpdateTest】
 ./run_p4_tests.sh -p tna_digest -t pkgsrc/p4-examples/p4_16_programs/tna_digest/ -s test
 ```
-
 
 ~~~~

@@ -46,7 +46,7 @@ categories:
 ```Shell
 sudo find YourScriptsDir/ -name "*.sh" | xargs dos2unix
 可选参数备注：
--k：保持输出文件的日期不变 
+-k：保持输出文件的日期不变
 -q：安静模式，不提示任何警告信息
 -V：查看版本
 -c：转换模式，模式有：ASCII, 7bit, ISO, Mac, 默认是：ASCII

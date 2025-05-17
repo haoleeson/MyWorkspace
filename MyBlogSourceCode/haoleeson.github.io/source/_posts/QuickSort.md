@@ -17,7 +17,7 @@ categories:
 <!-- more -->
 ## 1.1. Quick Sort 实现思想
 快速排序算法是一种基于交换的高效的排序算法，它采用了分治法的思想：
-- 1、从数列中取出一个数作为基准数（枢轴，pivot）。 
+- 1、从数列中取出一个数作为基准数（枢轴，pivot）。
 - 2、将数组进行划分(partition)，将比基准数大的元素都移至枢轴右边，将小于等于基准数的元素都移至枢轴左边。
 - 3、再对左右的子区间重复第2步的划分操作，直至每个子区间的元素个数不超过Cutoff（阈值）。
 - 4、每个子区间内的元素执行插入排序（实践经验小于一定数量后插入排序快于快速排序），然后返回上一调用堆栈。
@@ -118,11 +118,10 @@ void Quick_Sort(vector<ElementType> &A, long int Number){
     Quicksort(A, 0, Number-1);
 }
 
-
 //Prlong int the Array
 void Print_Array(vector<ElementType> &A, long int Number){
     int NumberOfPreRows = 10;
-    
+
     for(long int i=0; i<Number; i++){
         cout << " " << A[i];
         if(i%NumberOfPreRows == (NumberOfPreRows-1)){

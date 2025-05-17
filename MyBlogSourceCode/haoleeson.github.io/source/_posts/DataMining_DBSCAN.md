@@ -129,7 +129,6 @@ def showClusterImage(data, Cluster, Eps, MinPts):
     fig.gca().xaxis.set_major_locator(plt.NullLocator())
     fig.gca().yaxis.set_major_locator(plt.NullLocator())
 
-
     # 创建子图1: 绘制原图
     ax1 = fig.add_subplot(1, 2, 1)
     len_data = len(data)
@@ -143,7 +142,6 @@ def showClusterImage(data, Cluster, Eps, MinPts):
     ax1.set_title('Original Graph', fontsize=10, color='k')
     # 设置坐标的取值范围
     ax1.axis(getMinMaxXandY(data))
-
 
     # 创建子图2: 绘制DBSCAN
     ax2 = fig.add_subplot(1, 2, 2)
@@ -170,7 +168,7 @@ if __name__ == '__main__':
     # 加载long.mat数据
     data = loadDataFile('long.mat')
     data = data['long1'] #Eps=0.15， MinPts=8，最终分类数：2
-    
+
     # DBSCAN两个重要参数
     Eps = 0.15 #邻域半径
     MinPts = 8 #邻域内元素个数（包括点P）
@@ -208,7 +206,6 @@ if __name__ == '__main__':
 ![Eps=0.15,MinPts=8的效果图](../../../../uploads/DataMining_DBSCAN_longEps=0.15MinPts=8ResultCluster=2.png)
 **分析：**联合调整参数Eps和MinPts比只更改单一变量更难调节，在能够分类成2个类的结果下，Eps邻域半径越小、MinPts邻域内元素个数越小，得到的聚类内部对象间隔越“紧密”
 
-
 ## 4.4. 其他文件数据的DBSCAN聚类结果
 由于调整Eps#邻域半径、MinPts#邻域内元素个数参数方法与上面一致，为直观显示效果，只给出聚类较理想的结果图及其对应Eps、MinPts参数
 
@@ -227,7 +224,6 @@ if __name__ == '__main__':
 ### 4.4.4. spiral.mat文件的DBSCAN算法聚类效果
 当设置Eps=1, MinPts=8时，数据分类数Cluster=2，效果较理想，如下图所示
 ![Eps=1,MinPts=8的效果图](../../../../uploads/DataMining_DBSCAN_spiralEps=1MinPts=8ResultCluster=2.png)
-
 
 {% note success %}
 **备注**

@@ -3,7 +3,7 @@ title: 配置Manjaro
 date: 2018/9/23 22:30:45
 updated: 2018/10/26 22:10:45
 comments: true
-tags: 
+tags:
 - Linux
 categories:
 - 技术
@@ -308,7 +308,7 @@ cd ~/Downloads
 wget https://pypi.python.org/packages/38/96/7aa1c2583ddec558a230175d6aeddba796cde7191852bf3e6eb3cfb873e1/nose-1.1.2.tar.gz //下载nose-1.1.2
 tar -zxvf nose-1.1.2.tar.gz //解压nose安装包(以实际下载的包名为准)
 cd nose-1.1.2 //进入刚刚解压的目录
-sudo python3 setup.py install //执行安装命令以安装nose 
+sudo python3 setup.py install //执行安装命令以安装nose
 ```
 
 - ~~安装Python的atlas模块~~

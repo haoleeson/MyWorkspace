@@ -46,7 +46,7 @@ auto switch:
 - Google：https://www.google.com/ncr
 - Google学术搜索：https://scholar.google.com/
 - Google翻译：http://translate.google.cn/
-- GooGle香港：https://www.google.com.hk/ncr 
+- GooGle香港：https://www.google.com.hk/ncr
 - chrome同步状态Sync: chrome://sync-internals/
 ```
 

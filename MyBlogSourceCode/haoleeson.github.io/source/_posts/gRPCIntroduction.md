@@ -53,13 +53,12 @@ Remote procedure call, RPC：远程程序调用
 # 2. gRPC
 > 2015年，谷歌开源的一款精简而强大的下一代 RPC 协议（Google Remote Procedure Call, gRPC）。
 >  - 一款性能强大的开源通用 RPC 框架
-> 
+>
 > 传输方式：[HTTP/2.0](https://http2.github.io/)
-> 
+>
 > [gRPC官网](https://grpc.io/)
-> 
+>
 > [grpc官方github文档](https://github.com/grpc/grpc/tree/master/doc)
-
 
 ## 2.1. gRPC 诞生原因（解决什么问题）
 
@@ -104,8 +103,6 @@ Remote procedure call, RPC：远程程序调用
 
 <!-- ## 4. gRPC 发展情况（发展现状，6年，gRPC-web） -->
 
-
-
 ## 2.3. gRPC 如何使用、demo
 
 1. Define a service in a .proto file.
@@ -116,7 +113,6 @@ Remote procedure call, RPC：远程程序调用
   - 以目标语言编码实现服务器端业务功能。
 4. Creation of the client stub that calls the service.
   - 创建（目标语言）进行远程调用的 “代理对象”client stub。
-
 
 ## 2.4. 安装 grpc-go
 ```shell
@@ -129,7 +125,6 @@ go get -u google.golang.org/grpc
 # 安装 gRPC-go 方式3（GitHub）
 git clone https://github.com/grpc/grpc-go.git ./google.golang.org/grpc; cd google.golang.org/grpc; go install; cd ../../
 
-
 # 安装 Protobuf
 brew install protobuf
 # 验证命令
@@ -138,7 +133,6 @@ protoc --version
 # 安装 go net 包
 git clone https://github.com/golang/net.git ./google.golang.org/x/net
 
-
 # 安装 go genproto 包
 git clone https://github.com/google/go-genproto.git ./google.golang.org/genproto
 
@@ -146,12 +140,11 @@ git clone https://github.com/google/go-genproto.git ./google.golang.org/genproto
 git clone https://github.com/golang/text.git ./google.golang.org/x/text
 ```
 
-## 2.5. 安装 Python gRPC 插件 
+## 2.5. 安装 Python gRPC 插件
 ```shell
 python3 -m pip install grpcio
 pip3 install grpcio-tools
 ```
-
 
 ## 2.6. 利用 grpc-go 中提供的 helloworld example 实验
 ```shell

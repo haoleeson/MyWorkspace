@@ -3,7 +3,7 @@ title: 安装SONiC
 date: 2021/9/28 22:30:45
 updated: 2021/9/28 22:40:45
 comments: true
-tags: 
+tags:
 - SONiC
 - Network
 categories:
@@ -25,9 +25,8 @@ categories:
 其中，sonic.bin 和 sonic-recovery.bin 的编译方式如下：
 >备注：
 >- 编译 SONiC 版本需确保当前登录用户已加入 <b><font color="#7E3D76" style="">docker</font></b> 组
->- 查询当前 <b><font color="#7E3D76" style="">docker</font></b> 组用户列表的命令为： <code>sudo cat /etc/group | grep docker</code> 
->- 若当前登录用户不在 <b><font color="#7E3D76" style="">docker</font></b> 组用户列表中，则需添加到 <b><font color="#7E3D76" style="">docker</font></b> 组用户列表，命令为：  <code>sudo usermod -aG docker ${当前用户名} </code> 
-
+>- 查询当前 <b><font color="#7E3D76" style="">docker</font></b> 组用户列表的命令为： <code>sudo cat /etc/group | grep docker</code>
+>- 若当前登录用户不在 <b><font color="#7E3D76" style="">docker</font></b> 组用户列表中，则需添加到 <b><font color="#7E3D76" style="">docker</font></b> 组用户列表，命令为：  <code>sudo usermod -aG docker ${当前用户名} </code>
 
 ```shell
 # 1. 进入 SONiC 源码目录
@@ -99,7 +98,7 @@ minicom 对比 screen 优势：
 - screen 方式连接串口设备： <code>screen /dev/tty.usbserial-110 115200</code>
   - 优势：系统自带，随用随取。
   - 短板：用完要关闭需要先按Ctrl+A，再按Ctrl+K来杀掉进程；可能遇到在关闭后/dev路径没有Serial文件而无法使用的情况。
-- minicom 串口工具连接串口设备： <code>minicom -c on</code> 
+- minicom 串口工具连接串口设备： <code>minicom -c on</code>
   - 优势：使用便捷，仅需一次配置，后续自动调用连接配置；稳定性好；支持热插拔；功能丰富。
 
 ### 1.2.1. 安装 minicom 串口工具
@@ -209,7 +208,6 @@ ifconfig eth0 1.2.3.4 netmask 255.255.255.0
 scp admin@4.5.6.7:/home/admin/sonic.bin /tmp/
 ```
 
-
 <b><font color="#7E3D76" style="">4. 通过 onie-nos-install 安装 SONiC 镜像</font></b><br>
 
 ```shell
@@ -253,7 +251,7 @@ sed -n "$(grep -n 'MGMT_INTERFACE' /etc/sonic/config_db.json | tail -1 | cut -d 
 # 若 ztp 服务未开启，需执行下方命令开启 ZTP 服务
 sudo systemctl start ztp
 # 备注：
-sudo update-rc.d -f ztp remove      # 禁止 ZTP 服务开启自启  
+sudo update-rc.d -f ztp remove      # 禁止 ZTP 服务开启自启
 sudo update-rc.d ztp enable 2 3 4 5 # 开启 ZTP 服务开机自启
 ```
   - 若设备缺失配置文件<code>/etc/sonic/config_db.json</code>且启动时 ztp 服务已开启，执行 <code>ip addr | grep eth0</code> 将能看到已自动获取的 IP（eg.10.0.0.2）
@@ -310,7 +308,6 @@ source /etc/network/interfaces.d/*
 生效配置<br>（以下方式均可）
   - a.重启网络：<code>sudo /etc/init.d/networking restart</code> 或 <code>sudo service networking restart</code><br><font color="black" style="">
   - b.重启网卡（eg. eth0）： <code>sudo ifdown eth0</code> 或 <code>sudo ifup eth0</code>
-
 
 # 4. 参考文档
 - [Mac笔记本 Pro 工具之 minicom安装与串口配置](https://blog.csdn.net/dirksmaller/article/details/105063379)

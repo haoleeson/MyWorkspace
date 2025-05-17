@@ -354,9 +354,4 @@ int main() {
 
 代码主要是有结构体MSG0定义了一个变量并未其相对于MSG1多出的两个变量赋值，然后实现用MSG1类型的指针访问MSG0中多出的变量（默认没有指针），来例证c++的访问变量的机制为“以特定的类型去解读一个地址”，无论其是否真的被定义成那样（前提条件：该地址是被定义过的且可访问的地址，否则会被认为内存越界）。
 
-
 附录：完整代码详见个人git仓库：[BitPrint.cpp](https://github.com/haoleeson/Cpp_Learning/blob/master/BitPrint.cpp),[BitPrint.h](https://github.com/haoleeson/Cpp_Learning/blob/master/BitPrint.h)
-
-# 5. 参考文档
-
-- [结构体内存分配分析](https://wenku.baidu.com/view/ec9cba000740be1e650e9aa5.html)

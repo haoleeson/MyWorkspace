@@ -3,7 +3,7 @@ title: Etcd常用命令
 date: 2023/3/10 16:12:45
 updated: 2023/3/10 16:12:45
 comments: true
-tags: 
+tags:
 - Etcd
 categories:
 - 技术
@@ -13,7 +13,6 @@ categories:
 Etcd是具备轻量级和高性能的分布式存储组件，尤其适合需要强一致性和高可用性的场景，本文记录一些常用命令。
 
 <!-- more -->
-
 
 # 1. 基础命令
 
@@ -146,7 +145,7 @@ ETCDCTL_API=3 etcdctl $etcdctlargs --write-out=table endpoint status
 # 磁盘空间调整为 8G，官方建议最大 8G（单位是字节）
 # --quota-backend-bytes=8388608000
 
-# e.g. 
+# e.g.
 etcd -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 --auto-compaction-retention=1 --quota-backend-bytes=8388608000
 ```
 
@@ -239,8 +238,8 @@ ETCDCTL_API=3 etcdctl $etcdctlargs get --prefix "/app_data/leader/"
 # 不支持 etcdctl get --prefix app_data
 
 # 模糊查询匹配到前缀为web的key（不返回value）
-# 不支持 etcdctl --prefix --keys-only=true get app_data 
-ETCDCTL_API=3 etcdctl $etcdctlargs --prefix --keys-only=true get app_data 
+# 不支持 etcdctl --prefix --keys-only=true get app_data
+ETCDCTL_API=3 etcdctl $etcdctlargs --prefix --keys-only=true get app_data
 ```
 
 ## 5.2. 查看所有包含特定字段key

@@ -202,7 +202,7 @@ template<class KEY_TYPE, class VALUE_TYPE>
 
 由于B树满足二叉搜索树特性（值：右 < 根 < 左），在从根节点开始查询关键字时，若无法在本节点找到关键字 k，则k有可能在以本节点**不超过k关键字**指向节点为根的子树中（此节点非叶节点），故搜索关键字可简化为：对当前节点，返回keys[i] >= key对应的子节点可能所在下标 i，外层判断keys[i] 的值与key，直至找到key，或下降至叶子节点都未找到。
 
-### 4.3.1. 对每个节点，二分法返回第一个 keys[i]  >=  key 的下标 i 
+### 4.3.1. 对每个节点，二分法返回第一个 keys[i]  >=  key 的下标 i
 其中，返回当前节点第一个 keys[i]  >=  key 对应的子节点可能所在下标 i 伪代码如下：
 - 若本节点若无关键字且非叶子节点，则返回下标0
 - 二分法找到不超过 key 值所对应的下标 i
@@ -275,7 +275,6 @@ VALUE_TYPE BTreeNode<KEY_TYPE, VALUE_TYPE>::getValue(KEY_TYPE key) {
 
 对于节点关键字节点未满插入，只需将新的<key, value>键值对对应插入尾部即可。
 
-
 ### 4.4.3. 已满节点插入<key, value>键值对
 ![BTreeSplitInsert](../../../../uploads/BTreeSplitInsert.png)
 对于关键字已满的节点，需新增右兄弟节点，将原已满节点的后半部分挪到右兄弟节点（“**分裂**”），会上升一个key到其父节点作为新增右兄弟节点对应的key（若无则创建新父节点），再插入新节点。博主这里将这两步操作(分裂 + 插入)合为一步以提高效率：
@@ -317,7 +316,6 @@ VALUE_TYPE BTreeNode<KEY_TYPE, VALUE_TYPE>::getValue(KEY_TYPE key) {
 - 若其兄弟节点与其node->childPtrs[0] 是否是叶子节点属性不同，则不降层
 - 降层处理，将其父节点指向其的childPtrs[i]指针，指向其node->childPtrs[0]指向的值，后释放node节点
 - 若该节点为根节点，则将root指针指向node->childPtrs[0]（更新root节点），清除父节点指向node指针的值后释放node节点
-
 
 ## 4.7. 更多详细的实现细节，请阅读我上传到Git的源码吧:)
 {% note success %} 博主基于C++的B树的数据结构设计与编码实现源码详见：

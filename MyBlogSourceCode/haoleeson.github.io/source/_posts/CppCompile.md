@@ -10,7 +10,6 @@ categories:
 ---
 <img src="../../../../uploads/CppCompile.jpg" class="full-image" />
 
-
 # 1. step1.预编译
 “宏展开”，也就是对那些\#\*\*\*的命令的一种展开。例如define MAX 1000就是建立起MAX和1000之间的对等关系，好在编译阶段进行替换。例如ifdef/ifndef就是从一个文件中有选择性的挑出一些符合条件的代码来交给下一步的编译阶段来处理。这里面最复杂的莫过于include了，相当于把那个对应的文件里面的内容一下子替换到这条include***语句的地方来。
 

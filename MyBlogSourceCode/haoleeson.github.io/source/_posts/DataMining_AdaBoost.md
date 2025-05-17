@@ -96,7 +96,7 @@ def adaBoostTrainDS(dataArray， classLabels， numIt=40):
 ## 3.4. 输出分类结果
 ```python
 def adaTestClassify(dataToClassify， weakClass):
-    dataMatrix = np.mat(dataToClassify)        
+    dataMatrix = np.mat(dataToClassify)
     m =np.shape(dataMatrix)[0]
     aggClassEst = np.mat(np.zeros((m， 1)))
     for i in range(len(weakClass)):
@@ -190,7 +190,6 @@ total error: 0.0
 第 2 个弱分类器权值: [[-2.56198199]]
 最终分类标签: [[-1.]]
 ```
-
 
 {% note success %}
 **备注**

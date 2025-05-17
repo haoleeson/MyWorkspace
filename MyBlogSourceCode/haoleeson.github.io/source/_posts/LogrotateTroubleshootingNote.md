@@ -3,13 +3,12 @@ title: logrotate 日志轮转未生效排障思路总结
 date: 2021/9/3 22:30:45
 updated: 2021/9/3 23:10:45
 comments: true
-tags: 
+tags:
 - syslog
 categories:
 - 技术
 
 ---
-
 
 > logrotate 工具不会自启动，依赖 cron 定时任务工具调起或其他程序调用执行
 
@@ -65,8 +64,6 @@ logrotate 自身的日志：<code>/var/lib/logrotate/status</code>
 cat /var/lib/logrotate/status
 ```
 
-
-
 # 2. cron 是否正常工作？
 
 ## 2.1. 检查有无安装 cron
@@ -94,7 +91,6 @@ sudo grep -i "logrotate" /var/log/cron.log  | tail -n 10
 ### 2.3.1. 查看 cron 的定时调起配置
 配置文件：<code>/etc/anacrontab</code>（老版本为：<code>/etc/crontab</code>）
 
-
 ```shell
 cat /etc/crontab
 ```
@@ -103,7 +99,6 @@ cat /etc/crontab
 
 - 查看每日任务对应 logrotate 的每日计划任务配置
 
-
 ```shell
 ls -l -A /etc/cron.daily/
 cat /etc/cron.daily/logrotate
@@ -111,13 +106,11 @@ cat /etc/cron.daily/logrotate
 
 - 手动执行 cron 配置中 logrotate 的每日计划任务，检查能否成功调 logrotate 执行日志切分
 
-
 ```shell
 sudo /etc/cron.daily/logrotate
 ```
 
 - 查看自定义对应 logrotate 计划任务配置
-
 
 ```shell
 ls -l /etc/cron.d/
@@ -135,7 +128,6 @@ echo "$(date) logrotate runing" >>/tmp/logrotate.out
 ```
 
 - 更改系统时间到 6:24:30，测试 cron 能否自动调起logrotate
-
 
 ```shell
 date -s "2021-08-26 10:06:30"   # 设置系统时间

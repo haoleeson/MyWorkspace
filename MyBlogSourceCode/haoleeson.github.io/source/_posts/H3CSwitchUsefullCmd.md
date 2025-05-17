@@ -3,7 +3,7 @@ title: H3C交换机常用命令
 date: 2025/3/10 16:33:45
 updated: 2025/3/10 16:33:45
 comments: true
-tags: 
+tags:
 - H3C
 - Switch
 categories:
@@ -11,10 +11,9 @@ categories:
 
 ---
 
-H3C交换机作为业内性价比较高的交换机设备，在业内被广泛使用，本文记录其一些工作中常用的接口、组网和诊断相关命令。
+H3C交换机，作为在交换机设备领域稳居全球TOP5，并占据中国市场份额前列的交换机设备，在业内被广泛使用，本文记录其一些工作中常用的接口、组网和诊断相关命令。
 
 <!-- more -->
-
 
 # 1. 接口
 ```shell
@@ -36,7 +35,7 @@ display ip interface brief
 # 查看 Vsi 接口
 display interface Vsi-interface 148
 
-# 查看 Tunnel 接口 
+# 查看 Tunnel 接口
 display interface Tunnel 1
 ```
 
@@ -97,7 +96,6 @@ interface Ten-GigabitEthernet1/0/61:1
 
 # 进入任意一个因拆分生成的 25GE 接口视图
 interface twenty-fivegige interface-number
-
 
 # 将四个 10GE/25GE 拆分接口合并成一个 100GE 接口（4*10 / 4*25 -> 100）
 using hundredgige
@@ -258,7 +256,7 @@ bgp 64751
 peer 100.106.182.231 as-number 64750
 # 使用 Loop0 建立 I-BGP 注意：**E-BGP 无需执行下一行**
 # peer 100.106.182.231 connect-interface loopback 0
-# set 
+# set
 peer 100.106.182.231 graceful-restart timer restart extra 240
 
 address-family ipv4 unicast
@@ -465,10 +463,9 @@ display route-policy name RP_TOVPC_V4_D
 ```shell
 display bgp instance MYBGPINS routing-table vpnv4
 # display bgp instance MYBGPINS routing-table vpnv4 route-distinguisher <VNI>:0
-# e.g. 
+# e.g.
 display bgp instance MYBGPINS routing-table vpnv4 route-distinguisher 1234567:0
 ```
-
 
 ## 3.6. 添加EVPN v4路由
 ```shell
@@ -509,14 +506,13 @@ ping -vpn-instance Vrf1234567 -c 10 -m 1 -t 10 -a 1.1.3.1 101.126.109.96
 
 ## 3.9. 查看路由表
 ```shell
-# 查看是否收到 宣告的 10.11.113.137/32 
+# 查看是否收到 宣告的 10.11.113.137/32
 show ip routing-table 10.11.113.137 32
 
 show ip routing-table 10.8.104.254 32
 
 show ip routing-table 172.20.0.0 16
 show ip routing-table 172.21.0.0 16
-
 
 # 查看是否收到 宣告的 FD01:2::3/128
 show ipv6 routing-table FD01:2::3 128
@@ -525,8 +521,6 @@ show ipv6 routing-table fd03::1 128
 # 查看是否收到 宣告的 fd01::/64
 show ipv6 routing-table fd01:: 64
 ```
-
-
 
 # 4. 诊断
 ## 4.1. 查看历史日志
@@ -545,7 +539,6 @@ display trace-logfile
 ```shell
 display logbuffer | include 1/0/60
 ```
-
 
 ## 4.3. snmp
 ### 4.3.1. snmp查询交换机系统及端口统计信息
@@ -592,8 +585,6 @@ snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.2.${IF_IN
 # 查看H3C交换机指定 IF 指定 QUEUE_ID 的【丢包 字节数】 (hh3cIfQoSDropBytes)
 snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.6.${IF_INDEX}.${QUEUE_ID}
 
-
-
 # (不支持). 查看H3C交换机指定 IF 指定 QUEUE_ID 的【队列长度 包数】 (hh3cIfQoSQueueLengthInPkts)
 snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.7.${IF_INDEX}.${QUEUE_ID}
 
@@ -609,7 +600,6 @@ snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.24.${IF_I
 # (不支持). 查看H3C交换机指定 IF 指定 QUEUE_ID 的【转发峰值速率 BPS】 (hh3cIfQoSPeakPassBPS)
 snmpwalk -v 2c -c immense1 $H3C_VTEP .1.3.6.1.4.1.25506.2.65.1.1.2.1.1.25.${IF_INDEX}.${QUEUE_ID}
 ```
-
 
 ## 4.4. LLDP邻居信息
 （缺省关闭）
@@ -653,7 +643,6 @@ display diagnostic-information flash:/di.tar.gz
 ```shell
 display device manuinfo
 ```
-
 
 # 5. 配置
 ## 5.1. 查看当前配置

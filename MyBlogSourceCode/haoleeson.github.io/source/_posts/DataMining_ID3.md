@@ -240,7 +240,7 @@ def dataWrangling(data, iColumn):
         num = num - (num%10)
         data[iRow][iColumn] = str(num)
     return data
-    
+
 #预处理 温度和湿度 数据
 data = dataWrangling(data, 1) #整理 温度数据 取“十位”整数
 data = dataWrangling(data, 2) #整理 湿度数据 取“十位”整数

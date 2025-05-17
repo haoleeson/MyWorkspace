@@ -3,7 +3,7 @@ title: sonic各类告警日志梳理
 date: 2022/2/14 22:30:45
 updated: 2022/2/14 23:10:45
 comments: true
-tags: 
+tags:
 - SONiC
 categories:
 - 技术
@@ -104,7 +104,7 @@ logger.log_warning('%s is alarm' % device)
 2022-02-17 16:52:06.521099 HOSTNAME <local2.err> ERR monit[641]: 'root-overlay' space usage 91.3% matches resource limit [space usage>90.0%]
 ```
 
-<!-- 
+<!--
 
 磁盘不可写异常（ XorPlus 设备）
 ```shell
@@ -179,7 +179,7 @@ logger.log_warning(device + ' is pulled out. ')
 # 3. 协议类异常
 
 ## 3.1. BGP
-> 模块代码： <code>src/HOSTNAME-frr/frr/bgpd/</code> 
+> 模块代码： <code>src/HOSTNAME-frr/frr/bgpd/</code>
 
 - 异常
 ```shell
@@ -241,7 +241,7 @@ zlog_err ("bgp_connect_success peer's fd is negative value %d",
 ```
 
 ## 3.2. OSPF【未支持】
-> 模块代码： <code>src/HOSTNAME-frr/frr/ospfd</code>、 <code>src/HOSTNAME-frr/frr/ospf6d</code> 
+> 模块代码： <code>src/HOSTNAME-frr/frr/ospfd</code>、 <code>src/HOSTNAME-frr/frr/ospf6d</code>
 
 - 异常
 ```shell
@@ -253,7 +253,7 @@ flog_err(EC_LIB_SOCKET, "%s: ospf_sock_init is unable to open a socket", __func_
 ```
 
 ## 3.3. ISIS【未支持】
-> 模块代码： <code>src/HOSTNAME-frr/frr/isisd</code> 
+> 模块代码： <code>src/HOSTNAME-frr/frr/isisd</code>
 
 - 异常
 ```shell
@@ -282,7 +282,6 @@ flog_err(EC_ISIS_CONFIG, "Clearing config for %s. Please re-examine it.", circui
 ```
 
 # 5. 系统类
-
 
 ## 5.1. 各容器启/停状态日志查询
 
@@ -931,9 +930,7 @@ sudo grep -i "telemetry container" /var/log/daemon.log | tail -n 20
 - /var/log/user.log
 - /var/log/syslog
 
-
 ## 5.3. 系统 Crash
 
 思考点：譬如内核异常，不会直接输出日志
-
 

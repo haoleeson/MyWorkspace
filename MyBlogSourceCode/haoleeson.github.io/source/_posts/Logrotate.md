@@ -3,7 +3,7 @@ title: logrotate日志轮转工具简介
 date: 2021/8/23 22:30:45
 updated: 2021/8/23 23:10:45
 comments: true
-tags: 
+tags:
 - syslog
 categories:
 - 技术
@@ -92,7 +92,6 @@ OPTION参数说明：
     </tr>
 </table>
 
-
 # 2. logrotate 轮转参数配置示例
 
 示例配置文件<code>（/etc/logrotate.d/log-file</code>）
@@ -113,7 +112,6 @@ OPTION参数说明：
 ```
 
 <b><font color="red" style="">轮转参数解释如下：</font></b>
-
 
 <table border="1" cellspacing="1" style="border: 1ps dotted #666" >
     <tr>
@@ -244,7 +242,6 @@ OPTION参数说明：
 
 <b><font color="red" style="">宿主机的 logrotate 工具自身配置文件/etc/logrotate.conf如下：</font></b>
 
-
 ```conf
 # see "man logrotate" for details
 # rotate log files weekly
@@ -279,7 +276,6 @@ include /etc/logrotate.d
 
 # system-specific logs may be configured here
 ```
-
 
 ## 3.2. 各需日志轮转文件的配置（宿主机中）
 
@@ -439,7 +435,6 @@ include /etc/logrotate.d
 	endscript
 }
 ```
-
 
 # 4. 容器中 supervisor 守护进程的配置文件（容器中，宿主机无）
 

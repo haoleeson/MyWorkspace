@@ -294,7 +294,7 @@ int main(void)
     Parallelogram<double> parallelogram(4， 5);
     shape5.getArea();
     parallelogram.getArea();
-    
+
     /**重置**/
     int a， b;
     Rectangle<int> rectangle1(4， 4);

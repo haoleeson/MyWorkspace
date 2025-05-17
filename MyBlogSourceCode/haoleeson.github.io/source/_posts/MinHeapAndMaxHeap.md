@@ -231,7 +231,7 @@ public:
         return result;
     }
     //输出堆(顺序输出)
-    void show() 
+    void show()
     {
         for (int i = 0; i < a.size(); i++){
             cout << " " << a[i];
@@ -239,7 +239,6 @@ public:
         cout << endl;
     }
 };
-
 
 #endif
 ```

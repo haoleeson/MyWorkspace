@@ -199,6 +199,16 @@ sudo sfputil lpmode Ethernet12
 sudo sfputil reset Ethernet1
 ```
 
+## 1.7. 查看端口配置文件
+```shell
+# x86_64-accton_wedge100bf_65x-r0
+cat /usr/share/sonic/device/x86_64-accton_wedge100bf_65x-r0/mavericks/port_config.ini
+# XLT
+cat /usr/share/sonic/device/x86_64-accton_csp7551-r0/Accton-CSP7551/port_config.ini
+# 恒扬
+cat /usr/share/sonic/device/x86_64-semptian_ps7350_32x-r0/SEMPTIAN-PS7350-32X/port_config.ini
+```
+
 # 2. 常用 cli 命令
 ## 2.1. 从 cli 进入 Linux shell
 ```shell
@@ -353,6 +363,15 @@ vtysh -c 'show running bgpd' | grep network
 ## 4.4. 查看 bgp 指定邻居宣告路由
 ```shell
 vtysh -c 'show bgp ipv4 neighbors 100.106.105.228 advertised-routes'
+```
+
+## 4.5. redis 获取 BGP Neighbor 建链状态
+```shell
+# p4gw201911
+redis-cli -h 127.0.0.1 -n 6 -p 6379 hget "NEIGH_STATE_TABLE|100.106.222.215" "state"
+
+# lambda
+redis-cli -h 127.0.0.1 -n 6 -p 6379 hget "BGP_PEER|30.1.1.1" "state"
 ```
 
 # 5. vtysh
@@ -640,13 +659,23 @@ ipmitool power reset
 ```
 
 # 7. vEOS
-## 7.1. 进入 cli
+## 7.1. vEOS 版本
+[官网](https://www.arista.com)
+[EOS Command-Line Interface (CLI) - Arista](https://www.arista.com/en/um-eos/eos-command-line-interface-cli#xx1097818)
+
+镜像：
+
+ls -l /home/sonic/veos-vm/images/
+-rw-r--r-- 1 sonic sonic   5242880 Nov  9  2020 Aboot-veos-serial-8.0.0.iso
+-rw-r--r-- 1 sonic sonic 662503424 Nov  9  2020 vEOS-lab-4.20.15M.vmdk
+
+## 7.2. 进入 cli
 ```shell
 /usr/bin/Cli
 enable
 ```
 
-## 7.2. 查看 BGP 信息
+## 7.3. 查看 BGP 信息
 ```shell
 # 进入 vEOS cli
 /usr/bin/Cli
@@ -671,8 +700,482 @@ show ip route bgp
 show ipv6 route bgp
 ```
 
-# 8. 编译
-## 8.1. 手动创建 SONiC 编译容器
+## 7.4. vEOS 配置 BGP
+[官方 cli 命令](https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#xx1115278)
+```shell
+/usr/bin/Cli
+ebable
+switchA(config)# router bgp 100
+switchA(config-router-bgp)# neighbor 10.100.100.2 remote-as 100
+switchA(config-router-bgp)# network 10.10.1.0/24
+switchA(config-router-bgp)# network 10.10.2.0/24
+# switchA(config-router-bgp)# neighbor 10.100.100.2 export-localpref 150
+switchA(config-router-bgp)# timer bgp 30 90
+```
+
+# 8. redis
+
+## 8.1. Redis 各 DB 序号
+```shell
+APPL_DB, -n 0 -p 6379
+ASIC_DB, -n 1 -p 6379
+COUNTERS_DB, -n 2 -p 6379
+LOGLEVEL_DB, -n 3 -p 6379
+CONFIG_DB, -n 4 -p 6379
+PFC_WD_DB, -n 5 -p 6379
+FLEX_COUNTER_DB, -n 5 -p 6379
+STATE_DB, -n 6 -p 6379
+SNMP_OVERLAY_DB, -n 7 -p 6379
+```
+
+## 8.2. 开启 redis 容器中日志
+```shell
+# 1. 更改 redis 配置
+docker exec -it database vi /etc/redis/redis.conf
+
+loglevel debug
+logfile "/var/log/redis/redis.log"
+syslog-enabled yes
+syslog-ident redis
+syslog-facility local0
+
+# 2. 重启 redis
+docker exec -it database supervisorctl restart redis
+
+# check
+docker exec -it database ls -l /var/log/redis/redis.log
+docker exec -it database tail -f /var/log/redis/redis.log
+```
+
+## 8.3. 监听redis事件
+注: 需开启键空间事件通知
+```shell
+redis-cli -h 127.0.0.1 -n 10 -p 6379 config get notify-keyspace-events
+redis-cli -h 127.0.0.1 -n 10 -p 6379 config set notify-keyspace-events "KEA"
+```
+
+监听特定 DB
+```shell
+redis-cli -h 127.0.0.1 -n 10 -p 6379 --csv psubscribe '__key*__:*'
+
+redis-cli -h 127.0.0.1 -n 10 -p 6379 --csv psubscribe '__keyspace@10__:ROUTE_TO_IDC*'
+
+redis-cli -h 127.0.0.1 -n 10 -p 6379 --csv psubscribe '__keyspace@10__:CLOUD_ROUTE_CHANNEL*'
+```
+
+## 8.4. 监听特定 channel
+```shell
+redis-cli -h 127.0.0.1 -n 10 -p 6379
+SUBSCRIBE CLOUD_ROUTE_CHANNEL
+```
+
+## 8.5. 批量增删操作 redis
+```shell
+for ((i=4; i<110; i++)); do redis-cli -h 127.0.0.1 -n 10 -p 6379 hmset "ROUTE_TO_IDC#Vrf30002#192.168.$i.0/24" "type" "bgp" "vni" "30000" "aspath" "200,100" "timestamp" "1718269677" ;done
+
+for ((i=4; i<110; i++)); do redis-cli -h 127.0.0.1 -n 10 -p 6379 del "ROUTE_TO_IDC#Vrf30002#192.168.$i.0/24";done
+
+```
+
+## 8.6. Redis 备份哪些表
+/etc/sonic/libra_index.json，里面控制哪些表可以写到 config_db.json，这样保存配置重启才会生效
+
+# 9. Rsyslog
+
+## 9.1. 重新根据 lib_user.json 生成 rsyslog.conf 并重启服务
+```shell
+sudo sh /usr/bin/rsyslog-config.sh
+```
+
+## 9.2. 重启 Rsyslog 服务
+```shell
+# 宿主机内重启
+sudo service rsyslog restart
+
+# 所有容器内重启
+docker ps -a | tail -n +2 | awk '{ print $NF}' | xargs -I {} docker exec {} service rsyslog restart > /dev/null 2>&1
+```
+
+## 9.3. 查看本地日志策略
+```shell
+# 查看 bgp （bgpd、staticd、zebra）的日志输出级别
+vtysh -c 'show logging'
+# 修改
+vtysh -c 'configure terminal' -c 'log syslog (debugging|informational|notifications|warnings|errors|critical|alerts|emergencies)'
+
+# 查看 swssloglevel 日志输出级别
+swssloglevel -p
+# 更改 swssloglevel 日志输出级别
+swssloglevel -l (DEBUG|INFO|NOTICE|WARN|ERROR|CRIT|ALERT|EMERG) -c (cfgmgrd|fdbmgrd|fpmsyncd|hwmgrd|monitorlinkd|neighsyncd|orchagent|portsyncd|switchmgrd|syncd|teammgrd|teamsyncd|vrfmgrd|vxlanmgrd)
+
+```
+
+## 9.4. 查看 Rsyslog 日志上报策略
+```shell
+# 查看是否配置上报远程日志服务器
+cli -c 'show syslog'
+# 查看 Rsyslog 配置文件上报策略
+grep -A 2 "remote syslog server" /etc/rsyslog.conf
+```
+
+## 9.5. 查看 Rsyslog 远程日志服务器状态
+```shell
+# 查看 Rsyslog 服务状态
+sudo systemctl status rsyslog | grep 'Active'
+sudo service rsyslog status
+
+# 查看 UDP 链接
+sudo ss -tulnp | grep "rsyslog"
+
+# 查看本地打开 514 端口的程序
+sudo lsof -i:514
+
+# 查看防火墙配置状态
+sudo iptables -L -n | grep 514
+```
+
+## 9.6. Rsyslog 客户端与日志服务器端配置
+> 客户端上报日志不会影响本地日志输出配置
+
+根据采用的传输协议，可配置成 TCP / UDP 方式上报日志
+
+### 9.6.1. TCP 方式
+
+- **日志服务器配置**
+```shell
+# 1. 打开防火墙 TCP:514 端口
+iptables -L -n | grep 514
+sudo iptables -A INPUT -p tcp --dport 514 -j ACCEPT
+sudo iptables-save
+service rsyslog restart
+
+# 2. 备份原配置
+sudo cp /etc/rsyslog.conf /etc/rsyslog.conf_bak
+
+# 3. 编辑 /etc/rsyslog.conf 配置文件
+sudo vi /etc/rsyslog.conf
+
+# 4(a). 新接收配置方式（推荐）
+module(load="imtcp") # needs to be done just once
+input(type="imtcp" port="514" address="192.168.3.34")
+
+# 4(b). 旧接收配置（与上方等效）
+$ModLoad imtcp
+$InputTCPServerRun 514
+
+# 5. 重启 Rsyslog 服务使配置生效
+sudo service rsyslog restart
+```
+
+- **日志上报客户端配置**
+```shell
+# 1. 打开防火墙 TCP:514 端口
+sudo iptables -A INPUT -p tcp --dport 514 -j ACCEPT
+sudo iptables-save
+
+# 2. 备份原配置
+sudo cp /etc/rsyslog.conf /etc/rsyslog.conf_bak
+
+# 3. 编辑 /etc/rsyslog.conf 配置文件
+sudo vi /etc/rsyslog.conf
+
+# 4. 在第 45 行 '#Set remote syslog server' 下增加远程日志服务器配置
+
+# 4(a). 新上报服务器配置（推荐）
+local2.notice action(type="omfwd" target="192.168.3.34" port="514" protocol="tcp")
+
+# 4(b). 旧上报服务器配置（与 4(a) 等效）, 其中：'@'表示 UDP 协议；'@@'表示 TCP 协议
+local2.notice @@[192.168.3.34:514]
+
+# 5. 重启 Rsyslog 服务使配置生效
+sudo service rsyslog restart
+```
+
+- **验证**
+```shell
+# 1. 日志服务器端监听 /var/log/syslog 文件
+sudo tail -f /var/log/syslog | grep "LOGGING TEST"
+
+# 2. 日志上报客户端模拟生成一条 syslog 消息
+logger -p local2.error 'LOGGING TEST: this is a upload msg.'
+
+# 正常情况，日志服务器会收到如下日志
+2022-06-13 17:34:47.818912 sonic <local2.err> ERR admin: LOGGING TEST: this is a upload msg.
+```
+
+### 9.6.2. UDP 方式
+
+- **日志服务器配置**
+```shell
+# 1. 打开防火墙 UDP:514 端口
+iptables -L -n | grep 514
+iptables -A INPUT -p udp --dport 514 -j ACCEPT
+
+# iptables -D INPUT -p udp --dport 514 -j ACCEPT
+iptables-save
+
+# 2. 备份原配置
+sudo cp /etc/rsyslog.conf /etc/rsyslog.conf_bak
+
+# 3. 编辑 /etc/rsyslog.conf 配置文件
+sudo vi /etc/rsyslog.conf
+
+# 4(a). 新接收配置方式（推荐），替换 22,23 行
+module(load="imudp") # needs to be done just once
+input(type="imudp" port="514" address="192.168.3.34")
+
+# 4(b). 旧接收配置（与上方等效），注释第 22 行
+$ModLoad imudp
+# $UDPServerAddress 127.0.0.1 # bind to localhost before udp server run
+$UDPServerRun 514
+
+# 5. 重启 Rsyslog 服务使配置生效
+sudo service rsyslog restart
+```
+
+- **日志上报客户端配置**
+```shell
+# 1. 打开防火墙 UDP:514 端口
+sudo iptables -A INPUT -p udp --dport 514 -j ACCEPT
+sudo iptables-save
+
+# 2. 备份原配置
+sudo cp /etc/rsyslog.conf /etc/rsyslog.conf_bak
+
+# 3. 编辑 /etc/rsyslog.conf 配置文件
+sudo vi /etc/rsyslog.conf
+
+# 4. 在第 45 行 '#Set remote syslog server' 下增加远程日志服务器配置
+
+# 4(a). 新上报服务器配置（推荐）
+local2.notice action(type="omfwd" target="192.168.3.34" port="514" protocol="udp")
+
+# 4(b). 旧上报服务器配置（与 4(a) 等效）, 其中：'@'表示 UDP 协议；'@@'表示 UDP 协议
+local2.notice @[192.168.3.34]:514
+
+# 5. 重启 Rsyslog 服务使配置生效
+sudo service rsyslog restart
+```
+
+- **验证**
+```shell
+# 1. 日志服务器端监听 /var/log/syslog 文件
+sudo tail -f /var/log/syslog | grep "LOGGING TEST"
+
+# 2. 日志上报客户端模拟生成一条 syslog 消息
+logger -p local2.error 'LOGGING TEST: this is a upload msg2.'
+
+# 正常情况，日志服务器会收到如下日志
+2022-06-13 17:34:47.818912 sonic <local2.err> ERR admin: LOGGING TEST: this is a upload msg.
+```
+
+## 9.7. 检查 Rsyslog 日志上报 配置
+```shell
+# 查看远程日志服务器 IP【cli 界面执行】
+show syslog
+# Linux Shell 界面执行
+/usr/bin/cli -c 'show syslog'
+
+# 校验
+# 校验 Rsyslog 配置文件【模板】
+grep -A 4 "remote syslog server" /usr/share/sonic/templates/rsyslog.conf.j2
+
+# 校验 Rsyslog 配置文件
+grep -A 2 "remote syslog server" /etc/rsyslog.conf
+
+# 验证 Redis
+docker exec database redis-cli -n 4 keys "SYSLOG_SERVER*"
+
+# 验证全量配置 libra_user.json
+grep -A 4 "SYSLOG_SERVER" /etc/sonic/libra_user.json
+```
+
+## 9.8. cli 配置远程日志服务器
+```shell
+cli
+configure terminal
+system-config
+syslog
+log-server 192.168.3.34
+log-server 192.168.3.35
+do show syslog
+```
+
+## 9.9. Rsyslog 同时输出相同日志到多个文件测试 1【基于 facility 与 loglevel】
+/etc/rsyslog.d/99-default.conf 部分配置示例如下：
+```shell
+kern.*;local0.*;local1.*;local2.notice;local3.*;local4.*;\
+    local5.*;local6.*;local7.*      -/var/log/syslog
+local6.*                /var/log/local6.log
+*.error                 /var/log/error.log
+```
+执行输出 syslog 消息指令测试 <code>logger -p local6.error "AAA TEST"</code>，将输出相同 3 条日志到 /var/log/syslog、/var/log/local6.log、/var/log/error.log 中
+
+## 9.10. Rsyslog 同时输出相同日志到多个文件测试 2【基于消息体字段内容】
+/etc/rsyslog.d/99-default.conf 部分配置示例如下：
+```shell
+## test rules1
+if $msg contains "ABC" then {
+    /var/log/abc.log
+}
+
+## test rules2
+if $msg contains 'DEF' then {
+    /var/log/def.log
+}
+```
+执行输出 syslog 消息指令测试 <code>logger -p local5.info "ABC DEF TEST1"</code>，将输出相同 3 条日志到 /var/log/syslog、/var/log/local6.log、/var/log/error.log 中
+
+## 9.11. Rsyslog 配置中，终止后续文件中继续匹配
+利用 <code>stop</code> 关键字 防止 local6.error 的日志同时输出到 /var/log/local6.log 与 /var/log/error.log
+```shell
+local6.*                /var/log/local6.log
+local6.*                stop
+*.error                 /var/log/error.log
+```
+或
+```shell
+local6.*                /var/log/local6.log
+&                       stop
+*.error                 /var/log/error.log
+```
+
+## 9.12. Rsyslog 不支持直接变更 loglevel 及 facility  —— 测试 Rsyslog 直接变更 facility【失败】
+file：/etc/rsyslog.d/testinput.conf
+```shell
+$ModLoad imfile
+$InputFileName /var/log/testinput.log
+$InputFileTag testinput
+$InputFilePersistStateInterval 1
+$InputFileStateFile state-testinput
+$InputFileFacility local3
+$InputRunFileMonitor
+
+if $.syslogfacility == local0 then {
+    reset $.syslogfacility = local2
+}
+```
+
+## 9.13. Rsyslog 开启调试
+在配置文件 /etc/rsyslog.conf 末增加如下调试配置：
+```shell
+## Debugging ###
+local7.* /var/log/syslog.debug;RSYSLOG_DebugFormat
+$DebugFile /var/log/syslog.debug
+$DebugLevel 2
+```
+
+## 9.14. 配置 Rsyslog 启动（Mac）
+```shell
+# 以后台服务启动
+brew services start rsyslog
+
+# 以进程启动
+/opt/homebrew/opt/rsyslog/sbin/rsyslogd -n -f /opt/homebrew/etc/rsyslog.conf -i /opt/homebrew/var/run/rsyslogd.pid
+```
+
+## 9.15. sonic-mgmt
+
+## 9.16. mgmt-topo 相关 brctl 指令
+```shell
+brctl show
+```
+
+## 9.17. mgmt-topo 相关 Open vSwitch 指令
+```shell
+# 创建 ovs Bridge
+ovs-vsctl --may-exist add-br <bridge_name>
+
+# 配置 mtu
+ifconfig <bridge_name> mtu <mtu_val>
+
+# 启动
+ifconfig <bridge_name> up
+
+# 删除 ovs Bridge
+ovs-vsctl --if-exists del-br <bridge_name>
+
+# 查看 bridge 的 VLAN
+ovs-vsctl br-to-vlan <bridge_name>
+ovs-vsctl br-to-vlan br-VM0501-0
+
+# 查看 bridge 的 parent
+ovs-vsctl br-to-parent <bridge_name>
+ovs-vsctl br-to-parent br-VM0501-0
+
+# 查看 bridge 端口列表（e.g. br-VM0501-0）
+# ovs-vsctl list-ports <bridge_name>
+ovs-vsctl list-ports br-VM0501-0
+
+# 查看 port 所属的 bridge
+# ovs-vsctl port-to-br <port_name>
+ovs-vsctl port-to-br VM0501-t0
+
+# 查看
+ovs-vsctl show
+# 添加 ovs 端口绑定
+ovs-vsctl add-port <bridge_name> <port_name>
+ovs-vsctl add-port br-VM0501-0 VM0501-t0
+# 解除 ovs 端口绑定
+ovs-vsctl del-port <bridge_name> <port_name>
+ovs-vsctl del-port br-VM0501-0 VM0501-t0
+
+ovs-vsctl del-port br-VM0502-0 VM0502-t0
+ovs-vsctl add-port br-VM0501-0 VM0502-t0
+
+# 查看 open flow 规则
+ovs-ofctl dump-flows br-VM0501-0
+ovs-ofctl dump-flows br-VM0502-0
+# 添加 open flow 规则
+ovs-ofctl add-flow <bridge_name> table=0,in_port=<vm_iface>,action=output:<out_iface>
+
+# 删除 open flow 规则
+ovs-ofctl del-flows <bridge_name>
+
+ovs-vsctl show | grep -A 10 'Bridge "br-VM0501-0"'
+
+```
+
+## 9.18. mgmt 调大 fanout 侧对 lldp、lacp 协议的上报限速值
+> fanout交换机是通过bpdu tunnel把lldp、lacp报文上送CPU做的软转发，上送报文默认限速是600pps，所以mgmt测试流量上不来。
+```shell
+# 创建流分类器
+traffic classifier lldp operator and
+  if-match control-plane protocol lldp
+# 创建流行为
+traffic behavior lldp
+  car cir pps 2000 cbs 125440 ebs 0 green pass red discard yellow pass
+# 创建流策略，并绑定流分类器和流行为
+qos policy lldp
+  classifier lldp behavior lldp
+# 绑定流策略
+control-plane slot 1
+  qos apply policy lldp inbound
+```
+
+## 9.19. sonic-mgmt VM 互通 配置
+```shell
+# 为网卡增加 VLAN interface
+ip link add link ma1 name x777 type vlan id 777
+ip link set x777 up
+
+# 配置 IP（vlan777）：设备 1
+ip addr add 17.0.0.1/24 dev x777
+## 配置 IP（vlan777）：设备 2
+# ip addr add 17.0.0.2/24 dev x777
+
+# 撤销 IP（vlan 777）：设备 1
+ip addr del 17.0.0.1/24 dev x777
+## 撤销 IP（vlan 777）：设备 2
+# ip addr del 17.0.0.2/24 dev x777
+
+# 删除 vlan interface
+ip link set x777 down
+ip link del x777
+```
+
+# 10. 编译
+## 10.1. 手动创建 SONiC 编译容器
 ```shell
 SONIC_DIR='/home/haoleeson/code/sonic'
 SLAVE_IMAGE='sonic-slave-stretch-haoleeson:c883792fe60'
@@ -685,16 +1188,16 @@ docker run -dit --name my-sonic-image-build-env --privileged \
     -w /sonic $SLAVE_IMAGE
 ```
 
-## 8.2. 全量编译（博通）
+## 10.2. 全量编译（博通）
 ```shell
 cd /home/haoleeson/code/sonic
 rm -rf target/
 make init
 make configure PLATFORM=broadcom
-make target/baidu-sonic.bin
+make target/sonic.bin
 ```
 
-## 8.3. 全量编译（Barefoot）
+## 10.3. 全量编译（Barefoot）
 ```shell
 cd /home/haoleeson/code/sonic
 make init
@@ -702,13 +1205,18 @@ make configure PLATFORM=barefoot
 make target/sonic-barefoot.bin
 ```
 
-## 8.4. P4 SDE9.3.2 编译
+## 10.4. P4 SDE9.3.2 编译
 ```shell
 ./p4studio_build.py -up switch_p416_profile_sai15 -sp x1_tofino
 ```
 
-# 9. 排障
-## 9.1. 查看基础信息
+## 10.5. 编译支持 gdb
+```Makefile
+CFLAGS += -O0 -ggdb
+```
+
+# 11. 排障
+## 11.1. 查看平台软件信息
 ```shell
 # 查看设备 SN 序列号
 show version | grep 'Serial Number'  | awk '{ print $NF }'
@@ -722,8 +1230,99 @@ show version | grep 'Version'
 show version | grep 'HwSKU'
 ```
 
-## 9.2. 查看平台硬件信息
-### 9.2.1. 平台信息
+### 11.1.1. 查看 CPU 数
+```shell
+# 查看物理 CPU个数
+cat /proc/cpuinfo | grep 'physical id' | sort | uniq | wc -l
+
+# 查看物理 cpu 型号
+cat /proc/cpuinfo | grep 'model name' | uniq
+
+# 查看每个物理CPU中core的个数(即核数)
+cat /proc/cpuinfo | grep 'cpu cores' | uniq
+
+# 查看逻辑CPU的个数
+cat /proc/cpuinfo | grep processor | wc -l
+
+# 查看 CPU 型号
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+```
+
+### 11.1.2. 查看内存大小
+```shell
+free -g -h -t
+
+# MEM 详情
+less /proc/meminfo
+```
+
+### 11.1.3. 查看系统内存大页配置
+```shell
+# 查看
+grep Huge /proc/meminfo
+cat /proc/sys/vm/nr_hugepages
+
+# 方式 1：配置指定大页数（ 128、4096 ）
+echo  8192 > /proc/sys/vm/nr_hugepages
+echo  1024 > /proc/sys/vm/nr_hugepages
+echo  12288 > /proc/sys/vm/nr_hugepages
+echo  49152 > /proc/sys/vm/nr_hugepages
+echo  153600 > /proc/sys/vm/nr_hugepages
+
+# syncd 更改巨页数脚本
+/opt/bfn/install/bin/dma_setup.sh
+
+# 方式 2：添加大页配置
+echo  "vm.nr_hugepages=128 ">> /etc/sysctl.conf
+# 执行以生效配置
+sysctl -p
+
+# 查看是否开启透明大页
+cat /sys/kernel/mm/transparent_hugepage/enabled
+
+# 启用和关闭 hugepage
+# [always] madvise never 表示 已启用
+# always madvise [never] 表示 不启用时
+```
+
+### 11.1.4. 查看磁盘挂载 list disks
+```shell
+# 查看磁盘容量
+lsblk | grep -v loop
+
+# 查询磁盘使用情况
+df -h [-max-depth=1] [/opt]
+
+# 查看磁盘使用率
+du -ach [-max-depth=1] [/opt]
+du -ach -max-depth=1 /
+du -ach -d 1 /
+
+# 查看挂载磁盘
+lsblk
+# 查看挂载磁盘 及 操作系统
+lsblk -f
+
+# 查看磁盘分区
+fdisk -l
+
+# mount挂载（ <设备名称> <挂载目录>）
+cd /
+mkdir newdisk
+mount /dev/sdb1 /newdisk
+lsblk -f
+
+# umount 取消挂载
+umount <设备名称>
+
+# 实现永久挂载
+vim /etc/fstab
+# 生效
+mount -a
+```
+
+## 11.2. 查看平台硬件信息
+### 11.2.1. 平台信息
 ```shell
 # 查看平台简介信息
 show platform summary
@@ -741,7 +1340,7 @@ show platform fan
 show platform temperature
 ```
 
-### 9.2.2. 系统状态信息
+### 11.2.2. 系统状态信息
 ```shell
 show clock
 show boot
@@ -756,7 +1355,7 @@ show logging | more
 show logging sensord
 ```
 
-### 9.2.3. 查看 Tofino 芯片是否能被识别
+### 11.2.3. 查看 Tofino 芯片是否能被识别
 ```shell
 # COME 端执行
 lspci | egrep '1d1c|Tofino'
@@ -766,19 +1365,19 @@ lspci | egrep '1d1c|Tofino'
 # 06:00.0 Unassigned class [ff00]: Device 1d1c:0010 (rev 10)
 ```
 
-### 9.2.4. 查看BIOS版本
+### 11.2.4. 查看BIOS版本
 ```shell
 # （sonic侧）查看设备  BIOS Version
 sudo dmidecode -t bios | grep Ver | cut -d : -f 2
 ```
 
-### 9.2.5. 查看 eeprom SN
+### 11.2.5. 查看 eeprom SN
 ```shell
 # （sonic 侧）查看设备 SN
 sudo decode-syseeprom -d | grep Serial | cut -c 31-
 ```
 
-### 9.2.6. i2c设备
+### 11.2.6. 查看i2c设备
 ```shell
 # i2c 路径，每个 i2c-x 对应一个 port
 ls /dev/i2c-*
@@ -802,7 +1401,7 @@ i2cdump -y 1 0x44
 ls -l /sys/bus/i2c/devices/i2c-*
 ```
 
-### 9.2.7. i2c 定位指令
+### 11.2.7. i2c 定位指令
 ```shell
 # 查看 i2c 设备
 i2cdetect -l | sort
@@ -845,14 +1444,12 @@ i2cget -y -f 34 0x64 0x1
 find / -name 'ast*.ko*' 2>&1 | fgrep -v 'find:'
 ```
 
-## 9.3. 过滤 Err 日志
+## 11.3. 查看指定进程启动参数
 ```shell
-grep -i err syslog | fgrep -v liblogging | fgrep -v lldp | fgrep -v telemetry | fgrep -v snmp | fgrep -v ntpd | fgrep -v 'INFO kernel' | fgrep -v 'INFO containerd'
-
-# sudo zgrep -aE ' ERR| Err| err| FAIL| Fail| fail|ABRT|Traceback' /var/log/syslog.x.gz
+cat /proc/<pid>/cmdline | tr '\0' '\n'
 ```
 
-## 9.4. sonic-cfggen 常用命令
+## 11.4. sonic-cfggen 常用命令
 ```shell
 # 打印 configdb 数据库内容
 sonic-cfggen -d
@@ -866,7 +1463,7 @@ sonic-cfggen -d -v 'DEVICE_METADATA.localhost.platform'
 sonic-cfggen -d -v 'VERSIONS'
 ```
 
-## 9.5. 服务容器启停的
+## 11.5. 服务容器启停
 不应通过docker命令直接停启SONiC中服务容器，而应通过 service 的方式
 ```shell
 # 列出系统所有服务
@@ -879,7 +1476,7 @@ sudo service radv stop
 sudo service radv start
 ```
 
-## 9.6. iic 死锁问题解决方法
+## 11.6. I2C 死锁问题解决方法
 1. 设备下电重启（因为 reboot 并非所有设备都下电）
 
 2. 软件使用9clk来reset
@@ -899,7 +1496,7 @@ i2cset -y -f 12 0x31 0x39 0xfd ; usleep 10000; i2cset -y -f 12 0x31 0x39 0xff;
 wedge_power.sh reset
 ```
 
-## 9.7. Accton交换机无法找到cdc_ethernet端口修复方法
+## 11.7. Accton交换机无法找到cdc_ethernet端口修复方法
 ```shell
 # 1. 串口登录设备 bmc，或通过其他设备 bmc ssh 登录 bmc
 记录此设备 bmc eth0 IPv6
@@ -909,7 +1506,7 @@ wedge_power.sh off
 # check
 wedge_power.sh status
 
-# 3. (opt). 执行修复 iic 死锁问题
+# 3. (opt). 执行修复 I2C 死锁问题
 i2cset -y -f 12 0x31 0x42 0x02;
 usleep 10000;
 i2cset -y -f 12 0x31 0x42 0x0;
@@ -924,7 +1521,7 @@ i2cset -f -y 12 0x31 0x32 0xf
 reboot
 ```
 
-## 9.8. Accton tofino 驱动无法识别问题
+## 11.8. Accton tofino 驱动无法识别问题
 在 BMC 侧执行以下指令，（无串口时可通过其他同网段 BMC ssh 到目标设备 BMC）
 ```shell
 # 在 bmc 侧执行，让 Tofino 芯片随设备一起 reset
@@ -936,7 +1533,7 @@ wedge_power.sh on
 # fand
 ```
 
-## 9.9. Accton交换机查看BMC硬件信息
+## 11.9. Accton交换机查看BMC硬件信息
 ```shell
 # 查看 BMC 版本
 cat /etc/issue
@@ -950,14 +1547,14 @@ btools.py --UCD sh v
 btools.py --IR sh v
 ```
 
-## 9.10. SONiC版本升级
+## 11.10. SONiC版本升级
 ```shell
 sudo sonic_installer install -f sonic-barefoot-xxx.xxx.bin
 sudo reboot
 # sonic的默认用户名：root，密码：YourPaSsWoRd
 ```
 
-## 9.11. 排查端口抖动
+## 11.11. 排查端口抖动
 ```shell
 # - 查询指定时段 端口抖动日志
 # （正常 DOWN 端口无此日志；config reload 也会产生，故需筛查在无 reload时段）
@@ -979,17 +1576,12 @@ rm /tmp/start > /etc/null 2>&1; touch --date "2024-01-17 0:00:00" /tmp/start && 
     find -type f -name 'syslog*' -newer /tmp/start -not -newer /tmp/end -printf "%T@\t%p\n" | sort -n | cut -f 2- | xargs -t -I {} zgrep -E 'doTask: Configure Ethernet[[:digit:]]{1,2} admin status to down' {} >> $HOME/set_port_down.log; wc -l $HOME/set_port_down.log
 ```
 
-## 9.12. 查看端口配置文件
+## 11.12. 清零某启动失败 service 的失败计数
 ```shell
-# x86_64-accton_wedge100bf_65x-r0
-cat /usr/share/sonic/device/x86_64-accton_wedge100bf_65x-r0/mavericks/port_config.ini
-# XLT
-cat /usr/share/sonic/device/x86_64-accton_csp7551-r0/Accton-CSP7551/port_config.ini
-# 恒扬
-cat /usr/share/sonic/device/x86_64-semptian_ps7350_32x-r0/SEMPTIAN-PS7350-32X/port_config.ini
+systemctl reset-failed swss.service
 ```
 
-## 9.13. 通过sonic-cfggen获取网关v6 IP
+## 11.13. 通过sonic-cfggen获取网关v6 IP
 ```shell
 len=$(sonic-cfggen -d -v "MGMT_INTERFACE.values()" | grep -o gwaddr | wc -l)
 v6gwip=''
@@ -1007,7 +1599,7 @@ if [[ -n "$v6gwip" ]]; then
 fi
 ```
 
-## 9.14. ONIE 查看系统 efi 启动顺序
+## 11.14. ONIE 查看系统 efi 启动顺序
 ```shell
 # 查看顺序
 efibootmgr
@@ -1056,7 +1648,7 @@ efibootmgr -o 001A,0019,0002,0010,0012,0013,0015,0016,0017,0000,0001
 
 ```
 
-## 9.15. gdb调试coredump文件
+## 11.15. gdb调试coredump文件
 ```shell
 # 拷贝解压后的 core 到 HOST 的 ~/core_files/
 # 解压 gz（保留源文件）
@@ -1180,7 +1772,21 @@ gdb --batch -ex "thread apply all bt" -p <被分析的进程的pid>  将这条�
 gdb -q --batch --ex "set height 0" -ex "thread apply all bt full" /usr/bin/orchagent /core_files/orchagent.1667560417.35.core
 ```
 
-## 9.16. Logrotate
+## 11.16. 过滤 Err 日志
+```shell
+grep -i err syslog | fgrep -v liblogging | fgrep -v lldp | fgrep -v telemetry | fgrep -v snmp | fgrep -v ntpd | fgrep -v 'INFO kernel' | fgrep -v 'INFO containerd'
+
+# sudo zgrep -aE ' ERR| Err| err| FAIL| Fail| fail|ABRT|Traceback' /var/log/syslog.x.gz
+```
+
+## 11.17. 查看指定时间段修改过 syslog 文件中特定内容
+```shell
+rm /tmp/start > /etc/null 2>&1; touch --date "2022-05-04 00:00:00" /tmp/start && \
+rm /tmp/end > /etc/null 2>&1; touch --date "2022-12-30 23:00:00" /tmp/end && \
+rm $HOME/port_flapping.log; cd /var/log/; find -type f -name 'syslog*' -newer /tmp/start -not -newer /tmp/end -printf "%T@\t%p\n" | sort -n | cut -f 2- | xargs -t -I {} zgrep -E 'Bridge: port [[:digit:]]{1,2}\(Ethernet[[:digit:]]{1,2}\) entered disabled state' {} >> $HOME/port_flapping.log; wc -l $HOME/port_flapping.log
+```
+
+## 11.18. Logrotate
 每十分钟周期检测，超过其文件阈值的才会压缩，一般不会：
 ```shell
 cat /etc/cron.d/logrotate
@@ -1220,7 +1826,7 @@ sudo /usr/sbin/logrotate -f /etc/logrotate.d/rsyslog
 # 定时任务调起也正常
 ```
 
-## 9.17. 系统内存超出 OOM 解决方法
+## 11.19. 系统内存超出 OOM 解决方法
 无法执行任何命令时
 ```shell
 # 手动触发OOM Killer
@@ -1274,38 +1880,15 @@ Select the programs that you do not need but are eating most of the memory ( up 
 F9 and SIGKILL
 ```
 
-## 9.18. vEOS 版本
-[官网](https://www.arista.com)
-[EOS Command-Line Interface (CLI) - Arista](https://www.arista.com/en/um-eos/eos-command-line-interface-cli#xx1097818)
-
-镜像：
-
-ls -l /home/sonic/veos-vm/images/
--rw-r--r-- 1 sonic sonic   5242880 Nov  9  2020 Aboot-veos-serial-8.0.0.iso
--rw-r--r-- 1 sonic sonic 662503424 Nov  9  2020 vEOS-lab-4.20.15M.vmdk
-
-## 9.19. vEOS 配置 BGP
-[官方 cli 命令](https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#xx1115278)
-```shell
-/usr/bin/Cli
-ebable
-switchA(config)# router bgp 100
-switchA(config-router-bgp)# neighbor 10.100.100.2 remote-as 100
-switchA(config-router-bgp)# network 10.10.1.0/24
-switchA(config-router-bgp)# network 10.10.2.0/24
-# switchA(config-router-bgp)# neighbor 10.100.100.2 export-localpref 150
-switchA(config-router-bgp)# timer bgp 30 90
-```
-
-## 9.20. 启动加载文件
+## 11.20. 启动加载文件
 ```shell
 cat /mnt/flash/boot-config
 
 # 对应 ansible/roles/eos/files/boot-config
 ```
 
-# 10. 其他
-## 10.1. 配置 Loopback IP
+# 12. 其他
+## 12.1. 配置 Loopback IP
 - 方法 1： 手动配置
 ```shell
 # check
@@ -1329,7 +1912,7 @@ sudo config interface ip add Loopback2 173.173.173.173/32
 },
 ```
 
-## 10.2. 更改 Hostname
+## 12.2. 更改 Hostname
 - 方法 1：命令行修改
 ```shell
 config hostname sonic-DUT1
@@ -1388,7 +1971,20 @@ invoke-rc.d hostname.sh start
 hostname $TARGET_HOSTNAME
 ```
 
-##  10.3. 通过 redis key 宣告/撤销路由
+## 12.3. 修改 Linux 用户登录时默认shell
+```shell
+sudo chsh --shell /usr/bin/bash vnetops
+sudo chsh --shell /usr/bin/bash admin
+sudo chsh --shell /usr/bin/bash admin
+sudo chsh --shell /usr/bin/bash xltops
+```
+
+## 12.4. 一行指令修改密码
+```shell
+echo admin:123456 | chpasswd
+```
+
+##  12.5. 通过 redis key 宣告/撤销路由
 ```shell
 # 判断 redis 表项是否存在（已存在则无需添加）
 redis-cli -h 127.0.0.1 -n 4 -p 6379 exists "BGP_NETWORK|192.168.0.90/32"
@@ -1399,12 +1995,65 @@ redis-cli -h 127.0.0.1 -n 4 -p 6379 hset "BGP_NETWORK|192.168.0.90/32" "NULL" "N
 redis-cli -h 127.0.0.1 -n 4 -p 6379 del "BGP_NETWORK|192.168.0.90/32"
 ```
 
-## 10.4. 查看 config_db.json 中配置的 BGP_NETWORK
+## 12.6. 查看 config_db.json 中配置的 BGP_NETWORK
 ```shell
 sonic-cfggen -d -v 'BGP_NETWORK' | grep -oP "u'[0-9a-f\.:]+/[0-9]+" |cut -d \' -f2
 ```
 
-## 10.5. 安装 thrift 0.13.0 命令
+## 12.7. install 对比 cp
+- Running 的进程不能随便 cp
+- 若文件已存在：cp 会 清空旧文件内容并写拷贝新内容（若文件正在使用会失败）；install 会删除旧文件并新建文件
+- install 对象必须是文件，不能是目录 （可用 Dir/* ）
+
+```shell
+# cp test_file /dir/path/
+install -p -D -m 0755 test_file /dir/path/
+
+# 说明：
+# 将 abcd 拷贝纸 /opt/testDir/ 目录下
+# -p 时间同步至目标目录
+# -D 如果没有这个目录就创建，
+# -m 0755 然后赋予 755 的权限
+```
+
+## 12.8. 创建临时随机路径
+```shell
+# 创建临时文件夹
+mktemp -d -p /tmp
+
+# 创建临时文件夹，存入变量 tmpdir
+tmpdir=`mktemp -d`
+```
+
+## 12.9. 查看 Linux 账户 密文密码字符串
+```shell
+# 查看 账户密码（第二项为密码的 SHA-512 加密）
+sudo grep 'myops' /etc/shadow | cut -d : -f 2
+sudo grep 'xltops' /etc/shadow | cut -d : -f 2
+sudo grep 'vnetops' /etc/shadow | cut -d : -f 2
+sudo grep 'admin' /etc/shadow | cut -d : -f 2
+sudo grep 'vnet' /etc/shadow | cut -d : -f 2
+sudo grep 'admin' /etc/shadow | cut -d : -f 2
+sudo grep 'root' /etc/shadow | cut -d : -f 2
+sudo grep 'haoleeson' /etc/shadow | cut -d : -f 2
+```
+
+## 12.10. 罗列 service 服务
+```shell
+sudo systemctl --type=service
+sudo systemctl --type=service --all
+```
+
+## 12.11. 罗列内存中已加载 units
+```shell
+sudo systemctl list-units
+sudo systemctl list-units --type=service
+sudo systemctl list-units --type=timer
+# 罗列失败的服务
+sudo systemctl list-units --state failed --type service
+```
+
+## 12.12. 安装 thrift 0.13.0 命令
 ```shell
 # 安装依赖
 sudo apt-get install libboost-dev libboost-test-dev libboost-program-options-dev libboost-filesystem-dev libboost-thread-dev libevent-dev automake make libtool git flex bison pkg-config g++ libssl-dev
@@ -1421,100 +2070,18 @@ cd ../../..
 thrift --version
 ```
 
-## 10.6. mgmt-topo 相关 brctl 指令
+## 12.13. Mac电脑使用串口
 ```shell
-brctl show
+# Mac 电脑连上串口（tty 终端）后，打开终端查询 串口号。
+ls /dev/*usbserial*
+# 返回结果示例（14210 为串口 ID）:
+/dev/tty.usbserial14210
+# 连接串口（tty 终端），命令为 screen /dev/tty.usbserial-${} 115200
+screen $(ls /dev/tty.usbserial*) 115200
 ```
 
-## 10.7. mgmt-topo 相关 Open vSwitch 指令
+## 12.14. mac 下使用 minicom
 ```shell
-# 创建 ovs Bridge
-ovs-vsctl --may-exist add-br <bridge_name>
-
-# 配置 mtu
-ifconfig <bridge_name> mtu <mtu_val>
-
-# 启动
-ifconfig <bridge_name> up
-
-# 删除 ovs Bridge
-ovs-vsctl --if-exists del-br <bridge_name>
-
-# 查看 bridge 的 VLAN
-ovs-vsctl br-to-vlan <bridge_name>
-ovs-vsctl br-to-vlan br-VM0501-0
-
-# 查看 bridge 的 parent
-ovs-vsctl br-to-parent <bridge_name>
-ovs-vsctl br-to-parent br-VM0501-0
-
-# 查看 bridge 端口列表（e.g. br-VM0501-0）
-# ovs-vsctl list-ports <bridge_name>
-ovs-vsctl list-ports br-VM0501-0
-
-# 查看 port 所属的 bridge
-# ovs-vsctl port-to-br <port_name>
-ovs-vsctl port-to-br VM0501-t0
-
-# 查看
-ovs-vsctl show
-# 添加 ovs 端口绑定
-ovs-vsctl add-port <bridge_name> <port_name>
-ovs-vsctl add-port br-VM0501-0 VM0501-t0
-# 解除 ovs 端口绑定
-ovs-vsctl del-port <bridge_name> <port_name>
-ovs-vsctl del-port br-VM0501-0 VM0501-t0
-
-ovs-vsctl del-port br-VM0502-0 VM0502-t0
-ovs-vsctl add-port br-VM0501-0 VM0502-t0
-
-# 查看 open flow 规则
-ovs-ofctl dump-flows br-VM0501-0
-ovs-ofctl dump-flows br-VM0502-0
-# 添加 open flow 规则
-ovs-ofctl add-flow <bridge_name> table=0,in_port=<vm_iface>,action=output:<out_iface>
-
-# 删除 open flow 规则
-ovs-ofctl del-flows <bridge_name>
-
-ovs-vsctl show | grep -A 10 'Bridge "br-VM0501-0"'
-
-```
-
-## 10.8. mgmt 调大 fanout 侧对 lldp、lacp 协议的上报限速值
-> fanout交换机是通过bpdu tunnel把lldp、lacp报文上送CPU做的软转发，上送报文默认限速是600pps，所以mgmt测试流量上不来。
-```shell
-# 创建流分类器
-traffic classifier lldp operator and
-  if-match control-plane protocol lldp
-# 创建流行为
-traffic behavior lldp
-  car cir pps 2000 cbs 125440 ebs 0 green pass red discard yellow pass
-# 创建流策略，并绑定流分类器和流行为
-qos policy lldp
-  classifier lldp behavior lldp
-# 绑定流策略
-control-plane slot 1
-  qos apply policy lldp inbound
-```
-
-## 10.9. sonic-mgmt VM 互通 配置
-```shell
-# 为网卡增加 VLAN interface
-ip link add link ma1 name x777 type vlan id 777
-ip link set x777 up
-
-# 配置 IP（vlan777）：设备 1
-ip addr add 17.0.0.1/24 dev x777
-## 配置 IP（vlan777）：设备 2
-# ip addr add 17.0.0.2/24 dev x777
-
-# 撤销 IP（vlan 777）：设备 1
-ip addr del 17.0.0.1/24 dev x777
-## 撤销 IP（vlan 777）：设备 2
-# ip addr del 17.0.0.2/24 dev x777
-
-# 删除 vlan interface
-ip link set x777 down
-ip link del x777
+# 安装 minicom
+brew install minicom
 ```

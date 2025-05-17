@@ -24,7 +24,6 @@ coder: haoleeson
 
 Time: 2019-01-23
 
-
 {% note success %}完整源码详见:[我的Git仓库](https://github.com/haoleeson/MyCppApp_ParkingSimulationSystem){% endnote %}
 ## 1.1. 设计说明
 
@@ -75,8 +74,6 @@ Time: 2019-01-23
 ### 1.4.2. 用例图
 
 ![parkingSimulationSystemUMLUseCaseDiagram](../../../../uploads/parkingSimulationSystemUMLUseCaseDiagram.png)
-
-
 
 主要描述了汽车与系统与后台管理系统M、读卡器、传感器、栏杆等参与者的关系。
 

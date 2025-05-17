@@ -262,7 +262,7 @@ sudo docker image ls
 ```shell
 Docker 支持这个“live-restore”功能，https://docs.docker.com/config/containers/live-restore/。
 用法：
-daemon.json 中配置 "live-restore": true 
+daemon.json 中配置 "live-restore": true
 然后执行： systemctl reload docker
 ```
 
@@ -289,8 +289,8 @@ docker run -dit --name $CONTAINER_NAME --net=host \
 docker image list
 
 # 导出镜像到 tar 文件
-# docker save -o jihaix-sonic-dev-v1.1.3.tar <IMAGE ID> 
-docker save -o jihaix-sonic-dev-v1.1.3.tar e6249ced1016 
+# docker save -o jihaix-sonic-dev-v1.1.3.tar <IMAGE ID>
+docker save -o jihaix-sonic-dev-v1.1.3.tar e6249ced1016
 
 # 导入 image 文件到 Docker
 docker load -i jihaix-sonic-dev-v1.1.3.tar
@@ -310,8 +310,6 @@ docker tag old-image-name:old-tag new-image-name:new-tag
 docker rmi old-image-name:old-tag
 ```
 
-
-
 ## 7.5. 将容器保存为新的镜像
 ```shell
 # docker commit (-a="Author" -m "Commit message") <container_name/ID> <save_images_name>
@@ -319,7 +317,6 @@ docker commit tbsvr_v2 ubuntu:tbsvr_v2.0.1
 docker commit -a="Author" -m "Commit message" c9a2f98234c7 tomcat04:1.0
 docker commit 581b4b5682dd sde-build-image:v9.9.0
 ```
-
 
 ## 7.6. 推送镜像至内网 images registry
 ```shell
@@ -331,7 +328,6 @@ docker tag 15f4e972a5df self-arm64v8/golang:1.20.5-buster
 
 # 删除原 tag
 #docker rmi golang:1.17-stretch
-
 
 # 用服务账号登录内网私有厂库
 docker login A.B.C.org
@@ -349,7 +345,6 @@ docker logout A.B.C.org
 cat ~/.docker/config.json
 ```
 
-
 ## 7.7. 查看 docker 退出原因
 ```shell
 # docker logs -f -t --since="2022-08-12" --tail=20 docker_container_name
@@ -360,7 +355,6 @@ docker logs -f -t --since="2022-08-12" --tail=20 ansible
 ```shell
 sudo truncate -s 0 $(docker inspect syncd -f {{.LogPath}} patrol_pktinjector)
 ```
-
 
 ## 7.9. 限制容器占用内存大小
 ```shell
@@ -376,7 +370,6 @@ docker run -d -it --name CONTAINER_NAME --net=host jihaix/sonic-dev:v1.1.3
 docker run -d -it --name tacplus_server_20220301 --net=host jihaix/sonic-dev:v1.1.3
 
 docker run -d -it --name tacplus_server_20220301 --net=host jihaix/sonic-dev:v1.1.3
-
 
 docker run -dit --name tbsvr_v2 --network host --privileged \
     -v /data00/var-lib-docker/tbsvr_v2/docker:/var/lib/docker ubuntu:tbsvr_v2
@@ -405,7 +398,6 @@ docker run ...  --network='none'
 ```shell
 date -d @$(date -d $(docker inspect --format='{{.Created}}' database) +%s) +"%Y-%m-%d %H:%M:%S.%N"
 ```
-
 
 ## 7.12. 查看容器版本信息
 ```shell

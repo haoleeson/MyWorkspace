@@ -3,7 +3,7 @@ title: 日志服务器未收到日志可能原因小记
 date: 2021/8/27 22:30:45
 updated: 2021/8/27 23:10:45
 comments: true
-tags: 
+tags:
 - syslog
 categories:
 - 技术
@@ -26,7 +26,7 @@ grep -A 2 'remote syslog server' /etc/rsyslog.conf
 ```
 - 日志服务器不可达？（检查指令）
 ```shell
-ping $(grep -A 1 'remote syslog server' /etc/rsyslog.conf  | tail -n +2) 
+ping $(grep -A 1 'remote syslog server' /etc/rsyslog.conf  | tail -n +2)
 ```
 - 防火墙 配置？514 端口未打开？（检查指令）
 ```shell
@@ -54,6 +54,6 @@ grep 'UDPServerAddress' /etc/rsyslog.conf
 ```
 - 服务器端配置了日志全转发？ （检查指令）
 ```shell
-grep -A 2 'remote syslog server' /etc/rsyslog.conf 
+grep -A 2 'remote syslog server' /etc/rsyslog.conf
 ```
 

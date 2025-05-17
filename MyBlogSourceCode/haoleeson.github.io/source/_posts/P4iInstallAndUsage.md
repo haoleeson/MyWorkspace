@@ -3,7 +3,7 @@ title: p4i的安装与使用
 date: 2023/1/16 10:30:45
 updated: 2023/1/16 10:30:45
 comments: true
-tags: 
+tags:
 - SDE
 - Network
 - Barefoot
@@ -22,7 +22,6 @@ p4i 作为 Barefoot P4 开发工具链中的重要一部分，可用于SDE P4程
 > - BOE 中：启动 p4i
 > - MAC 电脑：创建到 BOE 端口映射，本地访问映射端口
 
-
 # 1. 安装 P4i
 > $SDE/pkgsrc/p4i/ 包含 p4i for Linux/MacOS 安装包
 ```shell
@@ -40,7 +39,6 @@ docker cp bf_sde_9_9_0_simulation:/sde/bf-sde-9.9.0/pkgsrc/p4i/ /home/username/
 sudo dpkg -i /home/username/p4i/p4i.linux.deb
 # check
 sudo dpkg -l | grep p4i
-
 
 # 修复安装依赖组件缺失问题 （e.g. libgbm-dev, libasound-dev, libasound2-dev, libnotify4, libxss1, xdg-utils, libappindicator3-1）
 sudo apt --fix-broken install
@@ -83,13 +81,11 @@ SRC_P4I_MANIFESTS_DIR='/sde/bf-sde-9.3.2/build/switch-p4-16/p4src/switch/'
 # rgw
 /sde/bf-sde-9.3.2/install/bin/bf-p4c --std p4-16 --target tofino --arch tna -o ./switch --bf-rt-schema ./switch/bf-rt.json -g -Xp4c='--disable-power-check' -I /sde/bf-sde-9.3.2/pkgsrc/switch-p4-16/p4src/shared/ /sde/bf-sde-9.3.2/pkgsrc/switch-p4-16/p4src/switch-tofino/switch_tofino_p4gw.p4
 
-
 # sde 9.9.0
 # SDE_CONTAINER_NAME='bf_sde_9_9_0_simulation'
 # SRC_P4I_MANIFESTS_DIR='/sde/bf-sde-9.9.0/build/pkgsrc/switch-p4-16/p4src/switch/'
 # 确保容器中已经生成了 *.tar.bz2
 /sde/bf-sde-9.9.0/install/bin/bf-p4c --std p4-16 --target tofino --arch tna -o ./switch --bf-rt-schema ./switch/bf-rt.json -g --archive -DXGW_PROFILE /sde/bf-sde-9.3.2/pkgsrc/switch-p4-16/p4src/switch-tofino/switch.p4
-
 
 P4I_MANIFESTS_DIR='/data00/home/username/.p4i_manifests'
 
@@ -111,7 +107,6 @@ if [ "$is_sde_container_running" == "0" ]; then
     fi
 fi
 
-
 # copy container manifest.json
 if [ -d "$P4I_MANIFESTS_DIR/switch/" ]; then
     rm -rf $P4I_MANIFESTS_DIR/switch/ > /dev/null 2>&1
@@ -124,7 +119,6 @@ sleep 1
 # start p4i
 xvfb-run p4i
 ```
-
 
 # 3. MAC 本地创建ssh 通道到远端 3000 端口映射
 ```shell

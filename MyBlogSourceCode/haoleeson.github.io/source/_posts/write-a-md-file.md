@@ -75,7 +75,7 @@ categories:
 ```
 <!-- more -->
 ```
-16. **文本右对齐：** 
+16. **文本右对齐：**
 正常文本
 <div align = center>文本居中</div>
 <div align = right>文本右对齐</div>
@@ -190,7 +190,6 @@ _ _ _
 -- -
 _ _ _
 
-
 # 3. 内置标签
 
 标签(Tag Plugin)是Hexo提供的一种快速生成特定内容的方式。例如，在标准Markdown语法中，我们无法指定图片的大小。这种情景，我们即可使用标签来解决。Hexo内置来许多标签来帮助写作者可以更快的书写，参考Hexo的[完整的标签列表](https://hexo.io/zh-cn/docs/tag-plugins.html)。Hexo也开放来接口给主题，使提供给写作者更简便的写作方法成为可能。
@@ -236,7 +235,6 @@ _ _ _
 <!-- 其中 class="full-image" 是必须的 -->
 
 <img src="https://cdn.wfolio.ru/w/4b318a3da2f7d3a89fa5957a8dd9a00dd2609616/m_limit%2Cw_1920/sites/181/assets/1524794399_7fc3ff.jpg" class="full-image" />
-
 
 # 4. Bootstrap Callout
 这些样式出现在[Bootstrap官方文档](http://getbootstrap.com/)中。
@@ -363,7 +361,7 @@ tabs:
 <audio src="https://什么什么什么.mp3" style="max-height :100%; max-width: 100%; display: block; margin-left: auto; margin-right: auto;" controls="controls" loop="loop" preload="meta">Your browser does not support the audio tag.</audio>
 ```
 
-## 8.2. 方法2：用插件，有显示歌词功能，也美观，建议使用这种方法。 
+## 8.2. 方法2：用插件，有显示歌词功能，也美观，建议使用这种方法。
 首先在<code>站点</code>文件夹根目录安装插件：
 ```
 npm install hexo-tag-aplayer --save

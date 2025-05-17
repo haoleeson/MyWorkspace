@@ -3,7 +3,7 @@ title: Syslog 模块的故障自检方法及常见已知问题
 date: 2021/8/24 22:30:45
 updated: 2021/8/23 23:10:45
 comments: true
-tags: 
+tags:
 - syslog
 categories:
 - 技术
@@ -19,9 +19,7 @@ Rsyslog 版本：8.24.0
 
 目标进程的预期日志文件无日志写入， <code>tail -f</code> 未检测到日志写入流
 
-
 <!-- more -->
-
 
 ```shell
 sudo tail -f /var/log/syslog
@@ -108,7 +106,6 @@ logctl -h
 
 自检方法：排查 logrotate 配置
 
-
 ```shell
 # 1. 检查有无安装 logrotate
 sudo which logrotate
@@ -133,7 +130,6 @@ grep -A 5 -Rw "daemon.log" /etc/logrotate.d/
 
 自检方法：排查 cron 配置
 
-
 ```shell
 # 1. 检查 cron 配置（对照正常设备配置）
 cat /etc/crontab
@@ -150,7 +146,6 @@ ps -ef | grep -v "grep" | grep "cron"
 sudo grep "logrotate" /var/log/cron.log | tail -n 5
 ```
 
-
 ## 1.3. 轮转后新文件不记日志
 **现象**：
 
@@ -163,13 +158,11 @@ Rsyslog 未收到 HUP 信号，其仍根据旧 inode 向不存在的前 <code>xx
 
 自检方法：检查该日志文件对应的 lorotate 轮转配置文件（eg.  <code>/etc/logrotate.d/rsyslog</code> ），确保 postrotate 执行块内，存在向 Rsyslog 发送 HUP 信号的操作
 
-
 ```shell
 postrotate
     /bin/kill -HUP $(cat /var/run/rsyslogd.pid) 2>/dev/null || true
 endscript
 ```
-
 
 # 2. 常见已知问题
 
@@ -191,7 +184,6 @@ docker exec -it bgp grep -C 2 "SystemLogRateLimitInterval" /etc/rsyslog.conf
 ```
 
 默认配置如下：
-
 
 ```shell
 # Set a rate limit on messages from the container
@@ -216,7 +208,6 @@ docker exec -it bgp service rsyslog restart
 **现象**：
 
 Rsyslog 收到 HUP 信号并输出下方的 INFO 级别日志。
-
 
 ```shell
 2021-10-16 03:50:01.212971 HOSTNAMR <local7.info> INFO liblogging-stdlog:  [origin software="rsyslogd" swVersion="8.24.0" x-pid="1732" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
@@ -445,7 +436,7 @@ grep -A 2 'remote syslog server' /etc/rsyslog.conf
 - 日志服务器不可达？检查命令：
 
 ```shell
-ping $(grep -A 1 'remote syslog server' /etc/rsyslog.conf  | tail -n +2) 
+ping $(grep -A 1 'remote syslog server' /etc/rsyslog.conf  | tail -n +2)
 ```
 - 防火墙 配置？514 端口未打开？检查命令：
 
@@ -479,6 +470,6 @@ grep 'UDPServerAddress' /etc/rsyslog.conf
 - 服务器端配置了日志全转发？ 检查命令：
 
 ```shell
-grep -A 2 'remote syslog server' /etc/rsyslog.conf 
+grep -A 2 'remote syslog server' /etc/rsyslog.conf
 ```
 

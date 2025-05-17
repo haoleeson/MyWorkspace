@@ -12,7 +12,7 @@ categories:
 
 <img src="../../../../uploads/gitRevert.jpg" style="zoom:45%;"  />
 
-Git作为著名的代码仓库管理工具，在工作中广泛应用，本文记录一些工作中常用的Git指令。
+Git作为具备技术卓越性、社区共建性与生态扩展性的著名的代码仓库管理工具，是全球开发者协作的“基础设施”，本文记录一些工作中常用的Git指令。
 
 <!-- more -->
 
@@ -428,7 +428,33 @@ echo "check_certificate = off" >> ~/.wgetrc
 apt-get install openssh-client
 ```
 
-## 8.2. 机器自动填充repo账户密码
+## 8.2. ~/.gitconfig 配置
+```shell
+[user]
+    name = user
+    email = user@email.com
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    pl = pull --rebase
+    pr = pull --rebase
+    ps = push
+    dt = difftool
+    l = log --stat
+    cp = cherry-pick
+    ca = commit -a
+    b = branch
+    new = "!f() { git fetch && git checkout -b sandbox/`whoami`/`date +%m-%d`/${2:-`date +%H-%M`} origin/${1:-master}; }; f"
+    rvm = "!f() { git push origin HEAD:refs/for/master%${1}; }; f"
+    rv = "!f() { git push origin HEAD:refs/for/${1:-master}%${2}; }; f"
+    fp = "!f() { git fetch origin refs/changes/$(printf "%02d" $(expr ${1} % 100))/${1}/${2:-1} && git checkout FETCH_HEAD;}; f"
+    cin = commit --amend --no-edit
+    delbranch = "!f() {git branch | grep sandbox | xargs git branch -D; }; f"
+    loglog = "log --pretty=format:\"%C(auto)%h %ad | %C(auto)%s%d  %Cblue(%an)\" --graph --date=short"
+```
+
+## 8.3. 机器自动填充repo账户密码
 编辑 ~/.netrc 文件
 ~/.netrc
 ```shell
@@ -437,9 +463,9 @@ login haoleeson
 password YOUR_PASS_WORD
 ```
 
-## 8.3. 对比
+## 8.4. 对比
 
-### 8.3.1. 对比指定文件在本地分支与远端分支的差异
+### 8.4.1. 对比指定文件在本地分支与远端分支的差异
 
 <b><font color="#7E3D76" style="">1. 对比指定【单个文件】在【本地分支与远端】分支的差异</font></b>
 
@@ -461,7 +487,7 @@ git diff --stat -- src/file1.cpp src/file1.cpp
 git diff --stat master dev  -- file1.md src/file2.java
 ```
 
-### 8.3.2. 对比俩分支文件差异
+### 8.4.2. 对比俩分支文件差异
 
 <b><font color="#7E3D76" style="">1. 对比【本地两分支】差异</font></b>
 
@@ -491,21 +517,21 @@ git diff --stat dev origin/master
 git diff --stat dev origin/master -- filepath1 filepath2 filepath3
 ```
 
-### 8.3.3. 对比两分支的"commit 差异"
+### 8.4.3. 对比两分支的"commit 差异"
 ```shell
 git log --left-right --stat master...dev
 git log --left-right --oneline master...dev
 ```
 
-## 8.4. 补丁
-### 8.4.1. 提取当前 commit 到指定 commit 之前的所有提交
+## 8.5. 补丁
+### 8.5.1. 提取当前 commit 到指定 commit 之前的所有提交
 > 每此 commit 生成一个 *.patch 补丁文件
 ```shell
 git format-patch 上一提交 ID
 git format-patch b6c3a8bf
 ```
 
-### 8.4.2. 补丁文件的制作、安装与取消
+### 8.5.2. Git补丁文件的制作、安装与取消
 ```shell
 # 生成差异文件（补丁）
 git diff -- filepath > differences.patch
@@ -517,7 +543,7 @@ git apply differences.patch
 git reset -hard HEAD
 ```
 
-### 8.4.3. 加载patch补丁文件到当前文件夹
+### 8.5.3. 加载patch补丁文件到当前文件夹
 ```shell
 # 加载一个 patch 补丁修改
 patch -p1 < path_to_file.patch
@@ -533,3 +559,32 @@ patch 片段
 - 如果使用参数 -p0，那就表示从当前目录找一个叫做 old 的文件夹，再在它下面寻找 modules/pcitable 文件来执行 patch 操作。
 - 而如果使用参数 -p1，那就表示忽略第一层目录（即不管 old），从当前目录寻找 modules 的文件夹，再在它下面找 pcitable。
 
+### 8.5.4. 生成补丁、加载补丁、复原补丁
+- 生成补丁
+```shell
+# 生成新旧文件的差异文件（补丁）
+diff -Naru file_old file_new > differences.patch
+diff -Naru dir_old dir_new > differences.patch
+
+# 生成文件夹差异（过滤不存在文件夹）
+diff -ru sonic/ sonic2/ 2>&1 | fgrep -v 'No such file' > ~/replace_Makefile_dep_pkgs.patch
+
+# 或通过 git 生成差异文件（补丁）
+git diff -- filepath > differences.patch
+```
+- 打补丁
+```shell
+# 打补丁到 old 文件
+patch -p0 < differences.patch
+# 或通过 git 打补丁
+git apply differences.patch
+```
+- 取消补丁
+```shell
+# 通过 git 撤销补丁
+git apply -R differences.patch
+
+patch -RE -p0 < differences.patch
+# 或通过 git 取消补丁
+git reset -hard HEAD
+```
