@@ -2,14 +2,14 @@
 No53.maximum-subarray
 */
 func maxSubArray(nums []int) int {
-	n := len(nums)
-	dp := make([]int, n)
-	dp[0] = nums[0]
-	ret := nums[0]
+	dp_i, dp_i_1, ret := 0, 0, math.MinInt
 
-	for i := 1; i < n; i++ {
-		dp[i] = max(dp[i-1]+nums[i], nums[i])
-		ret = max(ret, dp[i])
+	for _, num := range nums {
+		dp_i = max(dp_i_1+num, num)
+		dp_i_1 = dp_i
+		if dp_i > ret {
+			ret = dp_i
+		}
 	}
 	return ret
 }

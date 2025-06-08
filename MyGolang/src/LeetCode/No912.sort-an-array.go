@@ -2,30 +2,43 @@
 No912.sort-an-array
 */
 func sortArray(nums []int) []int {
-	quickSort(nums, 0, len(nums)-1)
+	quickSort(nums)
 	return nums
 }
 
-func quickSort(nums []int, l, r int) {
-	if l >= r {
+func quickSort(nums []int) {
+	n := len(nums)
+	if n <= 1 {
 		return
 	}
 
-	partition := nums[l]
-	i, j := l-1, r+1
+	// rand choose partition
+	randIdx := rand.IntN(n)
+	partition := nums[randIdx]
+	nums[randIdx], nums[0] = nums[0], nums[randIdx]
 
+	// sort nums as two part: [... ,partition) and [partition, ...]
+	i, j := -1, n
 	for i < j {
-		// find left invalid
-		for i++; nums[i] < partition; i++ {
+		// find a num in left part which >= partition
+		i++
+		for nums[i] < partition {
+			i++
 		}
-		// find right invalid
-		for j--; nums[j] > partition; j-- {
+
+		// find a num in right part which <= partition
+		j--
+		for nums[j] > partition {
+			j--
 		}
+
+		// swap those two invalid index nums
 		if i < j {
 			nums[i], nums[j] = nums[j], nums[i]
 		}
 	}
-	// left: nums[l, j], right: nums[j+1, r]
-	quickSort(nums, l, j)
-	quickSort(nums, j+1, r)
+
+	// divide
+	quickSort(nums[:i])
+	quickSort(nums[i:])
 }

@@ -1,4 +1,6 @@
-// No3.longest-substring-without-repeating-characters
+/*
+No3.longest-substring-without-repeating-characters
+*/
 func lengthOfLongestSubstring(s string) int {
 	n := len(s)
 	ans := 0
@@ -11,13 +13,15 @@ func lengthOfLongestSubstring(s string) int {
 			r++
 		}
 
-		ans = max(ans, r-l)
+		if r-l > ans {
+			ans = r - l
+		}
 
 		if r >= n {
 			break
 		}
 
-		// move r still s[l] == s[r]
+		// move l still s[l] == s[r]
 		for l < r && s[l] != s[r] {
 			flag[s[l]] = false
 			l++
