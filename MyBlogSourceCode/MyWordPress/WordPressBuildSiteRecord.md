@@ -70,7 +70,7 @@ curl https://get.acme.sh | sh -s email=ei13911468370@gmail.com
 
 ## 5.1. 【推荐，可自动更新】Option1: 通过 http 方式自动生成证书
 ```shell
-MY_DOMAIN='haoleeson.cn'
+MY_DOMAIN='<your_domain>'
 # 方式 1.a: http 方式验证
 acme.sh --issue -d $MY_DOMAIN --nginx
 # 方式 1.b: http 方式之 Webroot 模式验证
@@ -87,12 +87,12 @@ acme.sh  --issue  -d $MY_DOMAIN  --alpn --tlsport 8443
 
 ## 5.2. Option2: 通过手动在域名上添加一条 txt 解析记录, 验证域名所有权（坏处，无法自动更新证书）
 ```shell
-MY_DOMAIN='haoleeson.cn'
+MY_DOMAIN='<your_domain>'
 # 方式1：手动添加一条TXT解析记录
 # 方式1：setp1. 生成相应的解析记录显示出来（ Domain: 'XXXX'; TXT value: 'YYYY'）
 acme.sh --issue --dns -d $MY_DOMAIN --yes-I-know-dns-manual-mode-enough-go-ahead-please
 # 方式1：setp2. 登录云解析厂商，在域名云解析控制台添加 TXT 解析记录
- Domain: 'XXXXXX.haoleeson.cn'
+ Domain: 'XXXXXX.<your_domain>'
  TXT value: 'YYYYY'
 # 方式1：step3. 等待解析后，重新生成证书（--renew）
 ## 生成证书位置：~/.acme.sh/<your_domain>/
@@ -129,10 +129,12 @@ acme.sh --list -d $MY_DOMAIN
 
 ## 手动更新指定域名的证书
 ```shell
-MY_DOMAIN='haoleeson.cn'
+MY_DOMAIN='<your_domain>'
+MY_DOMAIN2='<your_domain2>'
 
 # check domain period of validity
 acme.sh --list -d $MY_DOMAIN
+acme.sh --list -d $MY_DOMAIN2
 
 # update acme.sh manually
 acme.sh --upgrade
@@ -187,16 +189,16 @@ netstat -npld | grep :443
 1
 2
 n
-sea.haoleeson.cn
+<your_domain>
 n
 443
 n
 n
-erozrswcv
+<your_path>
 n
 [enter]
 y
-6b33099b-29f0-023d-ad99-05ac8a43b166
+<your_uuid>
 y
 netstat -npld | grep :443
 ```
