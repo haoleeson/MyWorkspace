@@ -11,9 +11,9 @@
 ##################################################
 
 
-DOMAIN_1='your.domain1'
+DOMAIN_1='haoleeson.cn'
 DOMAIN_1_ROOT_DIR='/home/git/blog'
-DOMAIN_2='your.domain2'
+DOMAIN_2='sea.eisenhao.cn'
 DOMAIN_2_ROOT_DIR='/usr/share/nginx/html/'
 
 
@@ -218,3 +218,4 @@ function main() {
 }
 
 main
+

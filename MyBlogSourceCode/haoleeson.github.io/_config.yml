@@ -104,15 +104,16 @@ theme: next
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   # Website Pages
-  # - type: git
-  #   repo: git@github.com:haoleeson/haoleeson.github.io.git
-  #   branch: master
+  - type: git
+    repo: git@github.com:haoleeson/haoleeson.github.io.git
+    branch: master
   # Images Database
   # - type: git
   #   repo: git@e.coding.net:haoleeson/myblog/haoleeson.git
   #   branch: master
   # Private git repo
   - type: git
-    repo: git@A.B.C.D:/path_to_website_files.git
+    # repo: git@A.B.C.D:/path_to_website_files.git
+    repo: git@148.135.40.171:/home/git/repos/blog.git
     branch: master
 
