@@ -296,3 +296,31 @@ systemctl status vscode-server.service
 # 查看日志（如果配置了日志文件）
 tail -f /var/log/vscode-server.log
 ```
+
+# 8. Linux load Shared NFS of TrueNAS
+```shell
+# TrueNAS_IP='172.21.213.135'
+TrueNAS_IP='A.B.C.D'
+
+apt install -y nfs-common
+
+showmount -e $TrueNAS_IP
+
+mkdir /mnt/TrueNAS_Share_Code/
+mount $TrueNAS_IP:/mnt/pool/code /mnt/TrueNAS_Share_Code/
+df -hT
+# test
+cd /mnt/TrueNAS_Share_Code/
+touch test_create_code_file.txt
+ls -l
+
+
+mkdir /mnt/TrueNAS_Share_Documents/
+mount $TrueNAS_IP:/mnt/pool/documents /mnt/TrueNAS_Share_Documents/
+df -hT
+# test
+cd /mnt/TrueNAS_Share_Documents/
+touch test_create_code_file.txt
+ls -l
+
+```
