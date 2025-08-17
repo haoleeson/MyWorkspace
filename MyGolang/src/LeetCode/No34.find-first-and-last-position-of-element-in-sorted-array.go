@@ -1,4 +1,5 @@
-/**
+/*
+*
 No34. 在排序数组中查找元素的第一个和最后一个位置
 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 如果数组中不存在目标值 target，返回 [-1, -1]。
@@ -27,51 +28,105 @@ nums 是一个非递减数组
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- */
+*/
 package LeetCode
 
+// new method
 func searchRange(nums []int, target int) []int {
-    ans := []int{-1, -1}
-    size := len(nums)
-    if size < 2 {
-        if size == 1 && nums[0] == target {
-            return []int{0, 0}
-        }
-    }
+	n := len(nums)
 
-    // 二分法（找到最大下标的target）
-    left, right, mid := 0, size - 1, 0
-    for left < right {
-        mid = (left + right) / 2
-        if nums[mid] > target {
-            right = mid -1
-        } else if nums[mid] <= target {
-            // 忽略左侧target 值
-            left = mid + 1
-        }
-    }
-    if left < size && nums[left] == target {
-        ans[1] = left
-    } else if left > 0 && left < size + 1 && nums[left - 1] == target {
-        ans[1] = left - 1
-    }
+	var leftBioSearch func(int) int
+	leftBioSearch = func(t int) int {
+		l, r, mid := 0, n-1, 0
 
-    // 二分法（找到最小下标的target）
-    left = 0
-    right = size - 1
-    for left < right {
-        mid = (left + right) / 2
-        if nums[mid] >= target {
-            // 忽略右侧target 值
-            right = mid - 1
-        } else if nums[mid] < target {
-            left = mid + 1
-        }
-    }
-    if right > -1 && nums[right] == target {
-        ans[0] = right
-    } else if right > -2 && right < size - 1 && nums[right + 1] == target {
-        ans[0] = right + 1
-    }
-    return ans
+		for l <= r {
+			mid = l + (r-l)/2
+
+			if nums[mid] > t {
+				r = mid - 1
+			} else if nums[mid] < t {
+				l = mid + 1
+			} else {
+				// multiple target
+				if mid-1 >= 0 && nums[mid-1] == t {
+					r = mid - 1
+				} else {
+					return mid
+				}
+			}
+		}
+		return -1
+	}
+
+	var rightBioSearch func(int) int
+	rightBioSearch = func(t int) int {
+		l, r, mid := 0, n-1, 0
+
+		for l <= r {
+			mid = l + (r-l)/2
+
+			if nums[mid] > t {
+				r = mid - 1
+			} else if nums[mid] < t {
+				l = mid + 1
+			} else {
+				// multiple target
+				if mid+1 < n && nums[mid+1] == t {
+					l = mid + 1
+				} else {
+					return mid
+				}
+			}
+		}
+		return -1
+	}
+
+	return []int{leftBioSearch(target), rightBioSearch(target)}
+}
+
+// old method
+func searchRange0(nums []int, target int) []int {
+	ans := []int{-1, -1}
+	size := len(nums)
+	if size < 2 {
+		if size == 1 && nums[0] == target {
+			return []int{0, 0}
+		}
+	}
+
+	// 二分法（找到最大下标的target）
+	left, right, mid := 0, size-1, 0
+	for left < right {
+		mid = (left + right) / 2
+		if nums[mid] > target {
+			right = mid - 1
+		} else if nums[mid] <= target {
+			// 忽略左侧target 值
+			left = mid + 1
+		}
+	}
+	if left < size && nums[left] == target {
+		ans[1] = left
+	} else if left > 0 && left < size+1 && nums[left-1] == target {
+		ans[1] = left - 1
+	}
+
+	// 二分法（找到最小下标的target）
+	left = 0
+	right = size - 1
+	for left < right {
+		mid = (left + right) / 2
+		if nums[mid] >= target {
+			// 忽略右侧target 值
+			right = mid - 1
+		} else if nums[mid] < target {
+			left = mid + 1
+		}
+	}
+	if right > -1 && nums[right] == target {
+		ans[0] = right
+	} else if right > -2 && right < size-1 && nums[right+1] == target {
+		ans[0] = right + 1
+	}
+	return ans
 }
