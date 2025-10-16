@@ -2,10 +2,11 @@
 
 filename=$1
 
-GITDIR='/root/MyWorkspace/MyGolang/src/LeetCode'
+GIT_DIR='/root/MyWorkspace/MyGolang/src/LeetCode'
+GIT_MSG_PRE='coding(LeetCode):'
 
 if [ ! -n "$filename" ];then
-    /usr/bin/echo "filename param empty, exit!"
+    /usr/bin/echo -e "filename param empty, exit!\n"
     exit 1
 fi
 
@@ -18,21 +19,21 @@ fi
 go_filename="${go_filename_prefix}.go"
 
 if [ ! -f ${go_filename} ]; then
-    /usr/bin/echo "go filename ${go_filename} does not exist, exit!"
+    /usr/bin/echo -e "go filename ${go_filename} does not exist, exit!\n"
     exit 1
 else
-    /usr/bin/echo "go filename ${go_filename} exist"
+    /usr/bin/echo -e "go filename ${go_filename} exist\n"
 fi
 
-cd $GITDIR
+cd $GIT_DIR
 
-/usr/bin/echo "git add ${go_filename}"
+/usr/bin/echo -e "git add ${go_filename}\n"
 git add ${go_filename}
 
-/usr/bin/echo "git commit -m \"coding(LeetCode): ${go_filename_prefix}\""
-git commit -m "coding(LeetCode): ${go_filename_prefix}"
+/usr/bin/echo -e "git commit -m \"${GIT_MSG_PRE} ${go_filename_prefix}\"\n"
+git commit -m "${GIT_MSG_PRE} ${go_filename_prefix}"
 
-/usr/bin/echo 'git push'
+/usr/bin/echo -e 'git push\n'
 git push
 
 cd -
