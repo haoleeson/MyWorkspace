@@ -10,7 +10,7 @@ if [ ! -n "$filename" ];then
     exit 1
 fi
 
-if [ "${filename}" = "*.go" ]; then
+if [[ "${filename##*.}" == "go" ]]; then
     go_filename_prefix=${filename%.*}
 else
     go_filename_prefix=${filename}
