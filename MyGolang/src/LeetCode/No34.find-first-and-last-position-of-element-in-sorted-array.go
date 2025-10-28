@@ -34,21 +34,21 @@ package LeetCode
 // new method
 func searchRange(nums []int, target int) []int {
 	n := len(nums)
+	if n == 0 {
+		return []int{-1, -1}
+	}
 
-	var leftBioSearch func(int) int
-	leftBioSearch = func(t int) int {
-		l, r, mid := 0, n-1, 0
-
+	var leftBioSearch func() int
+	leftBioSearch = func() int {
+		l, r := 0, n-1
 		for l <= r {
-			mid = l + (r-l)/2
-
-			if nums[mid] > t {
+			mid := l + (r-l)/2
+			if nums[mid] > target {
 				r = mid - 1
-			} else if nums[mid] < t {
+			} else if nums[mid] < target {
 				l = mid + 1
 			} else {
-				// multiple target
-				if mid-1 >= 0 && nums[mid-1] == t {
+				if mid > 0 && nums[mid-1] == target {
 					r = mid - 1
 				} else {
 					return mid
@@ -58,20 +58,17 @@ func searchRange(nums []int, target int) []int {
 		return -1
 	}
 
-	var rightBioSearch func(int) int
-	rightBioSearch = func(t int) int {
-		l, r, mid := 0, n-1, 0
-
+	var rightBioSearch func() int
+	rightBioSearch = func() int {
+		l, r := 0, n-1
 		for l <= r {
-			mid = l + (r-l)/2
-
-			if nums[mid] > t {
+			mid := l + (r-l)/2
+			if nums[mid] > target {
 				r = mid - 1
-			} else if nums[mid] < t {
+			} else if nums[mid] < target {
 				l = mid + 1
 			} else {
-				// multiple target
-				if mid+1 < n && nums[mid+1] == t {
+				if mid+1 < n && nums[mid+1] == target {
 					l = mid + 1
 				} else {
 					return mid
@@ -81,7 +78,12 @@ func searchRange(nums []int, target int) []int {
 		return -1
 	}
 
-	return []int{leftBioSearch(target), rightBioSearch(target)}
+	leftIdx := leftBioSearch()
+	if leftIdx == -1 {
+		return []int{-1, -1}
+	}
+	rightIdx := rightBioSearch()
+	return []int{leftIdx, rightIdx}
 }
 
 // old method
