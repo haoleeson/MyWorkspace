@@ -2,32 +2,28 @@
 No75.sort-colors
 */
 func sortColors(nums []int) {
-	l, r := 0, len(nums)-1
-	var tmp int
+	n := len(nums)
+	l, r := 0, n-1
 
-	for i := 0; i <= r; {
+	for i := l; i <= r; {
 		switch nums[i] {
 		case 0:
-			// skip swap
-			if i == l {
-				i++
+			if l == i {
 				l++
-				continue
+				i++
+			} else {
+				nums[i] = nums[l]
+				nums[l] = 0
+
+				l++
+				i++
 			}
-			// swap with nums[i], nums[l]
-			tmp = nums[l]
-			nums[l] = nums[i]
-			nums[i] = tmp
-			l++
-		case 2:
-			// swap with nums[i], nums[r]
-			tmp = nums[r]
-			nums[r] = nums[i]
-			nums[i] = tmp
-			r--
 		case 1:
-			// skip swap
 			i++
+		case 2:
+			nums[i] = nums[r]
+			nums[r] = 2
+			r--
 		}
 	}
 }
