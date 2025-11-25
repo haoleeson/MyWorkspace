@@ -2,9 +2,39 @@
 No215.kth-largest-element-in-an-array
 */
 
+// recoding 2025-11-25
+func findKthLargest(nums []int, k int) int {
+	minV, maxV := nums[0], nums[0]
+	for _, num := range nums {
+		if num < minV {
+			minV = num
+		}
+		if num > maxV {
+			maxV = num
+		}
+	}
+
+	// bucket sort
+	bucketCnt := make([]int, maxV-minV+1)
+	for _, num := range nums {
+		bucketCnt[num-minV]++
+	}
+
+	for i := maxV - minV; i >= 0; i-- {
+		if bucketCnt[i] == 0 {
+			continue
+		}
+		k -= bucketCnt[i]
+		if k <= 0 {
+			return minV + i
+		}
+	}
+	return 0
+}
+
 // 桶排序，pass
 // Time: O(n), Mem: O(maxNum - minNum + 1)
-func findKthLargest(nums []int, k int) int {
+func findKthLargest0(nums []int, k int) int {
 	minVal, maxVal := nums[0], nums[0]
 	for _, num := range nums {
 		minVal = min(minVal, num)
