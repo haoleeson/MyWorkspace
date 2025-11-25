@@ -6,7 +6,7 @@
  *     Next *ListNode
  * }
  */
-func reverseList(head *ListNode) *ListNode {
+func reverseList0(head *ListNode) *ListNode {
 	if head == nil {
 		return head
 	}
@@ -21,5 +21,20 @@ func reverseList(head *ListNode) *ListNode {
 		preHead.Next = pNext
 	}
 
+	return preHead.Next
+}
+
+// recode on 2025-11-25
+func reverseList(head *ListNode) *ListNode {
+	if head == nil {
+		return head
+	}
+	// preHead -> ... -> head -> ptr -> ...
+	preHead := &ListNode{Next: head}
+	for ptr := head.Next; ptr != nil; ptr = head.Next {
+		head.Next = ptr.Next
+		ptr.Next = preHead.Next
+		preHead.Next = ptr
+	}
 	return preHead.Next
 }
