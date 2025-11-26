@@ -37,3 +37,43 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	}
 	return preHead.Next
 }
+
+// 2025-11-26
+func reverseKGroup2(head *ListNode, k int) *ListNode {
+	if k < 2 {
+		return head
+	}
+	preHead := &ListNode{Next: head}
+
+	// lastEnd -> ... curEnd -> cur -> ...
+	lastEnd := preHead
+	curEnd := head
+	cur := curEnd.Next
+	subCnt := 2
+	for cur != nil {
+		curEnd.Next = cur.Next
+		cur.Next = lastEnd.Next
+		lastEnd.Next = cur
+
+		if subCnt == k {
+			lastEnd = curEnd
+			// check next nodes cnt >= k
+			nextCnt := 0
+			for p := lastEnd.Next; p != nil && nextCnt < k; p = p.Next {
+				nextCnt++
+			}
+			if nextCnt < k {
+				break
+			}
+			curEnd = lastEnd.Next
+			cur = curEnd.Next
+			subCnt = 2
+			continue
+		}
+
+		cur = curEnd.Next
+		subCnt++
+	}
+
+	return preHead.Next
+}
