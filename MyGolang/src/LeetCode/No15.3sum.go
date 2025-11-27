@@ -1,6 +1,53 @@
 /*
 No15.3sum
 */
+// 2025-11-27
+func threeSum2(nums []int) [][]int {
+	ans := make([][]int, 0)
+	n := len(nums)
+	sort.Ints(nums)
+
+	var i, j, tmpTarget, tmpTwoSum int
+	for k := n - 1; k > 1; k-- {
+		tmpTarget = -nums[k]
+		i, j = 0, k-1
+		for i < j {
+			tmpTwoSum = nums[i] + nums[j]
+			if tmpTwoSum > tmpTarget {
+				// left move j and skip same val
+				for i < j && nums[j-1] == nums[j] {
+					j--
+				}
+				j--
+			} else if tmpTwoSum < tmpTarget {
+				// right move i and skip same val
+				for i < j && nums[i+1] == nums[i] {
+					i++
+				}
+				i++
+			} else {
+				ans = append(ans, []int{nums[i], nums[j], nums[k]})
+				// left move j and skip same val
+				for i < j && nums[j-1] == nums[j] {
+					j--
+				}
+				j--
+				// right move i and skip same val
+				for i < j && nums[i+1] == nums[i] {
+					i++
+				}
+				i++
+			}
+		}
+
+		// skip dumplicate k
+		for k > 1 && nums[k-1] == nums[k] {
+			k--
+		}
+	}
+
+	return ans
+}
 
 func threeSum(nums []int) [][]int {
 	n := len(nums)
