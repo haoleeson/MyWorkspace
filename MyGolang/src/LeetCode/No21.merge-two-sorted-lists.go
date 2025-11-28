@@ -8,7 +8,39 @@ No21.merge-two-sorted-lists
  *     Next *ListNode
  * }
  */
+// 2025-11-29 recoding
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	preHead := &ListNode{}
+	var ptr, ptr1, ptr2 *ListNode = preHead, list1, list2
+
+	for ptr1 != nil && ptr2 != nil {
+		if ptr2.Val < ptr1.Val {
+			ptr.Next = ptr2
+			ptr = ptr.Next
+			ptr2 = ptr2.Next
+		} else {
+			ptr.Next = ptr1
+			ptr = ptr.Next
+			ptr1 = ptr1.Next
+		}
+	}
+
+	for ptr1 != nil {
+		ptr.Next = ptr1
+		ptr = ptr.Next
+		ptr1 = ptr1.Next
+	}
+
+	for ptr2 != nil {
+		ptr.Next = ptr2
+		ptr = ptr.Next
+		ptr2 = ptr2.Next
+	}
+
+	return preHead.Next
+}
+
+func mergeTwoLists0(list1 *ListNode, list2 *ListNode) *ListNode {
 	preHead := &ListNode{}
 	p, p1, p2 := preHead, list1, list2
 
