@@ -9,7 +9,36 @@ No102.binary-tree-level-order-traversal
  *     Right *TreeNode
  * }
  */
+
+// 2025-12-01 recoding
 func levelOrder(root *TreeNode) [][]int {
+	ret := make([][]int, 0)
+	if root == nil {
+		return ret
+	}
+
+	lvlNodes := make([]*TreeNode, 0)
+	lvlNodes = append(lvlNodes, root)
+
+	for len(lvlNodes) > 0 {
+		lvlVals := make([]int, len(lvlNodes))
+		nextLvlNodes := make([]*TreeNode, 0)
+		for i, node := range lvlNodes {
+			lvlVals[i] = node.Val
+			if node.Left != nil {
+				nextLvlNodes = append(nextLvlNodes, node.Left)
+			}
+			if node.Right != nil {
+				nextLvlNodes = append(nextLvlNodes, node.Right)
+			}
+		}
+		ret = append(ret, lvlVals)
+		lvlNodes = nextLvlNodes
+	}
+	return ret
+}
+
+func levelOrder0(root *TreeNode) [][]int {
 	var curLevel, nextLevel []*TreeNode
 	ret := make([][]int, 0)
 
