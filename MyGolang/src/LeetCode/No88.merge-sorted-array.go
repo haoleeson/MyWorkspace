@@ -2,7 +2,30 @@
 No88.merge-sorted-array
 */
 
+// 2025-12-06 recoding
 func merge(nums1 []int, m int, nums2 []int, n int) {
+	idx1, idx2, idx3 := m-1, n-1, m+n-1
+
+	for idx1 >= 0 && idx2 >= 0 {
+		if nums2[idx2] > nums1[idx1] {
+			nums1[idx3] = nums2[idx2]
+			idx3--
+			idx2--
+		} else {
+			nums1[idx3] = nums1[idx1]
+			idx3--
+			idx1--
+		}
+	}
+
+	for idx2 >= 0 {
+		nums1[idx3] = nums2[idx2]
+		idx3--
+		idx2--
+	}
+}
+
+func merge0(nums1 []int, m int, nums2 []int, n int) {
 	idx1, idx2, i := m-1, n-1, m+n-1
 
 	for idx1 >= 0 && idx2 >= 0 {
