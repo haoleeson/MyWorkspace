@@ -9,6 +9,30 @@ No92.reverse-linked-list-ii
  *     Next *ListNode
  * }
  */
+
+// 2025-12-09 recoding
+func reverseBetween(head *ListNode, left int, right int) *ListNode {
+    preHead := &ListNode{Next: head}
+    idx := 0
+    var pNode, subPreHeadNode, subEndNode *ListNode = preHead, nil, nil
+
+    for idx <= right {
+        if idx == left - 1 {
+            subPreHeadNode = pNode
+            subEndNode = pNode.Next
+        } else if idx > left {
+            subEndNode.Next = pNode.Next
+            pNode.Next = subPreHeadNode.Next
+            subPreHeadNode.Next = pNode
+            pNode = subEndNode
+        }
+
+        pNode = pNode.Next
+        idx++
+    }
+    return preHead.Next
+}
+
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	preHead := &ListNode{Next: head}
 	order := 0
