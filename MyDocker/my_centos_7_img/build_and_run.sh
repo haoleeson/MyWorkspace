@@ -9,10 +9,10 @@
 IMAGE_NAME=my-centos-img
 IMAGE_TAG=v7.9
 CONTAINER_NAME=my-centos-container
-SHARED_DIR=/c/Workspace/MyDockers/commonShareDir
-Docker_vEthernet_IP=172.24.32.1
-Wsl_IP=172.24.32.181
-MY_NET_PREFIX=172.148.0
+SHARED_DIR=/home/admin/MyWorkspace/MyDocker/commonShareDir
+Docker_vEthernet_IP=172.17.21.1
+Wsl_IP=172.17.21.181
+MY_NET_PREFIX=172.168.0
 # User Config End
 
 echo "Remove the old same name container (if exist)"
@@ -49,10 +49,10 @@ echo "Check or add my own net route to HOST"
 ret=$(route print -4 | grep "$MY_NET_PREFIX.0")
 if [ "$?" == "1" ]; then
     echo "Adding my own net route to HOST"
-    # route -p add 172.148.0.0 MASK 255.255.255.0 172.24.32.1
+    # route -p add 172.168.0.0 MASK 255.255.255.0 172.17.21.1
     # route -p add $MY_NET_PREFIX.0 MASK 255.255.255.0 $Wsl_IP
     # remove
-    # route delete 172.148.0.0
+    # route delete 172.168.0.0
     # route delete $MY_NET_PREFIX.0
 else
     echo "My own net route to HOST is existed"

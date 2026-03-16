@@ -88,7 +88,7 @@ RUN apt-get update && \
     echo "root:e" | chpasswd
 
 # Make port 22 80 available to the world outside this container
-EXPOSE 22 
+EXPOSE 22
 EXPOSE 80
 
 # Run a program that never exits

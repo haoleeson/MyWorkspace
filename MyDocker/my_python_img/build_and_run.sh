@@ -9,9 +9,9 @@
 IMAGE_NAME=my-python-img
 IMAGE_TAG=latest
 CONTAINER_NAME=my-python-container
-SHARED_DIR=/c/Workspace/MyDockers/commonShareDir
-Docker_vEthernet_IP=172.24.32.1
-MY_NET_PREFIX=172.148.0
+SHARED_DIR=/home/admin/MyWorkspace/MyDocker/commonShareDir
+Docker_vEthernet_IP=172.17.21.1
+MY_NET_PREFIX=172.168.0
 # User Config End
 
 echo "Remove the old same name container (if exist)"

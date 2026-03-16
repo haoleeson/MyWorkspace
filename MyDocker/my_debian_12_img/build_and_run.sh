@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# describe: build a ubuntu images, and run a container.
+# describe: build a debian images, and run a container.
 # usage： 
 #       1. cd the dir of the Dockerfile.
 #       2. sh this script.
 
 # User Config Start
-IMAGE_NAME=my-ubuntu-img
-IMAGE_TAG=v18.04
-CONTAINER_NAME=my-ubuntu-container
+IMAGE_NAME=my-debian-img
+IMAGE_TAG=v12
+CONTAINER_NAME=my-debian-container-12
 SHARED_DIR=/home/admin/MyWorkspace/MyDocker/commonShareDir
-Docker_vEthernet_IP=172.17.21.1
+# Docker_vEthernet_IP=172.17.21.1
 MY_NET_PREFIX=172.168.0
 # User Config End
 
@@ -27,7 +27,7 @@ if [ -n "$ret" ]; then
     docker rmi -f $IMAGE_NAME
 fi
 
-echo "Build ubuntu image"
+echo "Build debian image $IMAGE_NAME:$IMAGE_TAG ..."
 docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
 echo "Check or build my own net"
@@ -42,7 +42,7 @@ else
 fi
 
 echo "Check or add my own net route to HOST"
-ret=$(route print -4 | grep "$MY_NET_PREFIX.0")
+ret=$(ip route | grep "$MY_NET_PREFIX.0")
 if [ "$?" == "1" ]; then
     echo "Adding my own net route to HOST"
     # route -p add $MY_NET_PREFIX.0 MASK 255.255.255.0 $Docker_vEthernet_IP
@@ -53,9 +53,10 @@ else
 fi
 
 echo "Run the image in a container"
-docker run -dit -p 62218:22 \
+docker run -dit -p 62212:22 -p 62280:22 \
+        -v $SHARED_DIR:/root/commonShareDir \
         --name $CONTAINER_NAME \
-        --network=mynet --ip=${MY_NET_PREFIX}.18 \
+        --network=mynet --ip=${MY_NET_PREFIX}.12 \
         --privileged=true \
         $IMAGE_NAME:$IMAGE_TAG
 
