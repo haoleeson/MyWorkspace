@@ -37,7 +37,7 @@ RUN echo "deb https://mirrors.ustc.edu.cn/debian/ bookworm main contrib non-free
     # python
     python3 python3-pip \
     # net
-    curl wget net-tools ethtool iptables tcpdump \
+    curl wget net-tools ethtool iptables iproute2 tcpdump \
 
 # Initialization SSH
     && mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak \
