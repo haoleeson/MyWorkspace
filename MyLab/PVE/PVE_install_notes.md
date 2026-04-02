@@ -2,7 +2,7 @@
 
 # 1. PVE
 ## 1.1. PVE 优化设置
-### 1.1.1. 添加DNS
+### 1.1.1. 添加 DNS 服务器
 ```shell
 pve-系统-DNS-DNS服务器1-编辑：添加 223.5.5.5(阿里)、119.29.29.29(腾讯)
 ```
@@ -29,31 +29,31 @@ deb https://mirrors.ustc.edu.cn/debian-security/ bookworm-security main contrib 
 ```
 
 ## 1.2. /etc/apt/sources.list.d/pve-enterprise.list
-屏蔽企业源
+禁用企业源
 ```shell
 #deb https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise
 ```
 
 ## 1.3. /etc/apt/sources.list.d/pve-no-subscription.list
-更换中科大源
+更换为中科大源
 ```shell
 echo "deb https://mirrors.ustc.edu.cn/proxmox/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
 ```
 
 ## 1.4. /etc/apt/sources.list.d/ceph.list
-更新CEPH分布式源
+更新 CEPH 分布式源
 ```shell
 echo "deb https://mirrors.ustc.edu.cn/proxmox/debian/ceph-quincy bookworm no-subscription" > /etc/apt/sources.list.d/ceph.list
  
 sed -i.bak "s#http://download.proxmox.com/debian#https://mirrors.ustc.edu.cn/proxmox/debian#g" /usr/share/perl5/PVE/CLI/pveceph.pm
 ```
 
-## 1.5. 修复https证书并更新软件源
+## 1.5. 修复 HTTPS 证书并更新软件源
 ```shell
 apt update && apt-get install -y apt-transport-https ca-certificates  --fix-missing
 ```
 
-## 1.6. 更新LXC容器仓库员（CT）
+## 1.6. 更新 LXC 容器模板（CT）
 ```shell
 sed -i.bak "s#http://download.proxmox.com/images#https://mirrors.ustc.edu.cn/proxmox/images#g" /usr/share/perl5/PVE/APLInfo.pm
 
@@ -61,7 +61,7 @@ sed -i.bak "s#http://download.proxmox.com/images#https://mirrors.ustc.edu.cn/pro
 systemctl restart pvedaemon  
 ```
 
-### 1.6.1. 开启CPU温度监控
+### 1.6.1. 启用 CPU 温度监控
 ```shell
 apt-get install -y lm-sensors
 
@@ -74,12 +74,12 @@ bash pve-mod-gui-sensors.sh install
 (curl -Lf -o /tmp/temp.sh https://raw.githubusercontent.com/a904055262/PVE-manager-status/main/showtempcpufreq.sh || curl -Lf -o /tmp/temp.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/a904055262/PVE-manager-status/main/showtempcpufreq.sh) && chmod +x /tmp/temp.sh && /tmp/temp.sh remod
 ```
 
-# 2. 101 openwrt
-## 2.1. 编译openwrt
+# 2. 101 OpenWrt
+## 2.1. 编译 OpenWrt
 备注
 sed -i 's/ +libopenssl-legacy//g' package/feeds/helloworld/shadowsocksr-libev/Makefile
 
-## 2.2. 安装 openwrt
+## 2.2. 安装 OpenWrt
 /var/lib/vz/template/iso/openwrt-x86-64-generic-squashfs-combined-efi.img
 
 qm importdisk 101 /var/lib/vz/template/iso/openwrt-x86-64-generic-squashfs-combined-efi.img local
@@ -91,9 +91,9 @@ ls -l /dev/disk/by-id
 qm set 100 -scsi0 /dev/disk/by-id/nvme-KIOXIA-EXCERIA_G2_SSD_329FC1MIFM45
 ```
 
-# 4. lxc
+# 4. LXC
 
-## 4.1. LXC容器添加cgroup参数
+## 4.1. LXC 容器添加 cgroup 参数
 ```shell
 cd /etc/pve/lxc
 cat 101.conf
@@ -106,7 +106,7 @@ lxc.cgroup2.devices.allow: c 10:200 rwm
 EOF
 ```
 
-## 4.2. 启动lxc容器
+## 4.2. 启动 LXC 容器
 ```shell
 # 查看lxc容器列表
 pct list
@@ -118,7 +118,7 @@ pct start 100
 pct enter 100
 ```
 
-## 4.3. 修改 apt 源
+## 4.3. 修改 APT 源
 ```shell
 cat /etc/apt/sources.list
 cp /etc/apt/sources.list /etc/apt/sources.list.bak
@@ -140,7 +140,7 @@ apt-get update && apt-get upgrade
 apt install -y vim
 ```
 
-## 4.4. 配置ssh可用密码登录
+## 4.4. 配置 SSH 以允许密码登录
 ```shell
 # backup conf
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
@@ -155,7 +155,7 @@ sed -i 's;#AuthorizedKeysFile;AuthorizedKeysFile;g' /etc/ssh/sshd_config
 systemctl restart sshd
 ```
 
-## 4.5. 生成ssh私钥
+## 4.5. 生成 SSH 私钥
 ```shell
 ls -al ~/.ssh
 
@@ -169,7 +169,7 @@ git config --global user.name "ei13911468370"
 git config --global user.email "ei13911468370@gmail.com"
 ```
 
-## 4.6. 安装docker环境
+## 4.6. 安装 Docker 环境
 ```shell
 apt install -y curl git tmux wget
 
@@ -185,7 +185,7 @@ echo "export PATH=\$PATH:/usr/local/bin" >>  /etc/profile
 echo "source /etc/profile" >>  ~/.bashrc && source ~/.bashrc
 ```
 
-# 5. 安装Go环境
+# 5. 安装 Go 环境
 ```shell
 cd $HOME
 wget https://go.dev/dl/go1.24.5.linux-amd64.tar.gz
@@ -210,7 +210,7 @@ go version
 go env
 ```
 
-# 6. 修改 hosts
+# 6. 修改 hosts 文件
 ```shell
 cat << EOF >> /etc/hosts 
 
@@ -297,7 +297,7 @@ systemctl status vscode-server.service
 tail -f /var/log/vscode-server.log
 ```
 
-# 8. Linux load Shared NFS of TrueNAS
+# 8. Linux 挂载 TrueNAS 共享 NFS
 ```shell
 # TrueNAS_IP='172.21.213.135'
 TrueNAS_IP='A.B.C.D'
